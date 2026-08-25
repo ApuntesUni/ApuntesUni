@@ -1,0 +1,42 @@
+/* styles.css */
+
+/* 
+  La mayoría de los estilos son manejados por Tailwind CSS.
+  Aquí definimos animaciones personalizadas o ajustes específicos.
+*/
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Soporte para el patrón de fondo SVG interactivo */
+.pattern-grid {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+.modal-active {
+    display: flex !important;
+}
+
+.modal-show {
+    opacity: 1 !important;
+}
+
+.modal-show #modal-content-container {
+    transform: scale(1) !important;
+}
+
+.anomaly-card-hover {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.anomaly-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1; /* slate-300 */
+}
