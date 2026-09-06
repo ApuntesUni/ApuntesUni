@@ -1,4 +1,110 @@
-// script.js
+/* ---------------------------------------------------- Menú FAB Móvil ------------------------------------------------ */
+
+function setupMobileFab() {
+    const fabContainer = document.querySelector('.fab-menu-container');
+    const mainFabToggle = document.getElementById('mainFabToggle');
+
+    if (!fabContainer || !mainFabToggle) return;
+
+    // Abrir/Cerrar menú al tocar el botón principal (+)
+    mainFabToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Evita que se cierre instantáneamente
+        fabContainer.classList.toggle('open');
+    });
+
+    const fabLinks = fabContainer.querySelectorAll('.nav-fab-link');
+    fabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            setTimeout(() => {
+                fabContainer.classList.remove('open');
+            }, 200);
+        });
+    });
+
+    const themePill = fabContainer.querySelector('.theme-toggle-trigger');
+    if (themePill) {
+        themePill.addEventListener('click', () => {
+            setTimeout(() => {
+                fabContainer.classList.remove('open');
+            }, 300);
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!fabContainer.contains(e.target) && fabContainer.classList.contains('open')) {
+            fabContainer.classList.remove('open');
+        }
+    });
+}
+
+// Inicializar cuando el DOM cargue
+document.addEventListener('DOMContentLoaded', () => {
+    setupMobileFab();
+});
+
+
+/* ------------------------------------------------------------- Efecto Menú ------------------------------------------- */
+const links = document.querySelectorAll(".nav__link");
+const indicator = document.querySelector(".nav__indicator");
+
+function moveIndicator(element) {
+    const itemRect = element.getBoundingClientRect();
+    const listRect = element.parentElement.parentElement.getBoundingClientRect();
+    const leftPosition = itemRect.left - listRect.left;
+    
+    indicator.style.width = `${itemRect.width + 20}px`;
+    indicator.style.left = `${leftPosition - 10}px`;
+}
+
+links.forEach((link) => {
+    link.addEventListener("click", (e) => {
+        const currentItem = link.parentElement; // El li correspondiente
+        const allItems = document.querySelectorAll(".nav__item");
+        let foundCurrent = false;
+
+        // 1. Gestión de clases activas y movimiento de burbuja
+        links.forEach(l => l.classList.remove("active-link"));
+        link.classList.add("active-link");
+        moveIndicator(link);
+
+        // 2. Lógica de "Empuje" para los hermanos
+        allItems.forEach((item) => {
+            // Limpiamos animaciones previas para poder repetir el efecto
+            item.classList.remove("push-left", "push-right");
+            
+            if (item === currentItem) {
+                foundCurrent = true; // Encontramos el pulsado
+                return;
+            }
+
+            // Forzamos un reflow para que la animación se reinicie si se pulsa rápido
+            void item.offsetWidth; 
+
+            if (!foundCurrent) {
+                // Los que están antes del pulsado se empujan a la izquierda
+                item.classList.add("push-left");
+            } else {
+                // Los que están después se empujan a la derecha
+                item.classList.add("push-right");
+            }
+        });
+
+        // Opcional: Limpiar las clases después de que termine la animación (0.5s)
+        setTimeout(() => {
+            allItems.forEach(item => item.classList.remove("push-left", "push-right"));
+        }, 500);
+    });
+});
+
+// Inicialización
+window.addEventListener('DOMContentLoaded', () => {
+    const activeLink = document.querySelector('.active-link') || links[0];
+    if(activeLink) {
+        activeLink.classList.add("active-link");
+        moveIndicator(activeLink);
+    }
+});
+
 
 // 1. Datos Originales de Desarrollo
 const GUTS_DATA = {
@@ -223,7 +329,6 @@ function renderMalformacionesView() {
     lucide.createIcons();
 }
 
-// 6. Lógica del Modal y Three.js
 let currentAnimationId = null;
 let currentScene = null;
 let currentRenderer = null;
@@ -231,12 +336,10 @@ let currentRenderer = null;
 window.openModal = function(sectionIdx, anomalyIdx) {
     const anomaly = MALFORMATIONS[sectionIdx].anomalies[anomalyIdx];
     
-    // Rellenar datos del modal
     document.getElementById('modal-title').innerText = anomaly.name;
     document.getElementById('modal-desc').innerText = anomaly.description;
     document.getElementById('modal-img').src = anomaly.img;
     
-    // Mostrar modal con animación
     const modal = document.getElementById('anomaly-modal');
     modal.classList.add('modal-active');
     setTimeout(() => modal.classList.add('modal-show'), 10);
@@ -251,7 +354,6 @@ window.closeModal = function() {
     
     setTimeout(() => {
         modal.classList.remove('modal-active');
-        // Limpiar Three.js para liberar memoria
         if (currentAnimationId) cancelAnimationFrame(currentAnimationId);
         if (currentRenderer) {
             document.getElementById('canvas-container').removeChild(currentRenderer.domElement);
@@ -264,15 +366,12 @@ window.closeModal = function() {
 function init3DModel(type) {
     const container = document.getElementById('canvas-container');
     
-    // Configuración básica de la escena
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1e293b); // slate-800
+    scene.background = new THREE.Color(0x1e293b); 
 
-    // Cámara
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.z = 15;
 
-    // Renderizador
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
@@ -1104,3 +1203,524 @@ btnMalformaciones.addEventListener('click', () => {
 // 8. Inicialización
 updateNavUI();
 lucide.createIcons();
+/* ---------------------------------------------------- Modal de Anatomía Dinámico ------------------------------------------------ */
+
+// 1. Base de datos de Anatomía
+const ANATOMY_DATA = {
+    lengua: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQmedkAMVXCPBDPQI8bvyRHjLJ-pfriFG5sjfKINeZrI3kTzLtThJB6yfNjwEwhDiMMFJBbEXDidImnpThWtqEJzKQZLmWIv1TmNjwg5k6yJgbAed5W-tlqHTkSHxfCChrcRqP1SWwWf1Ncg38rYkX2OjhT1UGyqO6CrdrVmB8PjVbnMjUhV6DY_0faBM/w458-h354/ChatGPT%20Image%205%20sept%202026,%2015_43_20.png", 
+        terms: [
+            "<strong>Raíz:</strong> Porción <strong>posterior</strong>. Funciones: <strong>deglución, masticación, gusto y lenguaje</strong>. Conexión: <strong>hioides, mandíbula, apófisis estiloides, faringe y paladar</strong>.",
+            "<strong>Cuerpo:</strong> Porción <strong>media</strong>. Funciones: <strong>deglución, masticación, gusto y lenguaje</strong>.",
+            "<strong>Epiglotis:</strong> Conectada a la raíz por <strong>pliegues glosoepiglóticos</strong>. Función: <strong>sostener</strong> la epiglotis a la lengua.",
+            "<strong>Agujero ciego:</strong> <strong>Depresión central</strong> donde converge el surco terminal.",
+            "<strong>Surco terminal:</strong> Hendidura en <strong>\"V\"</strong>. Función: <strong>separar la raíz del cuerpo</strong>.",
+            "<strong>Papilas circunvaladas:</strong> Alineadas <strong>delante del surco terminal</strong>. Función: <strong>gustativa</strong>.",
+            "<strong>Papilas foliadas:</strong> En los <strong>márgenes laterales</strong>. Función: <strong>gustativa</strong>.",
+            "<strong>Papilas filiformes:</strong> Distribuidas en la región <strong>anterior</strong>. Función: <strong>gustativa</strong>.",
+            "<strong>Papilas fungiformes:</strong> Dispersas en el <strong>dorso</strong>. Función: <strong>gustativa</strong>.",
+            "<strong>Surco de la línea media:</strong> <strong>Hendidura longitudinal</strong> en el centro del cuerpo.",
+            "<strong>Dorso de la lengua:</strong> Superficie <strong>superior expuesta</strong>. Base para papilas y la <strong>tonsila lingual</strong> (cuya función es <strong>linfoidea</strong>).",
+            "<strong>Músculos intrínsecos</strong> (Longitudinal superior/inferior, Vertical, Transverso): 4 músculos divididos por un <strong>septum central</strong>. Función: modificar <strong>forma y tamaño</strong>. Inervación/Conexión: <strong>nervio hipogloso (XII)</strong>."
+        ]
+    },
+    craneo: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYQyOkGecVscqDyK4B-OOcoRGHoGLcW6cEHNr2-KoF0e8kiRutDJ1U9CC0NjtBAoqAbpZTomYvG_H_MgvU0TQ4KdtXqmh84ojlj3SSuOBtkmqAg2fzfr_VFYpmTesSpQYMR2ZDeMcw9m4NNr9MiqRc7O-fK6rCcKUZyfHX7XZH7K29tXoq4s0BDLm-iE4/w419-h526/Gemini_Generated_Image_5sgarp5sgarp5sga.jpg",
+        terms: [
+            "<strong>Hueso frontal:</strong> Presenta estructuras anatómicas como la <strong>glabela</strong>, la <strong>escotadura (agujero) supraorbitaria</strong> y la <strong>cara orbitaria</strong>. Articula en su parte posterior con el hueso parietal a través de la <strong>sutura coronal</strong>.",
+            "<strong>Hueso etmoides:</strong> Contiene la <strong>lámina orbitaria</strong>, la <strong>lámina perpendicular</strong> y la <strong>concha nasal media</strong>. Sus agujeros etmoidales anterior y posterior se relacionan con la órbita.",
+            "<strong>Hueso esfenoides:</strong> Presenta un <strong>ala menor</strong> y un <strong>ala mayor</strong>, además de la <strong>apófisis pterigoides</strong> (con sus láminas medial, lateral y gancho). Contiene orificios importantes como el <strong>agujero oval</strong> y el <strong>agujero espinoso</strong>.",
+            "<strong>Hueso parietal:</strong> Se ubica en la parte superior y lateral del cráneo, uniéndose anatómicamente al hueso frontal mediante la <strong>sutura coronal</strong>.",
+            "<strong>Hueso temporal:</strong> Posee la <strong>apófisis cigomática</strong>, <strong>apófisis estiloides</strong>, <strong>apófisis mastoides</strong> y el <strong>conducto auditivo externo</strong>. Contiene la <strong>fosa mandibular</strong> y el <strong>tubérculo articular</strong>, fundamentales para formar la <strong>articulación temporomandibular</strong> con la mandíbula.",
+            "<strong>Hueso occipital:</strong> El documento lo muestra brevemente en su porción inferior, señalando el <strong>surco occipital</strong> (destinado a la arteria occipital).",
+            "<strong>Huesos nasales:</strong> Se esquematizan articulando medialmente con el <strong>maxilar</strong> y superiormente con el <strong>hueso frontal</strong> para formar la estructura de la nariz.",
+            "<strong>Huesos lagrimales:</strong> Se ubican en la cara medial de la órbita, donde presentan la <strong>fosa del saco lagrimal</strong>. Articulan con la cara orbitaria del maxilar y la lámina orbitaria del etmoides.",
+            "<strong>Huesos palatinos:</strong> Cuentan con una <strong>lámina horizontal</strong>, <strong>agujeros palatinos</strong> (mayor y menores) y una <strong>apófisis piramidal</strong>. Se unen a la apófisis palatina del maxilar mediante la <strong>sutura palatina transversa</strong> para formar el techo de la boca o <strong>paladar duro</strong>.",
+            "<strong>Huesos cigomáticos:</strong> Presentan la <strong>apófisis frontal</strong>, la <strong>apófisis temporal</strong>, la <strong>cara orbitaria</strong> y el <strong>agujero cigomaticofacial</strong>. Articulan directamente con la <strong>apófisis cigomática (o malar)</strong> del maxilar.",
+            "<strong>Sutura coronal:</strong> Es la línea de unión anatómica visible entre el <strong>hueso frontal</strong> y el <strong>hueso parietal</strong>."
+        ]
+    },
+    cara: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFSuE486ptpz23qenUqT1a2TxJK2wzXkap5EgmXuc8e5R3xQe9xycBs8ZNAbP8t5Fdm8z8D4TmZXJFfOHXtQsfrWF3MgLLmn7dUcrvc57_4i0UaZgy-DLsX_9VcHpG8QInPR0ypXq2G4PylVWggHKQLb5qC3-baHMz46sF1vApH8wy9yIh_IaV7AC5ZMk/w463-h399/Gemini_Generated_Image_xm1ij3xm1ij3xm1i.jpg",
+        terms: [
+            "<strong>Músculo buccinador:</strong> Origen: <strong>Procesos alveolares</strong> (maxilar/mandibular) y <strong>rafe pterigomandibular</strong>. Inserción: Fibras del <strong>orbicular de la boca</strong>. Función: Mantiene el <strong>tono muscular</strong> de la mejilla. Inervación: <strong>Nervio Facial</strong>.",
+            "<strong>Músculo orbicular de los labios:</strong> Origen: Ambas <strong>comisuras labiales</strong>. Inserción: <strong>Piel</strong> de ambos labios. Función: <strong>Cierra la cavidad</strong>, mueve y <strong>frunce los labios</strong>.",
+            "<strong>Músculo elevador del labio superior y del ala de la nariz:</strong> Origen: <strong>Maxilar superior</strong>. Inserción: <strong>Ala nasal y labio superior</strong>. Función: <strong>Eleva</strong> ambas estructuras.",
+            "<strong>Músculo elevador propio del labio superior:</strong> Origen: <strong>Maxilar superior</strong>. Inserción: <strong>Labio superior</strong>. Función: <strong>Eleva</strong> el labio superior.",
+            "<strong>Músculo elevador del ángulo de la boca:</strong> Origen: <strong>Fosa canina</strong> del maxilar superior. Inserción: <strong>Ángulo de la boca</strong>. Función: <strong>Eleva la comisura labial</strong> de forma transversal.",
+            "<strong>Músculo risorio:</strong> Origen: Tejido celular de la <strong>región parotídea</strong>. Inserción: <strong>Ángulo de la boca</strong> y labio superior. Función: <strong>Retrae la comisura</strong> labial y ayuda en la <strong>sonrisa</strong>.",
+            "<strong>Músculo cigomático mayor:</strong> Origen: Hueso <strong>cigomático</strong>. Inserción: <strong>Ángulo de la boca</strong> y labio superior. Función: Retrae <strong>hacia arriba y hacia fuera</strong> la comisura labial.",
+            "<strong>Músculo cigomático menor:</strong> Origen: Hueso <strong>cigomático</strong>. Inserción: <strong>Ángulo de la boca</strong> y labio superior. Función: Retrae <strong>hacia arriba y hacia fuera</strong> la comisura labial.",
+            "<strong>Músculo mentoniano:</strong> Origen: <strong>Mandíbula</strong>. Inserción: <strong>Tejido subcutáneo</strong> del mentón. Función: <strong>Incierta</strong>.",
+            "<strong>Músculo depresor del labio inferior:</strong> Origen: <strong>Mandíbula</strong>. Inserción: <strong>Labio inferior</strong>. Función: <strong>Desciende la comisura</strong> labial.",
+            "<strong>Músculo depresor del ángulo de la boca:</strong> Origen: <strong>Mandíbula</strong>. Inserción: <strong>Ángulo de la boca</strong>. Función: <strong>Desciende la comisura</strong> labial."
+        ]
+    },
+    boca: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAGX-_OqnQLIfj2mDzvVyIIBDkzYNQTU-T5agnJEKH1b5_40T_WR9WZJSLpLau1I4NRwbvhMb7qlVHI5UI-WXSmIac1IfHLzU8GhVpEm9qztpR-9Uu9UlQ3qX6YyFYonQ4SG3otPEDEum-rcXbMMrJ75j5j6n1-lyH0pOo8MqHJYeaGlVp4EuMy1Tg8w4/w435-h386/Gemini_Generated_Image_lpd51ylpd51ylpd5.jpg",
+        terms: [
+            "<strong>Músculo de la úvula:</strong> Origen: <strong>Aponeurosis palatina</strong>. Inserción: <strong>Mucosa propia</strong>. Función: <strong>Elevar la úvula</strong>.",
+            "<strong>Músculo palatofaríngeo:</strong> Origen: <strong>Aponeurosis palatina</strong> y <strong>paladar óseo</strong>. Inserción: Pared lateral de la <strong>faringe</strong> y en el <strong>cartílago tiroides</strong>.",
+            "<strong>Músculo palatogloso:</strong> Origen: <strong>Aponeurosis palatina</strong>. Inserción: Pared lateral y <strong>ampliamente a través de la lengua</strong>. Función: <strong>Eleva el aspecto posterior</strong> de la lengua y <strong>aproxima los pilares</strong> anteriores para la deglución.",
+            "<strong>Músculo elevador del velo del paladar:</strong> Origen: <strong>Peñasco del temporal</strong> y <strong>trompa de Eustaquio</strong>. Inserción: <strong>Aponeurosis palatina</strong> y su <strong>músculo contralateral</strong>. Función: <strong>Elevar el velo</strong> del paladar.",
+            "<strong>Músculo tensor del velo del paladar:</strong> Origen: <strong>Lámina pterigoidea</strong> y <strong>espina del esfenoides</strong>. Inserción: <strong>Aponeurosis palatina</strong>. Función: <strong>Tensar el paladar</strong> y <strong>abrir la trompa de Eustaquio</strong>."
+        ]
+    },
+    masticacion: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGM-TKTt4hSopjCNOzlCccCzuuDjrj_oV-EDw8RqHGB-o2IbL09qKGh62XkStADUlGvdRCSSZB_rjLGzQxGx_ke393CwGAcKTCjHe94qHr7V0LU0aWYetV9OmCXceYivaq-aOfuuCPcNIw5zvu_ENOvhsND9c6NtmPnnOdUyK6iWOCcsOfGwbbRAJhyphenhyphenfk/w463-h395/Gemini_Generated_Image_ylwvg0ylwvg0ylwv.jpg",
+        terms: [
+            "<strong>Músculo masetero:</strong> Origen: <strong>Arco cigomático</strong>. Inserción: <strong>Mandíbula</strong>. Función: <strong>Elevar</strong> a la mandíbula. Inervación: <strong>Nervio maseterino (V3)</strong>.",
+            "<strong>Músculo temporal:</strong> Origen: <strong>Fosa temporal</strong>. Inserción: <strong>Apófisis coronoides</strong> y borde anterior de la rama ascendente. Función: <strong>Elevar</strong> a la mandíbula. Inervación: <strong>Nervio temporal (V3)</strong>.",
+            "<strong>Músculo pterigoideo medial:</strong> Origen: (Porción profunda) <strong>Lámina pterigoidea lateral</strong> en su cara interna y hueso palatino; (Porción superior) <strong>Hueso palatino</strong> y maxilar superior. Inserción: Cara interna de la rama de la mandíbula en la <strong>tuberosidad pterigoidea</strong>. Función: <strong>Eleva la mandíbula</strong> y permite la <strong>protrusión</strong>. Inervación: <strong>Nervio maxilar inferior (V3)</strong>.",
+            "<strong>Músculo pterigoideo lateral:</strong> Origen: (Porción superior) <strong>Cresta del ala mayor</strong> del esfenoides; (Porción inferior) <strong>Lámina pterigoidea lateral</strong> en su cara externa. Inserción: <strong>Cápsula articular temporomandibular</strong> y <strong>fosita pterigoidea</strong>. Función: <strong>Abrir la boca, protrusión</strong> y <strong>estabilidad de la articulación</strong> temporomandibular. Inervación: <strong>Nervio maxilar inferior (V3)</strong>."
+        ]
+    },
+    faringe: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLlvR6nOCL8QDckGyFyQOPRKDOag3yTHwgzXucwtcWVhf7y5eOwYyzxxB7OX9bulF9VIVXYsziMbgw5A8wCIkrL6ViisvNSMmpZs_ch9N58N-eK3vPhgQs19IvOx5gH7yzhZUhtdNgrBOBqkTe2DwFq30mG-ohLgSZ9LYOzev3GGbRDmJyFRKJkVysdaU/s320/Faringe.jpg",
+        terms: [
+            "<strong>Faringe:</strong> Estructura anatómica que se extiende desde la <strong>base del cráneo hasta C6</strong>. Sirve de comunicación con la <strong>cavidad nasal, bucal, laríngea</strong> y el <strong>esófago</strong>.",
+            "<strong>Capa mucosa:</strong> Es la primera de las <strong>4 capas</strong> anatómicas que conforman la estructura de la faringe.",
+            "<strong>Capa fibrosa:</strong> Corresponde a otra de las <strong>4 capas</strong> que estructuran la faringe.",
+            "<strong>Capa muscular:</strong> Es la capa que aloja a los músculos faríngeos y constituye una de las <strong>4 capas</strong> de este órgano.",
+            "<strong>Músculo constrictor superior de la faringe:</strong> Origen: <strong>Gancho pterigoides</strong> del hueso esfenoides, <strong>mandíbula</strong> y <strong>rafe pterigomandibular</strong>. Inserción: <strong>Rafe faríngeo</strong>, <strong>fascia faringobasilar</strong> y <strong>tubérculo faríngeo</strong> del hueso occipital.",
+            "<strong>Músculo constrictor medio de la faringe:</strong> Origen: <strong>Hueso hioides</strong> y <strong>ligamento estilohioideo</strong>. Inserción: <strong>Rafe faríngeo</strong> y <strong>tubérculo faríngeo</strong> del hueso occipital.",
+            "<strong>Músculo constrictor inferior de la faringe:</strong> Origen: <strong>Cartílago cricoides</strong>, mediante su porción <strong>tirofaríngea</strong> y <strong>cricofaríngea</strong>. Inserción: <strong>Rafe faríngeo</strong>; además, su porción cricofaríngea se inserta en el esófago para formar el <strong>esfínter esofágico superior</strong>.",
+            "<strong>Músculo palatofaríngeo:</strong> Origen: Dorso del <strong>paladar óseo</strong>. Inserción: <strong>Pared lateral</strong> de la faringe y en el <strong>cartílago tiroides</strong>.",
+            "<strong>Músculo salpingofaríngeo:</strong> Origen: <strong>Trompa faringotimpánica</strong>. Inserción: <strong>Pared lateral</strong> de la faringe.",
+            "<strong>Músculo estilofaríngeo:</strong> Origen: <strong>Apófisis estiloides</strong> del hueso temporal, introduciéndose entre los constrictores superior y medio. Inserción: <strong>Cartílago tiroides</strong> y <strong>paredes laterales</strong> de la faringe.",
+            "<strong>Capa adventicia:</strong> Es la última de las <strong>4 capas</strong> estructurales que conforman la pared de la faringe."
+        ]
+    },
+    esofago: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5fh2dW-ehnnE-tlv4l7yd7fyivX9nYVZpIiIe4pSwGn2afiZewzxuz-Hy89UIX80v-LDLOisuBFuY6JTyigemtc42eTOkj4mseElruozagBjdQfZuDK-ou5dtAV39Iqi-xl-YBUGz6J1G6fPPQeeWNsbHLv-gcVDdzZBf7TKCqm99lW6xvFbTMlWLcVA/s320/Esofago.jpg",
+        terms: [
+            "<strong>Esófago:</strong> Es un conducto que <strong>continúa de la laringofaringe</strong> y se divide anatómicamente en tres porciones: <strong>cervical, torácica y abdominal</strong>.",
+            "<strong>Medida:</strong> Tiene una longitud aproximada de <strong>25 a 30 centímetros</strong>.",
+            "<strong>Estrechamientos:</strong> Presenta <strong>tres</strong> zonas anatómicas de reducción a lo largo de su trayecto:",
+            "<strong>Cricofaríngea:</strong> Es el primer estrechamiento; está formado por la porción cricofaríngea del <strong>músculo constrictor inferior</strong> de la faringe, la cual conforma el <strong>primer esfínter faríngeo</strong>.",
+            "<strong>Aortobraquial</strong> (o torácico): Es el estrechamiento medio, ubicado a la altura del arco de la <strong>aorta</strong> y el <strong>bronquio</strong> principal.",
+            "<strong>Diafragmático:</strong> Es el estrechamiento final ubicado a nivel del diafragma, el cual funciona como el <strong>esfínter esofágico inferior</strong>."
+        ]
+    },
+    estomago: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2OtjCdrzyhgwwFhSpbLbZo05cS0gG1fPmUgOy7rPNCaWFy82GjYTpEgu8EbeWHk1x-MiEupXbccRAt-EPp72fg2nXVwedHN6Ch2bC0SLFFfv9ZmWI6BBTDlOI6jyKqitEL-C74LHw3A2z2iZf1sPVzQfgMI_rtPDSwKFoqAAfnlTHHHO1eSMDJzDHbYM/s320/estomago.jpg",
+        terms: [
+            "<strong>Porciones del estómago:</strong> Estructura dividida en <strong>4 porciones</strong> con base en su composición histológica: <strong>cardias, fundus, cuerpo y porción pilórica.</strong>",
+            "<strong>Cardias:</strong> Es la <strong>porción cardíaca</strong> inicial que contiene el <strong>orificio del cardias</strong> y la <strong>escotadura cardíaca</strong>, la cual corresponde a la <strong>desembocadura del esófago.</strong>",
+            "<strong>Fundus:</strong> Constituye la porción <strong>superior</strong> del estómago, ubicada topográficamente por encima de la unión con el esófago.",
+            "<strong>Cuerpo:</strong> Es la porción central y principal del estómago, ubicada debajo del fundus y delimitada por las <strong>curvaturas mayor y menor.</strong>",
+            "<strong>Píloro</strong> (Porción pilórica): Segmento terminal del estómago que se subdivide en <strong>antro pilórico</strong> y <strong>conducto pilórico</strong>. Su inicio está marcado por la <strong>escotadura pilórica (o incisura angular)</strong> y desemboca a través del <strong>esfínter pilórico.</strong>"
+        ]
+    },
+    abdominales: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjiY6xSp2FYEJjtWc6Lbf6YuDDfoSyEiII7NwbhX-F5NrOXVa5Xjiu10gBhBaNslCmpF_Zywl66SUf1_1dY6xOrmyfAbJFgeaz9YI4FlFSJjNiubYbWolvTZr7GU5Bhj7ODDllkhKVYriXabSig6NEuu49NTdU32f4oU4-Od0BkCOeFZ2eh45MkpCiANPQ/s320/abdomen.jpg",
+        terms: [
+            "<strong>Cuadrantes abdominales:</strong> Sistema topográfico que divide la <strong>pared abdominal anterior</strong> en <strong>9 regiones</strong> delimitadas por líneas y planos (como la línea <strong>medioclavicular</strong>, el plano <strong>subcostal</strong> y el plano <strong>intertubercular</strong>).",
+            "<strong>Hipocondrio derecho</strong> (o región hipocondríaca derecha): Cuadrante ubicado en la zona <strong>superior derecha</strong> del abdomen.",
+            "<strong>Epigastrio</strong> (o región epigástrica): Cuadrante ubicado en la zona <strong>superior central</strong>.",
+            "<strong>Hipocondrio izquierdo</strong> (o región hipocondríaca izquierda): Cuadrante ubicado en la zona <strong>superior izquierda</strong>.",
+            "<strong>Flanco derecho</strong> (o región lumbar derecha): Cuadrante ubicado en la zona <strong>media lateral derecha</strong>.",
+            "<strong>Mesogastrio</strong> (o región umbilical): Cuadrante ubicado en la zona <strong>central</strong> del abdomen.",
+            "<strong>Flanco izquierdo</strong> (o región lumbar izquierda): Cuadrante ubicado en la zona <strong>media lateral izquierda</strong>.",
+            "<strong>Fosa iliaca derecha</strong> (o ingle / región inguinal derecha): Cuadrante ubicado en la zona <strong>inferior derecha</strong>.",
+            "<strong>Hipogastrio</strong> (o región púbica): Cuadrante ubicado en la zona <strong>inferior central</strong>.",
+            "<strong>Fosa iliaca izquierda</strong> (o ingle / región inguinal izquierda): Cuadrante ubicado en la zona <strong>inferior izquierda</strong>."
+        ]
+    },
+    intestino_d: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjkpukH5ZWw5neh11p9b10tuyyZp41bk9S_sHBmAgdbGZr51NwMlOYY43KoW4ZnyGsWAgrh6YKscVUNO_m3_M2CW0GqBHASSdhiBigls497_RA2VGc7pY9la_CgpomUjFsZB9VW1G4nwldwmVmhErMU0Hsomeg5NdYehMhMvFioFds2FzBErqek2skLMjM/s320/intestino_delgado.jpg",
+        terms: [
+            "<strong>Partes del intestino delgado:</strong> Se extiende desde el <strong>píloro hasta el orificio ileal</strong> (válvula ileocecal). Mide de <strong>6 a 8 metros</strong> (en una persona viva) y se divide en <strong>3 partes:</strong> Duodeno, yeyuno e íleon.",
+            "<strong>Duodeno:</strong> Es la porción <strong>más corta</strong> (mide de <strong>25 a 30 cm</strong>). Es tanto <strong>retro como intraperitoneal</strong> y termina en la <strong>unión duodenoyeyunal (ángulo de Treitz)</strong>. Presenta cuatro partes: porción <strong>superior, descendente, inferior (horizontal) y ascendente.</strong>",
+            "<strong>Yeyuno:</strong> Constituye las <strong>2/5 partes proximales</strong> del intestino formando <strong>asas horizontales</strong>. Su pared es <strong>gruesa y fuerte</strong>, de color <strong>rojo oscuro</strong> debido a que está <strong>más vascularizado</strong>. Es <strong>más ancho</strong> (diámetro de 2 a 4 cm) y en su interior presenta pliegues circulares <strong>grandes, altos y numerosos.</strong>",
+            "<strong>Íleon:</strong> Representa las <strong>2/5 partes distales</strong> y forma <strong>asas oblicuas y verticales</strong>. Su pared es <strong>delgada y ligera</strong>, de color <strong>rosa pálido</strong> por estar <strong>menos vascularizado</strong>. Es <strong>más estrecho</strong> (diámetro de 2 a 3 cm), presenta <strong>más grasa</strong> en el mesenterio y contiene los <strong>nodulillos linfáticos agregados (placas de Peyer).</strong>"
+        ]
+    },
+    intestino_g: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8OzXQjTXutZcFMcdUA9zlDIDm_so1VhMq19FqbDdZlbVFAzSqvRZd2BWzOlz-LGe1VZaD4OOC0zTeCxuL65oeiun4K8n6-CRHYtT9g-oR-7I28bG9hhsrdgfPMOGQadno_Z1oJf913ukBW7SjfZU68pvn1MzwplI1yfNTVOWk0SiNBJEVhVvwGQiUW8c/s320/intestino_grueso.jpg",
+        terms: [
+            "<strong>Partes del intestino grueso:</strong> Está conformado secuencialmente por el <strong>ciego</strong>, el <strong>colon</strong>, el <strong>recto</strong> y el conducto <strong>anal (ano)</strong>. A lo largo de su estructura presenta características distintivas como la <strong>tenia del colon</strong> (o tenia libre) y los <strong>apéndices omentales (epiploicos)</strong>.",
+            "<strong>Ciego:</strong> Es la porción inicial del intestino grueso, donde desemboca el íleon a través del <strong>orificio ileal</strong> y la <strong>valva ileocecal</strong>. En esta región también se encuentra el <strong>orificio del apéndice vermiforme</strong>.",
+            "<strong>Colon:</strong> Se divide topográficamente en cuatro segmentos: <strong>ascendente, transverso, descendente y sigmoide</strong>. Presenta dos curvaturas importantes: la <strong>flexura cólica derecha (hepática)</strong> y la <strong>flexura cólica izquierda (esplénica)</strong>.",
+            "<strong>Recto:</strong> Comienza a partir de la <strong>unión rectosigmoidea</strong>. En su pared interna presenta los <strong>pliegues transversos del recto (válvulas de Houston)</strong>, divididos en superior, medio e inferior.",
+            "<strong>Ano (Conducto anal):</strong> Es la porción terminal, la cual se divide en un conducto anal <strong>quirúrgico</strong> y uno <strong>anatómico</strong>. Presenta una anatomía interna compleja con <strong>columnas anales (de Morgagni)</strong>, <strong>criptas anales</strong> y la <strong>línea pectinada (dentada)</strong>. Su apertura está regulada por el <strong>músculo esfínter interno</strong> y el <strong>músculo esfínter externo del ano</strong> (que tiene porciones profunda, superficial y subcutánea)."
+        ]
+    },
+    higado: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKbe9UA2HEpi-FxhnsLnZz4DcjURQPzcF_6zE0YdQ8WUJlxgYjZBMWG3h6qEjXQmNBVklKFvuMQ39t26sgsXyiprNt-ZfcFx_PO7cZyIAi3e7BcVHbUN-8XrclbXrd1ed1eSzHiBJ_s6o6GghL0z-sNkeBxMY22n7-ZKVI8IfwxjZSkPX7oc7MX1kbkBU/s320/hidado.jpg",
+        terms: [
+            "<strong>Lóbulos del hígado:</strong> El hígado presenta <strong>4 lóbulos anatómicos</strong> principales, los cuales se identifican claramente al observar su cara <strong>visceral (vista posteroinferior)</strong>.",
+            "<strong>Lóbulo derecho:</strong> Es uno de los <strong>4 lóbulos anatómicos</strong> y se encuentra delimitado en su cara inferior por la <strong>fisura sagital derecha</strong>.",
+            "<strong>Lóbulo izquierdo:</strong> Constituye otro de los <strong>4 lóbulos anatómicos</strong>, separado de las porciones centrales por la <strong>fisura umbilical (sagital izquierda)</strong> y delimitado superiormente en la cara diafragmática por el <strong>ligamento falciforme</strong>.",
+            "<strong>Lóbulo caudado:</strong> Es un lóbulo central visible en la cara visceral que se ubica superiormente al <strong>porta hepático</strong> y puede ser observado a través del <strong>omento (epiplón) menor</strong> (específicamente el ligamento hepatogástrico).",
+            "<strong>Lóbulo cuadrado:</strong> Es el cuarto lóbulo anatómico central; se ubica inferiormente al <strong>porta hepático</strong> y mantiene una estrecha relación anatómica con la <strong>vesícula biliar</strong>."
+        ]
+    },
+    nariz: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhSE7EPXaNIUgZLiq8uWK8uy0x3GzWguoyeNkPAm4dVW1p6g0FaQqEAIM5zp69oVUC3KtjLPJyB3bQrfgBoaTs1-WFxxQYACUME9XbtcL6S1zRNvrGj9HIfIG3YYTEYS3riBY-zJeohhbhzfC_jre5fSGrGo_6FLHi1G2XnKH4LSD44JjE_fAw95bIJ-TM/s320/nariz.jpg",
+        terms: [
+            "<strong>Morfología:</strong> Exterior conformado por <strong>raíz, dorso, puente, vértice, alas</strong> y <strong>narinas</strong>; interior dividido por el <strong>tabique nasal</strong>.",
+            "<strong>Esqueleto:</strong> Estructura ósea (<strong>frontal, nasales, maxilar, etmoides, vómer</strong>) y cartilaginosa (<strong>tabique, alares, laterales y accesorios</strong>).",
+            "<strong>Músculos:</strong> <strong>Prócer</strong> (arruga glabela), <strong>Nasal</strong> (dilata narinas y arruga dorso) y <strong>Depresor del tabique</strong> (estrecha orificios nasales).",
+            "<strong>Límites:</strong> Techo (<strong>lámina cribosa</strong>), piso (<strong>paladar duro</strong>), pared medial (<strong>tabique</strong>) y lateral (<strong>conchas o cornetes</strong>). Las <strong>coanas</strong> son la vía de comunicación posterior.",
+            "<strong>Irrigación:</strong> Redes de las carótidas externa e interna forman los plexos de <strong>Kiesselbach</strong> (anterior) y <strong>Woodruff</strong> (posterior), claves en el control de la <strong>epistaxis</strong>.",
+            "<strong>Inervación:</strong> Sensitiva a cargo del <strong>Trigémino (V1 y V2)</strong>, motora por el <strong>Facial (VII)</strong> y sensorial especial por el <strong>Olfatorio (I)</strong>."
+        ]
+    },
+    senos_para: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzbfFUbNI1aczGEjUaNwzB_tFdRcXZyzKp4E5A2MV_jH2AM0EmzCRbPjyLArbkcw8Aq2GUDl2V0waY2ZV_tICvhGT0XHDalvTHxQdNu5mnycBfJMmKBOgV4DrmSOMmrITEUPzRCVPVFYg1NttUG42wWsa4vV_XttOC2tC8jJmZv1Y2UZiC8pSLyUzo0Ew/s320/senos_paranasales.jpg",
+        terms: [
+            "<strong>Clasificación anatómica:</strong> Los senos paranasales son cavidades pares. Los <strong>maxilares</strong> son los más grandes y su techo forma la órbita; los <strong>frontales</strong> y <strong>esfenoidales</strong> (relacionados con la silla turca) están divididos por un tabique central; y las <strong>celdillas etmoidales</strong> (aproximadamente 17) se dividen espacialmente en <strong>anteriores, medias y posteriores</strong>.",
+            "<strong>Drenaje y ventilación:</strong> Todos desembocan en la cavidad nasal. Los senos maxilares, frontales y las celdillas etmoidales anteriores y medias drenan en el <strong>meato medio</strong>. Las celdillas etmoidales posteriores drenan en el <strong>meato superior</strong>, el seno esfenoidal desemboca en el <strong>receso esfenoetmoidal</strong> y el conducto nasolagrimal drena en el <strong>meato inferior</strong>.",
+            "<strong>Correlación estructural:</strong> Están inervados por las ramas oftálmica (V1) y maxilar (V2) del <strong>Nervio Trigémino</strong>. La inflamación de estas cavidades (<strong>sinusitis</strong>) produce <strong>rinorrea purulenta, congestión</strong> y una marcada sensación de <strong>presión y dolor facial</strong> (cefalea frontal, dolor maxilar e interescapular/retroocular)."
+        ]
+    },
+    pulmones: {
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2LuhHKNawR4TJPQ3igndEZ0rzGF7hH41GF4yLch1boyejirRLzEnMB2lpjaggD_idL6qhtvUaiWJ89hPgjwXvLnaElW4eldlZjeEXZceug5nw4g9qZGpliDKrPgNq9qzLSS0tkpZ8l-weC_3LOt9cLIeM8e3WQTuVAFm17tVfRhfhVPfzFuTGs4qSeCE/s320/pulmones.jpg",
+        terms: [
+            "<strong>Tráquea y Bronquios principales:</strong> Forman parte de las <strong>vías respiratorias inferiores</strong> (vía aérea intratorácica) y se encargan de conducir el aire desde la laringe hacia los pulmones.",
+            "<strong>Árbol bronquial:</strong> De acuerdo con los esquemas, se ramifica dentro de los pulmones en <strong>bronquios principales, bronquios lobulares</strong> y <strong>bronquios segmentarios</strong>.",
+            "<strong>Pulmones:</strong> Órganos esenciales para el <strong>intercambio de oxígeno y dióxido de carbono</strong>. Además de la respiración, tienen funciones sistémicas como <strong>filtrar pequeños coágulos</strong> sanguíneos para disolverlos y participar en la síntesis de <strong>angiotensina II</strong> (un vasoconstrictor que ayuda a regular la presión arterial).",
+            "<strong>Pleura:</strong> Es la capa que envuelve a los pulmones y delimita la <strong>cavidad pleural</strong> dentro del tórax."
+        ]
+    }
+};
+
+window.openAnatomyModal = function(sectionId) {
+    
+    const data = ANATOMY_DATA[sectionId];
+    if (!data) return; // Si no hay datos, no hace nada
+
+    
+    document.getElementById('anatomy-modal-img').src = data.image;
+
+    
+    const listContainer = document.getElementById('anatomy-modal-list');
+    listContainer.innerHTML = data.terms.map(term => `<li>${term}</li>`).join('');
+
+    const modal = document.getElementById('anatomy-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    setTimeout(() => {
+        modal.classList.add('opacity-100');
+        document.getElementById('anatomy-modal-content').classList.remove('scale-95');
+        document.getElementById('anatomy-modal-content').classList.add('scale-100');
+    }, 10);
+};
+
+window.closeAnatomyModal = function() {
+    const modal = document.getElementById('anatomy-modal');
+    
+    modal.classList.remove('opacity-100');
+    document.getElementById('anatomy-modal-content').classList.remove('scale-100');
+    document.getElementById('anatomy-modal-content').classList.add('scale-95');
+    
+    setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        
+        toggleSizeAnatomy(false);
+    }, 300);
+};
+
+window.toggleSizeAnatomy = function(isExpanding) {
+    const content = document.getElementById('anatomy-modal-content');
+    const btnExpand = document.getElementById('btn-expand-anatomy');
+    const btnCollapse = document.getElementById('btn-collapse-anatomy');
+
+    if (isExpanding) {
+        // Expandir a pantalla casi completa
+        content.classList.remove('max-w-6xl', 'h-[70vh]');
+        content.classList.add('max-w-[95vw]', 'h-[90vh]');
+        
+        // Intercambiar botones
+        btnExpand.classList.add('hidden');
+        btnCollapse.classList.remove('hidden');
+    } else {
+        // Regresar a tamaño compacto
+        content.classList.remove('max-w-[95vw]', 'h-[90vh]');
+        content.classList.add('max-w-6xl', 'h-[70vh]');
+        
+        // Intercambiar botones
+        btnCollapse.classList.add('hidden');
+        btnExpand.classList.remove('hidden');
+    }
+};
+
+/* ---------------------------------------------------- Animaciones Lottie de Fondo ------------------------------------------------ */
+
+function initBackgroundLotties() {
+    const container = document.getElementById('lottie-bg-container');
+    if (!container) return;
+
+    const lottieFiles = [
+        'sangre.json',
+        'celula.json',
+        'cerebro.json'
+    ]; 
+
+    const zones = [
+        { topMin: 5, topMax: 20, leftMin: 2, leftMax: 15 },    
+        { topMin: 5, topMax: 20, leftMin: 75, leftMax: 90 },   
+        { topMin: 45, topMax: 60, leftMin: -5, leftMax: 5 },   
+        { topMin: 75, topMax: 90, leftMin: 5, leftMax: 20 },   
+        { topMin: 75, topMax: 90, leftMin: 75, leftMax: 90 }   
+    ];
+
+    for (let i = 0; i < zones.length; i++) {
+        const lottieDiv = document.createElement('div');
+        lottieDiv.classList.add('lottie-item');
+
+        const size = Math.floor(Math.random() * 200) + 150;
+        lottieDiv.style.width = `${size}px`;
+        lottieDiv.style.height = `${size}px`;
+
+        const zone = zones[i];
+        const topPos = Math.floor(Math.random() * (zone.topMax - zone.topMin + 1)) + zone.topMin;
+        const leftPos = Math.floor(Math.random() * (zone.leftMax - zone.leftMin + 1)) + zone.leftMin;
+
+        lottieDiv.style.top = `${topPos}%`;
+        lottieDiv.style.left = `${leftPos}%`;
+        
+        lottieDiv.style.opacity = (Math.random() * 0.4 + 0.2).toFixed(2); 
+
+        container.appendChild(lottieDiv);
+
+        const randomFile = lottieFiles[Math.floor(Math.random() * lottieFiles.length)];
+
+        lottie.loadAnimation({
+            container: lottieDiv,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: randomFile 
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initBackgroundLotties();
+});
+
+/* ---------------------------------------------------- Animación Tarjeta Audio ------------------------------------------------ */
+document.addEventListener('DOMContentLoaded', () => {
+    const lottieContainer = document.getElementById('lottie-sound-wave');
+    const audioCard = document.getElementById('audio-lottie-card');
+
+    if (lottieContainer && audioCard) {
+        const soundWaveAnim = lottie.loadAnimation({
+            container: lottieContainer,
+            renderer: 'svg',
+            loop: true, 
+            autoplay: false, 
+            path: 'ayuda_inteligente.json' 
+        });
+
+        const voiceAudio = new Audio('anatomia_audio.m4a'); 
+        let isPlaying = false;
+        const cardText = audioCard.querySelector('span');
+
+        audioCard.addEventListener('click', () => {
+            if (isPlaying) {
+                // Pausar audio y animación
+                voiceAudio.pause();
+                soundWaveAnim.pause(); 
+                
+                // Detener efecto del body y cambiar texto
+                document.body.classList.remove('is-speaking');
+                cardText.textContent = "Presiona para escucharme";
+            } else {
+                // Reproducir audio y animación
+                voiceAudio.play();
+                soundWaveAnim.play(); 
+                
+                // Activar efecto del body y cambiar texto
+                document.body.classList.add('is-speaking');
+                cardText.textContent = "Escuchando...";
+            }
+            
+            isPlaying = !isPlaying;
+        });
+
+        // Reiniciar automáticamente al finalizar el audio
+        voiceAudio.addEventListener('ended', () => {
+            soundWaveAnim.stop(); 
+            document.body.classList.remove('is-speaking');
+            cardText.textContent = "Presiona para escucharme";
+            isPlaying = false;
+        });
+    }
+});
+
+/* ---------------------------------------------------- Efecto de Empuje Material You (Hermanos) ------------------------------------------------ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Seleccionamos todos los elementos interactivos que reaccionarán al empuje
+    const interactiveElements = document.querySelectorAll('button, .fab-pill-option, .footer__social-icon, .desktop-theme-fab, .nav-btn, .action-btn, .timeline__card, .skill-card, .filter-option');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('click', function(e) {
+            // 1. Animación de expansión para el elemento que recibe el clic
+            this.classList.remove('material-click-expand');
+            void this.offsetWidth; // Forzar reflow para reiniciar la animación si se hace clic rápido
+            this.classList.add('material-click-expand');
+
+            setTimeout(() => this.classList.remove('material-click-expand'), 500);
+
+            // 2. Lógica para identificar y empujar a los elementos vecinos (Hermanos)
+            const parent = this.parentElement;
+            if (!parent) return;
+
+            const siblings = Array.from(parent.children);
+            const rectClicked = this.getBoundingClientRect();
+
+            siblings.forEach(sibling => {
+                if (sibling === this) return; // Ignoramos el elemento que acabamos de clickear
+
+                const rectSibling = sibling.getBoundingClientRect();
+                
+                // Determinar si los vecinos están en la misma fila (horizontal) o apilados (vertical)
+                const isHorizontal = Math.abs(rectClicked.top - rectSibling.top) < (rectClicked.height / 2);
+
+                // Limpiar animaciones previas de los vecinos
+                sibling.classList.remove('push-left', 'push-right', 'push-up', 'push-down');
+                void sibling.offsetWidth;
+
+                // Aplicar el empuje en la dirección correcta según la posición del vecino
+                if (isHorizontal) {
+                    if (rectSibling.left < rectClicked.left) {
+                        sibling.classList.add('push-left');  // El vecino está a la izquierda, lo empujamos a la izquierda
+                    } else {
+                        sibling.classList.add('push-right'); // El vecino está a la derecha, lo empujamos a la derecha
+                    }
+                } else {
+                    if (rectSibling.top < rectClicked.top) {
+                        sibling.classList.add('push-up');    // El vecino está arriba, lo empujamos hacia arriba
+                    } else {
+                        sibling.classList.add('push-down');  // El vecino está abajo, lo empujamos hacia abajo
+                    }
+                }
+
+                // Limpiar la clase del vecino al terminar el rebote
+                setTimeout(() => {
+                    sibling.classList.remove('push-left', 'push-right', 'push-up', 'push-down');
+                }, 500);
+            });
+        });
+    });
+});
+
+/* ---------------------------------------------------- Switch (Píldoras de Tema Multiplataforma) ------------------------------------------------ */
+function enableDarkMode() {
+    document.body.classList.add('dark-mode');
+    document.body.classList.remove('light-mode');
+    document.body.classList.add('alt-theme');
+    updateThemeColor();
+}
+
+function enableLightMode() {
+    document.body.classList.add('light-mode');
+    document.body.classList.remove('dark-mode');
+    document.body.classList.remove('alt-theme');
+    updateThemeColor();
+}
+
+function saveUserPreference(isDarkMode) {
+    localStorage.setItem('isDarkMode', isDarkMode);
+}
+
+function loadUserPreference() {
+    return localStorage.getItem('isDarkMode') === 'true';
+}
+
+function applySystemPreference() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        enableDarkMode();
+    } else {
+        enableLightMode();
+    }
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+    if (loadUserPreference() === null) { 
+        const isDark = e.matches;
+        if (isDark) enableDarkMode(); else enableLightMode();
+        updateThemeIcons(isDark);
+    }
+});
+
+// ACTUALIZA TODOS LOS ICONOS AUTOMÁTICAMENTE (MÓVIL Y DESKTOP)
+function updateThemeIcons(isDark) {
+    const themeIcons = document.querySelectorAll(".theme-icon");
+    themeIcons.forEach(icon => {
+        if (isDark) {
+            icon.className = "theme-icon ri-moon-clear-fill"; // Cambia a Luna
+            icon.style.transform = "rotate(360deg)";         // Efecto de giro
+        } else {
+            icon.className = "theme-icon ri-sun-fill";        // Cambia a Sol
+            icon.style.transform = "rotate(0deg)";
+        }
+    });
+}
+
+// ESCUCHA EL CLIC EN CUALQUIERA DE LAS DOS PÍLDORAS
+function setupThemeButtons() {
+    const themeButtons = document.querySelectorAll(".theme-toggle-trigger");
+
+    themeButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                enableLightMode();
+                saveUserPreference(false);
+                updateThemeIcons(false);
+            } else {
+                enableDarkMode();
+                saveUserPreference(true);
+                updateThemeIcons(true);
+            }
+
+            if (typeof updatePDFThumbnails === "function") {
+                updatePDFThumbnails();
+            }
+        });
+    });
+}
+
+function initializeMode() {
+    const userPreference = loadUserPreference();
+
+    if (userPreference !== null) {
+        if (userPreference) {
+            enableDarkMode();
+            updateThemeIcons(true);
+        } else {
+            enableLightMode();
+            updateThemeIcons(false);
+        }
+    } else {
+        applySystemPreference();
+        const isDarkSystem = document.body.classList.contains('dark-mode');
+        updateThemeIcons(isDarkSystem);
+    }
+    
+    setupThemeButtons();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeMode();
+});
+
+function updateThemeColor() {
+    const statusBarColor = getComputedStyle(document.body)
+        .getPropertyValue('--status-bar-color')
+        .trim();
+
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    
+    if (metaThemeColor && statusBarColor) {
+        metaThemeColor.setAttribute('content', statusBarColor);
+    }
+}

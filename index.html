@@ -10,41 +10,238 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="min-h-screen font-sans p-4 md:p-8 text-slate-800 bg-gradient-to-t from-[#8bbcf9] via-white to-white bg-fixed bg-no-repeat">
-    
-    <!-- Encabezado -->
-    <header class="max-w-5xl mx-auto mb-8 text-center">
-        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
-            Desarrollo del Intestino Primitivo
-        </h1>
-        <p class="text-slate-600 max-w-2xl mx-auto">
-            Basado en <i>Langman, Embriología Médica</i>. Maqueta del intestino anterior, medio, posterior y sus anomalías congénitas.
-        </p>
+<body class="min-h-screen font-sans p-4 md:p-8 bg-fixed bg-no-repeat transition-colors duration-500">
+    <div id="lottie-bg-container"></div>
+    <!-- Menú -->
+    <header class="header-menu" id="header-menu">
+        <nav class="nav container">
+            <div class="nav__mobile-wrapper">
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list" id="main-nav-list">
+                        <div class="nav__indicator"></div>
+                        <div class="logo" style="display: none;">
+                            <a href="#"><img src="menu_in.png" alt="Logo Era Salud Activa" class="logo-img"></a>
+                        </div>
+
+                        <li class="nav__item">
+                            <a href="#Embrio" class="nav__link">
+                                <i class="material-symbols-outlined">breastfeeding</i>
+                                <span>Embriologia</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#Anato" class="nav__link">
+                                <i class="material-symbols-outlined">hand_bones</i>
+                                <span>Anatomia</span>
+                            </a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#Fisio" class="nav__link">
+                                <i class="material-symbols-outlined">acute</i>
+                                <span>Fisiologia</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="mini-player-nav" id="mini-player-nav" style="display: none;">
+                        <img src="" alt="Cover" id="mini-cover" class="mini-cover">
+                        <div class="mini-info">
+                            <span id="mini-title" class="mini-title">Título</span>
+                            <span id="mini-artist" class="mini-artist">Artista</span>
+                        </div>
+                        <div class="mini-controls">
+                            <button id="mini-play-btn" class="mini-btn"><i class="ri-play-fill" id="mini-play-icon"></i></button>
+                            <button id="mini-next-btn" class="mini-btn"><i class="ri-skip-forward-fill"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav__action-button">
+                    <div class="fab-menu-container">
+                        <div class="fab-menu-options" id="fabMenuOptions">
+                            <a href="#Embrio" class="fab-pill-option nav-fab-link">
+                                <i class="material-symbols-outlined">breastfeeding</i><span>Embriologia</span>
+                            </a>
+                            <a href="#Anato" class="fab-pill-option nav-fab-link">
+                                <i class="material-symbols-outlined">hand_bones</i><span>Anatomia</span>
+                            </a>
+                            <a href="#Fisio" class="fab-pill-option nav-fab-link">
+                                <i class="material-symbols-outlined">acute</i><span>Fisiologia</span>
+                            </a>
+
+                            <button class="fab-pill-option theme-toggle-trigger">
+                                <i class="theme-icon ri-sun-fill"></i><span>Tema</span>
+                            </button>
+                        </div>
+                        <button class="action-btn" id="mainFabToggle">
+                            <i class="material-symbols-outlined transition-icon">add</i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
     </header>
-
-    <!-- Contenedor Principal -->
-    <main class="max-w-5xl mx-auto bg-white/40 backdrop-blur-lg rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden border border-white/60">
+    <!-- Embrio -->
+    <section class="Embrio" id="Embrio">
+        <main class="max-w-5xl mx-auto bg-white/40 backdrop-blur-lg rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden border border-white/60">
         
-        <!-- Barra de Navegación -->
-        <div class="flex flex-wrap border-b border-white/50 bg-white/20">
-            <button id="btn-desarrollo" class="flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors bg-white/60 text-indigo-700 border-b-2 border-indigo-700 shadow-sm">
-                <i data-lucide="book-open" class="w-5 h-5 mr-2"></i>
-                Desarrollo Embrionario
-            </button>
-            <button id="btn-malformaciones" class="flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors text-slate-600 hover:text-slate-800 hover:bg-white/40">
-                <i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>
-                Malformaciones Clínicas
-            </button>
-        </div>
+            <!-- Barra de Navegación -->
+            <div class="flex flex-wrap border-b border-white/50 bg-white/20">
+                <button id="btn-desarrollo" class="flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors bg-white/60 text-indigo-700 border-b-2 border-indigo-700 shadow-sm">
+                    <i data-lucide="book-open" class="w-5 h-5 mr-2"></i>
+                    Desarrollo Embrionario
+                </button>
+                <button id="btn-malformaciones" class="flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors text-slate-600 hover:text-slate-800 hover:bg-white/40">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>
+                    Malformaciones Clínicas
+                </button>
+            </div>
 
-        <div id="app-content" class="p-6 md:p-8">
-            <!-- Contenido inyectado -->
-        </div>
-    </main>
+            <div id="app-content" class="p-6 md:p-8">
+                <!-- Contenido inyectado -->
+            </div>
+        </main>
+    </section>
+    <!-- Anatomia -->
+    <section class="Anato py-12" id="Anato">
+        <!-- Contenedor principal adaptado a tus variables de glassmorphism -->
+        <div class="max-w-5xl mx-auto p-4 md:p-6 transition-colors duration-500">
+            
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[var(--black-color)] mb-10 mt-4 transition-colors duration-500">Atlas de anatomía</h2>
 
+            <!-- Grid Bento-Box (4 columnas en PC, 1 columna en Móvil) -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[160px]">
+
+                <!-- 1. Anatomía de la lengua -->
+                <div onclick="openAnatomyModal('lengua')" class="relative overflow-hidden md:col-span-2 bg-[var(--card-brown-color)] rounded-3xl p-6 flex items-center justify-center gap-6 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="lengua.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">lips</span>
+                    <span class="text-xl font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía de la<br>lengua</span>
+                </div>
+
+                <!-- 2. Cráneo -->
+                <div onclick="openAnatomyModal('craneo')" class="relative overflow-hidden md:col-span-1 bg-[var(--therthary-colo)] rounded-3xl p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="craneo.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">skull</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía<br>del<br>Cráneo</span>
+                </div>
+
+                <!-- 3. Cara -->
+                <div onclick="openAnatomyModal('cara')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-brown-color)] rounded-[50px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="cara.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">face_6</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía músculos<br>de la cara</span>
+                </div>
+
+                <!-- 4. Boca -->
+                <div onclick="openAnatomyModal('boca')" class="relative overflow-hidden md:col-span-3 bg-[var(--card-brown-color)] rounded-[40px] md:rounded-[100px] p-6 flex flex-col items-center justify-center gap-2 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="boca.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">sentiment_neutral</span>
+                    <span class="text-2xl font-bold text-[var(--black-color)] text-center transition-colors duration-500">Anatomía músculos de la<br>boca</span>
+                </div>
+
+                <!-- 5. Musculos masticadores -->
+                <div onclick="openAnatomyModal('masticacion')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-brown-color)] rounded-[30px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="masticacion.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">dentistry</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía músculos<br>de la masticacion</span>
+                </div>
+
+                <!-- 6. Faringe -->
+                <div onclick="openAnatomyModal('faringe')" class="relative overflow-hidden md:col-span-1 bg-[var(--neon-pulse-pink)] rounded-[30px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="faringe.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">orthopedics</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía músculos<br>de la faringe</span>
+                </div>
+                <!-- 7. Esofago -->
+                <div onclick="openAnatomyModal('esofago')" class="relative overflow-hidden md:col-span-1 bg-[var(--neon-pulse-pink)] rounded-[90px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="esofago.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">orthopedics</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía músculos<br>del esófago</span>
+                </div>
+                <!-- 8. Estomago -->
+                <div onclick="openAnatomyModal('estomago')" class="relative overflow-hidden md:col-span-1 bg-[var(--neon-pulse-pink)] rounded-[20px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="estomago.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">gastroenterology</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía músculos<br>del estomago</span>
+                </div>
+                <!-- 9. Abdominales -->
+                <div onclick="openAnatomyModal('abdominales')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-green-color)] rounded-[90px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="abdomen.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">skeleton</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Cuadrantes<br>abdominales</span>
+                </div>
+
+                <!-- 10. Intestino delgado -->
+                <div onclick="openAnatomyModal('intestino_d')" class="relative overflow-hidden md:col-span-2 bg-[var(--card-green-color)] rounded-3xl p-6 flex items-center justify-center gap-6 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="intestino_delgado.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">gastroenterology</span>
+                    <span class="text-xl font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía del <br>intestino delgado</span>
+                </div>
+
+                <!-- 11. Intestino grueso -->
+                <div onclick="openAnatomyModal('intestino_g')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-green-color)] rounded-3xl p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="intestino_grueso.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">gastroenterology</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía del <br>intestino grueso</span>
+                </div>
+
+                <!-- 12. Higado -->
+                <div onclick="openAnatomyModal('higado')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-green-color)] rounded-[50px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="higado.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">hematology</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Lóbulos del <br>higado</span>
+                </div>
+
+                <!-- 13. Nariz -->
+                <div onclick="openAnatomyModal('nariz')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-blue-color)] rounded-[50px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="nariz.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">oxygen_saturation</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomia de la<br>nariz</span>
+                </div>
+
+                <!-- 14. Senos paranasales -->
+                <div onclick="openAnatomyModal('senos_para')" class="relative overflow-hidden md:col-span-1 bg-[var(--card-blue-color)] rounded-3xl p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="senos_paranasales.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">ent</span>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía de los<br>senos paranasales</span>
+                </div>
+
+                <!-- 15. Pulmones -->
+                <div onclick="openAnatomyModal('pulmones')" class="relative overflow-hidden md:col-span-2 bg-[var(--card-blue-color)] rounded-3xl p-6 flex items-center justify-center gap-6 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="pulmones.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">pulmonology</span>
+                    <span class="text-xl font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Anatomía de<br>pulmones</span>
+                </div>
+
+                <!-- 16. Anatomia general -->
+                <div class="relative overflow-hidden md:col-span-3 bg-[var(--card-brown-color)] rounded-[40px] md:rounded-[100px] p-6 flex flex-col items-center justify-center gap-2 hover:scale-[1.02] transition-all duration-500 shadow-sm cursor-pointer">
+                    <img src="resumen_anato.png" alt="Fondo Lengua" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none rounded-3xl">
+                    <span class="material-symbols-outlined text-5xl text-[var(--black-color)] flex-shrink-0 transition-colors duration-500">guardian</span>
+                    <span class="text-2xl font-bold text-[var(--black-color)] text-center transition-colors duration-500">Anatomía por<br>sistemas</span>
+                </div>
+
+                <!-- 17. Voice -->
+                <div id="audio-lottie-card" class="relative overflow-hidden md:col-span-1 android-glass-card rounded-[30px] p-4 flex flex-col items-center justify-center gap-3 hover:scale-[1.05] transition-all duration-500 cursor-pointer">
+                    <!-- Contenedor de la animación Lottie -->
+                    <div id="lottie-sound-wave" class="w-20 h-20 flex-shrink-0 transition-transform duration-500"></div>
+                    <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">Presiona para escucharme</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <footer class="max-w-5xl mx-auto mt-8 text-center text-slate-500 text-sm">
         <p>Bibliografia: Embriología Médica, Langman</p>
     </footer>
@@ -81,6 +278,46 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Modal de Anatomía (Pantalla Completa) -->
+    <div id="anatomy-modal" class="fixed inset-0 z-[100] hidden bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
+        
+        <!-- Píldora de Controles Flotantes (Esquina Superior Izquierda) -->
+        <div class="absolute top-6 left-6 z-10 bg-[var(--therthary-color)] backdrop-blur-md px-5 py-2.5 rounded-full flex gap-5 shadow-lg border border-white/20 transition-colors duration-500">
+            <button onclick="closeAnatomyModal()" class="text-[var(--black-color)] hover:scale-110 transition-transform flex items-center justify-center">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+            <button onclick="toggleSizeAnatomy(true)" class="text-[var(--black-color)] hover:scale-110 transition-transform flex items-center justify-center">
+                <span class="material-symbols-outlined text-2xl">open_in_full</span>
+            </button>
+            <button onclick="toggleSizeAnatomy(false)" class="text-[var(--black-color)] hover:scale-110 transition-transform flex items-center justify-center">
+                <span class="material-symbols-outlined text-2xl">close_fullscreen</span>
+            </button>
+        </div>
+
+        <!-- Contenedor Principal (Grid 2 Columnas) -->
+        <div id="anatomy-modal-content" class="w-full max-w-6xl h-[70vh] flex flex-col md:flex-row gap-6 transform scale-95 transition-all duration-500 mt-16 md:mt-0">
+            
+            <!-- Panel Izquierdo: Imagen Anatómica -->
+            <div class="flex-[2] bg-white rounded-[40px] border border-slate-200 shadow-xl overflow-hidden flex items-center justify-center p-6 relative">
+                <img id="anatomy-modal-img" src="" alt="Vista Anatómica" class="w-full h-full object-contain">
+            </div>
+
+            <!-- Panel Derecho: Lista de Información -->
+            <div class="flex-1 bg-[var(--background-navigation)] backdrop-blur-md rounded-[40px] p-8 shadow-lg overflow-y-auto no-scrollbar border border-white/20 transition-colors duration-500">
+                <ul id="anatomy-modal-list" class="space-y-5 text-lg font-medium text-[var(--black-color)]">
+                    <!-- Contenido dinámico -->
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    <!-- Theme -->
+    <div class="desktop-floating-actions">
+        <button class="desktop-theme-fab theme-toggle-trigger">
+            <i class="theme-icon ri-sun-fill"></i>
+        </button>
     </div>
 </body>
 </html>
