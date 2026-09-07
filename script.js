@@ -1523,30 +1523,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         audioCard.addEventListener('click', () => {
             if (isPlaying) {
-                // Pausar audio y animación
+                
                 voiceAudio.pause();
                 soundWaveAnim.pause(); 
                 
-                // Detener efecto del body y cambiar texto
+                
                 document.body.classList.remove('is-speaking');
+                audioCard.classList.remove('is-playing-audio'); 
                 cardText.textContent = "Presiona para escucharme";
             } else {
-                // Reproducir audio y animación
+                
                 voiceAudio.play();
                 soundWaveAnim.play(); 
                 
-                // Activar efecto del body y cambiar texto
                 document.body.classList.add('is-speaking');
+                audioCard.classList.add('is-playing-audio'); 
                 cardText.textContent = "Escuchando...";
             }
             
             isPlaying = !isPlaying;
         });
 
-        // Reiniciar automáticamente al finalizar el audio
         voiceAudio.addEventListener('ended', () => {
             soundWaveAnim.stop(); 
             document.body.classList.remove('is-speaking');
+            audioCard.classList.remove('is-playing-audio'); 
             cardText.textContent = "Presiona para escucharme";
             isPlaying = false;
         });
@@ -1557,7 +1558,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Seleccionamos todos los elementos interactivos que reaccionarán al empuje
-    const interactiveElements = document.querySelectorAll('button, .fab-pill-option, .footer__social-icon, .desktop-theme-fab, .nav-btn, .action-btn, .timeline__card, .skill-card, .filter-option');
+    const interactiveElements = document.querySelectorAll('button, .fab-pill-option, .footer__social-icon, .desktop-theme-fab, .nav-btn, .action-btn, .timeline__card, .skill-card, .filter-option, #Anato .grid > div');
 
     interactiveElements.forEach(el => {
         el.addEventListener('click', function(e) {
