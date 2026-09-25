@@ -1552,6 +1552,49 @@ document.addEventListener('DOMContentLoaded', () => {
             isPlaying = false;
         });
     }
+
+    // --- Tarjeta de Audio Histología ---
+    const lottieContainerHisto = document.getElementById('lottie-sound-wave-histo');
+    const audioCardHisto = document.getElementById('audio-lottie-card-histo');
+
+    if (lottieContainerHisto && audioCardHisto) {
+        const soundWaveAnimHisto = lottie.loadAnimation({
+            container: lottieContainerHisto,
+            renderer: 'svg',
+            loop: true, 
+            autoplay: false, 
+            path: 'ayuda_inteligente.json' 
+        });
+
+        const voiceAudioHisto = new Audio('cancion_histo.mp3'); 
+        let isPlayingHisto = false;
+        const cardTextHisto = audioCardHisto.querySelector('span');
+
+        audioCardHisto.addEventListener('click', () => {
+            if (isPlayingHisto) {
+                voiceAudioHisto.pause();
+                soundWaveAnimHisto.pause(); 
+                document.body.classList.remove('is-speaking');
+                audioCardHisto.classList.remove('is-playing-audio'); 
+                cardTextHisto.textContent = "Presiona para escucharme";
+            } else {
+                voiceAudioHisto.play();
+                soundWaveAnimHisto.play(); 
+                document.body.classList.add('is-speaking');
+                audioCardHisto.classList.add('is-playing-audio'); 
+                cardTextHisto.textContent = "Escuchando...";
+            }
+            isPlayingHisto = !isPlayingHisto;
+        });
+
+        voiceAudioHisto.addEventListener('ended', () => {
+            soundWaveAnimHisto.stop(); 
+            document.body.classList.remove('is-speaking');
+            audioCardHisto.classList.remove('is-playing-audio'); 
+            cardTextHisto.textContent = "Presiona para escucharme";
+            isPlayingHisto = false;
+        });
+    }
 });
 
 /* ---------------------------------------------------- Efecto de Empuje Material You (Hermanos) ------------------------------------------------ */
@@ -1610,6 +1653,357 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+});
+
+/* ---------------------------------------------------- Sección Histología Dinámica ------------------------------------------------ */
+
+const TEJIDOS_DATA = [
+    
+    {
+        id: 'epitelial',
+        title: 'Epitelial',
+        layout: 'tejido',
+        bgColor: 'var(--card-pick-color)',
+        iconBg: 'bg-[#b673a9]',
+        mainIcon: 'grid_view', 
+        sections: [
+            { icon: 'format_list_bulleted', name: 'Tipos de tejido', items: ['De revestimiento (simple o estratificado)', 'Glandular (exocrino o endocrino)', 'Sensorial'] },
+            { icon: 'auto_awesome', name: 'Características', items: ['Células muy unidas entre sí.', 'Poca matriz extracelular.', 'Alta capacidad de renovación.', 'Polaridad (apical y basal).'] },
+            { icon: 'settings', name: 'Función', items: ['Protección', 'Absorción', 'Secreción', 'Intercambio de sustancias', 'Percepción sensorial'] },
+            { icon: 'location_on', name: 'Localización', items: ['Piel (epidermis)', 'Revestimiento de órganos', 'Glándulas'] },
+            { icon: 'layers', name: 'Origen embrionario', items: ['Ectodermo', 'Endodermo', 'Mesodermo'] }
+        ],
+        imgName: 'Epitelio de revestimiento'
+    },
+    {
+        id: 'conectivo',
+        title: 'Conectivo',
+        layout: 'tejido',
+        bgColor: 'var(--card-blue-color)',
+        iconBg: 'bg-[#6ca4d8]',
+        mainIcon: 'waves',
+        sections: [
+            { icon: 'format_list_bulleted', name: 'Tipos de tejido', items: ['Conjuntivo propiamente dicho', 'Adiposo', 'Cartilaginoso', 'Óseo', 'Sanguíneo y linfático'] },
+            { icon: 'auto_awesome', name: 'Características', items: ['Abundante matriz extracelular.', 'Células variadas.', 'Generalmente bien vascularizado.'] },
+            { icon: 'settings', name: 'Función', items: ['Sostén y unión de tejidos', 'Almacenamiento de energía', 'Defensa inmunológica', 'Transporte', 'Reparación y cicatrización'] },
+            { icon: 'location_on', name: 'Localización', items: ['Debajo de epitelios', 'Entre órganos', 'En la piel, huesos, cartílagos, sangre'] },
+            { icon: 'layers', name: 'Origen embrionario', items: ['Mesodermo'] }
+        ],
+        imgName: 'Tejido conectivo laxo'
+    },
+    {
+        id: 'muscular',
+        title: 'Muscular',
+        layout: 'tejido',
+        bgColor: 'var(--card-brown-color)',
+        iconBg: 'bg-[#d87c6c]',
+        mainIcon: 'fitness_center', 
+        sections: [
+            { icon: 'format_list_bulleted', name: 'Tipos de tejido', items: ['Esquelético (voluntario)', 'Cardíaco (involuntario)', 'Liso (involuntario)'] },
+            { icon: 'auto_awesome', name: 'Características', items: ['Fibras alargadas (miocitos).', 'Contiene actina y miosina.', 'Alta capacidad de contracción.'] },
+            { icon: 'settings', name: 'Función', items: ['Movimiento voluntario e involuntario', 'Producción de calor', 'Bombeo de sangre'] },
+            { icon: 'location_on', name: 'Localización', items: ['Músculos esqueléticos', 'Miocardio', 'Paredes de vísceras y vasos'] },
+            { icon: 'layers', name: 'Origen embrionario', items: ['Mesodermo'] }
+        ],
+        imgName: 'Músculo esquelético'
+    },
+    {
+        id: 'nervioso',
+        title: 'Nervioso',
+        layout: 'tejido',
+        bgColor: 'var(--card-green-color)',
+        iconBg: 'bg-[#7c7cd8]',
+        mainIcon: 'psychology', 
+        sections: [
+            { icon: 'format_list_bulleted', name: 'Tipos de tejido', items: ['Neuronas', 'Células gliales'] },
+            { icon: 'auto_awesome', name: 'Características', items: ['Alta excitabilidad eléctrica y química.', 'Conexiones especializadas (sinapsis).', 'Poco matriz extracelular.'] },
+            { icon: 'settings', name: 'Función', items: ['Recepción de estímulos', 'Procesamiento de información', 'Respuesta y coordinación'] },
+            { icon: 'location_on', name: 'Localización', items: ['Encéfalo', 'Médula espinal', 'Nervios periféricos', 'Ganglios nerviosos'] },
+            { icon: 'layers', name: 'Origen embrionario', items: ['Ectodermo', 'Cresta neural'] }
+        ],
+        imgName: 'Neuronas y sinapsis'
+    },
+
+    
+    {
+        id: 'rinon',
+        title: 'Riñón',
+        layout: 'organo',
+        bgColor: 'var(--card-pick-color)',
+        iconBg: 'bg-[#d94a6e]',
+        mainIcon: 'nephrology', 
+        sections: [
+            { icon: 'track_changes', name: 'Órgano / Porción', items: ['Riñón (Corteza general)'] },
+            { icon: 'layers', name: 'Tipo de Epitelio Dominante', items: ['Cúbico simple (túbulos)', 'Plano simple (cápsula de Bowman)'] },
+            { icon: 'biotech', name: 'Componente Extracelular Crítico', items: ['Matriz mesangial y lámina basal (colágeno tipo IV).'] },
+            { icon: 'settings', name: 'Función Principal', items: ['Filtración del plasma sanguíneo.', 'Reabsorción y secreción de solutos.'] }
+        ],
+        imgName: 'Corpúsculo renal'
+    },
+    {
+        id: 'asa_henle',
+        title: 'Asa de Henle',
+        layout: 'organo',
+        bgColor: 'var(--card-blue-color)',
+        iconBg: 'bg-[#4a8cd9]',
+        mainIcon: 'water_drop',
+        sections: [
+            { icon: 'track_changes', name: 'Órgano / Porción', items: ['Asa de Henle'] },
+            { icon: 'layers', name: 'Tipo de Epitelio Dominante', items: ['Plano simple (ramas delgadas)', 'Cúbico simple (rama gruesa ascendente)'] },
+            { icon: 'biotech', name: 'Componente Extracelular Crítico', items: ['Intersticio medular hiperosmótico (alta concentración de sodio y urea).'] },
+            { icon: 'settings', name: 'Función Principal', items: ['Crear un gradiente de concentración (multiplicador de contracorriente) para recuperar agua.'] }
+        ],
+        imgName: 'Túbulo en forma de U'
+    },
+    {
+        id: 'ureter',
+        title: 'Uréter',
+        layout: 'organo',
+        bgColor: 'var(--card-brown-color)',
+        iconBg: 'bg-[#d98b4a]',
+        mainIcon: 'route',
+        sections: [
+            { icon: 'track_changes', name: 'Órgano / Porción', items: ['Uréter'] },
+            { icon: 'layers', name: 'Tipo de Epitelio Dominante', items: ['Urotelio (epitelio de transición)'] },
+            { icon: 'biotech', name: 'Componente Extracelular Crítico', items: ['Lámina propia muy rica en fibras elásticas y colágeno.'] },
+            { icon: 'settings', name: 'Función Principal', items: ['Conducir la orina hacia la vejiga mediante peristaltismo.'] }
+        ],
+        imgName: 'Conducto transversal'
+    },
+    {
+        id: 'vejiga',
+        title: 'Vejiga',
+        layout: 'organo',
+        bgColor: 'var(--card-green-color)',
+        iconBg: 'bg-[#4ad98f]',
+        mainIcon: 'storage',
+        sections: [
+            { icon: 'track_changes', name: 'Órgano / Porción', items: ['Vejiga'] },
+            { icon: 'layers', name: 'Tipo de Epitelio Dominante', items: ['Urotelio (epitelio de transición)'] },
+            { icon: 'biotech', name: 'Componente Extracelular Crítico', items: ['Uroplaquinas (membrana apical).', 'Abundante tejido conectivo fibroelástico.'] },
+            { icon: 'settings', name: 'Función Principal', items: ['Almacenamiento temporal de la orina y su posterior expulsión.'] }
+        ],
+        imgName: 'Pared epitelial transicional'
+    },
+    {
+        id: 'uretra',
+        title: 'Uretra',
+        layout: 'organo',
+        bgColor: 'var(--card-twoblue-color)',
+        iconBg: 'bg-[#8b4ad9]',
+        mainIcon: 'opacity',
+        sections: [
+            { icon: 'track_changes', name: 'Órgano / Porción', items: ['Uretra'] },
+            { icon: 'layers', name: 'Tipo de Epitelio Dominante', items: ['Varía: de Urotelio a Cilíndrico/Pseudoestratificado, terminando en Plano Estratificado No Queratinizado.'] },
+            { icon: 'biotech', name: 'Componente Extracelular Crítico', items: ['Glándulas mucosas (ej. glándulas de Littré en hombres) que lubrican la luz.'] },
+            { icon: 'settings', name: 'Función Principal', items: ['Vía de excreción final de la orina hacia el exterior del cuerpo.'] }
+        ],
+        imgName: 'Corte transversal y glándulas'
+    }
+];
+
+let currentTejidoIdx = 0;
+let isShowingAllTejidos = false;
+
+function buildTejidoCard(data) {
+    const isOrgano = data.layout === 'organo';
+
+    const sectionsHtml = data.sections.map((sec, index) => {
+        let gridClass = '';
+        let isCentrado = false;
+
+        if (isOrgano) {
+            if (index === 0) gridClass = 'md:col-span-3 rounded-[30px]'; 
+            else if (index === 1) gridClass = 'md:col-span-3 rounded-[30px]'; 
+            else if (index === 2) { gridClass = 'md:col-span-6 rounded-[40px] items-center text-center'; isCentrado = true; } 
+            else if (index === 3) gridClass = 'md:col-span-3 rounded-[30px]'; 
+        } else {
+            if (index === 0) gridClass = 'md:col-span-3 rounded-[30px]';
+            else if (index === 1) gridClass = 'md:col-span-3 rounded-[30px]';
+            else if (index === 2) { gridClass = 'md:col-span-6 rounded-[40px] items-center text-center'; isCentrado = true; }
+            else if (index === 3) gridClass = 'md:col-span-2 rounded-[30px]';
+            else if (index === 4) gridClass = 'md:col-span-2 rounded-[30px]';
+        }
+
+        const listClasses = isCentrado 
+            ? 'flex flex-wrap justify-center gap-x-3 gap-y-2 mt-2' 
+            : 'space-y-1 ml-1 text-xs md:text-sm';
+        
+        const liClasses = isCentrado 
+            ? 'bg-white/40 px-3 py-1 rounded-full text-xs font-semibold shadow-sm border border-white/30' 
+            : 'list-disc list-inside';
+
+        return `
+            <div class="${gridClass} flex flex-col justify-center histologia-inner-bg p-4 md:p-5 hover:scale-[1.01] transition-transform duration-300 shadow-sm border border-white/30">
+                <div class="flex items-center gap-2 text-[var(--black-color)] mb-2 ${isCentrado ? 'justify-center w-full' : ''}">
+                    <!-- Aquí se inyecta el Material Symbol -->
+                    <span class="material-symbols-outlined text-[24px] font-medium leading-none">${sec.icon}</span>
+                    <h4 class="font-bold text-base leading-tight">${sec.name}</h4>
+                </div>
+                <ul class="text-[var(--black-color)] opacity-85 ${listClasses}">
+                    ${sec.items.map(item => `<li class="${liClasses}">${item}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }).join('');
+
+    const esquemaGridClass = isOrgano ? 'md:col-span-3' : 'md:col-span-2';
+
+    const esquemaHtml = `
+        <div class="${esquemaGridClass} rounded-[30px] flex flex-col histologia-inner-bg p-4 md:p-5 hover:scale-[1.01] transition-transform duration-300 shadow-sm border border-white/30">
+            <div class="flex items-center gap-2 text-[var(--black-color)] mb-2">
+                <!-- Icono de imagen de Material Symbols -->
+                <span class="material-symbols-outlined text-[24px] font-medium leading-none">image</span>
+                <h4 class="font-bold text-base leading-tight">Esquema</h4>
+            </div>
+            <div class="w-full flex-grow min-h-[90px] rounded-2xl flex items-center justify-center text-[var(--black-color)] opacity-70 text-xs font-medium border border-current shadow-inner text-center px-2" style="background: rgba(128,128,128,0.1);">
+                [${data.imgName}]
+            </div>
+        </div>
+    `;
+
+    return `
+        <div class="backdrop-blur-md rounded-[40px] border border-white/20 p-5 md:p-6 shadow-md flex flex-col gap-4 animate-fade-in transition-colors duration-500" style="background-color: ${data.bgColor}">
+            <!-- Encabezado -->
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-[22px] ${data.iconBg} flex items-center justify-center text-white shadow-inner flex-shrink-0">
+                    <!-- Icono principal de Material Symbols -->
+                    <span class="material-symbols-outlined text-[32px] font-medium">${data.mainIcon}</span>
+                </div>
+                <div>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-[var(--black-color)] tracking-tight">${data.title}</h3>
+                    <p class="text-[var(--black-color)] opacity-60 font-medium text-sm">
+                        ${isOrgano ? 'Histología de Sistemas' : 'Análisis tisular general'}
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Grid Bento Interno Responsivo -->
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-3">
+                ${sectionsHtml}
+                ${esquemaHtml}
+            </div>
+        </div>
+    `;
+}
+
+function renderHistologiaView() {
+    const container = document.getElementById('histologia-grid');
+    const btnToggle = document.getElementById('btn-toggle-tejidos');
+    const btnPrev = document.getElementById('btn-prev-tejido');
+    const btnNext = document.getElementById('btn-next-tejido');
+
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (isShowingAllTejidos) {
+        
+        container.className = 'grid grid-cols-1 lg:grid-cols-2 gap-8 transition-all duration-500 max-w-7xl mx-auto';
+        TEJIDOS_DATA.forEach(tejido => {
+            container.innerHTML += buildTejidoCard(tejido);
+        });
+        btnToggle.innerText = 'Mostrar tejido individual';
+        btnPrev.classList.add('opacity-50', 'pointer-events-none');
+        btnNext.classList.add('opacity-50', 'pointer-events-none');
+    } else {
+        
+        container.className = 'grid grid-cols-1 max-w-5xl mx-auto transition-all duration-500';
+        container.innerHTML = buildTejidoCard(TEJIDOS_DATA[currentTejidoIdx]);
+        btnToggle.innerText = 'Mostrar todos los tejidos';
+        btnPrev.classList.remove('opacity-50', 'pointer-events-none');
+        btnNext.classList.remove('opacity-50', 'pointer-events-none');
+    }
+
+    
+    lucide.createIcons();
+}
+
+// Configuración de Eventos para la botonera
+document.addEventListener('DOMContentLoaded', () => {
+    const btnPrev = document.getElementById('btn-prev-tejido');
+    const btnNext = document.getElementById('btn-next-tejido');
+    const btnToggle = document.getElementById('btn-toggle-tejidos');
+
+    if (btnPrev && btnNext && btnToggle) {
+        btnPrev.addEventListener('click', () => {
+            currentTejidoIdx = (currentTejidoIdx - 1 + TEJIDOS_DATA.length) % TEJIDOS_DATA.length;
+            renderHistologiaView();
+        });
+
+        btnNext.addEventListener('click', () => {
+            currentTejidoIdx = (currentTejidoIdx + 1) % TEJIDOS_DATA.length;
+            renderHistologiaView();
+        });
+
+        btnToggle.addEventListener('click', () => {
+            isShowingAllTejidos = !isShowingAllTejidos;
+            renderHistologiaView();
+        });
+
+        renderHistologiaView();
+    }
+});
+
+/* ---------------------------------------------------- Tarjetas de Preguntas Dinámicas ------------------------------------------------ */
+
+const PREGUNTAS_DATA = [
+    {
+        pregunta: '¿Qué estructuras especializadas utilizan las sinapsis eléctricas para crear conexiones físicas directas entre las membranas presináptica y posináptica permitiendo un flujo rápido de iones?',
+        respuesta: 'Utilizan las uniones en hendidura'
+    },
+    {
+        pregunta: '¿Cuál es el epitelio especializado que recubre las vías urinarias y tiene la capacidad de distenderse?',
+        respuesta: 'El urotelio o epitelio de transición'
+    },
+    {
+        pregunta: '¿Qué tipo de colágeno es el componente principal de la lámina basal en el corpúsculo renal?',
+        respuesta: 'Colágeno tipo IV'
+    }
+];
+
+let currentPreguntaIdx = 0;
+
+function renderPreguntaCard() {
+    const container = document.getElementById('preguntas-dinamicas-container');
+    if (!container) return;
+
+    const data = PREGUNTAS_DATA[currentPreguntaIdx];
+
+    // Se utiliza flex-row para alinear la tarjeta de texto y el botón lateral
+    container.innerHTML = `
+        <div class="flex items-stretch gap-3 md:gap-4 w-full h-full animate-fade-in">
+            
+            <!-- Bloque de Texto (Pregunta y Respuesta) -->
+            <div class="flex-1 histologia-inner-bg rounded-[30px] p-6 md:p-8 flex flex-col justify-center shadow-sm border border-white/30 transition-colors duration-500">
+                <p class="text-base md:text-lg font-bold text-[var(--black-color)] leading-snug mb-4 transition-colors duration-500">
+                    ${data.pregunta}
+                </p>
+                <p class="text-sm md:text-base text-[var(--black-color)] opacity-85 font-medium transition-colors duration-500">
+                    ${data.respuesta}
+                </p>
+            </div>
+            
+            <!-- Botón de Siguiente -->
+            <button onclick="nextPregunta()" class="w-16 md:w-24 shrink-0 bg-[var(--card-blue-color)] rounded-[35px] md:rounded-[40px] flex items-center justify-center hover:scale-[1.03] transition-all shadow-sm border border-white/20 duration-500 group">
+                <span class="material-symbols-outlined text-[32px] md:text-[40px] text-[var(--black-color)] group-hover:translate-x-1 transition-transform duration-300">
+                    chevron_right
+                </span>
+            </button>
+            
+        </div>
+    `;
+}
+
+// Función global para avanzar a la siguiente pregunta
+window.nextPregunta = function() {
+    currentPreguntaIdx = (currentPreguntaIdx + 1) % PREGUNTAS_DATA.length;
+    renderPreguntaCard();
+};
+
+// Inicializar la primera pregunta al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    renderPreguntaCard();
 });
 
 /* ---------------------------------------------------- Switch (Píldoras de Tema Multiplataforma) ------------------------------------------------ */

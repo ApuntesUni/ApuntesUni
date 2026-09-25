@@ -671,7 +671,8 @@ body.dark-mode #anatomy-modal-list li strong:not(:first-of-type) {
 
 /*------------------------------------------------------- Tarjeta de audio ----------------------------------------------------*/
 
-#audio-lottie-card::before {
+#audio-lottie-card::before,
+#audio-lottie-card-histo::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -688,14 +689,54 @@ body.dark-mode #anatomy-modal-list li strong:not(:first-of-type) {
     pointer-events: none;
 }
 
-#audio-lottie-card.is-playing-audio::before {
+#audio-lottie-card.is-playing-audio::before,
+#audio-lottie-card-histo.is-playing-audio::before {
     opacity: 1;
     animation: cardPulseWave 2s ease-in-out infinite;
 }
 
-#audio-lottie-card > * {
+#audio-lottie-card > *,
+#audio-lottie-card-histo > * {
     position: relative;
     z-index: 1;
+}
+
+#audio-lottie-card span,
+#audio-lottie-card-histo span {
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, color 0.5s !important;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#audio-lottie-card #lottie-sound-wave,
+#audio-lottie-card-histo #lottie-sound-wave-histo {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important; 
+    transform: scale(1) translateY(0);
+}
+
+#audio-lottie-card.is-playing-audio span,
+#audio-lottie-card-histo.is-playing-audio span {
+    opacity: 0;
+    transform: translateY(15px) scale(0.9);
+    pointer-events: none;
+}
+
+#audio-lottie-card.is-playing-audio #lottie-sound-wave,
+#audio-lottie-card-histo.is-playing-audio #lottie-sound-wave-histo {
+    transform: scale(2.2) translateY(8px); 
+}
+
+/* ------------------------------------------------------- Histologia ----------------------------------------------------------*/
+
+.histologia-inner-bg {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+body.dark-mode .histologia-inner-bg {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
