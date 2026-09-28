@@ -45,11 +45,35 @@
                             </a>
                         </li>
 
-                        <li class="nav__item">
-                            <a href="#Fisio" class="nav__link">
-                                <i class="material-symbols-outlined">acute</i>
-                                <span>Fisiologia</span>
+                        <li class="nav__item relative-menu" id="fisio-nav-item">
+                            <a href="#Fisio" class="nav__link" id="fisio-link">
+                                <i class="material-symbols-outlined">more_horiz</i>
+                                <span>Más</span>
                             </a>
+                            
+                            <!-- Submenú de Cápsulas -->
+                            <div class="submenu-capsules" id="fisio-submenu">
+                                <a href="#Histologia" class="capsule-item">
+                                    <i class="material-symbols-outlined">vital_signs</i>
+                                    <span>Histologia</span>
+                                </a>
+                                <a href="#Fisio-celular" class="capsule-item">
+                                    <i class="material-symbols-outlined">immunology</i>
+                                    <span>Bioquimica</span>
+                                </a>
+                                <a href="#Fisio-sistemas" class="capsule-item">
+                                    <i class="material-symbols-outlined">coronavirus</i>
+                                    <span>Microbiologia</span>
+                                </a>
+                                <a href="#Fisio-sistemas" class="capsule-item">
+                                    <i class="material-symbols-outlined">pulmonology</i>
+                                    <span>Fisiologia</span>
+                                </a>
+                                <a href="#Fisio-sistemas" class="capsule-item">
+                                    <i class="material-symbols-outlined">pill</i>
+                                    <span>Farmcacologia</span>
+                                </a>
+                            </div>
                         </li>
 
                     </ul>
@@ -94,25 +118,28 @@
         </nav>
     </header>
     <!-- Embrio -->
-    <section class="Embrio" id="Embrio">
-        <main class="max-w-5xl mx-auto bg-white/40 backdrop-blur-lg rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.1)] overflow-hidden border border-white/60">
-        
-            <!-- Barra de Navegación -->
-            <div class="flex flex-wrap border-b border-white/50 bg-white/20">
-                <button id="btn-desarrollo" class="flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors bg-white/60 text-indigo-700 border-b-2 border-indigo-700 shadow-sm">
-                    <i data-lucide="book-open" class="w-5 h-5 mr-2"></i>
-                    Desarrollo Embrionario
+    <section class="Embrio py-12" id="Embrio">
+        <div class="max-w-6xl mx-auto p-4 md:p-6 transition-colors duration-500">
+            
+            <div class="flex items-center justify-between w-full gap-4 mb-8 transition-all duration-500">
+                
+                <button id="btn-prev-embrio" class="w-14 h-14 shrink-0 rounded-[30px] bg-[var(--card-blue-color)] text-[var(--black-color)] flex items-center justify-center hover:scale-105 transition-all shadow-sm duration-500">
+                    <span class="material-symbols-outlined text-[32px]">chevron_left</span>
                 </button>
-                <button id="btn-malformaciones" class="flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors text-slate-600 hover:text-slate-800 hover:bg-white/40">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>
-                    Malformaciones Clínicas
+                
+                <button id="btn-toggle-embrio" class="flex-1 py-4 rounded-full bg-[var(--card-blue-color)] text-[var(--black-color)] font-semibold text-lg md:text-xl hover:scale-[1.02] transition-all shadow-sm duration-500 flex items-center justify-center gap-2">
                 </button>
+                
+                <button id="btn-next-embrio" class="w-14 h-14 shrink-0 rounded-[30px] bg-[var(--card-blue-color)] text-[var(--black-color)] flex items-center justify-center hover:scale-105 transition-all shadow-sm duration-500">
+                    <span class="material-symbols-outlined text-[32px]">chevron_right</span>
+                </button>
+                
             </div>
 
-            <div id="app-content" class="p-6 md:p-8">
+            <div id="app-content" class="transition-all duration-500">
                 <!-- Contenido inyectado -->
             </div>
-        </main>
+        </div>
     </section>
     <!-- Anatomia -->
     <section class="Anato py-12" id="Anato">

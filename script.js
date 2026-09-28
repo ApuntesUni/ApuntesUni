@@ -105,6 +105,38 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/* ------------------------------------------------------------- Menú Desplegable (Cápsulas) ------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+    const fisioLink = document.getElementById('fisio-link');
+    const fisioSubmenu = document.getElementById('fisio-submenu');
+
+    if (fisioLink && fisioSubmenu) {
+        fisioLink.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            
+            fisioSubmenu.classList.toggle('active');
+            
+            links.forEach(l => l.classList.remove("active-link"));
+            fisioLink.classList.add("active-link");
+            if (typeof moveIndicator === "function") {
+                moveIndicator(fisioLink);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!fisioLink.contains(e.target) && !fisioSubmenu.contains(e.target)) {
+                fisioSubmenu.classList.remove('active');
+            }
+        });
+        
+        const capsules = fisioSubmenu.querySelectorAll('.capsule-item');
+        capsules.forEach(capsule => {
+            capsule.addEventListener('click', () => {
+                fisioSubmenu.classList.remove('active');
+            });
+        });
+    }
+});
 
 // 1. Datos Originales de Desarrollo
 const GUTS_DATA = {
@@ -201,84 +233,127 @@ const contentDiv = document.getElementById('app-content');
 const btnDesarrollo = document.getElementById('btn-desarrollo');
 const btnMalformaciones = document.getElementById('btn-malformaciones');
 
+const btnToggleEmbrio = document.getElementById('btn-toggle-embrio');
+const btnPrevEmbrio = document.getElementById('btn-prev-embrio');
+const btnNextEmbrio = document.getElementById('btn-next-embrio');
+
 // 5. Funciones de Renderizado
 function renderDesarrolloView() {
     const data = GUTS_DATA[activeTab];
     
+    // Lista de derivados con bullets personalizados
     const derivativesHtml = data.derivatives.map(item => `
-        <li class="flex items-start">
-            <div class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 mr-2 flex-shrink-0"></div>
-            <span class="text-slate-700 font-medium">${item}</span>
+        <li class="flex items-start gap-3 text-slate-700 font-medium mb-3">
+            <div class="w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0" style="background-color: ${data.colorHex}"></div>
+            <span class="text-[1.05rem] leading-relaxed opacity-90">${item}</span>
         </li>
     `).join('');
 
+    // Botones selectores estilo píldora glassmorphism
     const buttonsHtml = Object.values(GUTS_DATA).map(gut => {
         const isActive = activeTab === gut.id;
         return `
-            <button onclick="setActiveTab('${gut.id}')" class="flex items-center justify-between p-3 rounded-xl border transition-all w-full text-left ${isActive ? `border-[${gut.colorHex}] bg-white/60 shadow-md backdrop-blur-sm` : 'border-white/50 hover:border-white/80 bg-white/30 backdrop-blur-sm'}">
-                <div class="flex items-center">
-                    <div class="w-4 h-4 rounded-full mr-3 ${gut.color}"></div>
-                    <span class="font-semibold ${isActive ? 'text-slate-900' : 'text-slate-700'}">${gut.title}</span>
+            <button onclick="setActiveTab('${gut.id}')" class="embrio-segment-btn ${isActive ? 'active' : ''}">
+                <div class="flex items-center gap-4 w-full">
+                    <div class="w-6 h-6 rounded-full shadow-sm" style="background-color: ${gut.colorHex}"></div>
+                    <span class="font-bold text-lg ${isActive ? 'text-slate-800' : 'text-slate-500'}">${gut.title}</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 ml-auto ${isActive ? 'text-slate-800' : 'text-slate-400'}"></i>
                 </div>
-                <i data-lucide="chevron-right" class="w-5 h-5 ${isActive ? 'text-slate-900' : 'text-slate-500'}"></i>
             </button>
         `;
     }).join('');
 
     contentDiv.innerHTML = `
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
-            <div class="space-y-6">
-                <!-- Modelo de Maqueta (PrimitiveGutModel) -->
-                <div class="w-full h-64 bg-slate-800 rounded-xl relative overflow-hidden shadow-inner flex items-center justify-center p-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in items-start mt-4">
+            
+            <!-- Columna Izquierda (Visualizador y Botones) -->
+            <div class="lg:col-span-5 flex flex-col gap-8">
+                
+                <!-- Contenedor del Modelo 3D / Gráfico -->
+                <div class="embrio-model-container">
+                    <div class="absolute top-4 left-4 flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-white text-xs font-semibold z-10">
+                        <span class="material-symbols-outlined text-[16px]">fullscreen</span>
+                        Vista Frontal
+                    </div>
+                    
                     <div class="absolute inset-0 opacity-20 pointer-events-none pattern-grid"></div>
-                    <div class="relative w-full max-w-sm h-full flex flex-col items-center justify-center space-y-2">
+                    <div class="relative w-full h-full flex flex-col items-center justify-center space-y-1">
                         <!-- Anterior -->
-                        <div class="transition-all duration-500 rounded-t-3xl w-16 flex flex-col items-center justify-start relative ${activeTab === 'anterior' ? 'bg-blue-400 h-24 scale-110 z-10 shadow-[0_0_15px_rgba(96,165,250,0.7)]' : 'bg-blue-900/50 h-16 opacity-50'}">
-                            <div class="text-[10px] font-bold text-white mt-1 absolute -right-24">I. Anterior</div>
-                            <div class="w-4 h-4 rounded-full bg-red-400 absolute bottom-0 -right-2 transition-opacity ${activeTab === 'anterior' ? 'opacity-100' : 'opacity-0'}"></div>
-                            <div class="w-8 h-10 rounded-full bg-blue-300 absolute top-4 -left-4 transform rotate-12 transition-opacity ${activeTab === 'anterior' ? 'opacity-100' : 'opacity-0'}"></div>
+                        <div class="transition-all duration-500 rounded-t-3xl w-24 flex flex-col items-center justify-start relative ${activeTab === 'anterior' ? 'bg-[#5b9cf6] h-32 scale-105 z-10 shadow-[0_0_30px_rgba(91,156,246,0.6)]' : 'bg-[#5b9cf6]/40 h-24 opacity-60'}">
+                            <div class="text-[13px] font-bold text-white mt-4 absolute -right-28 flex items-center gap-2">
+                                <div class="w-8 border-t border-white/50"></div> I. Anterior
+                            </div>
+                            <div class="w-6 h-6 rounded-full bg-[#f96b6b] absolute bottom-0 -right-3 shadow-lg transition-opacity ${activeTab === 'anterior' ? 'opacity-100' : 'opacity-0'}"></div>
+                            <div class="w-12 h-14 rounded-full bg-[#9bc5ff] absolute top-6 -left-6 transform rotate-12 transition-opacity ${activeTab === 'anterior' ? 'opacity-100' : 'opacity-0'}"></div>
                         </div>
                         <!-- Medio -->
-                        <div class="transition-all duration-500 w-12 flex flex-col items-center justify-center relative ${activeTab === 'medio' ? 'bg-yellow-400 h-24 scale-110 z-10 shadow-[0_0_15px_rgba(250,204,21,0.7)]' : 'bg-yellow-900/50 h-16 opacity-50'}">
-                            <div class="text-[10px] font-bold text-white absolute -right-24">I. Medio</div>
-                            ${activeTab === 'medio' ? `
-                                <svg class="absolute -left-12 top-4 w-24 h-16 overflow-visible" viewBox="0 0 100 50">
-                                    <path d="M 50,0 C 10,0 10,50 50,50" fill="none" stroke="#facc15" stroke-width="8" stroke-linecap="round" />
-                                    <line x1="15" y1="25" x2="-10" y2="25" stroke="#facc15" stroke-width="4" />
-                                </svg>
-                            ` : ''}
+                        <div class="transition-all duration-500 w-16 flex flex-col items-center justify-center relative ${activeTab === 'medio' ? 'bg-[#7c6352] h-20 scale-105 z-10 shadow-[0_0_20px_rgba(124,99,82,0.6)]' : 'bg-[#7c6352]/40 h-16 opacity-60'}">
+                            <div class="text-[13px] font-bold text-white absolute -right-28 flex items-center gap-2">
+                                <div class="w-8 border-t border-white/50"></div> I. Medio
+                            </div>
                         </div>
                         <!-- Posterior -->
-                        <div class="transition-all duration-500 rounded-b-3xl w-16 flex flex-col items-end justify-end relative ${activeTab === 'posterior' ? 'bg-green-400 h-20 scale-110 z-10 shadow-[0_0_15px_rgba(74,222,128,0.7)]' : 'bg-green-900/50 h-12 opacity-50'}">
-                            <div class="text-[10px] font-bold text-white mb-2 absolute -right-28">I. Posterior</div>
-                            <div class="w-20 h-8 rounded-b-3xl bg-green-300 absolute -bottom-2 -left-2 transition-opacity ${activeTab === 'posterior' ? 'opacity-100' : 'opacity-0'}"></div>
+                        <div class="transition-all duration-500 rounded-b-3xl w-20 flex flex-col items-end justify-end relative ${activeTab === 'posterior' ? 'bg-[#3b8765] h-20 scale-105 z-10 shadow-[0_0_30px_rgba(59,135,101,0.6)]' : 'bg-[#3b8765]/40 h-14 opacity-60'}">
+                            <div class="text-[13px] font-bold text-white mb-3 absolute -right-32 flex items-center gap-2">
+                                <div class="w-8 border-t border-white/50"></div> I. Posterior
+                            </div>
+                            <div class="w-24 h-10 rounded-b-3xl bg-[#61b88e] absolute -bottom-2 -left-2 transition-opacity ${activeTab === 'posterior' ? 'opacity-100' : 'opacity-0'}"></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="flex flex-col space-y-2">
-                    <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Selecciona un segmento:</h3>
+
+                <!-- Selector de Segmentos -->
+                <div class="flex flex-col gap-4">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1 ml-2">Selecciona un segmento</h3>
                     ${buttonsHtml}
                 </div>
             </div>
 
-            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 h-full">
-                <div class="flex items-center mb-4">
-                    <div class="w-6 h-6 rounded-full mr-3 shadow-md ${data.color}"></div>
-                    <h2 class="text-2xl font-bold text-slate-800">${data.title}</h2>
+            <!-- Columna Derecha (Información del Segmento) -->
+            <div class="lg:col-span-7 embrio-info-card">
+                
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-5">
+                        <div class="w-16 h-16 rounded-3xl flex items-center justify-center shadow-sm border border-white/40" style="background-color: ${data.colorHex}20; color: ${data.colorHex}">
+                            <span class="material-symbols-outlined text-[36px]">gastroenterology</span>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight">${data.title}</h2>
+                    </div>
+                    <button class="w-12 h-12 rounded-full bg-white/40 flex items-center justify-center border border-white/60 hover:bg-white/70 transition-colors shadow-sm">
+                        <span class="material-symbols-outlined text-slate-600">more_horiz</span>
+                    </button>
                 </div>
-                <p class="text-slate-600 mb-6 leading-relaxed">${data.description}</p>
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center">
-                        <i data-lucide="arrow-right" class="w-4 h-4 mr-2 text-indigo-500"></i>
-                        Derivados Principales
-                    </h3>
-                    <ul class="grid grid-cols-1 gap-2">${derivativesHtml}</ul>
+
+                <!-- Descripción General -->
+                <p class="text-slate-600 text-[1.1rem] leading-relaxed mb-10 font-medium opacity-90">
+                    ${data.description}
+                </p>
+
+                <!-- Derivados Principales -->
+                <div class="mb-10">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-9 h-9 rounded-full bg-[#e8ecf8] flex items-center justify-center text-[#5b73d6]">
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Derivados Principales</h3>
+                    </div>
+                    <ul class="flex flex-col ml-4">
+                        ${derivativesHtml}
+                    </ul>
                 </div>
-                <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                    <h3 class="text-sm font-semibold text-indigo-700 uppercase tracking-wider mb-2">Detalles del Desarrollo</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">${data.details}</p>
+
+                <!-- Detalles del Desarrollo (Caja Flotante) -->
+                <div class="embrio-details-box">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 rounded-[1.2rem] bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/40 text-white">
+                        <span class="material-symbols-outlined text-[24px]">lightbulb</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-indigo-600 uppercase tracking-widest mb-3 ml-6">Detalles del Desarrollo</h3>
+                    <p class="text-slate-600 text-[1.05rem] leading-relaxed font-medium opacity-90">
+                        ${data.details}
+                    </p>
                 </div>
+
             </div>
         </div>
     `;
@@ -286,46 +361,88 @@ function renderDesarrolloView() {
 }
 
 function renderMalformacionesView() {
-    const malformationsHtml = MALFORMATIONS.map((section, sIdx) => `
-        <div class="bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl shadow-sm overflow-hidden flex flex-col">
-            <div class="bg-white/30 px-4 py-3 border-b border-white/50">
-                <h3 class="font-bold text-slate-800">${section.region}</h3>
+    // Paleta de colores e iconos asignados a cada región
+    const sectionStyles = [
+        { icon: 'route', colorHex: '#ec4899' },            
+        { icon: 'gastroenterology', colorHex: '#f59e0b' }, 
+        { icon: 'hematology', colorHex: '#10b981' },       
+        { icon: 'water_drop', colorHex: '#8b5cf6' },       
+        { icon: 'all_inclusive', colorHex: '#3b82f6' },    
+        { icon: 'airline_stops', colorHex: '#d946ef' }     
+    ];
+
+    const malformationsHtml = MALFORMATIONS.map((section, sIdx) => {
+        // Si hay más secciones que estilos, se reciclan los colores
+        const style = sectionStyles[sIdx] || sectionStyles[0];
+        
+        return `
+        <div class="malf-card">
+            <!-- Header de la tarjeta -->
+            <div class="malf-card-header">
+                <div class="flex items-center gap-4">
+                    <div class="malf-icon-box" style="background-color: ${style.colorHex}20; color: ${style.colorHex}">
+                        <span class="material-symbols-outlined text-[28px]">${style.icon}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 tracking-tight">${section.region}</h3>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-white/60 flex items-center justify-center text-slate-400 shadow-sm border border-white/40">
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </div>
             </div>
-            <div class="p-4 flex-grow grid grid-cols-1 gap-4">
+            
+            <!-- Cuerpo de la tarjeta (Lista de patologías) -->
+            <div class="malf-card-body flex flex-col">
                 ${section.anomalies.map((anomaly, aIdx) => `
-                    <div class="group border border-white/50 p-3 rounded-xl anomaly-card-hover bg-white/50 shadow-sm hover:shadow-md backdrop-blur-sm" onclick="openModal(${sIdx}, ${aIdx})">
-                        <div class="flex items-start gap-4">
-                            <div class="w-16 h-16 rounded-lg bg-white/40 border border-white/60 overflow-hidden flex-shrink-0 shadow-inner">
-                                <img src="${anomaly.img}" alt="${anomaly.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            </div>
-                            <div>
-                                <h4 class="text-rose-600 font-semibold text-sm mb-1 group-hover:text-rose-700 transition-colors flex items-center gap-1">
-                                    ${anomaly.name} <i data-lucide="expand" class="w-3 h-3 opacity-50 group-hover:opacity-100"></i>
-                                </h4>
-                                <p class="text-slate-700 text-sm line-clamp-2">
-                                    ${anomaly.description}
-                                </p>
-                            </div>
+                    <div class="malf-item group" onclick="openModal(${sIdx},${aIdx})">
+                        <!-- Imagen miniatura -->
+                        <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60">
+                            <img src="${anomaly.img}" alt="${anomaly.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                        </div>
+                        
+                        <!-- Información textual -->
+                        <div class="flex-1 min-w-0 pr-2">
+                            <h4 class="font-semibold text-[0.95rem] mb-1 truncate transition-colors" style="color: ${style.colorHex}">
+                                ${anomaly.name}
+                            </h4>
+                            <p class="text-slate-500 text-[0.85rem] leading-snug line-clamp-2">
+                                ${anomaly.description}
+                            </p>
+                        </div>
+                        
+                        <!-- Icono de acción al hacer hover -->
+                        <div class="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1">
+                            <i data-lucide="chevron-right" class="w-5 h-5" style="color: ${style.colorHex}"></i>
                         </div>
                     </div>
                 `).join('')}
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 
     contentDiv.innerHTML = `
-        <div class="space-y-8 animate-fade-in">
-            <div class="bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-lg mb-4 flex items-start gap-3">
-                <i data-lucide="info" class="w-5 h-5 text-rose-600 mt-0.5"></i>
-                <p class="text-rose-800 text-sm font-medium">
-                    Haz clic en cualquier patología para abrir el visor interactivo y el modelo 3D representativo.
-                </p>
+        <div class="space-y-6 animate-fade-in mt-4">
+            
+            <!-- Banner de Alerta Superior -->
+            <div class="malf-alert-box">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center text-rose-500 shadow-inner shrink-0">
+                        <span class="material-symbols-outlined text-[18px]">radio_button_checked</span>
+                    </div>
+                    <p class="text-rose-800/80 text-[0.95rem] font-semibold tracking-wide">
+                        Haz clic en cualquier patología para abrir el visor interactivo y el modelo 3D representativo.
+                    </p>
+                </div>
             </div>
+
+            <!-- Grid a 2 columnas para las tarjetas -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 ${malformationsHtml}
             </div>
+            
         </div>
     `;
+    
     lucide.createIcons();
 }
 
@@ -1174,13 +1291,15 @@ function init3DModel(type) {
 
 // 7. Manejo de la Navegación y Eventos
 function updateNavUI() {
+    if (!btnToggleEmbrio) return;
+
     if (viewMode === 'desarrollo') {
-        btnDesarrollo.className = "flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors bg-white text-indigo-700 border-b-2 border-indigo-700";
-        btnMalformaciones.className = "flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors text-slate-500 hover:text-slate-700 hover:bg-slate-100";
+        btnToggleEmbrio.innerHTML = '<span class="material-symbols-outlined text-[24px]">menu_book</span> Desarrollo Embrionario';
+        btnToggleEmbrio.className = "flex-1 py-4 rounded-full bg-[var(--card-blue-color)] text-[var(--black-color)] font-semibold text-lg md:text-xl hover:scale-[1.02] transition-all shadow-sm duration-500 flex items-center justify-center gap-2";
         renderDesarrolloView();
     } else {
-        btnMalformaciones.className = "flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors bg-white text-rose-600 border-b-2 border-rose-600";
-        btnDesarrollo.className = "flex-1 py-4 px-6 text-sm font-bold flex items-center justify-center transition-colors text-slate-500 hover:text-slate-700 hover:bg-slate-100";
+        btnToggleEmbrio.innerHTML = '<span class="material-symbols-outlined text-[24px]">warning</span> Malformaciones Clínicas';
+        btnToggleEmbrio.className = "flex-1 py-4 rounded-full bg-[var(--card-pick-color)] text-[var(--black-color)] font-semibold text-lg md:text-xl hover:scale-[1.02] transition-all shadow-sm duration-500 flex items-center justify-center gap-2";
         renderMalformacionesView();
     }
 }
@@ -1190,15 +1309,17 @@ window.setActiveTab = function(tabId) {
     if (viewMode === 'desarrollo') renderDesarrolloView();
 };
 
-btnDesarrollo.addEventListener('click', () => {
-    viewMode = 'desarrollo';
+function toggleEmbrioView() {
+    viewMode = (viewMode === 'desarrollo') ? 'malformaciones' : 'desarrollo';
     updateNavUI();
-});
+}
 
-btnMalformaciones.addEventListener('click', () => {
-    viewMode = 'malformaciones';
-    updateNavUI();
-});
+// Asignación de eventos a los tres botones de la nueva barra
+if (btnToggleEmbrio && btnPrevEmbrio && btnNextEmbrio) {
+    btnToggleEmbrio.addEventListener('click', toggleEmbrioView);
+    btnPrevEmbrio.addEventListener('click', toggleEmbrioView);
+    btnNextEmbrio.addEventListener('click', toggleEmbrioView);
+}
 
 // 8. Inicialización
 updateNavUI();
