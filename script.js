@@ -2066,6 +2066,662 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/* ------------------------------------------------------------ Bioquimica ------------------------------------------------------------- */
+
+function showBioMessage(text, type = 'info') {
+    const box = document.getElementById('bio-message-box');
+    if(!box) return;
+    box.textContent = text;
+    box.className = `bio-msg-box show msg-${type}`;
+    setTimeout(() => { box.classList.remove('show'); }, 3000);
+}
+
+// Navegación de sección Bioquímica
+function hideAllBio() {
+    document.getElementById('bio-main-menu').classList.add('hidden');
+    document.getElementById('bio-main-menu').classList.remove('grid');
+    for(let i = 1; i <= 5; i++) {
+        const gameContainer = document.getElementById(`game${i}-container`);
+        if(gameContainer) {
+            gameContainer.classList.add('hidden');
+            gameContainer.classList.remove('flex');
+        }
+    }
+
+    document.getElementById('btn-back-bio-menu').classList.remove('hidden');
+}
+
+window.showBioMainMenu = function() {
+    document.getElementById('bio-main-menu').classList.remove('hidden');
+    document.getElementById('bio-main-menu').classList.add('grid');
+    document.getElementById('btn-back-bio-menu').classList.add('hidden');
+    
+    for(let i = 1; i <= 5; i++) {
+        const gameContainer = document.getElementById(`game${i}-container`);
+        if(gameContainer) {
+            gameContainer.classList.add('hidden');
+            gameContainer.classList.remove('flex');
+        }
+    }
+    
+    document.getElementById('g1-victory').classList.add('hidden');
+    document.getElementById('g2-end-modal').classList.add('hidden');
+    document.getElementById('g3-end-modal').classList.add('hidden');
+    document.getElementById('g4-end-modal').classList.add('hidden');
+    document.getElementById('g5-end-modal').classList.add('hidden');
+
+    if (typeof window.stopGame5 === 'function') {
+        window.stopGame5();
+    }
+};
+
+/* --- JUEGO 1: CONSTRUCTOR DE COMPUESTOS --- */
+const g1Targets = [
+    { name: "Agua", formula: "H₂O", elements: { 'H': 2, 'O': 1 } },
+    { name: "Dióxido de Carbono", formula: "CO₂", elements: { 'C': 1, 'O': 2 } },
+    { name: "Metano", formula: "CH₄", elements: { 'C': 1, 'H': 4 } },
+    { name: "Amoníaco", formula: "NH₃", elements: { 'N': 1, 'H': 3 } },
+    { name: "Glucosa", formula: "C₆H₁₂O₆", elements: { 'C': 6, 'H': 12, 'O': 6 } }
+];
+
+let currentG1Level = 0;
+let currentReaction = {}; 
+
+window.startGame1 = function() {
+    hideAllBio();
+    document.getElementById('game1-container').classList.remove('hidden');
+    document.getElementById('game1-container').classList.add('flex');
+    document.getElementById('g1-victory').classList.add('hidden');
+    currentG1Level = 0;
+    loadG1Level();
+};
+
+function loadG1Level() {
+    if (currentG1Level >= g1Targets.length) {
+        document.getElementById('g1-victory').classList.remove('hidden');
+        document.getElementById('g1-victory').classList.add('flex');
+        triggerGameEffect('win');
+        return;
+    }
+    const target = g1Targets[currentG1Level];
+    document.getElementById('g1-target-name').textContent = target.name;
+    document.getElementById('g1-target-formula').textContent = target.formula;
+    document.getElementById('g1-level').textContent = `${currentG1Level + 1} / ${g1Targets.length}`;
+    clearReactionZone();
+}
+
+// Lógica Drag and Drop
+document.addEventListener('DOMContentLoaded', () => {
+    const draggables = document.querySelectorAll('.element-draggable');
+    const dropZone = document.getElementById('reaction-zone');
+    
+    if(!dropZone) return;
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', draggable.dataset.element);
+            draggable.style.opacity = '0.5';
+        });
+        draggable.addEventListener('dragend', () => { draggable.style.opacity = '1'; });
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const element = e.dataTransfer.getData('text/plain');
+        if(element) addElementToZone(element);
+    });
+});
+
+function addElementToZone(elName) {
+    document.getElementById('drop-placeholder').style.display = 'none';
+    currentReaction[elName] = (currentReaction[elName] || 0) + 1;
+
+    // Asignar colores fijos a los elementos para mantener la identidad visual del juego
+    const colorMap = { 'C': '#374151', 'H': '#ef4444', 'O': '#3b82f6', 'N': '#10b981' };
+    
+    const div = document.createElement('div');
+    div.className = 'dropped-element';
+    div.style.backgroundColor = colorMap[elName];
+    div.textContent = elName;
+    div.dataset.element = elName;
+    div.onclick = function() { removeElementFromZone(this, elName); };
+    
+    document.getElementById('reaction-zone').appendChild(div);
+}
+
+function removeElementFromZone(domElement, elName) {
+    document.getElementById('reaction-zone').removeChild(domElement);
+    currentReaction[elName]--;
+    if (currentReaction[elName] <= 0) delete currentReaction[elName];
+    if(Object.keys(currentReaction).length === 0) {
+        document.getElementById('drop-placeholder').style.display = 'block';
+    }
+}
+
+window.clearReactionZone = function() {
+    const elements = document.getElementById('reaction-zone').querySelectorAll('.dropped-element');
+    elements.forEach(el => el.remove());
+    currentReaction = {};
+    document.getElementById('drop-placeholder').style.display = 'block';
+};
+
+window.checkCompound = function() {
+    const target = g1Targets[currentG1Level].elements;
+    let isCorrect = true;
+    let targetKeys = Object.keys(target);
+    let currentKeys = Object.keys(currentReaction);
+
+    if (targetKeys.length !== currentKeys.length) isCorrect = false;
+    else {
+        for (let key of targetKeys) {
+            if (target[key] !== currentReaction[key]) { isCorrect = false; break; }
+        }
+    }
+
+    if (isCorrect) {
+        showBioMessage('¡Síntesis Exitosa!', 'success');
+        setTimeout(() => { currentG1Level++; loadG1Level(); }, 1000);
+    } else {
+        if(Object.keys(currentReaction).length === 0) showBioMessage('Agrega elementos a la zona.', 'error');
+        else showBioMessage('Fórmula incorrecta. Revisa las proporciones.', 'error');
+    }
+};
+
+/* --- JUEGO 2: EL CAMINO DE LA ENERGÍA --- */
+const pathwayStory = {
+    start: {
+        text: "Tienes una molécula de Glucosa (6C) en el citoplasma. ¿Qué proceso inicia su degradación?",
+        options: [
+            { text: "Ciclo de Krebs", next: "fail_krebs", isCorrect: false },
+            { text: "Glucólisis", next: "step2_pyruvate", isCorrect: true, addNode: {title: "Glucólisis", desc: "Produce 2 ATP y 2 NADH"} }
+        ]
+    },
+    step2_pyruvate: {
+        text: "La Glucólisis ha dividido la glucosa. ¿Cuál es el producto final de esta vía?",
+        options: [
+            { text: "Ácido Láctico", next: "fail_lactic", isCorrect: false },
+            { text: "Piruvato", next: "step3_oxygen_check", isCorrect: true, addNode: {title: "2 Piruvatos (3C)", desc: "Listos para el siguiente paso"} }
+        ]
+    },
+    step3_oxygen_check: {
+        text: "Tienes Piruvato. El camino depende de un elemento crucial. ¿Hay oxígeno disponible en la célula?",
+        options: [
+            { text: "Sí (Aerobio)", next: "step4_aerobic", isCorrect: true, style: "bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-300" },
+            { text: "No (Anaerobio)", next: "step4_anaerobic", isCorrect: true, style: "bg-red-100 hover:bg-red-200 text-red-800 border-red-300" }
+        ]
+    },
+    step4_aerobic: {
+        text: "Hay oxígeno. El piruvato ingresa a la mitocondria y pierde un carbono. ¿En qué se convierte?",
+        options: [
+            { text: "Citrato", next: "fail_citrate", isCorrect: false },
+            { text: "Acetil-CoA", next: "step5_krebs", isCorrect: true, addNode: {title: "Acetil-CoA (2C)", desc: "Libera CO2 en la matriz"} }
+        ]
+    },
+    step5_krebs: {
+        text: "El Acetil-CoA entra al Ciclo de Krebs. ¿Cuál es su principal propósito funcional?",
+        options: [
+            { text: "Producir toneladas de ATP", next: "fail_atp", isCorrect: false },
+            { text: "Generar transportadores (NADH, FADH2)", next: "step6_etc", isCorrect: true, addNode: {title: "Ciclo de Krebs", desc: "Produce NADH y FADH2"} }
+        ]
+    },
+    step6_etc: {
+        text: "Los NADH/FADH2 llevan electrones a la cadena. ¿Quién es el aceptor FINAL de electrones?",
+        options: [
+            { text: "Oxígeno (O2)", next: "win_aerobic", isCorrect: true, addNode: {title: "Fosforilación Oxidativa", desc: "Gran producción de ATP"} },
+            { text: "Dióxido de Carbono (CO2)", next: "fail_co2", isCorrect: false }
+        ]
+    },
+    step4_anaerobic: {
+        text: "No hay oxígeno. La célula necesita reciclar el NAD+. ¿Qué proceso realiza (en músculo humano)?",
+        options: [
+            { text: "Fermentación Láctica", next: "win_anaerobic", isCorrect: true, addNode: {title: "Fermentación Láctica", desc: "Produce Láctico, recicla NAD+"} },
+            { text: "Fermentación Alcohólica", next: "fail_alcohol", isCorrect: false }
+        ]
+    },
+    fail_krebs: { error: true, text: "Error metabólico: La glucólisis siempre es el primer paso." },
+    fail_lactic: { error: true, text: "El ácido láctico solo se forma sin oxígeno, después del piruvato." },
+    fail_citrate: { error: true, text: "El piruvato debe convertirse en Acetil-CoA primero." },
+    fail_atp: { error: true, text: "El ciclo de Krebs extrae electrones, casi no produce ATP directo." },
+    fail_co2: { error: true, text: "Sin oxígeno, la cadena de transporte colapsa." },
+    fail_alcohol: { error: true, text: "Los humanos realizan fermentación láctica, no alcohólica." },
+    win_aerobic: { win: true, type: "aerobic", text: "Has completado la ruta eficiente, generando máximo ATP." },
+    win_anaerobic: { win: true, type: "anaerobic", text: "Sobreviviste sin oxígeno produciendo ácido láctico." }
+};
+
+window.startGame2 = function() {
+    hideAllBio();
+    document.getElementById('game2-container').classList.remove('hidden');
+    document.getElementById('game2-container').classList.add('flex');
+    document.getElementById('g2-end-modal').classList.add('hidden');
+    document.getElementById('g2-end-modal').classList.remove('flex');
+    document.getElementById('g2-history').innerHTML = '';
+    updateG2Progress(10);
+    loadG2Step('start');
+};
+
+function loadG2Step(stepId) {
+    const stepData = pathwayStory[stepId];
+    if (stepData.error) { endG2Game(false, stepData.text); return; }
+    if (stepData.win) { endG2Game(true, stepData.text, stepData.type); return; }
+
+    document.getElementById('g2-question-title').textContent = stepData.text;
+    const optionsContainer = document.getElementById('g2-options');
+    optionsContainer.innerHTML = '';
+
+    stepData.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        const defaultStyle = "bg-white/50 backdrop-blur-sm border border-slate-300 hover:bg-green-50 text-[var(--black-color)] hover:border-green-400";
+        btn.className = `bio-pathway-option w-full p-4 rounded-[15px] font-bold text-left shadow-sm ${opt.style || defaultStyle}`;
+        btn.textContent = opt.text;
+        btn.onclick = () => handleG2Option(opt);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function handleG2Option(option) {
+    if (!option.isCorrect) {
+        showBioMessage("Decisión incorrecta metabólicamente.", "error");
+        loadG2Step(option.next);
+        return;
+    }
+    if (option.addNode) addG2HistoryNode(option.addNode.title, option.addNode.desc);
+    
+    let currentProg = parseInt(document.getElementById('g2-progress-bar').style.width) || 10;
+    updateG2Progress(Math.min(currentProg + 20, 100));
+    loadG2Step(option.next);
+}
+
+function addG2HistoryNode(title, desc) {
+    const historyContainer = document.getElementById('g2-history');
+    const nodeDiv = document.createElement('div');
+    nodeDiv.className = 'w-full flex flex-col items-center animate-fade-in';
+    nodeDiv.innerHTML = `
+        <div class="bio-connection-arrow"></div>
+        <div class="bio-pathway-node completed-node w-64">
+            <h3 class="font-bold text-lg text-slate-800 dark:text-white">${title}</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">${desc}</p>
+        </div>
+    `;
+    historyContainer.appendChild(nodeDiv);
+}
+
+function updateG2Progress(percent) {
+    document.getElementById('g2-progress-bar').style.width = `${percent}%`;
+}
+
+function endG2Game(isWin, message, type = null) {
+    const modal = document.getElementById('g2-end-modal');
+    const icon = document.getElementById('g2-end-icon');
+    const title = document.getElementById('g2-end-title');
+    const msg = document.getElementById('g2-end-msg');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    if (isWin) {
+        updateG2Progress(100);
+        title.textContent = "¡Ruta Completada!";
+        title.className = "text-4xl font-black mb-3 text-green-600";
+        msg.textContent = message;
+        icon.textContent = type === 'aerobic' ? "bolt" : "water_drop";
+        icon.className = `material-symbols-outlined text-[80px] mb-4 ${type === 'aerobic' ? 'text-yellow-500' : 'text-blue-500'}`;
+        triggerGameEffect('win');
+    } else {
+        title.textContent = "Fallo Metabólico";
+        title.className = "text-4xl font-black mb-3 text-red-500";
+        msg.textContent = message;
+        icon.textContent = "skull";
+        icon.className = "material-symbols-outlined text-[80px] mb-4 text-red-500";
+        triggerGameEffect('lose');
+    }
+}
+
+/* --- JUEGO 3: DETECTIVE METABÓLICO --- */
+const g3Cases = [
+    {
+        patient: "Ana S., 12 años",
+        symptoms: "Fatiga extrema, sed constante, pérdida de peso, aliento con olor frutal.",
+        labs: ["Glucosa en sangre: 350 mg/dL (Alto)", "Cuerpos cetónicos: Positivo", "pH sanguíneo: 7.2 (Bajo)"],
+        options: [
+            { name: "Diabetes Mellitus Tipo 1", correct: true },
+            { name: "Hipoglucemia Severa", correct: false, feedback: "La glucosa está muy alta, no baja." },
+            { name: "Intolerancia a la Lactosa", correct: false, feedback: "No explica la hiperglucemia ni la cetosis." }
+        ],
+        explanation: "Falta de insulina. El cuerpo usa grasas, generando cuerpos cetónicos que acidifican la sangre."
+    },
+    {
+        patient: "Carlos M., Neonato",
+        symptoms: "Letargo, vómitos, olor a 'ratón' en orina.",
+        labs: ["Fenilalanina en sangre: > 20 mg/dL (Alto)", "Niveles de Tirosina: Bajos"],
+        options: [
+            { name: "Galactosemia", correct: false, feedback: "Afectaría metabolismo de galactosa." },
+            { name: "Fenilcetonuria (PKU)", correct: true },
+            { name: "Diabetes Tipo 2", correct: false, feedback: "Rara en neonatos." }
+        ],
+        explanation: "Deficiencia de fenilalanina hidroxilasa. Requiere dieta estricta."
+    }
+];
+
+let currentG3CaseIndex = 0;
+
+window.startGame3 = function() {
+    hideAllBio();
+    document.getElementById('game3-container').classList.remove('hidden');
+    document.getElementById('game3-container').classList.add('flex');
+    document.getElementById('g3-end-modal').classList.add('hidden');
+    currentG3CaseIndex = 0;
+    loadG3Case();
+};
+
+function loadG3Case() {
+    if (currentG3CaseIndex >= g3Cases.length) {
+        document.getElementById('g3-end-modal').classList.remove('hidden');
+        document.getElementById('g3-end-modal').classList.add('flex');
+        triggerGameEffect('win');
+        return;
+    }
+
+    const currentCase = g3Cases[currentG3CaseIndex];
+    document.getElementById('g3-patient-name').textContent = `Paciente: ${currentCase.patient}`;
+    document.getElementById('g3-symptoms').textContent = `Síntomas: ${currentCase.symptoms}`;
+    
+    const labsList = document.getElementById('g3-lab-results');
+    labsList.innerHTML = '';
+    currentCase.labs.forEach(lab => {
+        const li = document.createElement('li');
+        li.textContent = lab;
+        labsList.appendChild(li);
+    });
+
+    const diagnosesContainer = document.getElementById('g3-diagnoses');
+    diagnosesContainer.innerHTML = '';
+    
+    currentCase.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = "bio-diagnosis-btn bg-white/60 p-4 rounded-[20px] text-left font-bold text-slate-700 shadow-sm w-full";
+        btn.textContent = opt.name;
+        btn.onclick = () => checkDiagnosisG3(opt, btn);
+        diagnosesContainer.appendChild(btn);
+    });
+
+    document.getElementById('g3-feedback').classList.add('hidden');
+    document.getElementById('g3-next-btn').classList.add('hidden');
+}
+
+function checkDiagnosisG3(option, btn) {
+    const buttons = document.getElementById('g3-diagnoses').querySelectorAll('button');
+    buttons.forEach(b => b.disabled = true);
+    const feedbackDiv = document.getElementById('g3-feedback');
+    feedbackDiv.classList.remove('hidden');
+
+    if (option.correct) {
+        btn.classList.add('bg-green-100', 'border-green-400', 'text-green-800');
+        feedbackDiv.className = 'mt-6 p-4 rounded-2xl font-bold text-center bg-green-100 text-green-800 border border-green-400 shadow-sm';
+        feedbackDiv.innerHTML = `¡Diagnóstico Correcto!<br><span class="font-medium text-sm block mt-2 opacity-80">${g3Cases[currentG3CaseIndex].explanation}</span>`;
+        document.getElementById('g3-next-btn').classList.remove('hidden');
+    } else {
+        btn.classList.add('bg-red-100', 'border-red-400', 'text-red-800');
+        feedbackDiv.className = 'mt-6 p-4 rounded-2xl font-bold text-center bg-red-100 text-red-800 border border-red-400 shadow-sm';
+        feedbackDiv.innerHTML = `Incorrecto.<br><span class="font-medium text-sm block mt-2 opacity-80">${option.feedback}</span>`;
+        
+        setTimeout(() => {
+            feedbackDiv.classList.add('hidden');
+            btn.classList.remove('bg-red-100', 'border-red-400', 'text-red-800');
+            buttons.forEach(b => b.disabled = false);
+        }, 2500);
+    }
+}
+
+window.nextCaseG3 = function() {
+    currentG3CaseIndex++;
+    loadG3Case();
+};
+
+/* --- JUEGO 4: RUTAS METABÓLICAS (CONEXIÓN) --- */
+const g4Pathways = [
+    {
+        name: "Glucólisis (Preparatoria)",
+        sequence: ["Glucosa", "Glucosa-6-P", "Fructosa-6-P", "Fructosa-1,6-biP"]
+    }
+];
+
+let currentG4PathwayIndex = 0;
+let expectedIndexG4 = 0;
+
+window.startGame4 = function() {
+    hideAllBio();
+    document.getElementById('game4-container').classList.remove('hidden');
+    document.getElementById('game4-container').classList.add('flex');
+    document.getElementById('g4-end-modal').classList.add('hidden');
+    currentG4PathwayIndex = 0;
+    loadG4Pathway();
+};
+
+function loadG4Pathway() {
+    if (currentG4PathwayIndex >= g4Pathways.length) {
+        document.getElementById('g4-end-modal').classList.remove('hidden');
+        document.getElementById('g4-end-modal').classList.add('flex');
+        document.getElementById('g4-end-msg').textContent = "¡Dominaste las rutas metabólicas!";
+        document.getElementById('g4-next-btn-modal').classList.add('hidden');
+        triggerGameEffect('win');
+        return;
+    }
+
+    expectedIndexG4 = 0;
+    const currentPathway = g4Pathways[currentG4PathwayIndex];
+    document.getElementById('g4-pathway-name').textContent = currentPathway.name;
+    document.getElementById('g4-ordered-list').innerHTML = '';
+    
+    const bankContainer = document.getElementById('g4-bank');
+    bankContainer.innerHTML = '';
+
+    let shuffled = [...currentPathway.sequence].sort(() => Math.random() - 0.5);
+
+    shuffled.forEach(metabolite => {
+        const btn = document.createElement('button');
+        btn.className = "bio-metabolite-btn px-5 py-2.5 bg-white/70 border border-white/80 rounded-full shadow-sm text-[0.95rem] font-bold text-slate-700 hover:bg-white";
+        btn.textContent = metabolite;
+        btn.onclick = () => selectMetaboliteG4(metabolite, btn);
+        bankContainer.appendChild(btn);
+    });
+}
+
+function selectMetaboliteG4(metaboliteName, btn) {
+    if (btn.classList.contains('correct')) return; 
+
+    const currentPathway = g4Pathways[currentG4PathwayIndex];
+    const expectedMetabolite = currentPathway.sequence[expectedIndexG4];
+
+    if (metaboliteName === expectedMetabolite) {
+        btn.classList.add('correct');
+        btn.disabled = true;
+
+        const list = document.getElementById('g4-ordered-list');
+        if (expectedIndexG4 > 0) {
+            const arrow = document.createElement('div');
+            arrow.className = 'text-white font-bold my-1 flex items-center justify-center w-8 h-8 rounded-full bg-white/20 border border-white/40 shadow-sm';
+            arrow.innerHTML = '↓';
+            list.appendChild(arrow);
+        }
+
+        const node = document.createElement('div');
+        node.className = 'w-full max-w-xs bg-white/80 border border-white text-slate-800 font-bold p-3.5 rounded-[20px] text-center shadow-md animate-fade-in';
+        node.textContent = metaboliteName;
+        list.appendChild(node);
+
+        expectedIndexG4++;
+        if (expectedIndexG4 === currentPathway.sequence.length) {
+            setTimeout(() => {
+                document.getElementById('g4-end-modal').classList.remove('hidden');
+                document.getElementById('g4-end-modal').classList.add('flex');
+                triggerGameEffect('win');
+            }, 500);
+        }
+    } else {
+        btn.classList.add('incorrect');
+        setTimeout(() => btn.classList.remove('incorrect'), 500);
+    }
+}
+
+window.resetPathwayG4 = function() { loadG4Pathway(); };
+window.nextPathwayG4 = function() {
+    document.getElementById('g4-end-modal').classList.add('hidden');
+    currentG4PathwayIndex++;
+    loadG4Pathway();
+};
+
+/* --- JUEGO 5: SIMULADOR DE HOMEOSTASIS --- */
+let g5Interval, g5TimerInterval;
+let g5TimeElapsed = 0;
+let g5IsPlaying = false;
+
+let parameters = {
+    glucose: { val: 90, min: 20, max: 200, drift: 0 },
+    ph: { val: 7.4, min: 7.0, max: 7.8, drift: 0 },
+    o2: { val: 98, min: 50, max: 100, drift: 0 }
+};
+
+const g5Events = [
+    { text: "El paciente comió pastel (alto en carbohidratos).", effect: () => parameters.glucose.drift = 2.5 },
+    { text: "El paciente está hiperventilando (pánico).", effect: () => { parameters.ph.drift = 0.02; parameters.o2.drift = 0.5; } },
+    { text: "Ataque de asma severo.", effect: () => parameters.o2.drift = -3 }
+];
+
+window.startGame5 = function() {
+    hideAllBio();
+    document.getElementById('game5-container').classList.remove('hidden');
+    document.getElementById('game5-container').classList.add('flex');
+    document.getElementById('g5-end-modal').classList.add('hidden');
+    
+    parameters.glucose = { val: 90, min: 20, max: 200, drift: -0.1 }; 
+    parameters.ph = { val: 7.4, min: 7.0, max: 7.8, drift: 0 };
+    parameters.o2 = { val: 98, min: 50, max: 100, drift: -0.2 };
+
+    g5TimeElapsed = 0;
+    updateG5UI();
+    document.getElementById('g5-event-text').textContent = "Paciente estable.";
+    
+    g5IsPlaying = true;
+    g5Interval = setInterval(game5Loop, 1000);
+    
+    g5TimerInterval = setInterval(() => {
+        if(g5IsPlaying) {
+            g5TimeElapsed++;
+            const mins = Math.floor(g5TimeElapsed / 60).toString().padStart(2, '0');
+            const secs = (g5TimeElapsed % 60).toString().padStart(2, '0');
+            document.getElementById('g5-timer').textContent = `Tiempo: ${mins}:${secs}`;
+        }
+    }, 1000);
+
+    setTimeout(triggerRandomEventG5, 5000);
+};
+
+window.stopGame5 = function() {
+    g5IsPlaying = false;
+    clearInterval(g5Interval);
+    clearInterval(g5TimerInterval);
+};
+
+function triggerRandomEventG5() {
+    if (!g5IsPlaying) return;
+    
+    parameters.glucose.drift = -0.2;
+    parameters.ph.drift = 0;
+    parameters.o2.drift = -0.1;
+
+    const ev = g5Events[Math.floor(Math.random() * g5Events.length)];
+    document.getElementById('g5-event-text').textContent = ev.text;
+    
+    ev.effect();
+    setTimeout(triggerRandomEventG5, 10000 + Math.random() * 10000);
+}
+
+function game5Loop() {
+    if (!g5IsPlaying) return;
+    parameters.glucose.val += parameters.glucose.drift;
+    parameters.ph.val += parameters.ph.drift;
+    parameters.o2.val += parameters.o2.drift;
+
+    parameters.glucose.val = Math.max(parameters.glucose.min, Math.min(parameters.glucose.max, parameters.glucose.val));
+    parameters.ph.val = Math.max(parameters.ph.min, Math.min(parameters.ph.max, parameters.ph.val));
+    parameters.o2.val = Math.max(parameters.o2.min, Math.min(parameters.o2.max, parameters.o2.val));
+
+    updateG5UI();
+    checkG5Defeat();
+}
+
+function updateG5UI() {
+    const gVal = parameters.glucose.val;
+    document.getElementById('g5-val-glucose').textContent = `${Math.round(gVal)}`;
+    document.getElementById('g5-bar-glucose').style.width = `${(gVal / parameters.glucose.max) * 100}%`;
+    setBarColor(document.getElementById('g5-bar-glucose'), gVal, 70, 140);
+
+    const pVal = parameters.ph.val;
+    document.getElementById('g5-val-ph').textContent = pVal.toFixed(2);
+    document.getElementById('g5-bar-ph').style.width = `${((pVal - 7.0) / 0.8) * 100}%`;
+    setBarColor(document.getElementById('g5-bar-ph'), pVal, 7.35, 7.45);
+
+    const oVal = parameters.o2.val;
+    document.getElementById('g5-val-o2').textContent = `${Math.round(oVal)}%`;
+    document.getElementById('g5-bar-o2').style.width = `${((oVal - 50) / 50) * 100}%`;
+    setBarColor(document.getElementById('g5-bar-o2'), oVal, 90, 100);
+}
+
+function setBarColor(bar, val, min, max) {
+    bar.className = 'bio-meter-fill'; 
+    if (val < min || val > max) bar.classList.add(val < min - (min*0.1) || val > max + (max*0.1) ? 'bg-red-500' : 'bg-yellow-500');
+    else bar.classList.add('bg-green-500');
+}
+
+window.applyTreatmentG5 = function(type) {
+    if (!g5IsPlaying) return;
+    if(type === 'insulina') { parameters.glucose.val -= 15; parameters.glucose.drift = -1.5; }
+    if(type === 'glucagon') { parameters.glucose.val += 20; parameters.glucose.drift = 1; }
+    if(type === 'bicarbonato') { parameters.ph.val += 0.05; parameters.ph.drift = 0.01; }
+    if(type === 'oxigeno') { parameters.o2.val += 10; parameters.o2.drift = 1; }
+    updateG5UI();
+};
+
+function checkG5Defeat() {
+    if (parameters.glucose.val <= parameters.glucose.min || parameters.glucose.val >= parameters.glucose.max ||
+        parameters.ph.val <= parameters.ph.min || parameters.ph.val >= parameters.ph.max ||
+        parameters.o2.val <= parameters.o2.min) {
+        
+        stopGame5();
+        triggerGameEffect('lose');
+        const modal = document.getElementById('g5-end-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        
+        const mins = Math.floor(g5TimeElapsed / 60).toString().padStart(2, '0');
+        const secs = (g5TimeElapsed % 60).toString().padStart(2, '0');
+        document.getElementById('g5-end-time').textContent = `${mins}:${secs}`;
+        document.getElementById('g5-end-msg').textContent = "Pérdida crítica de homeostasis.";
+    }
+}
+
+window.triggerGameEffect = function(type) {
+    const effectClass = type === 'win' ? 'body-win-effect' : 'body-lose-effect';
+    
+    document.body.classList.remove('body-win-effect', 'body-lose-effect');
+    
+    void document.body.offsetWidth;
+    
+    document.body.classList.add(effectClass);
+    
+    setTimeout(() => {
+        document.body.classList.remove(effectClass);
+    }, 5000);
+};
+
 /* ---------------------------------------------------- Tarjetas de Preguntas Dinámicas ------------------------------------------------ */
 
 const PREGUNTAS_DATA = [

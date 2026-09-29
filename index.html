@@ -316,6 +316,323 @@
 
         </div>
     </section>
+    <!-- Bioquímica -->
+    <section class="Bioquimica py-12" id="Bioquimica">
+        <div class="max-w-5xl mx-auto p-4 md:p-6 transition-colors duration-500 relative">
+            
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-[var(--black-color)] mb-10 mt-4 transition-colors duration-500">
+                Bioquímica Interactiva
+            </h2>
+
+            <!-- Caja de mensajes flotante para los juegos -->
+            <div id="bio-message-box" class="bio-msg-box hidden">Mensaje</div>
+
+            <!-- Botón para regresar al menú de juegos (oculto por defecto) -->
+            <button id="btn-back-bio-menu" class="hidden mb-6 px-6 py-2 rounded-full bg-white/40 backdrop-blur-md border border-white/50 text-[var(--black-color)] font-bold flex items-center gap-2 hover:bg-white/60 transition-all shadow-sm" onclick="showBioMainMenu()">
+                <span class="material-symbols-outlined">arrow_back</span> Menú de Juegos
+            </button>
+
+            <!-- MENÚ PRINCIPAL DE BIOQUÍMICA (Asymmetric Grid) -->
+            <div id="bio-main-menu" class="bio-grid-container mt-6">
+                
+                <!-- Tarjeta Juego 1 -->
+                <div onclick="startGame1()" class="bio-grid-card area-juego1 group" style="background-color: var(--card-blue-color);">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-50 pointer-events-none"></div>
+                    <span class="material-symbols-outlined text-[4rem] md:text-[5rem] text-[#3b82f6] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">science</span>
+                    <h3 class="text-xl md:text-3xl font-bold text-[var(--black-color)] text-center mt-2">Constructor de Compuestos</h3>
+                    <p class="hidden md:block text-center text-[var(--black-color)] opacity-75 font-medium text-sm px-4 mt-2">Une elementos (C, H, O, N) para formar moléculas básicas.</p>
+                </div>
+
+                <!-- Tarjeta Juego 2 -->
+                <div onclick="startGame2()" class="bio-grid-card area-juego2 group" style="background-color: var(--card-green-color);">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent opacity-50 pointer-events-none"></div>
+                    <span class="material-symbols-outlined text-[2.5rem] md:text-[3rem] text-[#10b981] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12">bolt</span>
+                    <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)] text-center">Camino de la Energía</h3>
+                </div>
+
+                <!-- Tarjeta Juego 3 -->
+                <div onclick="startGame3()" class="bio-grid-card area-juego3 group" style="background-color: var(--card-pick-color);">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent opacity-50 pointer-events-none"></div>
+                    <span class="material-symbols-outlined text-[2.5rem] md:text-[3rem] text-[#d946ef] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">search</span>
+                    <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)] text-center">Detective Metabólico</h3>
+                </div>
+
+                <!-- Tarjeta Juego 4 -->
+                <div onclick="startGame4()" class="bio-grid-card area-juego4 group" style="background-color: var(--card-yellow-color);">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent opacity-50 pointer-events-none"></div>
+                    <span class="material-symbols-outlined text-[2.5rem] md:text-[3rem] text-[#eab308] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-12">route</span>
+                    <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)] text-center">Conecta la Ruta</h3>
+                </div>
+
+                <!-- Tarjeta Juego 5 -->
+                <div onclick="startGame5()" class="bio-grid-card area-juego5 group" style="background-color: var(--card-brown-color);">
+                    <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent opacity-50 pointer-events-none"></div>
+                    <span class="material-symbols-outlined text-[5rem] md:text-[7rem] text-[#ef4444] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">monitor_heart</span>
+                    <h3 class="text-2xl md:text-4xl font-bold text-[var(--black-color)] text-center mt-4">Simulador de<br>Homeostasis</h3>
+                    <p class="hidden md:block text-center text-[var(--black-color)] opacity-75 font-medium text-[0.95rem] px-8 mt-4">Aplica tratamientos y mantén los parámetros vitales del paciente dentro de la zona segura.</p>
+                </div>
+            </div>
+
+            <!-- JUEGO 1: CONSTRUCTOR -->
+            <div id="game1-container" class="hidden android-glass-card rounded-[40px] p-6 md:p-10 relative overflow-hidden transition-all duration-500">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--black-color)]">Constructor de Compuestos</h2>
+                    <p class="text-[var(--black-color)] opacity-70 font-medium mt-2">Arrastra los elementos a la zona de reacción para crear la molécula objetivo.</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between items-center bg-white/30 backdrop-blur-sm p-5 rounded-[25px] mb-8 border border-white/40 shadow-sm">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-600">Objetivo Actual:</span>
+                        <h3 id="g1-target-name" class="text-2xl font-black text-[var(--black-color)]">Agua</h3>
+                        <p id="g1-target-formula" class="text-lg text-[var(--black-color)] opacity-80 font-mono font-semibold">H₂O</p>
+                    </div>
+                    <div class="text-right mt-4 md:mt-0">
+                        <span class="text-xs font-bold uppercase tracking-widest text-[var(--black-color)] opacity-60">Nivel</span>
+                        <div id="g1-level" class="text-2xl font-black text-[var(--black-color)]">1 / 5</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Elementos -->
+                    <div class="bg-white/20 backdrop-blur-md p-6 rounded-[30px] border border-white/40 flex flex-col items-center shadow-inner">
+                        <h4 class="font-bold text-[var(--black-color)] mb-6">Elementos</h4>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <div class="element-draggable bg-[#374151]" draggable="true" data-element="C">C</div>
+                            <div class="element-draggable bg-[#ef4444]" draggable="true" data-element="H">H</div>
+                            <div class="element-draggable bg-[#3b82f6]" draggable="true" data-element="O">O</div>
+                            <div class="element-draggable bg-[#10b981]" draggable="true" data-element="N">N</div>
+                        </div>
+                    </div>
+
+                    <!-- Zona de Reacción -->
+                    <div class="md:col-span-2 flex flex-col">
+                        <h4 class="font-bold text-[var(--black-color)] mb-3 ml-2">Zona de Reacción</h4>
+                        <div id="reaction-zone" class="bio-drop-zone flex-grow relative bg-white/10 backdrop-blur-sm">
+                            <span id="drop-placeholder" class="text-[var(--black-color)] opacity-50 font-medium absolute select-none pointer-events-none text-center px-4">Arrastra elementos aquí</span>
+                        </div>
+                        <div class="mt-6 flex justify-between gap-4">
+                            <button onclick="clearReactionZone()" class="flex-1 py-3 rounded-full bg-rose-100 text-rose-600 font-bold hover:bg-rose-200 transition-colors shadow-sm">Limpiar</button>
+                            <button onclick="checkCompound()" class="flex-[2] py-3 rounded-full bg-blue-500 text-white font-bold hover:bg-blue-600 transition-all shadow-md hover:shadow-lg">¡Sintetizar!</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Victoria J1 -->
+                <div id="g1-victory" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center z-30 p-6 rounded-[40px] text-center border border-white/50">
+                    <span class="material-symbols-outlined text-[80px] text-yellow-500 mb-4 animate-bounce">emoji_events</span>
+                    <h2 class="text-3xl font-black text-[var(--black-color)] mb-2">¡Sintetizador Maestro!</h2>
+                    <p class="text-[var(--black-color)] opacity-75 font-medium mb-8 max-w-md">Has completado con éxito todos los compuestos biológicos básicos.</p>
+                    <button onclick="startGame1()" class="px-8 py-4 bg-blue-500 text-white rounded-full font-bold shadow-lg hover:bg-blue-600 transition-all hover:scale-105">Jugar de Nuevo</button>
+                </div>
+            </div>
+
+            <!-- JUEGO 2: ENERGÍA -->
+            <div id="game2-container" class="hidden android-glass-card rounded-[40px] p-6 md:p-10 relative overflow-hidden transition-all duration-500 min-h-[600px] flex-col">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--black-color)]">El Camino de la Energía</h2>
+                    <p class="text-[var(--black-color)] opacity-70 font-medium mt-2">Guía a la molécula tomando las decisiones metabólicas correctas.</p>
+                </div>
+
+                <div class="w-full bg-black/5 rounded-full h-3 mb-8 border border-white/20 shadow-inner overflow-hidden">
+                    <div id="g2-progress-bar" class="bg-green-500 h-full rounded-full transition-all duration-700 ease-out" style="width: 10%"></div>
+                </div>
+
+                <div id="metabolic-pathway" class="flex-grow flex flex-col items-center justify-start w-full bg-white/20 backdrop-blur-md rounded-[30px] p-6 border border-white/40 relative overflow-y-auto no-scrollbar shadow-inner">
+                    
+                    <div class="bio-pathway-node completed-node w-64">
+                        <h3 class="font-bold text-lg text-slate-800">Glucosa (6C)</h3>
+                        <p class="text-xs text-slate-600 font-medium mt-1">En el citoplasma</p>
+                    </div>
+                    
+                    <div class="bio-connection-arrow animate-fade-in"></div>
+
+                    <div id="g2-question-container" class="w-full max-w-2xl bg-white/70 backdrop-blur-lg p-6 rounded-[25px] shadow-sm border border-green-400/50 my-4 animate-fade-in">
+                        <h3 id="g2-question-title" class="text-xl font-extrabold text-[var(--black-color)] mb-5 text-center leading-snug"></h3>
+                        <div id="g2-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Botones inyectados por JS -->
+                        </div>
+                    </div>
+
+                    <div id="g2-history" class="w-full flex flex-col items-center"></div>
+                </div>
+
+                <!-- Modal Final J2 -->
+                <div id="g2-end-modal" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center z-30 p-8 rounded-[40px] text-center border border-white/50">
+                    <span id="g2-end-icon" class="material-symbols-outlined text-[80px] mb-4"></span>
+                    <h2 id="g2-end-title" class="text-4xl font-black mb-3"></h2>
+                    <p id="g2-end-msg" class="text-lg text-[var(--black-color)] opacity-80 font-medium mb-10 max-w-lg"></p>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <button onclick="startGame2()" class="px-8 py-4 bg-green-500 text-white rounded-full font-bold shadow-lg hover:bg-green-600 transition-all hover:scale-105">Reiniciar Ruta</button>
+                        <button onclick="showBioMainMenu()" class="px-8 py-4 bg-white/50 border border-white/60 text-[var(--black-color)] rounded-full font-bold shadow-sm hover:bg-white/80 transition-all hover:scale-105">Menú Principal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUEGO 3: DETECTIVE METABÓLICO -->
+            <div id="game3-container" class="hidden android-glass-card rounded-[40px] p-6 md:p-10 relative overflow-hidden transition-all duration-500 flex-col min-h-[600px]">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--black-color)]">Detective Metabólico</h2>
+                    <p class="text-[var(--black-color)] opacity-70 font-medium mt-2">Revisa el expediente y los análisis para diagnosticar al paciente.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Expediente -->
+                    <div class="bg-white/40 backdrop-blur-md p-6 rounded-[30px] border border-white/50 shadow-sm relative flex flex-col justify-between">
+                        <div class="absolute -top-4 left-6 bg-[#d946ef] text-white font-bold px-4 py-1.5 rounded-full text-xs shadow-md tracking-widest uppercase">EXPEDIENTE CLÍNICO</div>
+                        <div class="mt-4 flex-grow">
+                            <h3 id="g3-patient-name" class="text-xl font-bold text-[var(--black-color)] border-b border-white/40 pb-3 mb-4">Paciente: ---</h3>
+                            <p id="g3-symptoms" class="text-[var(--black-color)] opacity-90 mb-6 italic leading-relaxed">Síntomas: ---</p>
+                            
+                            <div class="bg-white/50 p-4 rounded-2xl border border-white/60">
+                                <h4 class="font-bold text-[var(--black-color)] mb-2">Análisis de Laboratorio:</h4>
+                                <ul id="g3-lab-results" class="list-disc pl-5 text-[var(--black-color)] opacity-80 font-medium space-y-2 text-sm"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnóstico -->
+                    <div class="flex flex-col">
+                        <h3 class="text-lg font-bold text-[var(--black-color)] mb-4 text-center uppercase tracking-wide opacity-80">Selecciona un Diagnóstico</h3>
+                        <div id="g3-diagnoses" class="grid grid-cols-1 gap-3 flex-grow content-start"></div>
+                        
+                        <div id="g3-feedback" class="hidden mt-6 p-4 rounded-2xl font-bold text-center transition-all shadow-sm"></div>
+                        
+                        <button id="g3-next-btn" onclick="nextCaseG3()" class="hidden mt-6 bg-[#d946ef] hover:bg-[#c026d3] text-white font-bold py-3 px-8 rounded-full shadow-md transition mx-auto hover:scale-105">Siguiente Caso</button>
+                    </div>
+                </div>
+
+                <!-- Modal Fin J3 -->
+                <div id="g3-end-modal" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center z-30 p-8 rounded-[40px] text-center border border-white/50">
+                    <span class="material-symbols-outlined text-[80px] text-[#d946ef] mb-4">clinical_notes</span>
+                    <h2 class="text-4xl font-black mb-2 text-[var(--black-color)]">¡Diagnóstico Completado!</h2>
+                    <p class="text-lg text-[var(--black-color)] opacity-80 font-medium mb-8 max-w-lg">Has evaluado correctamente todos los expedientes clínicos.</p>
+                    <button onclick="showBioMainMenu()" class="px-8 py-4 bg-[#d946ef] text-white rounded-full font-bold shadow-lg hover:bg-[#c026d3] transition-all hover:scale-105">Volver al Menú</button>
+                </div>
+            </div>
+
+            <!-- JUEGO 4: RUTAS METABÓLICAS (CONEXIÓN) -->
+            <div id="game4-container" class="hidden android-glass-card rounded-[40px] p-6 md:p-10 relative overflow-hidden transition-all duration-500 flex-col min-h-[600px]">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--black-color)]">Conecta la Ruta</h2>
+                    <p class="text-[var(--black-color)] opacity-70 font-medium mt-2">Ordena los metabolitos en la secuencia enzimática correcta.</p>
+                    <h3 id="g4-pathway-name" class="text-xl font-black text-[#eab308] mt-4 tracking-wide bg-[#fef9c3]/50 inline-block px-6 py-2 rounded-full border border-[#fef08a]">Vía: ---</h3>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6 flex-grow">
+                    <!-- Ruta Activa -->
+                    <div class="flex-1 bg-white/20 backdrop-blur-md p-6 rounded-[30px] border-2 border-dashed border-white/50 flex flex-col items-center overflow-y-auto no-scrollbar shadow-inner">
+                        <h4 class="font-bold text-[var(--black-color)] opacity-60 mb-6 uppercase tracking-widest text-sm">Ruta Ensamblada</h4>
+                        <div id="g4-ordered-list" class="flex flex-col items-center w-full gap-2"></div>
+                    </div>
+
+                    <!-- Banco de Metabolitos -->
+                    <div class="flex-[1.2] flex flex-col justify-between">
+                        <div class="bg-white/40 p-6 rounded-[30px] border border-white/50 shadow-sm min-h-[250px]">
+                            <h4 class="font-bold text-[var(--black-color)] mb-6 text-center">Metabolitos Disponibles</h4>
+                            <div id="g4-bank" class="flex flex-wrap justify-center gap-3"></div>
+                        </div>
+                        <div class="mt-6 flex justify-center">
+                            <button onclick="resetPathwayG4()" class="px-6 py-3 bg-white/50 border border-white/60 text-[var(--black-color)] rounded-full font-bold shadow-sm hover:bg-white/80 transition-all hover:scale-105">Reiniciar Secuencia</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Fin J4 -->
+                <div id="g4-end-modal" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center z-30 p-8 rounded-[40px] text-center border border-white/50">
+                    <span class="material-symbols-outlined text-[80px] text-[#eab308] mb-4">task_alt</span>
+                    <h2 class="text-4xl font-black mb-2 text-[var(--black-color)]">¡Vía Ensamblada!</h2>
+                    <p id="g4-end-msg" class="text-lg text-[var(--black-color)] opacity-80 font-medium mb-8 max-w-lg">Secuencia completada.</p>
+                    <div class="flex gap-4">
+                        <button onclick="nextPathwayG4()" id="g4-next-btn-modal" class="px-8 py-4 bg-[#eab308] text-white rounded-full font-bold shadow-lg hover:bg-[#ca8a04] transition-all hover:scale-105">Siguiente Ruta</button>
+                        <button onclick="showBioMainMenu()" class="px-8 py-4 bg-white/50 border border-white/60 text-[var(--black-color)] rounded-full font-bold shadow-sm hover:bg-white/80 transition-all hover:scale-105">Menú Principal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUEGO 5: SIMULADOR DE HOMEOSTASIS -->
+            <div id="game5-container" class="hidden android-glass-card rounded-[40px] p-6 md:p-10 relative overflow-hidden transition-all duration-500 flex-col min-h-[600px]">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--black-color)]">Simulador de Homeostasis</h2>
+                    <p class="text-[var(--black-color)] opacity-70 font-medium mt-2">Aplica tratamientos para mantener los parámetros en la zona segura (verde).</p>
+                    <div class="inline-block mt-4 bg-white/50 px-6 py-2 rounded-full border border-white/60 shadow-sm">
+                        <span id="g5-timer" class="text-xl font-mono font-black text-slate-700">Tiempo: 00:00</span>
+                    </div>
+                </div>
+
+                <!-- Panel de Estado (Medidores) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Glucosa -->
+                    <div class="bg-white/40 backdrop-blur-md p-5 rounded-[25px] border border-white/50 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-bold text-[var(--black-color)]">Glucemia</span>
+                            <span id="g5-val-glucose" class="text-sm font-mono font-black text-[#3b82f6] bg-[#3b82f6]/10 px-2 py-1 rounded-md">90 mg/dL</span>
+                        </div>
+                        <div class="bio-meter-container">
+                            <div class="bio-meter-safe-zone" style="left: 35%; width: 35%;"></div>
+                            <div id="g5-bar-glucose" class="bio-meter-fill bg-blue-500" style="width: 45%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- pH Sanguíneo -->
+                    <div class="bg-white/40 backdrop-blur-md p-5 rounded-[25px] border border-white/50 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-bold text-[var(--black-color)]">pH Sanguíneo</span>
+                            <span id="g5-val-ph" class="text-sm font-mono font-black text-[#10b981] bg-[#10b981]/10 px-2 py-1 rounded-md">7.4</span>
+                        </div>
+                        <div class="bio-meter-container">
+                            <div class="bio-meter-safe-zone" style="left: 45%; width: 10%;"></div>
+                            <div id="g5-bar-ph" class="bio-meter-fill bg-green-500" style="width: 50%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Oxígeno -->
+                    <div class="bg-white/40 backdrop-blur-md p-5 rounded-[25px] border border-white/50 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-bold text-[var(--black-color)]">Saturación O₂</span>
+                            <span id="g5-val-o2" class="text-sm font-mono font-black text-[#6366f1] bg-[#6366f1]/10 px-2 py-1 rounded-md">98%</span>
+                        </div>
+                        <div class="bio-meter-container">
+                            <div class="bio-meter-safe-zone" style="left: 80%; width: 20%;"></div>
+                            <div id="g5-bar-o2" class="bio-meter-fill bg-indigo-500" style="width: 98%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles -->
+                <div class="flex flex-col md:flex-row gap-6 flex-grow">
+                    <!-- Monitor de Eventos -->
+                    <div class="flex-[1.5] bg-red-500/10 backdrop-blur-md p-6 rounded-[30px] border border-red-500/20 shadow-inner flex flex-col justify-center text-center">
+                        <span class="material-symbols-outlined text-red-500 text-[32px] mb-2">ecg_heart</span>
+                        <h4 class="font-bold text-red-600 uppercase tracking-widest text-xs mb-2">Monitor Médico</h4>
+                        <p id="g5-event-text" class="text-[var(--black-color)] font-bold text-lg leading-snug">Paciente estable.</p>
+                    </div>
+
+                    <!-- Tratamientos -->
+                    <div class="flex-[2] grid grid-cols-2 gap-3">
+                        <button onclick="applyTreatmentG5('insulina')" class="bio-treatment-btn bg-[#3b82f6]/20 text-[#2563eb] border-[#3b82f6]/40 hover:bg-[#3b82f6] hover:text-white">Insulina</button>
+                        <button onclick="applyTreatmentG5('glucagon')" class="bio-treatment-btn bg-[#f59e0b]/20 text-[#d97706] border-[#f59e0b]/40 hover:bg-[#f59e0b] hover:text-white">Glucagón</button>
+                        <button onclick="applyTreatmentG5('bicarbonato')" class="bio-treatment-btn bg-[#10b981]/20 text-[#059669] border-[#10b981]/40 hover:bg-[#10b981] hover:text-white">Bicarbonato IV</button>
+                        <button onclick="applyTreatmentG5('oxigeno')" class="bio-treatment-btn bg-[#6366f1]/20 text-[#4f46e5] border-[#6366f1]/40 hover:bg-[#6366f1] hover:text-white">Oxígeno O₂</button>
+                    </div>
+                </div>
+
+                <!-- Modal Fin J5 -->
+                <div id="g5-end-modal" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xl flex flex-col items-center justify-center z-30 p-8 rounded-[40px] text-center border border-white/50">
+                    <span class="material-symbols-outlined text-[80px] text-[#ef4444] mb-4">emergency</span>
+                    <h2 class="text-4xl font-black mb-2 text-[#ef4444]">Simulación Terminada</h2>
+                    <p id="g5-end-msg" class="text-lg text-[var(--black-color)] font-bold mb-6 max-w-lg"></p>
+                    <p class="font-bold text-[var(--black-color)] opacity-70 bg-white/50 px-6 py-2 rounded-full border border-white/60 mb-8">Sobreviviste: <span id="g5-end-time" class="text-[#3b82f6] font-black font-mono ml-2"></span></p>
+                    
+                    <div class="flex gap-4">
+                        <button onclick="startGame5()" class="px-8 py-4 bg-[#ef4444] text-white rounded-full font-bold shadow-lg hover:bg-[#dc2626] transition-all hover:scale-105">Reanimar</button>
+                        <button onclick="showBioMainMenu()" class="px-8 py-4 bg-white/50 border border-white/60 text-[var(--black-color)] rounded-full font-bold shadow-sm hover:bg-white/80 transition-all hover:scale-105">Menú Principal</button>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </section>
     <!-- Footer -->
     <footer class="footer">
         
