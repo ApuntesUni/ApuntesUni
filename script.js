@@ -1324,6 +1324,47 @@ if (btnToggleEmbrio && btnPrevEmbrio && btnNextEmbrio) {
 // 8. Inicialización
 updateNavUI();
 lucide.createIcons();
+
+/* ---------------------------------------------------- Efecto Parallax en el Hero Banner ------------------------------------------------ */
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.querySelector('.hero-banner');
+    const parallaxLayers = document.querySelectorAll('.parallax-layer');
+
+    if (heroSection && parallaxLayers.length > 0) {
+        heroSection.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 1025) return;
+
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            parallaxLayers.forEach(layer => {
+                const speed = layer.getAttribute('data-speed');
+                
+                const moveX = (x - centerX) * speed;
+                const moveY = (y - centerY) * speed;
+                
+                layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            parallaxLayers.forEach(layer => {
+                layer.style.transform = `translate(0px, 0px)`;
+                layer.style.transition = `transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)`;
+            });
+        });
+
+        heroSection.addEventListener('mouseenter', () => {
+            parallaxLayers.forEach(layer => {
+                layer.style.transition = 'none';
+            });
+        });
+    }
+});
+
 /* ---------------------------------------------------- Modal de Anatomía Dinámico ------------------------------------------------ */
 
 // 1. Base de datos de Anatomía
