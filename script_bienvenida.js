@@ -9,7 +9,8 @@ const ecosystemData = {
         subtitle: 'Ecosistema Salud Activa<br>Tu bienestar, en equilibrio.',
         themeClass: 'theme-salud-activa',
         blobs: ['blob-sa-1', 'blob-sa-2', 'blob-sa-3'],
-        gradientColors: 'linear-gradient(90deg, #3b82f6 0%, #a855f7 50%, #22c55e 100%)', // Azul a Púrpura a Verde
+        gradientColors: 'linear-gradient(90deg, #3b82f6 0%, #a855f7 50%, #22c55e 100%)', 
+        betaText: 'BETA',
         subFeatures: `
             <div class="flex flex-col items-center w-full">
                 <!-- Fila de 4 Cápsulas -->
@@ -95,6 +96,7 @@ const ecosystemData = {
         themeClass: 'theme-apuntes-uni',
         blobs: ['blob-au-1', 'blob-au-2', 'blob-au-3'],
         gradientColors: 'linear-gradient(90deg, #3b82f6 0%, #d946ef 50%, #22c55e 100%)',
+        betaText: 'BETA',
         subFeatures: `
             <div class="flex flex-col items-center w-full">
                 <!-- Fila de 4 Cápsulas -->
@@ -176,10 +178,11 @@ const ecosystemData = {
         badgeText: 'INICIACIÓN',
         titleDark: 'APUNTES UNI',
         titleGradient: 'Primeros Pasos',
-        subtitle: 'La base sólida que necesitas para<br class="hidden md:block">entender las ciencias de la salud.',
+        subtitle: 'Te preparamos de la mejor forma,<br class="hidden md:block">Para el examen de admisión .',
         themeClass: 'theme-primeros-pasos',
         blobs: ['blob-au-1', 'blob-au-2', 'blob-au-3'],
-        gradientColors: 'linear-gradient(90deg, #f59e0b 0%, #f97316 50%, #ef4444 100%)', // Degradado cálido
+        gradientColors: 'linear-gradient(90deg, #f59e0b 0%, #f97316 50%, #ef4444 100%)', 
+        betaText: 'En desarrollo',
         subFeatures: `
             <div class="flex flex-col items-center w-full">
                 <!-- Fila de 4 Cápsulas -->
@@ -302,7 +305,16 @@ window.changeHeroEcosystem = function(tabId) {
 
     textContainer.classList.add('fade-content');
     graphicsContainer.classList.add('fade-content');
-    subFeaturesContainer.classList.add('fade-content'); // NUEVO
+    subFeaturesContainer.classList.add('fade-content'); 
+
+    // Inyectar cápsula BETA dinámica
+    const betaBadge = document.getElementById('hero-beta-badge');
+    if (data.betaText && data.betaText !== '') {
+        betaBadge.textContent = data.betaText;
+        betaBadge.style.display = 'block'; // Muestra la cápsula
+    } else {
+        betaBadge.style.display = 'none'; // Oculta si está vacía
+    }
 };
 
 /* ---------------------------------------------------- Lógica del Visor PDF Local ------------------------------------------------ */

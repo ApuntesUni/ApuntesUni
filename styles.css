@@ -684,6 +684,68 @@ body.dark-mode .book-pagination {
 }
 body.dark-mode .book-pagination .bg-gray-200 { background: #334155; }
 
+/* -------------------------------------------------------------- Cápsula Beta / En Desarrollo -------------------------------------------------------------*/
+.title-beta-badge {
+    position: absolute;
+    bottom: -15px; 
+    right: -45px; 
+    transform: rotate(-6deg); 
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    opacity: 0; 
+    transition: all 0.4s ease;
+    pointer-events: none; 
+    z-index: 10;
+    letter-spacing: 0.5px;
+}
+
+.theme-salud-activa .title-beta-badge {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: #60a5fa;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.theme-apuntes-uni .title-beta-badge {
+    background: #f3e8ff;
+    color: #9333ea;
+    border: 1px solid #e9d5ff;
+}
+
+.theme-primeros-pasos .title-beta-badge {
+    background: #ffe4e6; 
+    color: #e11d48; 
+    border: 1px solid #fecdd3;
+}
+
+/* Ajustes para Modo Oscuro */
+body.dark-mode .theme-apuntes-uni .title-beta-badge {
+    background: rgba(147, 51, 234, 0.2);
+    color: #c084fc;
+    border-color: rgba(192, 132, 252, 0.3);
+}
+
+body.dark-mode .theme-primeros-pasos .title-beta-badge {
+    background: rgba(225, 29, 72, 0.2);
+    color: #fb7185;
+    border-color: rgba(251, 113, 133, 0.3);
+}
+
+.fade-content .title-beta-badge {
+    animation: badgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.2s;
+}
+
+@keyframes badgePop {
+    0% { opacity: 0; transform: scale(0.8) rotate(-15deg) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg) translateY(0); }
+}
+
 /* -------------------------------------------------------------- Menú ------------------------------------------------------------*/
 .header-menu {
     position: fixed;
@@ -2362,8 +2424,8 @@ body.dark-mode.body-lose-effect {
     /* ----------------------------------------------------------- Banner Hero ----------------------------------------------------------------------*/
 
     .hero-banner {
-        padding-top: 120px;
-        min-height: auto;
+        padding-top: 100px;
+        min-height: 100vh;
     }
     
     .hero-graphics {
