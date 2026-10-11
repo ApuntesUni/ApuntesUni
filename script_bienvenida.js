@@ -48,17 +48,18 @@ const ecosystemData = {
                 <!-- Tarjeta de Funciones Experimentales -->
                 <a href="https://fittme-4b869.firebaseapp.com/" target="_blank" class="sa-experimental-card">
                     <div class="sa-exp-icon">
-                        <span class="material-symbols-outlined text-[24px]">ramen_dining</span>
+                        <span class="material-symbols-outlined text-[26px]">ramen_dining</span>
                     </div>
                     <div class="sa-exp-content">
                         <div class="sa-exp-badge">
-                            <span class="material-symbols-outlined text-[14px]">science</span> EN DESARROLLO / BETA
+                            <span class="material-symbols-outlined text-[16px]">science</span> EN DESARROLLO / BETA
                         </div>
                         <h3>Planes de alimentación</h3>
-                        <p>Dietas por equivalencias, según tus objetivos,<br>macros y preferencias.</p>
+                        <p>Dietas por equivalencias, según tus objetivos, macros y preferencias.</p>
                     </div>
+                    <!-- El icono cambia -->
                     <div class="sa-exp-arrow">
-                        <span class="material-symbols-outlined">arrow_forward</span>
+                        <span class="material-symbols-outlined">language</span>
                     </div>
                 </a>
             </div>
@@ -144,7 +145,7 @@ const ecosystemData = {
                         <p>Podras subir tus apuntes a mano o digital para luego generar de forma automatica flashcards, quiz,<br>mini juegos o lo que te ayude a comprender mejor del tema.</p>
                     </div>
                     <div class="sa-exp-arrow">
-                        <span class="material-symbols-outlined">arrow_forward</span>
+                        <span class="material-symbols-outlined">language</span>
                     </div>
                 </a>
             </div>
