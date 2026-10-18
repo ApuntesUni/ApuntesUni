@@ -16,6 +16,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_fisiologia.css">
 </head>
 <body class="min-h-screen font-sans p-4 md:p-8 bg-fixed bg-no-repeat transition-colors duration-500">
     <div id="lottie-bg-container"></div>
@@ -46,7 +47,7 @@
                         </li>
 
                         <li class="nav__item relative-menu" id="fisio-nav-item">
-                            <a href="#Fisio" class="nav__link" id="fisio-link">
+                            <a href="#Fisiologia" class="nav__link" id="fisio-link">
                                 <i class="material-symbols-outlined">more_horiz</i>
                                 <span>Más</span>
                             </a>
@@ -57,26 +58,32 @@
                                     <i class="material-symbols-outlined">vital_signs</i>
                                     <span>Histologia</span>
                                 </a>
-                                <a href="#Fisio-celular" class="capsule-item">
+                                <a href="#Bioquimica" class="capsule-item">
                                     <i class="material-symbols-outlined">immunology</i>
                                     <span>Bioquimica</span>
+                                </a>
+                                <a href="#Fisiologia" class="capsule-item">
+                                    <i class="material-symbols-outlined">pulmonology</i>
+                                    <span>Fisiologia</span>
                                 </a>
                                 <a href="#Fisio-sistemas" class="capsule-item">
                                     <i class="material-symbols-outlined">coronavirus</i>
                                     <span>Microbiologia</span>
                                 </a>
                                 <a href="#Fisio-sistemas" class="capsule-item">
-                                    <i class="material-symbols-outlined">pulmonology</i>
-                                    <span>Fisiologia</span>
-                                </a>
-                                <a href="#Fisio-sistemas" class="capsule-item">
                                     <i class="material-symbols-outlined">pill</i>
-                                    <span>Farmcacologia</span>
+                                    <span>Farmacologia</span>
                                 </a>
                             </div>
                         </li>
 
                     </ul>
+
+                    <!-- Contenedor del Break de Relajación (Oculto por defecto) -->
+                    <div id="breathing-display" class="hidden flex-col items-center justify-center w-full h-full text-[var(--black-color)]">
+                        <span id="breathing-text" class="text-xl md:text-2xl font-bold transition-opacity duration-500">Inhala</span>
+                        <span id="breathing-timer" class="font-mono text-sm md:text-base font-black opacity-70 mt-1">05:00</span>
+                    </div>
 
                     <div class="mini-player-nav" id="mini-player-nav" style="display: none;">
                         <img src="" alt="Cover" id="mini-cover" class="mini-cover">
@@ -100,12 +107,16 @@
                             <a href="#Anato" class="fab-pill-option nav-fab-link">
                                 <i class="material-symbols-outlined">hand_bones</i><span>Anatomia</span>
                             </a>
-                            <a href="#Fisio" class="fab-pill-option nav-fab-link">
+                            <a href="#Fisiologia" class="fab-pill-option nav-fab-link">
                                 <i class="material-symbols-outlined">acute</i><span>Fisiologia</span>
                             </a>
 
                             <button class="fab-pill-option theme-toggle-trigger">
                                 <i class="theme-icon ri-sun-fill"></i><span>Tema</span>
+                            </button>
+
+                            <button class="fab-pill-option" id="mobile-break-btn">
+                                <span class="material-symbols-outlined text-2xl">self_improvement</span><span>Break</span>
                             </button>
                         </div>
                         <button class="action-btn" id="mainFabToggle">
@@ -210,31 +221,181 @@
             </div>
         </div>
     </section>
-    <!-- Embrio -->
-    <section class="Embrio py-12" id="Embrio">
-        <div class="max-w-6xl mx-auto p-4 md:p-6 transition-colors duration-500">
+    <!-- Embrio Flashcards -->
+    <section id="embriologia-flashcards" class="mb-12 relative">
+        <div class="text-center mb-6">
+            <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                Embriología • Conceptos Clave
+            </span>
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--black-color)] mt-4 mb-2 transition-colors duration-500">
+                Tarjetas de Estudio (Flashcards)
+            </h2>
+            <p class="text-xs md:text-sm text-[var(--color-text-inactive)] max-w-lg mx-auto">
+                Desliza horizontalmente entre las tarjetas o toca los extremos para navegar. Toca la tarjeta activa para girarla en 3D.
+            </p>
+        </div>
 
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-[var(--black-color)] mb-10 mt-4 transition-colors duration-500">Embriologia</h2>
+        <!-- CONTENEDOR MULTITAREA -->
+        <div class="apple-multitask-wrapper mb-8">
             
-            <div class="flex items-center justify-between w-full gap-4 mb-8 transition-all duration-500">
-                
-                <button id="btn-prev-embrio" class="w-14 h-14 shrink-0 rounded-[30px] bg-[var(--card-blue-color)] text-[var(--black-color)] flex items-center justify-center hover:scale-105 transition-all shadow-sm duration-500">
-                    <span class="material-symbols-outlined text-[32px]">chevron_left</span>
-                </button>
-                
-                <button id="btn-toggle-embrio" class="flex-1 py-4 rounded-full bg-[var(--card-blue-color)] text-[var(--black-color)] font-semibold text-lg md:text-xl hover:scale-[1.02] transition-all shadow-sm duration-500 flex items-center justify-center gap-2">
-                </button>
-                
-                <button id="btn-next-embrio" class="w-14 h-14 shrink-0 rounded-[30px] bg-[var(--card-blue-color)] text-[var(--black-color)] flex items-center justify-center hover:scale-105 transition-all shadow-sm duration-500">
-                    <span class="material-symbols-outlined text-[32px]">chevron_right</span>
-                </button>
-                
-            </div>
+            <!-- Flecha Izquierda -->
+            <button id="embrio-stack-prev" class="apple-nav-arrow apple-nav-prev" title="Tarjeta Anterior">
+                <span class="material-symbols-outlined text-2xl text-[var(--black-color)]">chevron_left</span>
+            </button>
 
-            <div id="app-content" class="transition-all duration-500">
-                <!-- Contenido inyectado -->
+            <!-- Mazo 3D de Tarjetas (Vacío, se llena con JS) -->
+            <div id="embrio-multitask-deck" class="apple-multitask-deck"></div>
+            
+            <!-- Flecha Derecha -->
+            <button id="embrio-stack-next" class="apple-nav-arrow apple-nav-next" title="Tarjeta Siguiente">
+                <span class="material-symbols-outlined text-2xl text-[var(--black-color)]">chevron_right</span>
+            </button>
+
+            <!-- Dock Inferior -->
+            <div class="apple-switcher-dock">
+                <span id="embrio-stack-counter" class="text-xs font-mono font-black text-[var(--black-color)] mr-2">
+                    0 de 0
+                </span>
+                <button id="embrio-stack-flip-active" class="ml-3 px-3 py-1 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-1 shadow-sm transition-all hover:scale-105">
+                    <span class="material-symbols-outlined text-sm">3d_rotation</span> Girar
+                </button>
             </div>
         </div>
+    </section>
+    <!-- Embriologia cuadros -->
+    <section id="embriologia-cuadros" class="mb-12 relative">
+
+        <!-- CONTENEDOR DEL CARRUSEL -->
+        <div class="comp-carousel relative">
+
+            <!-- Cuadro 1: Espermatogénesis vs Ovogénesis -->
+            <div class="comp-slide active">
+                <div class="comp-glass-container relative overflow-hidden">
+                    <!-- Destellos de luz de fondo para el Glassmorphism -->
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10"></div>
+                    <div class="absolute top-10 -right-10 w-40 h-40 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10"></div>
+
+                    <div class="comp-header-title relative z-10">
+                        <div class="comp-badge"><span class="material-symbols-outlined text-[18px]">join_inner</span> Gametogénesis</div>
+                        <h2>Espermatogénesis <span class="text-pink opacity-80">vs.</span> <span class="text-blue">Ovogénesis</span></h2>
+                        <p>Dos procesos para asegurar la continuidad de la especie, con diferencias clave en el desarrollo, resultado celular y tiempos.</p>
+                    </div>
+
+                    <div class="comp-table-wrapper relative z-10">
+                        <div class="comp-grid">
+                            <div class="c-head param-head"><span class="material-symbols-outlined text-white">tune</span> Característica</div>
+                            <div class="c-head pink-head"><span class="material-symbols-outlined text-white">male</span> Espermatogénesis</div>
+                            <div class="c-head blue-head"><span class="material-symbols-outlined text-white">female</span> Ovogénesis</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">play_arrow</span> Inicio del proceso</div>
+                            <div class="c-cell pink-cell cell-top">En la pubertad; es continuo durante toda la vida adulta.</div>
+                            <div class="c-cell blue-cell cell-top">En el periodo fetal; se detiene tempranamente en la Profase I (dictioteno).</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">location_on</span> Lugar de desarrollo</div>
+                            <div class="c-cell pink-cell">Túbulos seminíferos (involucrando células de Sertoli y de Leydig).</div>
+                            <div class="c-cell blue-cell">Folículos ováricos (involucrando células de la granulosa y de la teca).</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">check_circle</span> Resultado celular</div>
+                            <div class="c-cell pink-cell">4 espermátides funcionales haploides por cada espermatocito primario.</div>
+                            <div class="c-cell blue-cell">1 óvulo funcional haploide y 3 cuerpos polares abortivos.</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">pause_circle</span> Detención meiótica</div>
+                            <div class="c-cell pink-cell cell-bottom">Proceso ininterrumpido sin arrestos meióticos prolongados.</div>
+                            <div class="c-cell blue-cell cell-bottom">Detención en la Profase I (prenatal a la ovulación) y en la Metafase II (hasta ser fecundado).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuadro 2: Onfalocele vs Gastrosquisis -->
+            <div class="comp-slide">
+                <div class="comp-glass-container relative overflow-hidden">
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10"></div>
+                    <div class="absolute top-10 -right-10 w-40 h-40 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10"></div>
+
+                    <div class="comp-header-title relative z-10">
+                        <div class="comp-badge"><span class="material-symbols-outlined text-[18px]">pregnant_woman</span> Defectos Congénitos</div>
+                        <h2>Onfalocele <span class="text-pink opacity-80">vs.</span> <span class="text-blue">Gastrosquisis</span></h2>
+                        <p>Defectos de la pared abdominal anterior con diferencias anatómicas críticas para el abordaje pediátrico.</p>
+                    </div>
+
+                    <div class="comp-table-wrapper relative z-10">
+                        <div class="comp-grid">
+                            <div class="c-head param-head"><span class="material-symbols-outlined text-white">medical_information</span> Anatómica</div>
+                            <div class="c-head pink-head"><span class="material-symbols-outlined text-white">trip_origin</span> Onfalocele</div>
+                            <div class="c-head blue-head"><span class="material-symbols-outlined text-white">data_usage</span> Gastrosquisis</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">my_location</span> Localización</div>
+                            <div class="c-cell pink-cell cell-top">Directamente en el anillo umbilical.</div>
+                            <div class="c-cell blue-cell cell-top">Paraumbilical (predominantemente del lado derecho).</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">shield</span> Saco Peritoneal</div>
+                            <div class="c-cell pink-cell">Presente (cubre los intestinos o el contenido herniado).</div>
+                            <div class="c-cell blue-cell">Ausente (las asas intestinales están completamente expuestas).</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">masks</span> Herniación Hepática</div>
+                            <div class="c-cell pink-cell">Frecuentemente incluye la presencia del hígado herniado.</div>
+                            <div class="c-cell blue-cell">Infrecuente que involucre el hígado.</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">account_tree</span> Asociación Clínica</div>
+                            <div class="c-cell pink-cell cell-bottom">Alta prevalencia de asociación con otras malformaciones (hasta un 50%).</div>
+                            <div class="c-cell blue-cell cell-bottom">Baja asociación general (excepto con atresia intestinal focalizada).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuadro 3: Crohn vs Colitis Ulcerosa -->
+            <div class="comp-slide">
+                <div class="comp-glass-container relative overflow-hidden">
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10"></div>
+                    <div class="absolute top-10 -right-10 w-40 h-40 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 dark:opacity-10"></div>
+
+                    <div class="comp-header-title relative z-10">
+                        <div class="comp-badge"><span class="material-symbols-outlined text-[18px]">gastroenterology</span> Patología Intestinal</div>
+                        <h2>Crohn <span class="text-pink opacity-80">vs.</span> <span class="text-blue">Colitis Ulcerosa</span></h2>
+                        <p>Enfermedades inflamatorias intestinales con distribución, histología y abordaje clínico diferenciado.</p>
+                    </div>
+
+                    <div class="comp-table-wrapper relative z-10">
+                        <div class="comp-grid">
+                            <div class="c-head param-head"><span class="material-symbols-outlined text-white">health_and_safety</span> Patología</div>
+                            <div class="c-head pink-head"><span class="material-symbols-outlined text-white">coronavirus</span> Enf. de Crohn</div>
+                            <div class="c-head blue-head"><span class="material-symbols-outlined text-white">microbiology</span> Colitis Ulcerosa</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">map</span> Distribución anatómica</div>
+                            <div class="c-cell pink-cell cell-top">Discontinua ("en parches"), puede afectar de boca a ano (frecuente en íleon terminal).</div>
+                            <div class="c-cell blue-cell cell-top">Afectación continua, limitada exclusivamente a la región del colon y el recto desde el margen anal.</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">biotech</span> Afección Histológica</div>
+                            <div class="c-cell pink-cell">Inflamación transmural con úlceras "en empedrado" y granulomas no caseificantes.</div>
+                            <div class="c-cell blue-cell">Inflamación superficial limitada a la mucosa/submucosa, formación de abscesos y pseudopólipos.</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">warning</span> Complicaciones Típicas</div>
+                            <div class="c-cell pink-cell">Estenosis intestinal con patrón obstructivo, formación de fístulas y abscesos intraabdominales.</div>
+                            <div class="c-cell blue-cell">Riesgo de megacolon tóxico y elevada predisposición al adenocarcinoma colorrectal.</div>
+
+                            <div class="c-cell param-cell"><span class="material-symbols-outlined">local_dining</span> Terapia Nutricional</div>
+                            <div class="c-cell pink-cell cell-bottom">Dieta hiperproteica y suplementación intensa (frecuente Nutrición Enteral Polimérica).</div>
+                            <div class="c-cell blue-cell cell-bottom">Dieta baja en fibra insoluble en brotes graves para reducir el volumen fecal.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLES DE NAVEGACIÓN -->
+            <div class="comp-controls flex justify-center items-center gap-6 mt-6">
+                <button id="comp-prev-btn" class="comp-nav-btn material-symbols-outlined">arrow_back_ios_new</button>
+                <div class="comp-indicators flex gap-2">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
+                <button id="comp-next-btn" class="comp-nav-btn material-symbols-outlined">arrow_forward_ios</button>
+            </div>
+
+        </div>
+
     </section>
     <!-- Anatomia -->
     <section class="Anato py-12" id="Anato">
@@ -728,6 +889,1350 @@
             
         </div>
     </section>
+
+    <!-- ========================================================================================= -->
+    <!-- FISIOLOGÍA MÉDICA INTEGRADA (APUNTES UNI) -->
+    <!-- ========================================================================================= -->
+    <div id="Fisio"></div>
+    <section class="Fisiologia py-12" id="Fisiologia">
+        <div class="max-w-7xl mx-auto p-4 md:p-6 transition-colors duration-500">
+            
+            <!-- Encabezado de la Sección -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-5xl font-black text-[var(--black-color)] tracking-tight">
+                    Fisiología
+                </h2>
+                <p class="text-[var(--black-color)] opacity-75 font-medium max-w-2xl mx-auto mt-3 text-sm md:text-base">
+                    Análisis interactivo de biofísica celular, ciclo cardíaco, hemodinámica renal, digestión enzimática y homeostasis ácido-base.
+                </p>
+            </div>
+
+            <!-- Barra de Píldoras Sub-Navegación (Bento-Tabs) -->
+            <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
+                <button data-fisio-tab="tab-cardio" class="fisio-tab-btn active px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-rose-500">cardiology</span>
+                    <span>Ciclo Cardíaco & Wiggers</span>
+                </button>
+                <button data-fisio-tab="tab-nefrona" class="fisio-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-emerald-500">nephrology</span>
+                    <span>Navegador Nefrona & SRAA</span>
+                </button>
+                <button data-fisio-tab="tab-juegos" class="fisio-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-amber-500">sports_esports</span>
+                    <span>Mini-Juegos Lógicos</span>
+                </button>
+                <button data-fisio-tab="tab-flashcards" class="fisio-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-purple-500">style</span>
+                    <span>Flashcards & Audio-Card</span>
+                </button>
+                <button data-fisio-tab="tab-casos" class="fisio-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-blue-500">clinical_notes</span>
+                    <span>Casos Clínicos</span>
+                </button>
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 1: SIMULADOR DEL CICLO CARDÍACO Y DIAGRAMA DE WIGGERS -->
+            <!-- ========================================================================================= -->
+            <div id="tab-cardio" class="fisio-tab-panel block transition-all duration-500">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                    
+                    <!-- Panel Izquierdo: Corazón 3D Interactivo (5 cols) -->
+                    <div class="lg:col-span-5 fisio-glass-card rounded-[35px] p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-rose-500 text-2xl">favorite</span>
+                                    <h3 class="text-lg font-bold text-[var(--black-color)]">Miocardio 3D en Tiempo Real</h3>
+                                </div>
+                                <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                                    WebGL 60 FPS
+                                </span>
+                            </div>
+                            <p class="text-xs text-[var(--color-text-inactive)] mb-3">
+                                Toca o haz clic en los <strong>nodos de conducción</strong> o rótalo en 3D para examinar la sístole y diástole sincronizada.
+                            </p>
+                        </div>
+
+                        <!-- Canvas 3D Three.js -->
+                        <div class="cardiac-viewport-container my-2" id="cardiac-3d-canvas-container">
+                            <div class="absolute top-3 left-3 z-10 bg-black/40 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full border border-white/20 flex items-center gap-1.5 shadow-sm pointer-events-none">
+                                <span class="material-symbols-outlined text-xs">pan_tool</span> Arrastra para rotar
+                            </div>
+                        </div>
+
+                        <!-- Botones de Nodos Anatómicos y Controles -->
+                        <div class="mt-3 space-y-3">
+                            <div class="text-xs font-bold text-[var(--color-text-inactive)] uppercase tracking-wider">
+                                Selección Electrofisiológica de Nodos:
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button data-node="sa" class="node-pill-btn active-node p-2 rounded-2xl bg-[var(--background-navigation)] text-center flex flex-col items-center justify-center">
+                                    <span class="w-3 h-3 rounded-full bg-amber-400 mb-1 shadow-sm"></span>
+                                    <span class="text-[11px] font-bold text-[var(--black-color)]">Nodo SA</span>
+                                    <span class="text-[9px] text-amber-600 dark:text-amber-400 font-semibold">Marcapaso</span>
+                                </button>
+                                <button data-node="av" class="node-pill-btn p-2 rounded-2xl bg-[var(--background-navigation)] text-center flex flex-col items-center justify-center">
+                                    <span class="w-3 h-3 rounded-full bg-amber-500 mb-1 shadow-sm"></span>
+                                    <span class="text-[11px] font-bold text-[var(--black-color)]">Nodo AV</span>
+                                    <span class="text-[9px] text-amber-600 dark:text-amber-400 font-semibold">Retardo 0.09s</span>
+                                </button>
+                                <button data-node="ventricle" class="node-pill-btn p-2 rounded-2xl bg-[var(--background-navigation)] text-center flex flex-col items-center justify-center">
+                                    <span class="w-3 h-3 rounded-full bg-cyan-400 mb-1 shadow-sm"></span>
+                                    <span class="text-[11px] font-bold text-[var(--black-color)]">Ventrículo</span>
+                                    <span class="text-[9px] text-cyan-600 dark:text-cyan-400 font-semibold">Contráctil</span>
+                                </button>
+                            </div>
+
+                            <!-- Botón Play/Pausa y Frecuencia -->
+                            <div class="flex items-center justify-between pt-2 border-t border-[var(--border-navigation)]">
+                                <button id="btn-play-cardio" class="px-4 py-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md transition-all">
+                                    <span class="material-symbols-outlined text-base">pause</span> Pausar
+                                </button>
+                                <div class="flex items-center gap-2 text-xs font-bold text-[var(--color-text-inactive)]">
+                                    <span>Ritmo:</span>
+                                    <select id="select-cardio-bpm" class="bg-[var(--background-navigation)] rounded-xl px-2.5 py-1 border border-[var(--border-navigation)] font-mono text-xs text-[var(--black-color)]">
+                                        <option value="60">60 lpm</option>
+                                        <option value="75" selected>75 lpm</option>
+                                        <option value="110">110 lpm (Taquicardia)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Derecho: Diagrama de Wiggers y Potenciales de Acción (7 cols) -->
+                    <div class="lg:col-span-7 flex flex-col gap-6">
+                        
+                        <!-- Diagrama de Wiggers Dinámico -->
+                        <div class="fisio-glass-card rounded-[35px] p-5">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-blue-500 text-2xl">timeline</span>
+                                    <h3 class="text-lg font-bold text-[var(--black-color)]">Diagrama de Wiggers en Vivo</h3>
+                                </div>
+                                <div id="cardiac-time-display" class="font-mono text-xs font-black text-purple-600 dark:text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-400/20">
+                                    0.00 s / 0.80 s
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-[var(--color-text-inactive)] mb-3">
+                                Curvas superpuestas de presión intraventricular izquierda, aórtica, auricular izquierda y volumen ventricular. Haz clic en la gráfica para saltar en el tiempo.
+                            </p>
+
+                            <!-- Canvas del Diagrama de Wiggers -->
+                            <div class="wiggers-canvas-container">
+                                <canvas id="wiggers-canvas" class="w-full cursor-crosshair block"></canvas>
+                            </div>
+
+                            <!-- Estado de Fase Fisiológica y Válvulas -->
+                            <div class="mt-4 p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                                    <h4 id="cardiac-phase-title" class="font-black text-sm text-[var(--black-color)]">
+                                        4. Contracción Isovolumétrica
+                                    </h4>
+                                    <span id="cardiac-valves-status" class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                                        Mitral: CERRADA (R1) | Aórtica: Cerrada
+                                    </span>
+                                </div>
+                                <p id="cardiac-phase-desc" class="text-xs text-[var(--color-text-inactive)] leading-relaxed">
+                                    Despolarización ventricular masiva. Cierre de válvulas AV. Presurización del volumen ventricular hasta superar la resistencia aórtica (>80 mmHg).
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Dinámico de Potenciales de Acción al clic en nodos -->
+                        <div class="fisio-glass-card rounded-[35px] p-5">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-amber-500 text-2xl">bolt</span>
+                                    <h4 id="ap-graph-title" class="font-black text-sm md:text-base text-[var(--black-color)]">
+                                        Potencial de Acción: Célula Marcapaso vs Ventricular
+                                    </h4>
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                                    Biofísica Iónica
+                                </span>
+                            </div>
+
+                            <p id="ap-graph-desc" class="text-xs text-[var(--color-text-inactive)] mb-3 leading-relaxed">
+                                Contraste entre el ascenso lento mediado por Ca2+ tipo L en células marcapaso y el ascenso rápido mediado por canales rápidos de Na+ en miocardiocitos de trabajo.
+                            </p>
+
+                            <!-- Canvas de Potencial de Acción -->
+                            <div class="w-full bg-[var(--background-navigation)] rounded-2xl p-2 border border-[var(--border-navigation)] overflow-hidden">
+                                <canvas id="action-potential-canvas" class="w-full block"></canvas>
+                            </div>
+
+                            <!-- Píldoras de Canales Iónicos Involucrados -->
+                            <div id="ap-ion-channels" class="flex flex-wrap gap-2 mt-3">
+                                <!-- Inyectado dinámicamente según nodo seleccionado -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 2: NAVEGADOR DE LA NEFRONA Y REGULACIÓN HEMODINÁMICA (SRAA / ENaC) -->
+            <!-- ========================================================================================= -->
+            <div id="tab-nefrona" class="fisio-tab-panel hidden transition-all duration-500">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                    
+                    <!-- Viewport 3D de la Nefrona (6 cols) -->
+                    <div class="lg:col-span-6 fisio-glass-card rounded-[35px] p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-emerald-500 text-2xl">science</span>
+                                    <h3 class="text-lg font-bold text-[var(--black-color)]">Anatomía Tubular Tridimensional</h3>
+                                </div>
+                                <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                    Nefrona 3D
+                                </span>
+                            </div>
+                            <p class="text-xs text-[var(--color-text-inactive)] mb-3">
+                                Recorre el glomérulo, el asa de Henle contracorriente, la mácula densa y el túbulo colector.
+                            </p>
+                        </div>
+
+                        <!-- Canvas 3D de la Nefrona -->
+                        <div class="nephron-3d-viewport my-2" id="nephron-3d-canvas-container">
+                            <div class="absolute top-3 left-3 z-10 bg-black/40 backdrop-blur-md text-white text-[11px] px-3 py-1 rounded-full border border-white/20 flex items-center gap-1.5 shadow-sm pointer-events-none">
+                                <span class="material-symbols-outlined text-xs">3d_rotation</span> Arrastra para explorar
+                            </div>
+                        </div>
+
+                        <!-- Botones de Enfoque Tubular -->
+                        <div class="mt-3">
+                            <div class="text-[11px] font-bold text-[var(--color-text-inactive)] uppercase tracking-wider mb-2">
+                                Enfoque de Segmento Tubular:
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
+                                <button onclick="focusNephronSegment('all')" class="p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold hover:opacity-80 transition-all text-[var(--black-color)]">
+                                    Completa
+                                </button>
+                                <button onclick="focusNephronSegment('glomerulus')" class="p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold hover:opacity-80 transition-all text-rose-600 dark:text-rose-400">
+                                    Glomérulo
+                                </button>
+                                <button onclick="focusNephronSegment('loop')" class="p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold hover:opacity-80 transition-all text-blue-600 dark:text-blue-400">
+                                    Henle & TAL
+                                </button>
+                                <button onclick="focusNephronSegment('macula')" class="p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold hover:opacity-80 transition-all text-emerald-600 dark:text-emerald-400">
+                                    Mácula Densa
+                                </button>
+                                <button onclick="focusNephronSegment('distal')" class="p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold hover:opacity-80 transition-all text-purple-600 dark:text-purple-400">
+                                    Colector (ENaC)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Hemodinámico y Eje SRAA (6 cols) -->
+                    <div class="lg:col-span-6 flex flex-col gap-5">
+                        
+                        <!-- Panel de Sliders Hemodinámicos -->
+                        <div class="fisio-glass-card rounded-[35px] p-5">
+                            <h3 class="text-base font-bold text-[var(--black-color)] mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-purple-500">tune</span>
+                                Modulador de Variables Hemodinámicas
+                            </h3>
+
+                            <div class="space-y-4">
+                                <!-- Slider 1: Presión Arterial Media -->
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                                        <span class="text-[var(--color-text-inactive)]">Presión Arterial Media (PAM)</span>
+                                        <span id="val-pam" class="font-mono text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">95 mmHg</span>
+                                    </div>
+                                    <input type="range" id="slider-pam" min="50" max="160" value="95" class="fisio-slider w-full">
+                                    <div class="flex justify-between text-[10px] text-[var(--color-text-inactive)] mt-1">
+                                        <span>50 mmHg (Shock Hipotensivo)</span>
+                                        <span>95 mmHg (Normal)</span>
+                                        <span>160 mmHg (Hipertensión)</span>
+                                    </div>
+                                </div>
+
+                                <!-- Slider 2: NaCl en Mácula Densa -->
+                                <div>
+                                    <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                                        <span class="text-[var(--color-text-inactive)]">Flujo Tubular de NaCl en Mácula Densa</span>
+                                        <span id="val-nacl" class="font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">50%</span>
+                                    </div>
+                                    <input type="range" id="slider-nacl" min="10" max="90" value="50" class="fisio-slider w-full">
+                                    <div class="flex justify-between text-[10px] text-[var(--color-text-inactive)] mt-1">
+                                        <span>Bajo (Estímulo de Renina)</span>
+                                        <span>Fisiológico</span>
+                                        <span>Alto (Feedback Constrictor)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cascada SRAA en Píldoras -->
+                            <div class="mt-5 pt-4 border-t border-[var(--border-navigation)]">
+                                <div class="text-xs font-bold text-[var(--color-text-inactive)] uppercase tracking-wider mb-2">
+                                    Activación del Eje Renina-Angiotensina-Aldosterona:
+                                </div>
+                                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center">
+                                    <div id="sraa-renin" class="sraa-step-pill p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold text-[var(--color-text-inactive)]">
+                                        1. Renina
+                                    </div>
+                                    <div id="sraa-ang1" class="sraa-step-pill p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold text-[var(--color-text-inactive)]">
+                                        2. Ang I
+                                    </div>
+                                    <div id="sraa-ang2" class="sraa-step-pill p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold text-[var(--color-text-inactive)]">
+                                        3. Ang II (ECA)
+                                    </div>
+                                    <div id="sraa-aldo" class="sraa-step-pill p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold text-[var(--color-text-inactive)]">
+                                        4. Aldosterona
+                                    </div>
+                                    <div id="sraa-enac" class="sraa-step-pill p-2 rounded-xl bg-[var(--background-navigation)] text-[11px] font-bold text-[var(--color-text-inactive)]">
+                                        5. ENaC + SGK1
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Micro-Vista Celular: Canales ENaC Preservados por Aldosterona -->
+                        <div class="fisio-glass-card rounded-[35px] p-5">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-bold text-sm text-[var(--black-color)] flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-amber-500">door_open</span>
+                                    Preservación de Canales ENaC en Túbulo Distal & Colector
+                                </h4>
+                                <span id="val-enac" class="font-mono text-xs font-black text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
+                                    50%
+                                </span>
+                            </div>
+
+                            <p class="text-xs text-[var(--color-text-inactive)] mb-3">
+                                La aldosterona induce la quinasa <strong>SGK1</strong>, previniendo la degradación y ubiquitinación de los canales ENaC por Nedd4-2, manteniendo la reabsorción activa de sodio.
+                            </p>
+
+                            <!-- Contenedor dinámico del diagrama de la célula principal -->
+                            <div id="enac-cell-graphic-container">
+                                <!-- Inyectado por JS -->
+                            </div>
+
+                            <!-- Métricas de Balance Iónico -->
+                            <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+                                <div class="bg-[var(--background-navigation)] p-2.5 rounded-2xl border border-[var(--border-navigation)]">
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase">Aldosterona</div>
+                                    <div id="val-aldo" class="text-sm font-black text-purple-600 dark:text-purple-400 font-mono">50%</div>
+                                </div>
+                                <div class="bg-[var(--background-navigation)] p-2.5 rounded-2xl border border-[var(--border-navigation)]">
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase">Reabs. Na⁺</div>
+                                    <div id="val-na-reabs" class="text-sm font-black text-blue-600 dark:text-blue-400 font-mono">62.5 mmol/min</div>
+                                </div>
+                                <div class="bg-[var(--background-navigation)] p-2.5 rounded-2xl border border-[var(--border-navigation)]">
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase">Excr. K⁺ (ROMK)</div>
+                                    <div id="val-k-excr" class="text-sm font-black text-emerald-600 dark:text-emerald-400 font-mono">32.5 mmol/min</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 3: MINI-JUEGOS LÓGICOS Y DE ARRASTRAR (DIGESTIÓN & ÁCIDO-BASE) -->
+            <!-- ========================================================================================= -->
+            <div id="tab-juegos" class="fisio-tab-panel hidden transition-all duration-500">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    
+                    <!-- MINI-JUEGO 1: LABORATORIO DE DIGESTIÓN (DRAG & DROP) -->
+                    <div id="digestion-game-container" class="fisio-glass-card rounded-[40px] p-6 md:p-8 relative">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-4xl text-amber-500">science</span>
+                                <div>
+                                    <h3 class="text-xl font-black text-[var(--black-color)]">Laboratorio de Digestión</h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Arrastra enzimas a sustratos y transportadores luminales</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                                Drag & Drop
+                            </span>
+                        </div>
+
+                        <!-- Misión y Objetivo -->
+                        <div class="bg-amber-500/10 border border-amber-500/20 p-4 rounded-2xl mb-6">
+                            <h4 id="digest-mission-title" class="font-black text-sm text-amber-800 dark:text-amber-300 mb-1">
+                                Misión 1: Cascada Proteolítica y Absorción Peptídica
+                            </h4>
+                            <p id="digest-step-prompt" class="text-xs text-[var(--color-text-inactive)] font-medium">
+                                Arrastra la enterocinasa del borde en cepillo para activar el tripsinógeno a tripsina.
+                            </p>
+                        </div>
+
+                        <!-- Zona de Caída (Drop Zone) -->
+                        <div id="digest-drop-target" class="digest-drop-zone p-6 rounded-3xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] flex flex-col items-center justify-center text-center min-h-[160px] cursor-pointer shadow-inner mb-6">
+                            <!-- Inyectado por JS -->
+                        </div>
+
+                        <!-- Banco de Enzimas y Moléculas Arrastrables -->
+                        <div>
+                            <div class="text-xs font-bold text-[var(--color-text-inactive)] uppercase tracking-wider mb-3">
+                                Enzimas y Transportadores Disponibles:
+                            </div>
+                            <div id="digest-enzymes-bank" class="flex flex-wrap gap-2.5">
+                                <!-- Inyectado por JS -->
+                            </div>
+                        </div>
+
+                        <!-- Mensaje de Feedback -->
+                        <div id="digest-feedback" class="hidden"></div>
+                    </div>
+
+                    <!-- MINI-JUEGO 2: BALANZA DEL EQUILIBRIO ÁCIDO-BASE -->
+                    <div id="acid-base-game-container" class="fisio-glass-card rounded-[40px] p-6 md:p-8 relative">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-4xl text-emerald-500">balance</span>
+                                <div>
+                                    <h3 class="text-xl font-black text-[var(--black-color)]">Balanza Ácido-Base</h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Ecuación de Henderson-Hasselbalch en Tiempo Real</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
+                                Homeostasis
+                            </span>
+                        </div>
+
+                        <!-- Dial / Aguja de pH -->
+                        <div class="ph-scale-wrapper text-center my-4">
+                            <div class="relative w-48 h-28 mx-auto overflow-hidden">
+                                <svg viewBox="0 0 200 110" class="w-full h-full">
+                                    <!-- Arco de color -->
+                                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#e2e8f0" stroke-width="16" />
+                                    <!-- Zona Ácida (Rojo) -->
+                                    <path d="M 20 100 A 80 80 0 0 1 75 32" fill="none" stroke="#ef4444" stroke-width="16" />
+                                    <!-- Zona Fisiológica Segura (Verde 7.35 - 7.45) -->
+                                    <path d="M 75 32 A 80 80 0 0 1 125 32" fill="none" stroke="#10b981" stroke-width="20" />
+                                    <!-- Zona Alcalina (Morado) -->
+                                    <path d="M 125 32 A 80 80 0 0 1 180 100" fill="none" stroke="#8b5cf6" stroke-width="16" />
+                                    <!-- Aguja -->
+                                    <g id="ab-needle" class="ph-needle" style="transform: rotate(0deg);">
+                                        <line x1="100" y1="100" x2="100" y2="25" stroke="#1e293b" stroke-width="3" stroke-linecap="round" />
+                                        <circle cx="100" cy="100" r="7" fill="#1e293b" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <div class="mt-2 flex flex-col items-center">
+                                <div class="text-3xl font-black font-mono text-[var(--black-color)]" id="ab-val-ph">7.40</div>
+                                <div id="ab-status-badge" class="mt-1 px-4 py-1.5 rounded-full font-bold text-xs bg-emerald-500/20 text-emerald-600 border border-emerald-500">
+                                    Homeostasis Estable (pH Fisiológico 7.35 - 7.45)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sliders de Ventilación Pulmonar y Bicarbonato Renal -->
+                        <div class="space-y-4 my-6">
+                            <!-- Pulmonar: PCO2 -->
+                            <div>
+                                <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                                    <span class="text-[var(--color-text-inactive)]">Respiratorio: PCO₂ Pulmonar</span>
+                                    <span id="ab-val-pco2" class="font-mono text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">40 mmHg</span>
+                                </div>
+                                <input type="range" id="ab-slider-pco2" min="15" max="80" value="40" class="fisio-slider w-full">
+                                <div class="flex justify-between text-[10px] text-[var(--color-text-inactive)] mt-1">
+                                    <span>15 (Kussmaul)</span>
+                                    <span>40 (Normal)</span>
+                                    <span>80 (Hipoventilación)</span>
+                                </div>
+                            </div>
+
+                            <!-- Renal: HCO3- -->
+                            <div>
+                                <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                                    <span class="text-[var(--color-text-inactive)]">Metabólico: [HCO₃⁻] Renal</span>
+                                    <span id="ab-val-hco3" class="font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">24 mEq/L</span>
+                                </div>
+                                <input type="range" id="ab-slider-hco3" min="10" max="45" value="24" class="fisio-slider w-full">
+                                <div class="flex justify-between text-[10px] text-[var(--color-text-inactive)] mt-1">
+                                    <span>10 (Consumo/Excreción)</span>
+                                    <span>24 (Normal)</span>
+                                    <span>45 (Reabsorción Máx)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Escenarios Clínicos de Reto -->
+                        <div class="bg-[var(--background-navigation)] p-4 rounded-3xl border border-[var(--border-navigation)]">
+                            <div class="text-[11px] font-bold text-[var(--color-text-inactive)] uppercase tracking-wider mb-2">
+                                Casos Clínicos para Compensar:
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 mb-3">
+                                <button onclick="loadAcidBaseScenario(0)" class="p-2 rounded-xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] font-bold text-[var(--black-color)] hover:scale-105 transition-all text-left">
+                                    1. Acidosis Resp. (EPOC)
+                                </button>
+                                <button onclick="loadAcidBaseScenario(1)" class="p-2 rounded-xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] font-bold text-[var(--black-color)] hover:scale-105 transition-all text-left">
+                                    2. Alcalosis Resp. (Pánico)
+                                </button>
+                                <button onclick="loadAcidBaseScenario(2)" class="p-2 rounded-xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] font-bold text-[var(--black-color)] hover:scale-105 transition-all text-left">
+                                    3. Acidosis Metab. (Kussmaul)
+                                </button>
+                                <button onclick="loadAcidBaseScenario(3)" class="p-2 rounded-xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] font-bold text-[var(--black-color)] hover:scale-105 transition-all text-left">
+                                    4. Alcalosis Metab. (Vómitos)
+                                </button>
+                            </div>
+
+                            <div class="text-xs">
+                                <span id="ab-scenario-title" class="font-black text-[var(--black-color)] block mb-1">
+                                    Caso 1: Acidosis Respiratoria Aguda
+                                </span>
+                                <p id="ab-scenario-desc" class="text-[var(--color-text-inactive)]">
+                                    Ajusta la compensación renal para normalizar el pH.
+                                </p>
+                            </div>
+
+                            <button onclick="checkAcidBaseCompensation()" class="mt-3 w-full py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md transition-all">
+                                Evaluar Compensación Homeostática
+                            </button>
+                            <div id="ab-scenario-feedback" class="hidden"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 4: FLASHCARDS 3D CON ANIMACIONES Y AUDIO-CARD CONCEPTUAL -->
+            <!-- ========================================================================================= -->
+            <div id="tab-flashcards" class="fisio-tab-panel hidden transition-all duration-500">
+                
+                <!-- Encabezado de la Sub-Sección Flashcards Estilo Apple Multitask -->
+                <div class="text-center mb-6">
+                    <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                        Multitarea iOS • 12 Conceptos Maestros
+                    </span>
+                    <h3 class="text-2xl md:text-3xl font-black text-[var(--black-color)] mt-2">
+                        Tarjetas Apiladas de Fisiología
+                    </h3>
+                    <p class="text-xs md:text-sm text-[var(--color-text-inactive)] mt-1 max-w-lg mx-auto">
+                        Desliza horizontalmente entre las tarjetas o toca los extremos para navegar. Toca la tarjeta activa o el botón para girarla en 3D.
+                    </p>
+                </div>
+
+                <!-- CONTENEDOR MULTITAREA APPLE IPHONE (STACKED CARDS) -->
+                <div class="apple-multitask-wrapper mb-8">
+                    
+                    <!-- Flecha Flotante Izquierda -->
+                    <button id="apple-stack-prev" class="apple-nav-arrow apple-nav-prev" title="Tarjeta Anterior">
+                        <span class="material-symbols-outlined text-2xl text-[var(--black-color)]">chevron_left</span>
+                    </button>
+
+                    <!-- Mazo 3D de Tarjetas Apiladas (12 Tarjetas) -->
+                    <div id="apple-multitask-deck" class="apple-multitask-deck">
+                        
+                        <!-- TARJETA 01: COLECISTOCININA (CCK) -->
+                        <div class="apple-card-container" data-card-idx="0">
+                            <div class="apple-card-inner">
+                                <!-- Frente -->
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-emerald-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">water_drop</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Eje Gastrointestinal</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]">
+                                                <span class="material-symbols-outlined text-xs">3d_rotation</span> Girar
+                                            </div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Tarjeta #01</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Colecistocinina (CCK)
+                                        </h3>
+                                        <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-1">Células I (Duodeno & Yeyuno)</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Estímulo Luminal:</strong> Presencia de ácidos grasos libres y oligopéptidos procedentes del estómago.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Receptores:</strong> CCK1 acoplados a proteína Gq e IP3, detonando oscilaciones de Ca2+.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                                        <span>Toca para ver la mecánica biliar</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <!-- Reverso con Animación SVG Fluida -->
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Efecto Mecano-Secretor</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]">
+                                                <span class="material-symbols-outlined text-xs">undo</span> Volver
+                                            </div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Contracción Vesicular & Oddi</h4>
+                                        
+                                        <!-- Animación Fluida SVG -->
+                                        <div class="w-full h-32 my-2 flex items-center justify-center bg-[var(--background-navigation)] rounded-2xl p-2 border border-[var(--border-navigation)]">
+                                            <svg viewBox="0 0 200 120" class="w-full h-full">
+                                                <path class="anim-gallbladder" d="M 40 45 C 40 20, 80 20, 80 45 C 80 70, 65 85, 60 95 L 55 95 C 50 85, 40 70, 40 45 Z" fill="#10b981" opacity="0.85" stroke="#047857" stroke-width="2" />
+                                                <text x="60" y="55" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Vesícula</text>
+                                                <path class="anim-bile-path" d="M 58 95 L 58 105 L 120 105" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round" />
+                                                <circle class="anim-oddi" cx="125" cy="105" r="10" fill="none" stroke="#3b82f6" stroke-width="3" />
+                                                <text x="125" y="88" font-size="8" font-weight="bold" fill="#2563eb" text-anchor="middle">Oddi</text>
+                                                <rect x="140" y="80" width="45" height="40" rx="8" fill="#fef08a" opacity="0.6" stroke="#eab308" stroke-width="1.5" />
+                                                <text x="162" y="103" font-size="8" font-weight="bold" fill="#854d0e" text-anchor="middle">Duodeno</text>
+                                            </svg>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            La CCK sincroniza la <strong>contracción del músculo liso vesicular</strong> con la <strong>relajación del esfínter de Oddi</strong>, eyectando bilis y enzimas acinares pancreáticas mientras retrasa el vaciamiento gástrico.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#01 • Tratado Módulo II</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 02: EJE LEPTINA - MELANOCORTINA -->
+                        <div class="apple-card-container" data-card-idx="1">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-pick-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-fuchsia-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">psychology</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Balance Energético</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-fuchsia-600 dark:text-fuchsia-400">Tarjeta #02</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Leptina & Núcleo Arcuato
+                                        </h3>
+                                        <p class="text-xs font-semibold text-fuchsia-700 dark:text-fuchsia-400 mt-1">Tejido Adiposo $\leftrightarrow$ Hipotálamo</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Señal de Reserva:</strong> La leptina se segrega en proporción a la masa grasa y cruza la barrera hematoencefálica.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Receptor LepRb:</strong> Detona la fosforilación de la cascada JAK2 / STAT3 en neuronas de primer orden.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-fuchsia-700 dark:text-fuchsia-300">
+                                        <span>Toca para ver el bucle SOCS3</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-yellow-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Vía Melanocortínica</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">POMC, MC4R & Resistencia a Leptina</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div class="text-emerald-700 dark:text-emerald-300 font-bold">✔ STAT3 nuclear $\rightarrow$ activa gen POMC y reprime AgRP.</div>
+                                            <div class="text-blue-700 dark:text-blue-300 font-bold">✔ α-MSH estimula receptor MC4R (Saciedad y termogénesis).</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">⛔ Retroalimentación: Proteína SOCS3 bloquea a JAK2.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            La sobreexpresión crónica de <strong>SOCS3</strong> induce resistencia central a la leptina, perpetuando el apetito en la obesidad.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#02 • Tratado Módulo I</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 03: EJE TIROIDEO Y EFECTO WOLFF-CHAIKOFF -->
+                        <div class="apple-card-container" data-card-idx="2">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-blue-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">medication</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Eje Tiroideo</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Tarjeta #03</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Efecto Wolff-Chaikoff
+                                        </h3>
+                                        <p class="text-xs font-semibold text-blue-700 dark:text-blue-400 mt-1">Glándula Tiroides & Yoduro</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Simportador NIS:</strong> Introduce yoduro basolateralmente impulsado por el gradiente de sodio; pendrina lo pasa al lumen.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Tiroperoxidasa (TPO):</strong> Oxida el yoduro mediante H2O2 y lo organifica en la tiroglobulina.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-blue-700 dark:text-blue-300">
+                                        <span>Toca para ver el freno anti-tirotóxico</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-brown-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400">Defensa Fisiológica</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Freno Agudo por Sobrecarga de Yodo</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div class="font-bold text-amber-700 dark:text-amber-300">1. Exceso agudo de yoduro (ej. contrastes yodados).</div>
+                                            <div class="font-bold text-rose-700 dark:text-rose-300">2. Inhibición intrínseca transitoria de la TPO.</div>
+                                            <div class="font-bold text-purple-700 dark:text-purple-300">3. Supresión de NIS hasta que opera el escape adaptativo.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Previene una tormenta de hiperproducción hormonal protegiendo al miocardio y sistema nervioso hasta la desensibilización del simportador.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#03 • Tratado Módulo I</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 04: ENZIMA PROTECTORA 11β-HSD2 -->
+                        <div class="apple-card-container" data-card-idx="3">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-brown-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-amber-600">
+                                                    <span class="material-symbols-outlined text-lg text-white">shield</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Esteroidogénesis Renal</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Tarjeta #04</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Enzima 11β-HSD2
+                                        </h3>
+                                        <p class="text-xs font-semibold text-amber-800 dark:text-amber-400 mt-1">Guardián del Receptor MR</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Paradoja Molecular:</strong> El receptor mineralocorticoide (MR) tiene idéntica afinidad por cortisol y aldosterona.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Concentraciones:</strong> El cortisol circula en concentraciones 1000 veces mayores a la aldosterona.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-amber-800 dark:text-amber-300">
+                                        <span>Toca para ver el mecanismo protector</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Relevancia Clínica</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Exceso Aparente de Mineralocorticoides</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>Cortisol (Activo) $\xrightarrow{11\beta\text{-HSD2}}$ Cortisona (Inactiva en MR)</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">Si 11β-HSD2 muta (o se inhibe por regaliz):</div>
+                                            <div class="text-purple-700 dark:text-purple-300 font-bold">El cortisol satura el MR $\rightarrow$ Hipertensión e hipopotasemia severa.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Esta enzima es la única barrera que garantiza que solo la aldosterona comande la reabsorción distal de sodio en condiciones fisiológicas.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#04 • Tratado Módulo I</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 05: LEY DE FRANK-STARLING Y LA TITINA -->
+                        <div class="apple-card-container" data-card-idx="4">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-rose-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">favorite</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Mecánica Cardíaca</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400">Tarjeta #05</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Frank-Starling & Titina
+                                        </h3>
+                                        <p class="text-xs font-semibold text-rose-700 dark:text-rose-400 mt-1">Acoplamiento Mecanoquímico</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Principio Clásico:</strong> A mayor llenado y estiramiento pasivo diastólico (precarga), mayor fuerza de contracción sistólica resultante.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Macromolécula Titina:</strong> Proteína elástica gigante que conecta la línea Z con la línea M del sarcómero.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-rose-700 dark:text-rose-300">
+                                        <span>Toca para ver el mecanismo molecular</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-pick-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400">Microscopía Molecular</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Sensibilidad al Calcio de Troponina C</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>1. La elongación diastólica tensa a la titina sarcomérica.</div>
+                                            <div>2. Comprime el espacio transversal entre filamentos delgados y gruesos.</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">3. Aumenta la afinidad de la Troponina C por el Ca2+ libre intracelular.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Garantiza el inotropismo intrínseco e iguala de forma autónoma el gasto de ambos ventrículos sin necesidad de comando neural.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#05 • Tratado Módulo IV</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 06: CÉLULA PARIETAL Y MAREA ALCALINA -->
+                        <div class="apple-card-container" data-card-idx="5">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-yellow-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-amber-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">science</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Secreción Gástrica</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Tarjeta #06</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Célula Parietal & Marea Alcalina
+                                        </h3>
+                                        <p class="text-xs font-semibold text-amber-800 dark:text-amber-400 mt-1">Glándulas Oxínticas del Cuerpo Gástrico</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Estímulo Triple:</strong> Histamina (receptores H2 $\rightarrow$ AMPc), Gastrina y Acetilcolina vagal (vía Ca2+ intracelular).
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Ezrina y Rab11a:</strong> Median la exocitosis apical de tubulovesículas ricas en bombas H+/K+ ATPasa.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-amber-800 dark:text-amber-300">
+                                        <span>Toca para ver el intercambio de HCO3-</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Bioquímica Basolateral</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Intercambiador AE2 & Sangre Venosa</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>$CO_2 + H_2O \xrightarrow{\text{Anhidrasa}} H^+ + HCO_3^-$</div>
+                                            <div class="text-blue-700 dark:text-blue-300 font-bold">$H^+$ es extruido al lumen por la bomba $H^+/K^+$ ATPasa.</div>
+                                            <div class="text-emerald-700 dark:text-emerald-300 font-bold">$HCO_3^-$ es evacuado hacia el intersticio por el intercambiador $Cl^-/HCO_3^-$ (AE2).</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Este influjo postprandial genera una elevación transitoria del pH de la sangre venosa gástrica conocida como <strong>"marea alcalina"</strong>.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#06 • Tratado Módulo II</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 07: CÉLULA BETA Y SECRECIÓN DE INSULINA -->
+                        <div class="apple-card-container" data-card-idx="6">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-teal-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">bloodtype</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Páncreas Endocrino</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-teal-600 dark:text-teal-400">Tarjeta #07</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Célula Beta: Secreción de Insulina
+                                        </h3>
+                                        <p class="text-xs font-semibold text-teal-700 dark:text-teal-400 mt-1">Sensor Glucémico & Canales K_ATP</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Entrada de Glucosa:</strong> Transportadores GLUT1/3 en humanos penetran la hexosa, fosforilada por glucocinasa.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Cociente ATP/ADP:</strong> El metabolismo mitocondrial dispara el ATP citosólico.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-teal-700 dark:text-teal-300">
+                                        <span>Toca para ver la cascada de exocitosis</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Biofísica de Canales</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Cierre de K_ATP & Influjo de Ca2+</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>1. ATP cierra el canal $K_{ATP}$ (octámero Kir6.2 / SUR1).</div>
+                                            <div>2. La disminución de salida de $K^+$ despolariza la membrana.</div>
+                                            <div class="text-blue-700 dark:text-blue-300 font-bold">3. Apertura de canales de $Ca^{2+}$ tipo L (VDCC).</div>
+                                            <div class="text-teal-700 dark:text-teal-300 font-bold">4. Complejo SNARE exocita insulina y péptido C a la vena porta.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Este acoplamiento biofísico preciso es el blanco farmacológico de las sulfonilureas y fármacos secretagogos.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#07 • Tratado Módulo III</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 08: CÉLULAS INTERSTICIALES DE CAJAL -->
+                        <div class="apple-card-container" data-card-idx="7">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-pick-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-purple-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">waves</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Neurogastroenterología</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400">Tarjeta #08</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Células de Cajal (ICC)
+                                        </h3>
+                                        <p class="text-xs font-semibold text-purple-700 dark:text-purple-400 mt-1">Marcapasos Gastrointestinales</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Ubicación:</strong> Intercaladas entre las capas musculares viscerales longitudinal y circular del tubo digestivo.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Ritmo Eléctrico Básico (REB):</strong> Dictan la frecuencia intrínseca de ondas lentas peristálticas.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-purple-700 dark:text-purple-300">
+                                        <span>Toca para ver los canales TMEM16A</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-yellow-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Mecanismo de Despolarización</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Oscilador de Ca2+ & Canales ANO1</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>1. Liberación estocástica de $Ca^{2+}$ del retículo mediada por $IP_3$.</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">2. El $Ca^{2+}$ activa canales de cloruro TMEM16A (ANO1).</div>
+                                            <div class="text-purple-700 dark:text-purple-300 font-bold">3. Eflujo de $Cl^-$ despolariza rítmicamente la célula.</div>
+                                            <div>4. Propagación rápida a miocitos por uniones en hendidura (*gap junctions*).</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Si la onda lenta supera el umbral eléctrico, detona potenciales en espiga produciendo contracciones peristálticas coordinadas.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#08 • Tratado Módulo II</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 09: OXIHEMOGLOBINA: BOHR Y HALDANE -->
+                        <div class="apple-card-container" data-card-idx="8">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-cyan-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">air</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Fisiología Respiratoria</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-cyan-600 dark:text-cyan-400">Tarjeta #09</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Efectos Bohr & Haldane
+                                        </h3>
+                                        <p class="text-xs font-semibold text-cyan-700 dark:text-cyan-400 mt-1">Alosterismo de la Hemoglobina</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Transición Alostérica:</strong> Balance entre el Estado T (tenso, baja afinidad) y el Estado R (relajado, súper afín por O2).
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Curva Sigmoidea:</strong> Cooperatividad positiva donde la unión de un O2 facilita las uniones subsecuentes.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-cyan-700 dark:text-cyan-300">
+                                        <span>Toca para ver el intercambio tisular vs pulmonar</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-pick-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Cooperatividad Recíproca</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Bohr en Tejidos vs Haldane en Pulmón</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">Efecto Bohr (Tisular):</div>
+                                            <div>Acúmulo de $CO_2$ y $H^+$ protona histidinas de la Hb $\rightarrow$ estabiliza estado T $\rightarrow$ libera $O_2$ hacia tejidos activos.</div>
+                                            <div class="text-blue-700 dark:text-blue-300 font-bold mt-1">Efecto Haldane (Pulmonar):</div>
+                                            <div>El $O_2$ alveolar hiperbárico fuerza el estado R $\rightarrow$ expulsa $CO_2$ de carbaminohemoglobina para exhalación.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Esta sinergia termodinámica asegura la entrega masiva de oxígeno donde hay acidosis y la rápida eliminación de ácido volátil en los alvéolos.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#09 • Tratado Módulo V</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 10: FEEDBACK TÚBULOGLOMERULAR Y MÁCULA DENSA -->
+                        <div class="apple-card-container" data-card-idx="9">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-emerald-600">
+                                                    <span class="material-symbols-outlined text-lg text-white">filter_alt</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Fisiología Renal</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Tarjeta #10</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Feedback Túbuloglomerular
+                                        </h3>
+                                        <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-1">Mácula Densa & Adenosina</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Sensor de Flujo:</strong> Las células de la mácula densa testean el NaCl del túbulo distal temprano con su cotransportador NKCC2.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Ubicación Estratégica:</strong> Adosadas en la hendidura entre la arteriola aferente y eferente del glomérulo.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                                        <span>Toca para ver el mecanismo constrictor</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Autorregulación Renal</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Adenosina Vascular & Receptores A1</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>1. Flujo excesivo de TFG sobrecarga de NaCl al NKCC2 apical.</div>
+                                            <div class="text-amber-700 dark:text-amber-300 font-bold">2. Maxi-porinas liberan ATP, desfosforilado a Adenosina.</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">3. La adenosina se une a receptores A1 en la arteriola aferente.</div>
+                                            <div>4. Vasoconstricción inmediata de la arteriola aferente normalizando la TFG.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Protege al lecho capilar glomerular de presiones lesivas e impide la pérdida descontrolada de agua y solutos urinarios.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#10 • Tratado Módulo VI</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 11: PÉPTIDO NATRIURÉTICO AURICULAR (ANP) -->
+                        <div class="apple-card-container" data-card-idx="10">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-indigo-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">water</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Control de Volemia</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Tarjeta #11</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Péptido Natriurético (ANP)
+                                        </h3>
+                                        <p class="text-xs font-semibold text-indigo-700 dark:text-indigo-400 mt-1">Miocardiocitos Auriculares</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Estímulo Mecánico:</strong> Sobrecarga de líquido intravascular ejerce estiramiento pasivo en aurículas.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Receptor NPR-A:</strong> Ejerce actividad intrínseca de guanilato ciclasa manufacturando GMPc.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-indigo-700 dark:text-indigo-300">
+                                        <span>Toca para ver la hemodinámica glomerular</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Respuesta a Hipervolemia</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Natriuresis & Antagonismo SRAA</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div class="text-emerald-700 dark:text-emerald-300 font-bold">1. Dilata arteriola aferente y contrae levemente la eferente.</div>
+                                            <div>2. Aumenta drásticamente la TFG impulsando natriuresis masiva.</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">3. Antagoniza directamente la renina y la aldosterona.</div>
+                                            <div>4. Inhibe la inserción de acuaporinas AQP2 dependientes de ADH.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            Anula con rapidez la expansión de volumen circulante restableciendo la normovolemia fisiológica sin soporte exógeno.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#11 • Tratado Módulo IV</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 12: EJE KLOTHO - FGF-23 Y VITAMINA D -->
+                        <div class="apple-card-container" data-card-idx="11">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-brown-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-orange-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">health_and_safety</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Endocrinología Renal</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-orange-600 dark:text-orange-400">Tarjeta #12</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Klotho, FGF-23 & Calcitriol
+                                        </h3>
+                                        <p class="text-xs font-semibold text-orange-800 dark:text-orange-400 mt-1">Glándula Homeostática Inaparente</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>1α-hidroxilasa Tubular:</strong> Enzima inducida por PTH que sintetiza Calcitriol activo (1,25-dihidroxicolecalciferol).
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Macromolécula Klotho:</strong> Proteína transmembrana anti-envejecimiento expresada en el túbulo distal.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-orange-800 dark:text-orange-300">
+                                        <span>Toca para ver el control fosfocálcico</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-yellow-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Homeostasis Fosfórica</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">FGF-23 Óseo & Fosfaturia Protectora</h4>
+                                        <div class="w-full my-3 p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 font-medium">
+                                            <div>1. El hueso secreta Factor de Crecimiento Fibroblástico 23 (FGF-23).</div>
+                                            <div class="text-purple-700 dark:text-purple-300 font-bold">2. FGF-23 se ancla al receptor en presencia del cofactor Klotho.</div>
+                                            <div class="text-rose-700 dark:text-rose-300 font-bold">3. Inhibe transportadores apicales NPT2 en el túbulo proximal.</div>
+                                            <div>4. Induce fosfaturia obligatoria previniendo calcificaciones metastásicas.</div>
+                                        </div>
+                                        <p class="text-[11px] text-[var(--color-text-inactive)] leading-tight">
+                                            El eje Klotho-FGF-23 preserva la microvasculatura sistémica contra degeneraciones calcificadas letales en tejidos blandos.
+                                        </p>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#12 • Tratado Módulo VI</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Flecha Flotante Derecha -->
+                    <button id="apple-stack-next" class="apple-nav-arrow apple-nav-next" title="Tarjeta Siguiente">
+                        <span class="material-symbols-outlined text-2xl text-[var(--black-color)]">chevron_right</span>
+                    </button>
+
+                    <!-- Switcher Dock Inferior Estilo iOS -->
+                    <div class="apple-switcher-dock">
+                        <span id="apple-stack-counter" class="text-xs font-mono font-black text-[var(--black-color)] mr-2">
+                            1 de 12
+                        </span>
+                        <div id="apple-stack-dock" class="flex items-center gap-1.5">
+                            <!-- Inyectado por JS: 12 píldoras interactivas -->
+                        </div>
+                        <button id="apple-stack-flip-active" class="ml-3 px-3 py-1 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-xs flex items-center gap-1 shadow-sm transition-all hover:scale-105">
+                            <span class="material-symbols-outlined text-sm">3d_rotation</span> Girar
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- AUDIO-CARD CONCEPTUAL -->
+                <div class="max-w-md mx-auto">
+                    <div id="audio-lottie-card-fisio" class="relative overflow-hidden android-glass-card rounded-[30px] p-6 flex flex-col items-center justify-center gap-3 hover:scale-[1.05] transition-all duration-500 cursor-pointer border border-[var(--border-navigation)] shadow-sm bg-[var(--background-navigation)]">
+                        <!-- Animación Lottie -->
+                        <div id="lottie-sound-wave-fisio" class="w-20 h-20 flex-shrink-0 transition-transform duration-500"></div>
+                        <span class="text-sm font-bold text-[var(--black-color)] text-center leading-tight transition-colors duration-500">
+                            Presiona para escucharme
+                        </span>
+                        <p class="text-[11px] text-[var(--color-text-inactive)] text-center font-medium mt-1">
+                            Cápsula Sonora: Integración y Homeostasis Fisiológica
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 5: CASOS CLÍNICOS DE RESOLUCIÓN SECUENCIAL (PANEL DE DIAGNÓSTICO) -->
+            <!-- ========================================================================================= -->
+            <div id="tab-casos" class="fisio-tab-panel hidden transition-all duration-500">
+                
+                <div class="max-w-4xl mx-auto fisio-glass-card rounded-[40px] p-6 md:p-10 relative">
+                    
+                    <!-- Selector de Casos Clínicos -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-[var(--border-navigation)]">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-blue-500 text-3xl">medical_information</span>
+                            <div>
+                                <h3 class="text-xl font-black text-[var(--black-color)]">Panel de Diagnóstico Interactivo</h3>
+                                <p class="text-xs text-[var(--color-text-inactive)]">Resolución secuencial basada en fisiología molecular</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button onclick="selectClinicalCase(0)" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all">
+                                Caso 1: B12 & Células Parietales
+                            </button>
+                            <button onclick="selectClinicalCase(1)" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 hover:bg-purple-500 hover:text-white transition-all">
+                                Caso 2: HTA & 11β-HSD2
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Viñeta Clínica del Paciente -->
+                    <div class="bg-blue-500/10 border border-[var(--border-navigation)] p-5 rounded-3xl mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 id="case-title" class="font-black text-base text-blue-800 dark:text-blue-300">
+                                Caso Clínico 1: Síndrome Malabsortivo y Anemia Megaloblástica
+                            </h4>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500 text-white">
+                                Viñeta Clínica
+                            </span>
+                        </div>
+                        <p id="case-history" class="text-xs md:text-sm text-[var(--black-color)] leading-relaxed font-medium">
+                            Hombre de 58 años intervenido hace 3 años de gastrectomía total. Acude por astenia severa, parestesias simétricas en miembros inferiores (afectación cordonal posterior) y glositis dolorosa. Laboratorio: Hemoglobina 8.2 g/dL, VCM 118 fL y cobalamina disminuida.
+                        </p>
+                    </div>
+
+                    <!-- Progreso de Pasos Secuenciales -->
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[var(--color-text-inactive)]">Progreso Secuencial:</span>
+                        <div id="case-step-progress" class="flex gap-2">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+
+                    <!-- Pregunta del Paso Actual -->
+                    <div class="mb-6">
+                        <h4 id="case-question" class="text-sm md:text-base font-bold text-[var(--black-color)] mb-4 leading-snug">
+                            <!-- Inyectado por JS -->
+                        </h4>
+
+                        <!-- Contenedor de Opciones Múltiples -->
+                        <div id="case-options-container" class="space-y-3">
+                            <!-- Inyectado por JS -->
+                        </div>
+
+                        <!-- Feedback Explicativo -->
+                        <div id="case-feedback" class="hidden"></div>
+                    </div>
+
+                    <!-- Botón de Siguiente Paso -->
+                    <div class="flex justify-end pt-4 border-t border-[var(--border-navigation)]">
+                        <button id="case-next-btn" class="hidden px-8 py-3 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm shadow-lg hover:scale-105 transition-all">
+                            Avanzar al Siguiente Paso
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         
@@ -745,6 +2250,7 @@
 
     <!-- Script Principal -->
     <script src="script.js"></script>
+    <script src="script_fisiologia.js"></script>
     <!-- Modal / Lightbox -->
     <div id="anomaly-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-[#93c5fd]/30 backdrop-blur-xl rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col relative transform scale-95 transition-transform duration-300 border border-white/40 text-slate-900" id="modal-content-container">
@@ -814,6 +2320,10 @@
     <div class="desktop-floating-actions">
         <button class="desktop-theme-fab theme-toggle-trigger">
             <i class="theme-icon ri-sun-fill"></i>
+        </button>
+
+        <button class="desktop-theme-fab" id="desktop-break-btn" title="Break de Relajación">
+            <span class="material-symbols-outlined text-[24px] text-[var(--text-glasseffect)] transition-colors duration-300">self_improvement</span>
         </button>
     </div>
 </body>

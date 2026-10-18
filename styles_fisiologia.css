@@ -1,0 +1,706 @@
+:root{
+    /* Fondo base + colores de las masas de luz animadas */
+    --bg-gradient-animated: #f8fbff;
+    /* Brillos azulados suaves para simular la iluminación de la imagen */
+    --ambient-glow: rgba(210, 230, 255, 0.4);
+    --ambient-blob-1: rgba(163, 206, 255, 0.7);
+    --ambient-blob-2: rgba(190, 225, 255, 0.6);
+    --ambient-blob-3: rgba(130, 185, 255, 0.5);
+    --black-color:#494949;
+    --background-color:#FFFFFF;
+    --background-aprender: #efe7f1;
+    --background-datos:#9ac6d8;
+    --therthary-color:#F0F2F7;
+    --card-brown-color:#fff8f5;
+    --card-green-color:#eef7e6;
+    --card-pick-color:#efdcf5;
+    --card-blue-color:#e3eefc;
+    --card-yellow-color: #f9f1d2;
+    --card-twoblue-color:#dfedfa;
+    --neon-pulse-brown:#cecbc8;
+    --neon-pulse-pink:#f2d9f7;
+    --neon-pulse-green:#dbefe4;
+    --status-bar-color: #FFFFFF99;
+    --text-glasseffect:rgba(43, 43, 43, 0.7);
+    --filtro-background-portada: rgba(133, 133, 133, 0.4);
+    --background-indicator: rgba(61, 61, 61, 0.11);
+    --box-indicator: 0 4px 15px rgba(0,0,0,0.2);
+    --border-indicator: 1px solid rgba(109, 107, 107, 0.3);
+    --indicator-color: #34a853; 
+    --indicator-idle: #d1d1d1;
+    --m3-primary-container: #eaddff;
+    --m3-on-primary-container: #21005d;
+    --m3-secondary-container: #e8def8;
+    --m3-surface: rgba(255, 255, 255, 0.7);
+    --m3-active: #d0bcff;
+    --navigation-background:#202124;
+    --background-navigation: rgba(255, 255, 255, 0.6);
+    --border-navigation: 1px solid rgba(255, 255, 255, 0.3);
+    --box-navigation: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
+    --color-text-inactive: rgba(30, 41, 59, 0.432);
+    --webkit-text-inactive: 0.5px rgba(255, 255, 255, 0.2);
+    --text-text-inactive: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    --color-main-btn: #5e4f6a;      
+    --color-nav-bg: #dbd3e1;       
+    --color-sub-bg: #f7f2f9;
+    --color-sub-bg-dos: #eddff3;
+    --color-sub-bg-tres: #e8cef1;
+    --color-sub-bg-cuatro: #e5c5f1;
+    --neon-pulse-green-ai: linear-gradient(
+        to right,
+        rgb(80, 130, 238),
+        rgb(125, 121, 217),
+        rgb(141, 117, 209),
+        rgb(156, 113, 201),
+        rgb(174, 110, 175),
+        rgb(183, 109, 162),
+        rgb(188, 107, 154),
+        rgb(196, 106, 143),
+        rgb(212, 122, 144),
+        rgb(214, 101, 115));
+    --neon-pulse-pink-ai: rgb(182, 157, 175);
+    --neon-pulse-blue:#94c0ed;
+    --neon-pulse-blue_banner:#EDEFFE;
+    --neon-pulse-purple:#d7c6ec;
+    --rgba-navigation:rgba(238, 238, 238, 0.8);
+    --shadown-navigation: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --navigation-background:#202124;
+    --navigation-active:#34a853;
+    --navigation-text:#e6e3e3;
+    --back-ai:#EDEFFE;
+    --back-ai-perfil: #e5dff9;
+    --back-ai-portada:#709fde;
+    --back-ai-estilo-perfil:#d0e8d7;
+    --back-ai-tipo-perfil:#ffdbc9;
+    --icon-ai:#EA9854;
+    --text-ai:#B9839B;
+    --text-color-perfil:#5997bc;
+    --gradiant-ai:#a3b0ce79;
+    --gradiant-ai-green:#dae7c279;
+    --gradiant-ai-pink:  #ffc0cb6c;
+    --gradiant-red:#ca61438e;
+    --line-neon-perfil: #9d88eb;
+    --line-neon-perfil-explocion: #ffb8be;
+    --shimmer-efect:#5E8EEE;
+    --card-dialog: #f0f4f9;
+    --neon-color: #8e9eff; 
+    --bg-color: #c6d2ff;
+    --bg-wood: #d2acdb;
+    --line-wood: #bea2c5;
+    --shadow-inner: #6a4a7d;
+    --light-inner: #d4a5e6;
+    --border-outer: #1a0f1c;
+    --icon-color: #1a1a1a;
+    --bg-page-gradient: linear-gradient(to top, #8bbcf9, #ffffff, #ffffff);
+    --text-main-color: #1e293b; 
+}
+body.dark-mode {
+    --bg-gradient-animated: #0c1420;
+    --ambient-glow: rgba(50, 145, 255, 0.15);
+    --ambient-blob-1: rgba(30, 120, 255, 0.3);
+    --ambient-blob-2: rgba(50, 150, 255, 0.2);
+    --ambient-blob-3: rgba(20, 100, 255, 0.25);
+    --black-color: #E8E7E7;
+    --background-color: #171616;
+    --background-aprender: #151018;
+    --background-datos:#1f2c35;
+    --therthary-color: #292929;
+    --card-brown-color: #463931;
+    --card-green-color: #313529;
+    --card-pick-color: #312735;
+    --card-blue-color:#1f2c35;
+    --card-twoblue-color:#243135;
+    --neon-pulse-brown: #3f3c3a;
+    --neon-pulse-pink:#302836;
+    --neon-pulse-green:#24271e;
+    --status-bar-color: #6E7D8C59;
+    --text-glasseffect:rgba(235, 232, 232, 0.7);
+    --filtro-background-portada: rgba(0, 0, 0, 0.4);
+    --background-indicator: rgba(255, 255, 255, 0.11);
+    --box-indicator: 0 4px 30px rgba(0, 0, 0, 0.1);
+    --border-indicator: 1px solid rgba(255, 255, 255, 0.22);
+    --indicator-color: #34a853; 
+    --m3-primary-container: #eaddff;
+    --m3-on-primary-container: #21005d;
+    --m3-secondary-container: #e8def8;
+    --m3-surface: rgba(255, 255, 255, 0.7);
+    --m3-active: #5e4f6a;
+    --navigation-background:#202124;
+    --indicator-idle: #d1d1d1;
+    --background-navigation: rgba(110, 125, 140, 0.35);
+    --border-navigation: 1px solid rgba(255, 255, 255, 0.15);
+    --box-navigation: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --color-text-inactive: rgba(255, 255, 255, 0.322);
+    --webkit-text-inactive: 1px rgba(255, 255, 255, 0.4);
+    --text-text-inactive: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    --color-main-btn: #bbb1c7;      
+    --color-nav-bg: #5e4f6a;       
+    --color-sub-bg:#5e4f6a;
+    --color-sub-bg-dos: #4d4157;
+    --color-sub-bg-tres: #4c4055;
+    --color-sub-bg-cuatro: #332c3a;
+    --neon-pulse-green-ai: linear-gradient(
+        to right,
+        rgb(80, 130, 238),
+        rgb(125, 121, 217),
+        rgb(141, 117, 209),
+        rgb(156, 113, 201),
+        rgb(174, 110, 175),
+        rgb(183, 109, 162),
+        rgb(188, 107, 154),
+        rgb(196, 106, 143),
+        rgb(212, 122, 144),
+        rgb(214, 101, 115));
+    --neon-pulse-pink-ai: rgb(125, 121, 217); 
+    --neon-pulse-blue:#293a4b;
+    --neon-pulse-blue_banner:#293a4b;
+    --neon-pulse-purple: #2d2833;
+    --rgba-navigation:rgba(29, 29, 29, 0.8);
+    --shadown-navigation: 0 4px 8px rgba(255, 255, 255, 0.1);
+    --navigation-background:#2f2f30;
+    --navigation-active:#c6ff00;
+    --navigation-text:#E8E7E7;
+    --back-ai:#101524;
+    --back-ai-perfil: #201d30;
+    --back-ai-portada:#26354b;
+    --back-ai-estilo-perfil:#1f2e25;
+    --back-ai-tipo-perfil:#301a0d;
+    --icon-ai:#EB9854;
+    --text-ai:#A17CB9;
+    --text-color-perfil:#5997bc;
+    --gradiant-ai:#293a4b4f;
+    --gradiant-ai-green:#444b294f;
+    --gradiant-ai-pink:  #3a2b2e6c;
+    --gradiant-ai-red:#4b33294f;
+    --line-neon-perfil: #5b5768;
+    --line-neon-perfil-explocion: #ad7176;
+    --shimmer-efect:#4061a2;
+    --card-dialog: #282a2c;
+    --bg-wood: #484050;        
+    --line-wood: #3a3441;      
+    --shadow-inner: #1a1a1a;   
+    --light-inner: #666666;    
+    --border-outer: #000000;   
+    --icon-color: #e0e0e0;
+    --bg-page-gradient: linear-gradient(to top, #1c2741, #000000, #000000); 
+    --text-main-color: #f8fafc; 
+}
+
+/* ==========================================================================
+   ESTILOS DE LA SECCIÓN DE FISIOLOGÍA MÉDICA INTEGRADA (APUNTES UNI)
+   Efectos Glassmorphism, Simuladores 3D, Wiggers, Balanza, Flashcards & Casos
+   ========================================================================== */
+
+/* Contenedor principal de la sección */
+.fisiologia-section {
+    position: relative;
+    width: 100%;
+}
+
+/* Tarjeta base Glassmorphic Android/iOS */
+.fisio-glass-card {
+    background: var(--background-navigation);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: var(--border-navigation);
+    box-shadow: var(--box-navigation);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Píldoras de navegación de sub-sección */
+.fisio-tab-btn {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.fisio-tab-btn.active {
+    background: var(--background-color);
+    color: var(--navigation-active);
+    box-shadow: var(--box-indicator);
+    border: var(--border-indicator);
+    font-weight: 700;
+}
+
+/* Visor 3D Corazón y Diagrama Wiggers */
+.cardiac-viewport-container {
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    height: 420px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--bg-gradient-animated);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);
+}
+
+
+.wiggers-canvas-container {
+    position: relative;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+}
+
+body.dark-mode .wiggers-canvas-container {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Nodos Cardíacos Pulsantes */
+.node-pill-btn {
+    transition: all 0.25s ease;
+    border: 1.5px solid transparent;
+}
+.node-pill-btn.active-node {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Nefrona 3D Viewport */
+.nephron-3d-viewport {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--bg-gradient-animated);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);
+}
+
+/* Barra de Sliders Fisiológicos */
+.fisio-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 6px;
+    outline: none;
+    transition: background 0.2s;
+    background: #cbd5e1;
+}
+body.dark-mode .fisio-slider {
+    background: #475569;
+}
+.fisio-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #3b82f6;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    transition: transform 0.15s, background 0.15s;
+}
+.fisio-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+/* Animación de la Cascada SRAA */
+.sraa-step-pill {
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.sraa-step-pill.sraa-active {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+/* Micro-vista Celular ENaC */
+.enac-channel-graphic {
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Drag & Drop: Laboratorio de Digestión */
+.digest-source-pill {
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+.digest-source-pill:active {
+    cursor: grabbing;
+    transform: scale(0.96);
+}
+.digest-source-pill.is-dragging {
+    opacity: 0.4;
+    transform: scale(0.9);
+}
+.digest-drop-zone {
+    border: 2px dashed rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+}
+.digest-drop-zone.drag-over {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.12) !important;
+    transform: scale(1.02);
+}
+.digest-drop-zone.drop-success {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Balanza de pH */
+.ph-scale-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.ph-dial-arc {
+    transform-origin: 50% 100%;
+}
+.ph-needle {
+    transform-origin: 50% 100%;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================================================
+   APPLE IPHONE MULTITASKING / APP SWITCHER STACKED FLASHCARDS
+   ========================================================================== */
+
+.apple-multitask-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 590px;
+    padding: 20px 0;
+    overflow: hidden;
+    perspective: 1400px;
+    perspective-origin: 50% 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.apple-multitask-deck {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    height: 530px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.apple-card-container {
+    position: absolute;
+    width: 320px;
+    height: 490px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1),
+                opacity 0.45s cubic-bezier(0.2, 0.9, 0.3, 1),
+                filter 0.45s cubic-bezier(0.2, 0.9, 0.3, 1),
+                box-shadow 0.45s ease;
+    will-change: transform, opacity, filter;
+}
+
+@media (min-width: 768px) {
+    .apple-card-container {
+        width: 370px;
+        height: 515px;
+    }
+}
+
+.apple-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.apple-card-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.apple-card-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 36px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 22px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+body.dark-mode .apple-card-face {
+    box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.apple-card-face.apple-card-back {
+    transform: rotateY(180deg);
+}
+
+/* iOS Top Bar inside each Card */
+.apple-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.apple-app-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apple-app-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.apple-flip-pill {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+body.dark-mode .apple-flip-pill {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #f1f5f9;
+}
+
+.apple-flip-pill:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+/* Navigation Arrows (Apple Floating Pills) */
+.apple-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e293b;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 50;
+    transition: all 0.25s ease;
+}
+
+body.dark-mode .apple-nav-arrow {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #f8fafc;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.apple-nav-arrow:hover {
+    transform: translateY(-50%) scale(1.12);
+    background: white;
+}
+
+body.dark-mode .apple-nav-arrow:hover {
+    background: #334155;
+}
+
+.apple-nav-prev {
+    left: 8px;
+}
+
+.apple-nav-next {
+    right: 8px;
+}
+
+@media (min-width: 1024px) {
+    .apple-nav-prev { left: 35px; }
+    .apple-nav-next { right: 35px; }
+}
+
+/* Bottom Switcher Indicators / Scrubber */
+.apple-switcher-dock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 8px 18px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    z-index: 40;
+}
+
+body.dark-mode .apple-switcher-dock {
+    background: rgba(30, 41, 59, 0.65);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.apple-dock-pill {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(100, 116, 139, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.apple-dock-pill.active {
+    width: 24px;
+    border-radius: 12px;
+    background: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.5);
+}
+
+/* Animaciones de vesícula biliar y esfínter de Oddi */
+@keyframes gallbladderContract {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.78) translateY(6px);
+    }
+}
+@keyframes oddiRelax {
+    0%, 100% {
+        r: 6;
+        opacity: 0.6;
+    }
+    50% {
+        r: 16;
+        opacity: 1;
+    }
+}
+@keyframes bileFlow {
+    0% {
+        stroke-dashoffset: 40;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+.anim-gallbladder {
+    animation: gallbladderContract 3s ease-in-out infinite;
+    transform-origin: center;
+}
+.anim-oddi {
+    animation: oddiRelax 3s ease-in-out infinite;
+    transform-origin: center;
+}
+.anim-bile-path {
+    stroke-dasharray: 6 3;
+    animation: bileFlow 1.2s linear infinite;
+}
+
+/* Casos Clínicos Secuenciales */
+.case-step-bullet {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+.case-step-bullet.completed {
+    background: #10b981;
+    color: white;
+}
+.case-step-bullet.active {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+}
+.case-step-bullet.pending {
+    background: rgba(0, 0, 0, 0.08);
+    color: #64748b;
+}
+body.dark-mode .case-step-bullet.pending {
+    background: rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+}
+
+/* Opción de diagnóstico interactivo */
+.diag-option-btn {
+    transition: all 0.25s ease;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+body.dark-mode .diag-option-btn {
+    border-color: rgba(255,255,255,0.1);
+}
+.diag-option-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+.diag-option-btn.opt-correct {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: #10b981 !important;
+    color: #065f46 !important;
+}
+body.dark-mode .diag-option-btn.opt-correct {
+    color: #34d399 !important;
+}
+.diag-option-btn.opt-wrong {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: #ef4444 !important;
+    color: #991b1b !important;
+}
+body.dark-mode .diag-option-btn.opt-wrong {
+    color: #f87171 !important;
+}
+
+/* Responsividad Fisiología */
+@media (max-width: 768px) {
+    .cardiac-viewport-container {
+        height: 320px;
+        min-height: 300px;
+    }
+    .nephron-3d-viewport {
+        height: 320px;
+    }
+    .flashcard-inner {
+        min-height: 480px;
+    }
+}
