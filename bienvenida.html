@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desarrollo del Intestino Primitivo</title>
+    <title>Apuntes Uni</title>
     <link rel="icon" href="logotipo.ico" type="image/x-icon">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -78,6 +78,11 @@
                         </li>
 
                     </ul>
+
+                    <div id="nav-loading-overlay" class="nav-loading-overlay hidden">
+                        <span class="nav-loading-text">Cargando, espera</span>
+                        <div class="nav-loading-bar"></div>
+                    </div>
 
                     <!-- Contenedor del Break de Relajación (Oculto por defecto) -->
                     <div id="breathing-display" class="hidden flex-col items-center justify-center w-full h-full text-[var(--black-color)]">
@@ -222,17 +227,11 @@
         </div>
     </section>
     <!-- Embrio Flashcards -->
-    <section id="embriologia-flashcards" class="mb-12 relative">
+    <section id="embriologia-flashcards" data-section="embriologia" class="mb-12 relative">
         <div class="text-center mb-6">
-            <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                Embriología • Conceptos Clave
-            </span>
             <h2 class="text-3xl md:text-4xl font-bold text-[var(--black-color)] mt-4 mb-2 transition-colors duration-500">
-                Tarjetas de Estudio (Flashcards)
+                Embriología
             </h2>
-            <p class="text-xs md:text-sm text-[var(--color-text-inactive)] max-w-lg mx-auto">
-                Desliza horizontalmente entre las tarjetas o toca los extremos para navegar. Toca la tarjeta activa para girarla en 3D.
-            </p>
         </div>
 
         <!-- CONTENEDOR MULTITAREA -->
@@ -263,7 +262,7 @@
         </div>
     </section>
     <!-- Embriologia cuadros -->
-    <section id="embriologia-cuadros" class="mb-12 relative">
+    <section id="embriologia-cuadros" data-section="embriologia" class="mb-12 relative">
 
         <!-- CONTENEDOR DEL CARRUSEL -->
         <div class="comp-carousel relative">
@@ -398,7 +397,7 @@
 
     </section>
     <!-- Anatomia -->
-    <section class="Anato py-12" id="Anato">
+    <section class="Anato py-12" data-section="anatomia" id="Anato">
         <!-- Contenedor principal adaptado a tus variables de glassmorphism -->
         <div class="max-w-5xl mx-auto p-4 md:p-6 transition-colors duration-500">
             
@@ -527,7 +526,7 @@
         </div>
     </section>
     <!-- Histología -->
-    <section class="Histologia py-12" id="Histologia">
+    <section class="Histologia py-12" data-section="histologia" id="Histologia">
 
         <div class="max-w-7xl mx-auto p-4 md:p-6 transition-colors duration-500">
             
@@ -573,7 +572,7 @@
         </div>
     </section>
     <!-- Bioquímica -->
-    <section class="Bioquimica py-12" id="Bioquimica">
+    <section class="Bioquimica py-12" data-section="bioquimica" id="Bioquimica">
         <div class="max-w-5xl mx-auto p-4 md:p-6 transition-colors duration-500 relative">
             
             <h2 class="text-3xl md:text-4xl font-bold text-center text-[var(--black-color)] mb-10 mt-4 transition-colors duration-500">
@@ -894,7 +893,7 @@
     <!-- FISIOLOGÍA MÉDICA INTEGRADA (APUNTES UNI) -->
     <!-- ========================================================================================= -->
     <div id="Fisio"></div>
-    <section class="Fisiologia py-12" id="Fisiologia">
+    <section class="Fisiologia py-12" data-section="fisiologia" id="Fisiologia">
         <div class="max-w-7xl mx-auto p-4 md:p-6 transition-colors duration-500">
             
             <!-- Encabezado de la Sección -->
@@ -2234,23 +2233,72 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        
-        <div class="footer__top-row">
-            <img src="logotipo.ico" alt="Logo IN" class="footer__logo">
-            <a href="https://www.instagram.com/apuntes.uni/" target="_blank" class="footer__social-icon"><i class="ri-instagram-fill"></i></a>
-            <a href="https://www.tiktok.com/@brayan.santos.arr" target="_blank" class="footer__social-icon"><i class="ri-tiktok-fill"></i></a>
+    <footer class="salud-footer">
+        <div class="salud-footer__content">
+            
+            <div class="salud-footer__brand">
+                <div class="salud-footer__logo-container">
+                    <img src="logotipo.ico" alt="Salud Activa Lab Logo" class="salud-logo-img">
+                    <div>
+                        <h2 class="salud-footer__title">Salud Activa <span class="text-purple-500 font-medium">Lab</span></h2>
+                        <p class="salud-footer__subtitle">Tu bienestar, en equilibrio</p>
+                    </div>
+                </div>
+                <p class="salud-footer__description">
+                    Ciencia, movimiento y hábitos saludables para una vida más activa y consciente.
+                </p>
+            </div>
+
+            <div class="salud-footer__links">
+                <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #a855f7;"></span> Navegación</h3>
+                <ul>
+                    <li><a href="#Inicio">Inicio</a></li>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="salud-footer__links">
+                <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #3b82f6;"></span> Recursos</h3>
+                <ul>
+                    <li><a href="#">Guías de salud</a></li>
+                    <li><a href="#">Rutinas</a></li>
+                    <li><a href="#">Alimentación</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+
+            <div class="salud-footer__social">
+                <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #ec4899;"></span> Síguenos</h3>
+                <div class="salud-social-icons">
+                    <a href="https://www.instagram.com/apuntes.uni/" target="_blank" class="salud-social-btn btn-ig"><i class="ri-instagram-fill"></i></a>
+                    <a href="#" target="_blank" class="salud-social-btn btn-x"><i class="ri-twitter-x-line"></i></a>
+                    <a href="#" target="_blank" class="salud-social-btn btn-yt"><i class="ri-youtube-fill"></i></a>
+                    <a href="https://www.tiktok.com/@brayan.santos.arr" target="_blank" class="salud-social-btn btn-tt"><i class="ri-tiktok-fill"></i></a>
+                </div>
+                <button class="salud-action-btn">
+                    <i class="ri-sparkling-fill text-purple-500"></i> Juntos por una vida más saludable
+                </button>
+            </div>
         </div>
 
-        <div class="footer__bottom-row">
-            <span class="footer__text">Apuntes Uni | Desarrollador BSA</span>
-            <a href="https://www.instagram.com/brayan.santos.arr/" target="_blank" class="footer__social-icon footer__social-icon--small"><i class="ri-instagram-fill"></i></a>
+        <div class="salud-footer__bottom">
+            <span class="salud-copyright">© 2025 Salud Activa Lab. Todos los derechos reservados.</span>
+            <span class="salud-made-with"><i class="ri-heart-line text-slate-500"></i> Hecho con salud, para ti</span>
         </div>
     </footer>
 
     <!-- Script Principal -->
     <script src="script.js"></script>
+    <script>
+        // Activar modo SPA antes de cargar módulos
+        window.__SPA_ACTIVE__ = true;
+    </script>
     <script src="script_fisiologia.js"></script>
+    <script src="lazy_loader.js"></script>
     <!-- Modal / Lightbox -->
     <div id="anomaly-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
         <div class="bg-[#93c5fd]/30 backdrop-blur-xl rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col relative transform scale-95 transition-transform duration-300 border border-white/40 text-slate-900" id="modal-content-container">
@@ -2325,6 +2373,13 @@
         <button class="desktop-theme-fab" id="desktop-break-btn" title="Break de Relajación">
             <span class="material-symbols-outlined text-[24px] text-[var(--text-glasseffect)] transition-colors duration-300">self_improvement</span>
         </button>
+    </div>
+    <!-- Overlay de blur esmerilado para el modo Break -->
+    <div id="break-blur-overlay" class="break-blur-overlay" aria-hidden="true">
+        <div class="break-blur-message">
+            <span class="material-symbols-outlined">self_improvement</span>
+            <p>Respira. Deja que el ruido se desenfoque.</p>
+        </div>
     </div>
 </body>
 </html>

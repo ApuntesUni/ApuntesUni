@@ -196,18 +196,35 @@ const ecosystemData = {
                         <div class="sa-fp-icon"><span class="material-symbols-outlined">local_library</span></div>
                         <div class="sa-fp-text"><h4>Téc. de estudio</h4><p>Adaptado a ti</p></div>
                     </div>
-                    <div class="sa-feature-pill sa-pill-purple">
+                    <div class="sa-feature-pill sa-pill-purple cursor-pointer hover:scale-105 transition" onclick="window.location.href='primeros_pasos.html'">
                         <div class="sa-fp-icon"><span class="material-symbols-outlined">quiz</span></div>
                         <div class="sa-fp-text"><h4>Práctica</h4><p>Simulacros</p></div>
                     </div>
-                    <div class="sa-feature-pill sa-pill-indigo">
+                    <div class="sa-feature-pill sa-pill-indigo cursor-pointer hover:scale-105 transition" onclick="window.location.href='primeros_pasos.html'">
                         <div class="sa-fp-icon"><span class="material-symbols-outlined">person_raised_hand</span></div>
                         <div class="sa-fp-text"><h4>Bancos</h4><p>De preguntas</p></div>
                     </div>
                 </div>
 
+                <!-- Tarjeta de Acceso Directo al Simulador y Módulos -->
+                <a href="primeros_pasos.html" class="sa-experimental-card mb-8">
+                    <div class="sa-exp-icon">
+                        <span class="material-symbols-outlined text-[24px]">school</span>
+                    </div>
+                    <div class="sa-exp-content">
+                        <div class="sa-exp-badge">
+                            <span class="material-symbols-outlined text-[14px]">rocket_launch</span> SIMULADOR & BANCO DE REACTIVOS
+                        </div>
+                        <h3>Entrar al Simulador y Apuntes</h3>
+                        <p>Accede al simulador interactivo de 9 materias, lecturas de comprensión guiada, apuntes conceptuales y banco de preguntas filtrable.</p>
+                    </div>
+                    <div class="sa-exp-arrow">
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </div>
+                </a>
+
                 <!-- CONTENEDOR DEL VISOR DE PDF ESTILO LIBRO -->
-                <div class="book-viewer-wrapper max-w-[950px] mt-6">
+                <div class="book-viewer-wrapper max-w-[950px] mt-2">
                     
                     <!-- Botones de Navegación Verticales (A la derecha) -->
                     <button class="book-nav-btn book-nav-up" onclick="cambiarPaginaPdf(-1)">
@@ -349,7 +366,156 @@ window.cambiarPaginaPdf = function(direccion) {
     }
 };
 
+/* ---------------------------------------------------- Lógica del Chatbot ------------------------------------------------ */
+
+window.toggleChatbot = function() {
+    const chatWindow = document.getElementById('chatbot-window');
+    const bubble = document.getElementById('chatbot-bubble');
+    
+    const isOpening = !chatWindow.classList.contains('active');
+    
+    chatWindow.classList.toggle('active');
+    
+    if (isOpening) {
+        bubble.classList.add('chat-active');
+    } else {
+        bubble.classList.remove('chat-active');
+    }
+};
+
+window.handleChatOption = function(option) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const optionsContainer = document.getElementById('chat-options');
+    
+    optionsContainer.style.display = 'none';
+
+    const userMsg = document.createElement('div');
+    userMsg.className = 'message user-message';
+    userMsg.textContent = option === 'secciones' ? '¿Qué hace cada sección?' : 
+                          option === 'actualizaciones' ? 'Últimas actualizaciones' : 
+                          'Funciones en desarrollo';
+    messagesContainer.appendChild(userMsg);
+
+    // 2. Simular tiempo de escritura del bot
+    setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot-message';
+
+        if (option === 'secciones') {
+            botMsg.innerHTML = `
+                Brevemente:<br><br>
+                🔵 <b>Salud Activa:</b> Calcula macros, sobrecarga progresiva y sueño con diagramas de Hasse.<br><br>
+                🟣 <b>Apuntes Uni:</b> Fisiología interactiva, modelos WebGL 3D y anatomía.<br><br>
+                🟢 <b>Primeros Pasos:</b> Simulador de ingreso UNAM (enfocado a áreas de salud).
+            `;
+            messagesContainer.appendChild(botMsg);
+            
+            // Resaltar las pestañas (Pills) de la interfaz
+            const pills = ['pill-salud_activa', 'pill-apuntes_uni', 'pill-primeros_pasos'];
+            pills.forEach((id, index) => {
+                setTimeout(() => {
+                    const pill = document.getElementById(id);
+                    if(pill) {
+                        pill.classList.add('neon-highlight');
+                        // Si la sección existe en la página, hacer scroll
+                        if(id === 'pill-primeros_pasos' && window.location.pathname.includes('bienvenida')) {
+                            // Solo simula el click para cambiar el entorno
+                            changeHeroEcosystem('primeros_pasos'); 
+                        }
+                        setTimeout(() => pill.classList.remove('neon-highlight'), 6000);
+                    }
+                }, index * 1000); // Resaltar uno por uno cada segundo
+            });
+
+        } else if (option === 'actualizaciones') {
+            botMsg.innerHTML = `
+                ¡Acabamos de liberar el módulo de Fisiología en Apuntes Uni! Además, agregamos un botón de Break de 5 minutos con ejercicios de respiración para que no te quemes el cerebro estudiando.
+                <div class="ios-tab">
+                    <ul>
+                        <li><span class="material-symbols-outlined text-blue-500 text-sm">check_circle</span> Módulo de Fisiología interactivo.</li>
+                        <li><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span> Break con respiración guiada.</li>
+                        <li><span class="material-symbols-outlined text-purple-500 text-sm">new_releases</span> Diagramas de Hasse en Sueño.</li>
+                    </ul>
+                </div>
+            `;
+            messagesContainer.appendChild(botMsg);
+
+        } else if (option === 'desarrollo') {
+            botMsg.innerHTML = `
+                Estamos horneando el módulo de Psicología y el motor de análisis de laboratorios para la versión profesional de Salud Activa. También el libro de ingreso físico de 250 hojas está en preparación.
+                <div class="waitlist-form">
+                    <span class="text-xs font-bold text-slate-600 mb-1">Únete a la lista de espera Beta:</span>
+                    <input type="email" id="waitlist-email" placeholder="tu@correo.com">
+                    <button onclick="registerWaitlist()">Registrarme</button>
+                </div>
+            `;
+            messagesContainer.appendChild(botMsg);
+        }
+
+        // Hacer scroll hacia abajo
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Volver a mostrar las opciones después de un tiempo (opcional)
+        setTimeout(() => {
+            const resetBtn = document.createElement('button');
+            resetBtn.className = 'chat-option-btn';
+            resetBtn.textContent = '↩ Volver al menú principal';
+            resetBtn.onclick = () => {
+                messagesContainer.innerHTML = `
+                    <div class="message bot-message">¡Hola! 👋 Soy el asistente de Salud Activa. ¿En qué te puedo ayudar hoy?</div>
+                    <div id="chat-options" class="chat-options">
+                        <button class="chat-option-btn" onclick="handleChatOption('secciones')">¿Qué hace cada sección?</button>
+                        <button class="chat-option-btn" onclick="handleChatOption('actualizaciones')">Últimas actualizaciones</button>
+                        <button class="chat-option-btn" onclick="handleChatOption('desarrollo')">Funciones en desarrollo</button>
+                    </div>
+                `;
+            };
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'chat-options mt-2';
+            optionsDiv.appendChild(resetBtn);
+            messagesContainer.appendChild(optionsDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 2000);
+
+    }, 800); // Retardo de 0.8s simulando escritura
+};
+
+window.registerWaitlist = function() {
+    const emailInput = document.getElementById('waitlist-email');
+    const email = emailInput.value;
+    
+    if (email && email.includes('@')) {
+        // Animación de éxito
+        const formContainer = emailInput.parentElement;
+        formContainer.innerHTML = `
+            <div class="text-center py-2 text-green-600 font-bold flex flex-col items-center">
+                <span class="material-symbols-outlined text-4xl mb-1">task_alt</span>
+                ¡Registrado con éxito!
+            </div>
+        `;
+    } else {
+        emailInput.style.borderColor = '#ef4444';
+        emailInput.placeholder = 'Correo inválido';
+        setTimeout(() => {
+            emailInput.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+            emailInput.placeholder = 'tu@correo.com';
+        }, 2000);
+    }
+};
+
 // Arrancar por defecto en "Salud Activa" al iniciar la página
 document.addEventListener('DOMContentLoaded', () => {
     changeHeroEcosystem('salud_activa'); 
+
+    const lottieContainer = document.getElementById('lottie-chatbot-icon');
+    
+    if (lottieContainer && typeof lottie !== 'undefined') {
+        lottie.loadAnimation({
+            container: lottieContainer, 
+            renderer: 'svg',            
+            loop: true,                 
+            autoplay: true,             
+            path: 'ayuda_inteligente.json' 
+        });
+    }
 });

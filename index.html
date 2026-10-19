@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desarrollo del Intestino Primitivo</title>
-    <link rel="icon" href="logotipo.ico" type="image/x-icon">
+    <title>Apuntes Uni</title>
+    <link rel="icon" href="salud_activa_app.ico" type="image/x-icon">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons CDN -->
@@ -12,12 +12,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="styles.css">
 </head>
     <body>
+       <a href="#" id="labs-badge" class="labs-badge" aria-label="Salud Activa Labs" onclick="event.preventDefault();">
+            <span class="labs-badge-icon-wrap">
+                <span id="labs-badge-icon" class="material-symbols-outlined">science</span>
+            </span>
+            <span class="labs-badge-text">
+                <span class="labs-badge-brand">Salud Activa</span>
+                <span class="labs-badge-suffix">Labs</span>
+            </span>
+            <span class="labs-badge-live" title="En línea"></span>
+        </a>
         <!-- HERO BANNER -->
         <section class="hero-banner theme-salud-activa" id="Inicio">
             
@@ -81,7 +91,97 @@
                     <!-- Se inyectan dinámicamente vía JavaScript -->
                 </div>
             </div>
+            
         </section>
+        <!-- Footer -->
+        <footer class="salud-footer">
+            <div class="salud-footer__content">
+                
+                <div class="salud-footer__brand">
+                    <div class="salud-footer__logo-container">
+                        <img src="salud_activa_app.ico" alt="Salud Activa Lab Logo" class="salud-logo-img">
+                        <div>
+                            <h2 class="salud-footer__title">Salud Activa <span class="text-purple-500 font-medium">Lab</span></h2>
+                            <p class="salud-footer__subtitle">Tu bienestar, en equilibrio</p>
+                        </div>
+                    </div>
+                    <p class="salud-footer__description">
+                        Ciencia, movimiento y hábitos saludables para una vida más activa y consciente.
+                    </p>
+                </div>
+
+                <div class="salud-footer__links">
+                    <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #a855f7;"></span> Navegación</h3>
+                    <ul>
+                        <li><a href="#Inicio">Inicio</a></li>
+                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="salud-footer__links">
+                    <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #3b82f6;"></span> Recursos</h3>
+                    <ul>
+                        <li><a href="#">Guías de salud</a></li>
+                        <li><a href="#">Rutinas</a></li>
+                        <li><a href="#">Alimentación</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+
+                <div class="salud-footer__social">
+                    <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #ec4899;"></span> Síguenos</h3>
+                    <div class="salud-social-icons">
+                        <a href="https://www.instagram.com/apuntes.uni/" target="_blank" class="salud-social-btn btn-ig"><i class="ri-instagram-fill"></i></a>
+                        <a href="#" target="_blank" class="salud-social-btn btn-x"><i class="ri-twitter-x-line"></i></a>
+                        <a href="#" target="_blank" class="salud-social-btn btn-yt"><i class="ri-youtube-fill"></i></a>
+                        <a href="https://www.tiktok.com/@brayan.santos.arr" target="_blank" class="salud-social-btn btn-tt"><i class="ri-tiktok-fill"></i></a>
+                    </div>
+                    <button class="salud-action-btn">
+                        <i class="ri-sparkling-fill text-purple-500"></i> Juntos por una vida más saludable
+                    </button>
+                </div>
+            </div>
+
+            <div class="salud-footer__bottom">
+                <span class="salud-copyright">© 2025 Salud Activa Lab. Todos los derechos reservados.</span>
+                <span class="salud-made-with"><i class="ri-heart-line text-slate-500"></i> Hecho con salud, para ti</span>
+            </div>
+        </footer>
+
+        <!-- Chatbot Bubble -->
+        <div id="chatbot-bubble" class="chatbot-bubble" onclick="toggleChatbot()">
+            <!-- Contenedor para la animación Lottie -->
+            <div id="lottie-chatbot-icon" class="lottie-chat-icon"></div>
+        </div>
+
+        <!-- Chatbot Window -->
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chat-header">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-white">smart_toy</span>
+                    <span class="text-white font-bold tracking-wide">Asistente Virtual</span>
+                </div>
+                <button onclick="toggleChatbot()" class="text-white hover:rotate-90 transition-transform">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    ¡Hola! 👋 Soy el asistente de Salud Activa. ¿En qué te puedo ayudar hoy?
+                </div>
+                
+                <div id="chat-options" class="chat-options">
+                    <button class="chat-option-btn" onclick="handleChatOption('secciones')">¿Qué hace cada sección?</button>
+                    <button class="chat-option-btn" onclick="handleChatOption('actualizaciones')">Últimas actualizaciones</button>
+                    <button class="chat-option-btn" onclick="handleChatOption('desarrollo')">Funciones en desarrollo</button>
+                </div>
+            </div>
+        </div>
         <!-- Script Principal -->
         <script src="script_bienvenida.js"></script>
     </body>

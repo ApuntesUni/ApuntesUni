@@ -152,6 +152,7 @@ function toggleBreakMode() {
     const breathingText = document.getElementById('breathing-text');
     const breathingTimer = document.getElementById('breathing-timer');
     const fabMenuContainer = document.querySelector('.fab-menu-container');
+    const blurOverlay       = document.getElementById('break-blur-overlay');
 
     if (breakActive) {
         // --- DETENER BREAK ---
@@ -164,6 +165,11 @@ function toggleBreakMode() {
         breathingDisplay.classList.remove('flex');
         breathingDisplay.classList.add('hidden');
         mainNavList.style.display = ''; 
+
+        if (blurOverlay) {
+            blurOverlay.classList.remove('is-active');
+            blurOverlay.setAttribute('aria-hidden', 'true');
+        }
         
     } else {
         // --- INICIAR BREAK ---
@@ -185,6 +191,11 @@ function toggleBreakMode() {
             headerMenu.classList.add('breathing-active-mobile');
         } else {
             headerMenu.classList.add('breathing-active-desktop');
+        }
+
+        if (blurOverlay) {
+            blurOverlay.classList.add('is-active');
+            blurOverlay.setAttribute('aria-hidden', 'false');
         }
 
         // Iniciar ciclo visual Inhala / Exhala (4s cada uno = 8s por ciclo completo)
@@ -987,19 +998,13 @@ function initBackgroundLotties() {
     const container = document.getElementById('lottie-bg-container');
     if (!container) return;
 
-    const lottieFiles = [
-        'sangre.json',
-        'celula.json',
-        'cerebro.json'
-    ]; 
 
     const zones = [
-        { topMin: 5, topMax: 20, leftMin: 2, leftMax: 15 },    
-        { topMin: 5, topMax: 20, leftMin: 75, leftMax: 90 },   
-        { topMin: 45, topMax: 60, leftMin: -5, leftMax: 5 },   
-        { topMin: 75, topMax: 90, leftMin: 5, leftMax: 20 },   
-        { topMin: 75, topMax: 90, leftMin: 75, leftMax: 90 }   
+        { topMin: 5, topMax: 20, leftMin: 2, leftMax: 15 },
+        { topMin: 75, topMax: 90, leftMin: 75, leftMax: 90 }
     ];
+    const lottieFiles = ['sangre.json', 'celula.json'];
+    window.__bgLotties = [];
 
     for (let i = 0; i < zones.length; i++) {
         const lottieDiv = document.createElement('div');
@@ -1022,13 +1027,14 @@ function initBackgroundLotties() {
 
         const randomFile = lottieFiles[Math.floor(Math.random() * lottieFiles.length)];
 
-        lottie.loadAnimation({
+        const anim = lottie.loadAnimation({
             container: lottieDiv,
             renderer: 'svg',
             loop: true,
             autoplay: true,
             path: randomFile 
         });
+        window.__bgLotties.push(anim);
     }
 }
 
@@ -1454,11 +1460,20 @@ function renderHistologiaView() {
 
 // Configuración de Eventos para la botonera
 document.addEventListener('DOMContentLoaded', () => {
-    const btnPrev = document.getElementById('btn-prev-tejido');
-    const btnNext = document.getElementById('btn-next-tejido');
-    const btnToggle = document.getElementById('btn-toggle-tejidos');
 
-    if (btnPrev && btnNext && btnToggle) {
+    window.initHistologia = function () {
+        if (window.__histologiaInitDone) {
+            if (typeof renderHistologiaView === 'function') renderHistologiaView();
+            return;
+        }
+        window.__histologiaInitDone = true;
+
+        const btnPrev   = document.getElementById('btn-prev-tejido');
+        const btnNext   = document.getElementById('btn-next-tejido');
+        const btnToggle = document.getElementById('btn-toggle-tejidos');
+
+        if (!btnPrev || !btnNext || !btnToggle) return;
+
         btnPrev.addEventListener('click', () => {
             currentTejidoIdx = (currentTejidoIdx - 1 + TEJIDOS_DATA.length) % TEJIDOS_DATA.length;
             renderHistologiaView();
@@ -1475,7 +1490,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         renderHistologiaView();
-    }
+    };
+
+    // Modo legacy (sin SPA) → inicializa al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!window.__SPA_ACTIVE__) {
+            window.initHistologia();
+        }
+    });
+
+    
 });
 
 /* ------------------------------------------------------------ Bioquimica ------------------------------------------------------------- */
