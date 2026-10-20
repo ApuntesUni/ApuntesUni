@@ -160,7 +160,8 @@ function toggleBreakMode() {
         clearInterval(breakTimerInterval);
         clearInterval(breakCycleInterval);
         
-        // Restaurar barra de navegación normal
+        detenerTarjetasDinamicas();
+        
         headerMenu.classList.remove('breathing-active-desktop', 'breathing-active-mobile');
         breathingDisplay.classList.remove('flex');
         breathingDisplay.classList.add('hidden');
@@ -181,12 +182,10 @@ function toggleBreakMode() {
             fabMenuContainer.classList.remove('open');
         }
 
-        // Ocultar las opciones principales y mostrar la UI de respiración
         mainNavList.style.display = 'none';
         breathingDisplay.classList.remove('hidden');
         breathingDisplay.classList.add('flex');
         
-        // Asignar clase de animación Scale según tamaño de pantalla
         if (window.innerWidth <= 1150) {
             headerMenu.classList.add('breathing-active-mobile');
         } else {
@@ -198,7 +197,8 @@ function toggleBreakMode() {
             blurOverlay.setAttribute('aria-hidden', 'false');
         }
 
-        // Iniciar ciclo visual Inhala / Exhala (4s cada uno = 8s por ciclo completo)
+        iniciarTarjetasDinamicas();
+
         let isInhaling = true;
         breathingText.textContent = "Inhala";
         breathingText.style.opacity = 1;
@@ -213,23 +213,22 @@ function toggleBreakMode() {
             }, 500);
         }, 4000);
 
-        // Temporizador regresivo de 5 minutos
         breakTimerInterval = setInterval(() => {
             breakTimeLeft--;
             updateTimerText();
             if (breakTimeLeft <= 0) {
-                toggleBreakMode(); // Regresar a la normalidad al llegar a 0
+                toggleBreakMode(); 
             }
         }, 1000);
     }
 
-    // Formatear el tiempo en MM:SS
     function updateTimerText() {
         const m = Math.floor(breakTimeLeft / 60).toString().padStart(2, '0');
         const s = (breakTimeLeft % 60).toString().padStart(2, '0');
         breathingTimer.textContent = `${m}:${s}`;
     }
 }
+
 
 // Inicializar Listeners para los botones de Break
 document.addEventListener('DOMContentLoaded', () => {
@@ -239,6 +238,199 @@ document.addEventListener('DOMContentLoaded', () => {
     if (desktopBreakBtn) desktopBreakBtn.addEventListener('click', toggleBreakMode);
     if (mobileBreakBtn) mobileBreakBtn.addEventListener('click', toggleBreakMode);
 });
+
+// Base de datos de las recomendaciones de Break
+let dynamicCardTimer;
+let currentCardIndex = 0;
+
+// Base de datos ajustada con imágenes más pequeñas
+const breakCardsData = [
+    {
+        badgeText: '✨ Aprovecha este break',
+        titleHtml: `y escucha tu <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500 font-black">canción favorita</span>`,
+        pillsHtml: `
+            <div class="flex items-center gap-3 bg-white/50 dark:bg-slate-800/50 p-2.5 rounded-[15px] border border-white/60 dark:border-slate-700 w-fit mt-4 shadow-sm">
+                <div class="bg-purple-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-lg">music_note</span>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400">Te recomiendo:</p>
+                    <p class="text-xs font-black text-[var(--black-color)]">Perdón por la intensidad</p>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400">SinVoz</p>
+                </div>
+                <button class="ml-2 bg-purple-500 hover:bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center transition-transform hover:scale-105 shadow-md">
+                    <i class="ri-play-fill text-lg"></i>
+                </button>
+            </div>
+        `,
+        // Imagen más pequeña (w-44 md:w-52)
+        imageHtml: `
+            <img src="tarjeta_musica.png" alt="Música Claro" class="asset-light w-44 md:w-52 object-contain float-anim-1 drop-shadow-2xl">
+            <img src="tarjeta_musica_oscuro.png" alt="Música Oscuro" class="asset-dark w-44 md:w-52 object-contain float-anim-1 drop-shadow-2xl">
+        `,
+        footerText: '<i class="ri-heart-line"></i> Buena música, mejor energía',
+        bgBlobs: '<div class="absolute -top-10 -left-10 w-48 h-48 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>'
+    },
+    {
+        badgeText: '☀️ Tu bienestar importa',
+        titleHtml: `Aprovecha este break<br>y toma <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-black">agüita</span><br><span class="text-slate-400 dark:text-slate-500 text-xl font-medium tracking-tight">para hidratarte</span>`,
+        pillsHtml: `
+            <div class="flex flex-wrap gap-2 mt-5">
+                <span class="flex items-center gap-1.5 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full text-xs font-bold text-[var(--black-color)] border border-white/60 dark:border-slate-700 shadow-sm"><span class="material-symbols-outlined text-blue-500 text-sm">water_drop</span> Más energía</span>
+                <span class="flex items-center gap-1.5 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full text-xs font-bold text-[var(--black-color)] border border-white/60 dark:border-slate-700 shadow-sm"><i class="ri-heart-line text-pink-500 text-sm"></i> Mejor concentración</span>
+            </div>
+        `,
+        imageHtml: `
+            <img src="tarjeta_agua.png" alt="Agüita Claro" class="asset-light w-44 md:w-52 object-contain float-anim-2 drop-shadow-2xl">
+            <img src="tarjeta_agua_oscuro.png" alt="Agüita Oscuro" class="asset-dark w-44 md:w-52 object-contain float-anim-2 drop-shadow-2xl">
+        `,
+        footerText: '<i class="ri-arrow-right-line"></i> Pequeños hábitos, grandes cambios',
+        bgBlobs: '<div class="absolute top-10 -right-10 w-48 h-48 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>'
+    },
+    {
+        badgeText: '🥑 Aprovecha este break',
+        titleHtml: `Come algo <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 font-black">saludable</span><br><span class="text-slate-500 dark:text-slate-400 text-sm font-medium mt-1 block leading-snug">Tu cuerpo también necesita<br>un buen break 🤍</span>`,
+        pillsHtml: `
+            <div class="flex flex-wrap gap-2 mt-5">
+                <span class="flex items-center gap-1.5 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full text-xs font-bold text-[var(--black-color)] border border-white/60 dark:border-slate-700 shadow-sm"><i class="ri-heart-line text-purple-500 text-sm"></i> Te da energía</span>
+                <span class="flex items-center gap-1.5 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full text-xs font-bold text-[var(--black-color)] border border-white/60 dark:border-slate-700 shadow-sm"><span class="material-symbols-outlined text-purple-500 text-sm">psychology</span> Mejora la concentración</span>
+            </div>
+        `,
+        imageHtml: `
+            <img src="tarjeta_snak.png" alt="Aguacate Claro" class="asset-light w-44 md:w-52 object-contain float-anim-3 drop-shadow-2xl">
+            <img src="tarjeta_snak_oscuro.png" alt="Aguacate Oscuro" class="asset-dark w-44 md:w-52 object-contain float-anim-3 drop-shadow-2xl">
+        `,
+        footerText: '<i class="ri-emotion-happy-line"></i> Pequeñas decisiones, grandes cambios',
+        bgBlobs: '<div class="absolute bottom-5 left-5 w-48 h-48 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>'
+    },
+    {
+        badgeText: '💙 Momento de conexión',
+        titleHtml: `Aprovecha este tiempo<br>y <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-fuchsia-500 font-black">mandale un mensaje</span><br>a aquella persona<br>que te importa.`,
+        pillsHtml: `
+            <div class="flex items-center gap-3 mt-5 ml-2">
+                <p class="font-['Caveat'] text-2xl md:text-3xl text-slate-500 dark:text-slate-400 leading-tight transform -rotate-3">
+                    A veces, un simple<br>mensaje puede hacer<br>gran diferencia. 💙
+                </p>
+                <!-- Flecha curva dibujada a mano en SVG -->
+                <svg width="45" height="45" viewBox="0 0 100 100" class="text-slate-400 dark:text-slate-500 mt-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10,70 Q40,80 80,30" />
+                    <path d="M55,30 L80,30 L80,55" />
+                </svg>
+            </div>
+        `,
+        imageHtml: `
+            <!-- Asegúrate de tener el archivo _dark si deseas la variante, o usa la misma para ambos -->
+            <img src="tarjeta_mensaje.png" alt="Mensaje Claro" class="asset-light w-44 md:w-52 object-contain float-anim-1 drop-shadow-2xl">
+            <img src="tarjeta_mensaje_oscuro.png" alt="Mensaje Oscuro" class="asset-dark w-44 md:w-52 object-contain float-anim-1 drop-shadow-2xl">
+        `,
+        footerText: '<i class="ri-smartphone-line"></i> Conectar también es cuidarte',
+        // Masas de luz ajustadas a los tonos celestes y lilas de la imagen
+        bgBlobs: `
+            <div class="absolute -top-10 right-10 w-48 h-48 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+            <div class="absolute bottom-5 left-10 w-48 h-48 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+        `
+    },
+    {
+        badgeText: '<span class="material-symbols-outlined text-sm text-blue-500">fitness_center</span> Movimiento y bienestar',
+        titleHtml: `Estira un poco <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-pink-500 font-black">esos músculos</span><br><span class="text-slate-500 dark:text-slate-400 text-sm md:text-base font-medium mt-1 block leading-snug">para que no se atrofien<br>más de lo que ya están.</span>`,
+        pillsHtml: `
+            <div class="flex items-center gap-3 bg-white/50 dark:bg-slate-800/50 p-3 md:p-4 rounded-[20px] border border-white/60 dark:border-slate-700 w-fit mt-5 shadow-sm">
+                <div class="bg-purple-100 dark:bg-purple-900/50 rounded-full w-8 h-8 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-purple-500 text-lg">lightbulb</span>
+                </div>
+                <p class="font-['Caveat'] text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-none transform -rotate-2">
+                    Tu cuerpo también<br>necesita un poco de amor<br>y movimiento. 💙
+                </p>
+            </div>
+        `,
+        imageHtml: `
+            <div class="relative flex justify-center items-center w-full">
+                <!-- Texto flotante y flecha dibujada a mano (Oculto en móviles muy pequeños para evitar superposición) -->
+                <div class="absolute right-[85%] md:right-[90%] top-1/4 hidden sm:flex flex-col items-end z-20">
+                    <p class="font-['Caveat'] text-lg md:text-xl text-slate-500 dark:text-slate-400 leading-tight text-right transform -rotate-3 mb-1">
+                        Unos minutos<br>de estiramiento<br>hacen la diferencia 💙
+                    </p>
+                    <!-- Flecha SVG apuntando hacia el personaje -->
+                    <svg width="40" height="40" viewBox="0 0 100 100" class="text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M90,70 Q60,80 20,30" />
+                        <path d="M45,30 L20,30 L20,55" />
+                    </svg>
+                </div>
+                
+                <!-- Imágenes adaptativas para tema claro y oscuro -->
+                <img src="tarjeta_estiramiento.png" alt="Estirar Claro" class="asset-light w-44 md:w-52 object-contain float-anim-2 drop-shadow-2xl relative z-10">
+                <img src="tarjeta_estiramiento_oscuro.png" alt="Estirar Oscuro" class="asset-dark w-44 md:w-52 object-contain float-anim-2 drop-shadow-2xl relative z-10">
+            </div>
+        `,
+        footerText: '<i class="ri-run-line"></i> Tu cuerpo te lo agradecerá',
+        bgBlobs: `
+            <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+            <div class="absolute top-10 left-10 w-48 h-48 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 1.5s;"></div>
+        `
+    }
+
+
+];
+
+function renderDynamicCard(index) {
+    const cardData = breakCardsData[index];
+    const container = document.getElementById('dynamic-break-card');
+    
+    container.classList.remove('card-fade-in');
+    container.classList.add('card-fade-out');
+    
+    setTimeout(() => {
+        container.innerHTML = `
+            ${cardData.bgBlobs}
+            <!-- Logo superior ajustado -->
+            <div class="absolute top-5 left-5 flex items-center gap-1.5 text-[var(--black-color)] font-bold text-sm z-20">
+                <img src="logotipo.ico" class="w-6 h-6 rounded-md bg-white/30 p-1"> Salud Activa <span class="text-purple-500">Lab</span>
+            </div>
+            
+            <!-- Contenedor principal con paddings y gaps reducidos -->
+            <div class="w-full pt-10 pb-4 flex flex-col md:flex-row gap-6 items-center justify-between z-10 relative">
+                <div class="flex-1 text-left">
+                    <div class="inline-flex items-center gap-1.5 bg-white/60 dark:bg-slate-800/60 px-3 py-1 rounded-full text-xs font-bold text-slate-600 dark:text-slate-300 border border-white/80 dark:border-slate-600 mb-3 shadow-sm">
+                        ${cardData.badgeText}
+                    </div>
+                    <!-- Título más pequeño: text-3xl a text-4xl -->
+                    <h2 class="text-3xl md:text-4xl font-black text-[var(--black-color)] leading-[1.1] font-['Fredoka'] tracking-tight">
+                        ${cardData.titleHtml}
+                    </h2>
+                    ${cardData.pillsHtml}
+                </div>
+                <div class="flex-1 flex justify-center md:justify-end relative">
+                    ${cardData.imageHtml}
+                </div>
+            </div>
+
+            <!-- Footer ajustado -->
+            <div class="absolute bottom-5 left-5 flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-400 z-20">
+                ${cardData.footerText}
+            </div>
+        `;
+        
+        container.classList.remove('card-fade-out');
+        container.classList.add('card-fade-in');
+    }, 500); 
+}
+
+
+function iniciarTarjetasDinamicas() {
+    currentCardIndex = 0;
+    renderDynamicCard(currentCardIndex);
+    
+    // Rota la tarjeta cada 10 segundos
+    dynamicCardTimer = setInterval(() => {
+        currentCardIndex = (currentCardIndex + 1) % breakCardsData.length;
+        renderDynamicCard(currentCardIndex);
+    }, 10000);
+}
+
+function detenerTarjetasDinamicas() {
+    clearInterval(dynamicCardTimer);
+}
+
 
 /* ---------------------------------------------------- Tarjetas Apiladas Dinámicas (Embriología) ------------------------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1664,6 +1856,7 @@ window.checkCompound = function() {
 
     if (isCorrect) {
         showBioMessage('¡Síntesis Exitosa!', 'success');
+        window.unlockMedal('ConstructorQuimico', 'medalla_constructor.png');
         setTimeout(() => { currentG1Level++; loadG1Level(); }, 1000);
     } else {
         if(Object.keys(currentReaction).length === 0) showBioMessage('Agrega elementos a la zona.', 'error');
@@ -1809,6 +2002,7 @@ function endG2Game(isWin, message, type = null) {
         msg.textContent = message;
         icon.textContent = type === 'aerobic' ? "bolt" : "water_drop";
         icon.className = `material-symbols-outlined text-[80px] mb-4 ${type === 'aerobic' ? 'text-yellow-500' : 'text-blue-500'}`;
+        window.unlockMedal('RutaMetabolica', 'medalla_energia.png'); 
         triggerGameEffect('win');
     } else {
         title.textContent = "Fallo Metabólico";
@@ -2218,6 +2412,117 @@ window.nextPregunta = function() {
 document.addEventListener('DOMContentLoaded', () => {
     renderPreguntaCard();
 });
+
+/* ---------------------------------------------------- Sistema de Medallas ------------------------------------------------ */
+// Clave para registrar que el usuario ya vio el tutorial
+const TUTORIAL_STORAGE_KEY = 'saludActiva_medalTutorialSeen';
+
+function initMedalTutorial() {
+    const container = document.getElementById('medals-container');
+    if (!container) return;
+
+    const unlockedMedals = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
+    const hasSeenTutorial = localStorage.getItem(TUTORIAL_STORAGE_KEY);
+
+    // Solo activamos el shimmer si el usuario NO tiene medallas y NO ha visto el tutorial
+    if (unlockedMedals.length === 0 && !hasSeenTutorial) {
+        
+        // 1. Insertar el placeholder y el tooltip en el contenedor
+        container.innerHTML = `
+            <div class="medal-placeholder" id="temp-placeholder">
+                <span style="opacity: 0.5;">❓</span>
+            </div>
+            <div class="medal-tooltip" id="medal-tutorial-msg">
+                ¡Supera los retos para coleccionar tus insignias aquí!
+            </div>
+        `;
+
+        // 2. Aplicar la clase del destello (Shimmer)
+        container.classList.add('medals-shimmer-active');
+
+        // 3. Mostrar el tooltip con una ligera demora para la transición
+        setTimeout(() => {
+            const tooltip = document.getElementById('medal-tutorial-msg');
+            if (tooltip) tooltip.classList.add('show');
+        }, 100);
+
+        // 4. Temporizador exacto de 10 segundos (10,000 milisegundos)
+        setTimeout(() => {
+            const tooltip = document.getElementById('medal-tutorial-msg');
+            if (tooltip) tooltip.classList.remove('show');
+            
+            container.classList.remove('medals-shimmer-active');
+
+            // Esperar que termine la transición de opacidad antes de remover del DOM
+            setTimeout(() => {
+                // Verificamos de nuevo las medallas por si ganó una en esos 10 segundos
+                const currentMedals = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
+                if (currentMedals.length === 0) {
+                    container.innerHTML = ''; // Dejar vacío y oculto como en el diseño original
+                } else {
+                    renderMedals(); // Si por algún motivo ganó una, renderizarla
+                }
+            }, 500);
+
+            // Registrar en localStorage para no volver a mostrarlo
+            localStorage.setItem(TUTORIAL_STORAGE_KEY, 'true');
+
+        }, 10000);
+    }
+}
+
+const MEDALS_STORAGE_KEY = 'saludActiva_unlockedMedals';
+
+// Función para guardar y desbloquear medallas
+window.unlockMedal = function(medalId, imagePath) {
+    let unlockedMedals = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
+    
+    // Verifica si la medalla ya fue obtenida
+    const alreadyUnlocked = unlockedMedals.find(m => m.id === medalId);
+    
+    if (!alreadyUnlocked) {
+        unlockedMedals.push({ id: medalId, image: imagePath });
+        localStorage.setItem(MEDALS_STORAGE_KEY, JSON.stringify(unlockedMedals));
+        
+        renderMedals(); // Actualizar la interfaz
+        
+        // Efecto opcional de victoria global si existe
+        if (typeof window.triggerGameEffect === 'function') {
+            window.triggerGameEffect('win');
+        }
+    }
+};
+
+// Función para mostrar las medallas en la UI
+function renderMedals() {
+    const container = document.getElementById('medals-container');
+    if (!container) return;
+    
+    const unlockedMedals = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
+    container.innerHTML = ''; 
+    
+    unlockedMedals.forEach((medal, index) => {
+        const medalDiv = document.createElement('div');
+        medalDiv.className = 'medal-item';
+        medalDiv.style.zIndex = index + 1; // Mantiene el orden de apilamiento correcto
+        medalDiv.title = `Medalla desbloqueada: ${medal.id}`;
+        
+        const img = document.createElement('img');
+        img.src = medal.image;
+        img.className = 'medal-image';
+        img.alt = medal.id;
+        
+        medalDiv.appendChild(img);
+        container.appendChild(medalDiv);
+    });
+}
+
+// Cargar medallas al inicio
+document.addEventListener('DOMContentLoaded', () => {
+    renderMedals(); 
+    initMedalTutorial(); 
+});
+
 
 /* ---------------------------------------------------- Switch (Píldoras de Tema Multiplataforma) ------------------------------------------------ */
 function enableDarkMode() {

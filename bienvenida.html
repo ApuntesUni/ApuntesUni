@@ -133,6 +133,10 @@
             </div>
         </nav>
     </header>
+    <!-- Contenedor de Medallas (debajo del header) -->
+    <div id="medals-container" class="medals-stack-container">
+        <!-- Las medallas se generarán -->
+    </div>
     <!-- HERO BANNER -->
     <section class="hero-banner" id="Inicio">
         
@@ -2330,7 +2334,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal de Anatomía (Pantalla Completa) -->
     <div id="anatomy-modal" class="fixed inset-0 z-[100] hidden bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
         
@@ -2374,12 +2377,15 @@
             <span class="material-symbols-outlined text-[24px] text-[var(--text-glasseffect)] transition-colors duration-300">self_improvement</span>
         </button>
     </div>
-    <!-- Overlay de blur esmerilado para el modo Break -->
-    <div id="break-blur-overlay" class="break-blur-overlay" aria-hidden="true">
-        <div class="break-blur-message">
-            <span class="material-symbols-outlined">self_improvement</span>
-            <p>Respira. Deja que el ruido se desenfoque.</p>
+    <!-- Overlay de blur esmerilado -->
+    <div id="break-blur-overlay" class="break-blur-overlay flex items-center justify-center" aria-hidden="true">
+        
+        <div id="tu-contador-existente" class="..."></div>
+
+        <div id="dynamic-break-card" class="break-glass-card opacity-0 transform scale-95 transition-all duration-700 ease-out flex-col md:flex-row">
+            <!-- El contenido rotativo se inyectará vía JavaScript -->
         </div>
     </div>
+
 </body>
 </html>
