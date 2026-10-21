@@ -40,6 +40,18 @@
             scripts: ['script_fisiologia.js'],  // ← Se carga solo al entrar
             loaded: false,
             initializer: 'initFisiologia'
+        },
+        psicologia: {
+            ids: ['Psicologia'],
+            scripts: ['script_psicologia.js'],  // ← Se carga solo al entrar
+            loaded: false,
+            initializer: 'initPsicologia'
+        },
+        bibliografia: {
+            ids: ['Bibliografia'],
+            scripts: ['script_bibliografia.js'],  // ← Se carga solo al entrar
+            loaded: false,
+            initializer: 'initBibliografia'
         }
     };
 
@@ -88,6 +100,10 @@
         // Pausa Lottie de fondo (no crítico pero ahorra CPU)
         if (window.__bgLotties && Array.isArray(window.__bgLotties)) {
             window.__bgLotties.forEach(a => a && a.pause && a.pause());
+        }
+        // Cancela locución de notas de voz si está activa
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
         }
     }
 
@@ -151,6 +167,20 @@
             // Pero como DOMContentLoaded ya pasó, ejecutamos manualmente:
             if (typeof window.__manualInitFisio === 'function') {
                 window.__manualInitFisio();
+            }
+        },
+        psicologia: () => {
+            if (window.__psicologiaInit) return;
+            window.__psicologiaInit = true;
+            if (typeof window.__manualInitPsicologia === 'function') {
+                window.__manualInitPsicologia();
+            }
+        },
+        bibliografia: () => {
+            if (window.__bibliografiaInit) return;
+            window.__bibliografiaInit = true;
+            if (typeof window.__manualInitBibliografia === 'function') {
+                window.__manualInitBibliografia();
             }
         }
     };
@@ -231,7 +261,9 @@
         '#Histologia': 'histologia',
         '#Bioquimica': 'bioquimica',
         '#Fisiologia': 'fisiologia',
-        '#Fisio-sistemas': 'fisiologia'
+        '#Fisio-sistemas': 'fisiologia',
+        '#Psicologia': 'psicologia',
+        '#Bibliografia': 'bibliografia'
     };
 
     function interceptNavLinks() {

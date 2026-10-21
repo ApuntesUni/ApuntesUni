@@ -17,6 +17,8 @@
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles_fisiologia.css">
+    <link rel="stylesheet" href="styles_psicologia.css">
+    <link rel="stylesheet" href="styles_bibliografia.css">
 </head>
 <body class="min-h-screen font-sans p-4 md:p-8 bg-fixed bg-no-repeat transition-colors duration-500">
     <div id="lottie-bg-container"></div>
@@ -74,6 +76,14 @@
                                     <i class="material-symbols-outlined">pill</i>
                                     <span>Farmacologia</span>
                                 </a>
+                                <a href="#Psicologia" class="capsule-item">
+                                    <i class="material-symbols-outlined">psychology</i>
+                                    <span>Psicologia</span>
+                                </a>
+                                <a href="#Bibliografia" class="capsule-item">
+                                    <i class="material-symbols-outlined">auto_stories</i>
+                                    <span>Bibliografía</span>
+                                </a>
                             </div>
                         </li>
 
@@ -114,6 +124,12 @@
                             </a>
                             <a href="#Fisiologia" class="fab-pill-option nav-fab-link">
                                 <i class="material-symbols-outlined">acute</i><span>Fisiologia</span>
+                            </a>
+                            <a href="#Psicologia" class="fab-pill-option nav-fab-link">
+                                <i class="material-symbols-outlined">psychology</i><span>Psicologia</span>
+                            </a>
+                            <a href="#Bibliografia" class="fab-pill-option nav-fab-link">
+                                <i class="material-symbols-outlined">auto_stories</i><span>Bibliografía</span>
                             </a>
 
                             <button class="fab-pill-option theme-toggle-trigger">
@@ -892,10 +908,7 @@
             
         </div>
     </section>
-
-    <!-- ========================================================================================= -->
-    <!-- FISIOLOGÍA MÉDICA INTEGRADA (APUNTES UNI) -->
-    <!-- ========================================================================================= -->
+    <!-- Fisiologia -->
     <div id="Fisio"></div>
     <section class="Fisiologia py-12" data-section="fisiologia" id="Fisiologia">
         <div class="max-w-7xl mx-auto p-4 md:p-6 transition-colors duration-500">
@@ -2235,6 +2248,1048 @@
 
         </div>
     </section>
+    <!-- Psicologia -->
+    <div id="Psico"></div>
+    <section class="Psicologia py-12" data-section="psicologia" id="Psicologia">
+        <div class="max-w-7xl mx-auto p-4 md:p-6 transition-colors duration-500">
+            
+            <!-- Encabezado de la Sección -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-5xl font-black text-[var(--black-color)] tracking-tight mt-2">
+                    Medición y Evaluación Psicológica
+                </h2>
+                <p class="text-[var(--black-color)] opacity-75 font-medium max-w-2xl mx-auto mt-3 text-sm md:text-base">
+                    Fundamentos epistemológicos de los constructos latentes, teoría de la medida clásica y moderna (TCT vs. TRI), baremación estandarizada en población mexicana, baterías de ejecución máxima y deontología profesional.
+                </p>
+            </div>
+
+            <!-- Barra de Píldoras Sub-Navegación (Bento-Tabs) -->
+            <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
+                <button data-psico-tab="tab-psico-apuntes" class="psico-tab-btn active px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-indigo-500">menu_book</span>
+                    <span>Apuntes</span>
+                </button>
+                <button data-psico-tab="tab-psico-flashcards" class="psico-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-purple-500">style</span>
+                    <span>Flash cards y audio cards</span>
+                </button>
+                <button data-psico-tab="tab-psico-casos" class="psico-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-emerald-500">clinical_notes</span>
+                    <span>Casos clinicos</span>
+                </button>
+                <button data-psico-tab="tab-psico-juegos" class="psico-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-amber-500">sports_esports</span>
+                    <span>Mini juegos</span>
+                </button>
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 1: APUNTES (UNIDADES TEMÁTICAS EN ACORDEÓN) -->
+            <!-- ========================================================================================= -->
+            <div id="tab-psico-apuntes" class="psico-tab-panel block transition-all duration-500">
+                <div class="max-w-4xl mx-auto space-y-4">
+                    
+                    <!-- UNIDAD 1 -->
+                    <div class="psico-accordion-item fisio-glass-card rounded-[28px] overflow-hidden border border-[var(--border-navigation)] active">
+                        <div class="psico-accordion-header p-5 md:p-6 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-sm">
+                                    U1
+                                </span>
+                                <div>
+                                    <h3 class="font-black text-base md:text-lg text-[var(--black-color)]">
+                                        Unidad 1: La Medición y la Ciencia: Funciones y Orígenes
+                                    </h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Epistemología de constructos, desarrollo histórico y clasificación</p>
+                                </div>
+                            </div>
+                            <span class="psico-chevron material-symbols-outlined text-2xl text-[var(--black-color)]">expand_more</span>
+                        </div>
+                        <div class="psico-accordion-content px-5 md:px-6 pb-6 text-xs md:text-sm text-[var(--black-color)] leading-relaxed space-y-4 border-t border-[var(--border-navigation)] pt-4">
+                            <div>
+                                <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-1">● Naturaleza de la Medición Psicológica</h4>
+                                <p>
+                                    A diferencia de las ciencias exactas, donde las variables físicas (como la masa o la longitud) son directamente observables, la psicología se enfrenta al reto epistemológico de medir variables latentes e inobservables, denominadas <strong>constructos</strong>. La psicometría garantiza que los instrumentos cuenten con el rigor científico para transformar hechos comportamentales en datos numéricos, realizando inferencias probabilísticas basadas en muestras representativas de conducta obtenidas bajo condiciones estandarizadas.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-1">● Desarrollo Histórico</h4>
+                                <p>
+                                    Los antecedentes más remotos se encuentran en las evaluaciones de competencia en el Imperio Chino (3000 a.C.), pero la psicometría científica nace con las pruebas senso-motoras de <strong>Francis Galton</strong>. Posteriormente, los trabajos pioneros de <strong>Alfred Binet (1904)</strong> y las preguntas estructuradas de <strong>Blin y Damaye (1903)</strong> sentaron las bases de la evaluación de la inteligencia. El punto de inflexión matemático ocurrió entre 1904 y 1913 con <strong>Charles Spearman</strong>, quien introdujo el análisis factorial y sentó los cimientos del modelo lineal clásico para estimar errores de medición.
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2">● Clasificación de las Pruebas Psicológicas</h4>
+                                <ul class="space-y-2">
+                                    <li><strong>Por tipo de ejecución:</strong> <em>Pruebas de ejecución máxima</em> (exigen rendir al límite superior de capacidades cognitivas, ej. WAIS-IV) vs. <em>Pruebas de ejecución típica</em> (evalúan conducta habitual o rasgos afectivos estables sin respuestas "correctas" o "incorrectas", ej. MMPI-2, BDI-II).</li>
+                                    <li><strong>Por grado de estructuración:</strong> <em>Pruebas psicométricas</em> (altamente estructuradas con opciones cerradas) vs. <em>Técnicas proyectivas</em> (estímulos ambiguos como Rorschach o TAT donde se proyecta la personalidad).</li>
+                                    <li><strong>Por método de administración y respuesta:</strong> Lápiz y papel (Test de Bender), ejecución manipulativa (ensamblaje), verbales, informatizadas, de velocidad (tiempo estricto) o de poder (dificultad progresiva sin presión de tiempo).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIDAD 2 -->
+                    <div class="psico-accordion-item fisio-glass-card rounded-[28px] overflow-hidden border border-[var(--border-navigation)]">
+                        <div class="psico-accordion-header p-5 md:p-6 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-sm">
+                                    U2
+                                </span>
+                                <div>
+                                    <h3 class="font-black text-base md:text-lg text-[var(--black-color)]">
+                                        Unidad 2: Modelos Matemáticos de la Medición (TCT vs. TRI)
+                                    </h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Comparativa visual interactiva entre la Teoría Clásica y la Teoría de Respuesta al Ítem</p>
+                                </div>
+                            </div>
+                            <span class="psico-chevron material-symbols-outlined text-2xl text-[var(--black-color)]">expand_more</span>
+                        </div>
+                        <div class="psico-accordion-content px-5 md:px-6 pb-6 text-xs md:text-sm text-[var(--black-color)] leading-relaxed space-y-4 border-t border-[var(--border-navigation)] pt-4">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                                    <h4 class="font-black text-blue-700 dark:text-blue-300 text-sm mb-1">Teoría Clásica de los Tests (TCT)</h4>
+                                    <p class="text-xs mb-2">Originada por Charles Spearman. Modelo lineal aditivo fundamental:</p>
+                                    <div class="font-mono text-center font-bold text-base py-1.5 rounded-xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] my-2">
+                                        X = V + e
+                                    </div>
+                                    <p class="text-[11px] text-[var(--color-text-inactive)]">
+                                        <strong>X:</strong> Puntuación empírica observada.<br>
+                                        <strong>V:</strong> Puntuación verdadera (purificada de error).<br>
+                                        <strong>e:</strong> Error de medición aleatorio ($E(e)=0$, $\rho_{Ve}=0$).<br>
+                                        <strong>Limitación:</strong> El Error Estándar de Medición (SEM) es estático e idéntico para toda la prueba y depende de la muestra normativa.
+                                    </p>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20">
+                                    <h4 class="font-black text-purple-700 dark:text-purple-300 text-sm mb-1">Teoría de Respuesta al Ítem (TRI)</h4>
+                                    <p class="text-xs mb-2">Modelos logísticos no lineales independientes de la muestra (parámetros invariantes):</p>
+                                    <div class="font-mono text-center font-bold text-base py-1.5 rounded-xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] my-2">
+                                        P(θ) = c + (1 - c) / [1 + e^(-1.7a(θ - b))]
+                                    </div>
+                                    <p class="text-[11px] text-[var(--color-text-inactive)]">
+                                        <strong>θ (Theta):</strong> Nivel de rasgo latente o habilidad.<br>
+                                        <strong>b:</strong> Dificultad del reactivo (punto con 50% de probabilidad).<br>
+                                        <strong>a:</strong> Discriminación del ítem (pendiente).<br>
+                                        <strong>c:</strong> Pseudo-azar o adivinación.<br>
+                                        <strong>Ventaja:</strong> Función de información condicional local (permite Test Adaptativos Computarizados).
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Tabla Comparativa Interactiva del Documento -->
+                            <div>
+                                <h4 class="font-bold text-[var(--black-color)] text-sm mb-2 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-indigo-500 text-base">table_chart</span>
+                                    Tabla Comparativa Oficial: TCT vs. TRI
+                                </h4>
+                                <div class="overflow-x-auto rounded-2xl border border-[var(--border-navigation)]">
+                                    <table class="w-full text-left text-xs table-tct-tri bg-[var(--background-navigation)]">
+                                        <thead>
+                                            <tr class="bg-indigo-500/10 font-bold text-[var(--black-color)]">
+                                                <th class="w-1/3">Dimensión de Análisis</th>
+                                                <th class="w-1/3 text-blue-600 dark:text-blue-400">Teoría Clásica de los Tests (TCT)</th>
+                                                <th class="w-1/3 text-purple-600 dark:text-purple-400">Teoría de Respuesta al Ítem (TRI)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font-bold">Unidad de Medida</td>
+                                                <td>Prueba en su totalidad</td>
+                                                <td class="font-semibold text-purple-600 dark:text-purple-300">Nivel del reactivo individual</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold">Invarianza</td>
+                                                <td>Dependiente de la muestra utilizada</td>
+                                                <td class="font-semibold text-purple-600 dark:text-purple-300">Independiente de la muestra (Parámetros invariantes)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold">Concepto de Fiabilidad</td>
+                                                <td>Índice global y estático (Alfa, Omega)</td>
+                                                <td class="font-semibold text-purple-600 dark:text-purple-300">Función de información condicional (Variable según θ)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font-bold">Asunción Central</td>
+                                                <td>Modelo Lineal ($X = V + e$)</td>
+                                                <td class="font-semibold text-purple-600 dark:text-purple-300">Modelo probabilístico logístico y supuesto de independencia local</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Simulador Interactivo de Error y Curva de Información -->
+                            <div class="p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-bold text-xs uppercase tracking-wider text-[var(--color-text-inactive)]">Simulador Interactivo de Precisión Psicométrica:</span>
+                                    <span class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">Habilidad Latente θ = <span id="val-psico-theta">0.0</span></span>
+                                </div>
+                                <input type="range" id="slider-psico-theta" min="-3" max="3" step="0.2" value="0" class="w-full fisio-slider mb-3">
+                                <div class="grid grid-cols-2 gap-3 text-center text-xs">
+                                    <div class="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                                        <div class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase">Error TCT (SEM)</div>
+                                        <div class="text-base font-black font-mono text-[var(--black-color)] mt-0.5" id="tct-sem-val">± 3.82 (Estático)</div>
+                                        <div class="text-[9px] text-[var(--color-text-inactive)] mt-0.5">Mismo error para toda la población</div>
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20">
+                                        <div class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase">Información TRI I(θ)</div>
+                                        <div class="text-base font-black font-mono text-[var(--black-color)] mt-0.5" id="tri-info-val">0.56 nits</div>
+                                        <div class="text-[9px] text-[var(--color-text-inactive)] mt-0.5" id="tri-error-val">± 1.34 (Local)</div>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-[var(--border-navigation)] h-2.5 rounded-full overflow-hidden mt-3">
+                                    <div id="tri-dynamic-indicator" class="h-2.5 rounded-full bg-emerald-500 transition-all" style="width: 100%;"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- UNIDAD 3 -->
+                    <div class="psico-accordion-item fisio-glass-card rounded-[28px] overflow-hidden border border-[var(--border-navigation)]">
+                        <div class="psico-accordion-header p-5 md:p-6 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black text-sm">
+                                    U3
+                                </span>
+                                <div>
+                                    <h3 class="font-black text-base md:text-lg text-[var(--black-color)]">
+                                        Unidad 3: Propiedades Psicométricas (Confiabilidad y Validez)
+                                    </h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Consistencia interna (Alfa vs. Omega), estabilidad y validez de constructo</p>
+                                </div>
+                            </div>
+                            <span class="psico-chevron material-symbols-outlined text-2xl text-[var(--black-color)]">expand_more</span>
+                        </div>
+                        <div class="psico-accordion-content px-5 md:px-6 pb-6 text-xs md:text-sm text-[var(--black-color)] leading-relaxed space-y-4 border-t border-[var(--border-navigation)] pt-4">
+                            <div>
+                                <h4 class="font-bold text-emerald-600 dark:text-emerald-400 mb-1">● Confiabilidad</h4>
+                                <p>
+                                    Representa la proporción de varianza observada que es atribuible a la varianza verdadera. Es un indicador de estabilidad temporal, precisión y ausencia de error aleatorio.
+                                </p>
+                                <ul class="list-disc list-inside mt-2 space-y-1.5 text-xs">
+                                    <li><strong>Consistencia Interna:</strong> Históricamente evaluada con el <em>Alfa de Cronbach (α)</em>, que exige el estricto e irreal supuesto de <em>tau-equivalencia</em> (mismo peso factorial en todos los ítems). En la psicometría avanzada actual se prefiere el <strong>Omega de McDonald (ω)</strong>, fundamentado en las cargas factoriales asimétricas del Análisis Factorial, menos sesgado en variables ordinales tipo Likert.</li>
+                                    <li><strong>Estabilidad Temporal (Test-Retest):</strong> Evaluada mediante Pearson, Spearman o Coeficientes de Correlación Intraclase (ICC). Pruebas robustas como el NEUROPSI poseen un ICC de .89, asegurando que los cambios reflejan la patología real y no la inestabilidad de la prueba.</li>
+                                    <li><strong>Acuerdo Interjueces:</strong> Medido con el índice Kappa de Cohen en pruebas de calificación subjetiva (ej. copias de figuras complejas).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-emerald-600 dark:text-emerald-400 mb-1">● Validez</h4>
+                                <p>
+                                    La validez no se refiere a que la prueba "sea válida" por sí misma, sino al grado en que la evidencia teórica y empírica apoya las inferencias y el uso específico que se hace de las puntuaciones.
+                                </p>
+                                <ul class="list-disc list-inside mt-2 space-y-1.5 text-xs">
+                                    <li><strong>Validez de Contenido:</strong> Grado en que los reactivos constituyen una muestra representativa del universo del dominio, consolidada mediante jueceo de expertos e índices de acuerdo.</li>
+                                    <li><strong>Validez de Criterio:</strong> Concurrente (evaluadas simultáneamente, ej. contrastar con BANFE-2) y Predictiva (pronostica desempeño futuro, vital en selección de personal o riesgo suicida).</li>
+                                    <li><strong>Validez de Constructo:</strong> El andamiaje más profundo. Incluye la <em>Validez Convergente</em> (alta correlación con pruebas del mismo constructo), <em>Validez Discriminante</em> (independencia de constructos ajenos) y el <em>Análisis Factorial</em> (AFE para explorar dimensionalidad y AFC para contrastar modelos teóricos con índices de ajuste CFI, GFI, RMSEA, CMIN/DF).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIDAD 4 Y 5 -->
+                    <div class="psico-accordion-item fisio-glass-card rounded-[28px] overflow-hidden border border-[var(--border-navigation)]">
+                        <div class="psico-accordion-header p-5 md:p-6 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black text-sm">
+                                    U4-5
+                                </span>
+                                <div>
+                                    <h3 class="font-black text-base md:text-lg text-[var(--black-color)]">
+                                        Unidad 4 y 5: Pruebas de Ejecución Máxima (WAIS-IV, NEUROPSI y BANFE-2)
+                                    </h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Baremos mexicanos, dominios neurocognitivos y áreas prefrontales</p>
+                                </div>
+                            </div>
+                            <span class="psico-chevron material-symbols-outlined text-2xl text-[var(--black-color)]">expand_more</span>
+                        </div>
+                        <div class="psico-accordion-content px-5 md:px-6 pb-6 text-xs md:text-sm text-[var(--black-color)] leading-relaxed space-y-4 border-t border-[var(--border-navigation)] pt-4">
+                            <div>
+                                <h4 class="font-bold text-amber-600 dark:text-amber-400 mb-1">● Inteligencia y la Escala WAIS-IV</h4>
+                                <p>
+                                    Estándar de oro (16 a 90 años) estandarizado en México por la UNAM y El Manual Moderno (ajustando por Efecto Flynn). Reporta un Cociente Intelectual Total (CIT) compuesto por cuatro dominios o índices específicos:
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                        <div class="font-bold text-xs text-blue-600 dark:text-blue-400">1. Comprensión Verbal (ICV)</div>
+                                        <div class="text-[11px] text-[var(--color-text-inactive)] mt-0.5">Semejanzas, Vocabulario, Información. Resistente al daño cerebral difuso (índice premórbido).</div>
+                                    </div>
+                                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                        <div class="font-bold text-xs text-emerald-600 dark:text-emerald-400">2. Razonamiento Perceptual (IRP)</div>
+                                        <div class="text-[11px] text-[var(--color-text-inactive)] mt-0.5">Diseño con Cubos, Matrices, Rompecabezas Visuales. Sensible a disfunción hemisferio derecho y lóbulo parietal.</div>
+                                    </div>
+                                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                        <div class="font-bold text-xs text-amber-600 dark:text-amber-400">3. Memoria de Trabajo (IMT)</div>
+                                        <div class="text-[11px] text-[var(--color-text-inactive)] mt-0.5">Retención de Dígitos, Aritmética. Vulnerable a ansiedad, TDAH y lesiones dorsolaterales.</div>
+                                    </div>
+                                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                        <div class="font-bold text-xs text-rose-600 dark:text-rose-400">4. Velocidad de Procesamiento (IVP)</div>
+                                        <div class="text-[11px] text-[var(--color-text-inactive)] mt-0.5">Búsqueda de Símbolos, Claves. Muy sensible a TCE, daño difuso y envejecimiento.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                <h4 class="font-bold text-amber-600 dark:text-amber-400 mb-1">● Baterías Neuropsicológicas Clínicas</h4>
+                                <p class="mb-2">
+                                    <strong>NEUROPSI: Atención y Memoria (Feggy Ostrosky):</strong> Batería estandarizada en México que subsana los sesgos anglosajones. Gold standard en Guías de Práctica Clínica para demencia y TCE. Su gran fortaleza psicométrica radica en sus baremos segmentados no solo por edad sino por <strong>escolaridad nula (analfabetismo)</strong>, impidiendo patologizar falsamente a personas no escolarizadas.
+                                </p>
+                                <p>
+                                    <strong>BANFE-2 (Batería de Funciones Ejecutivas y Lóbulos Frontales):</strong> Mapea 15 procesos en tres áreas prefrontales:
+                                </p>
+                                <ul class="list-disc list-inside mt-1 space-y-1 text-xs">
+                                    <li><em>Corteza Orbitofrontal y Medial:</em> Control inhibitorio y evaluación de riesgo/beneficio (Laberintos, cartas Iowa Gambling Task).</li>
+                                    <li><em>Corteza Prefrontal Dorsolateral:</em> Memoria de trabajo compleja, flexibilidad y planeación (Torre de Hanói, Cartas).</li>
+                                    <li><em>Corteza Prefrontal Anterior:</em> Abstracción de alta jerarquía y control metacognitivo.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UNIDAD 6 Y 7 -->
+                    <div class="psico-accordion-item fisio-glass-card rounded-[28px] overflow-hidden border border-[var(--border-navigation)]">
+                        <div class="psico-accordion-header p-5 md:p-6 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-2xl bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center font-black text-sm">
+                                    U6-7
+                                </span>
+                                <div>
+                                    <h3 class="font-black text-base md:text-lg text-[var(--black-color)]">
+                                        Unidad 6 y 7: Pruebas Típicas (Personalidad/BDI-II) y Ética Profesional
+                                    </h3>
+                                    <p class="text-xs text-[var(--color-text-inactive)]">Diagnóstico afectivo, análisis cualitativo y Código Ético del Psicólogo en México</p>
+                                </div>
+                            </div>
+                            <span class="psico-chevron material-symbols-outlined text-2xl text-[var(--black-color)]">expand_more</span>
+                        </div>
+                        <div class="psico-accordion-content px-5 md:px-6 pb-6 text-xs md:text-sm text-[var(--black-color)] leading-relaxed space-y-4 border-t border-[var(--border-navigation)] pt-4">
+                            <div>
+                                <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-1">● Instrumentos de Diagnóstico Clínico Afectivo y Personalidad</h4>
+                                <ul class="space-y-2 text-xs">
+                                    <li><strong>BDI-II (Inventario de Depresión de Beck):</strong> 21 reactivos autoinforme, alfa elevado (.87 en CDMX/UNAM). Puntos de corte: mínima (0-4), leve (5-9), moderada a grave (15-19), grave (20-27).</li>
+                                    <li><strong>IDARE:</strong> Diferencia la Ansiedad-Estado (reactiva, fluctuación fisiológica transitoria) de la Ansiedad-Rasgo (tendencia crónica estructural de la personalidad).</li>
+                                    <li><strong>MMPI-2:</strong> Criterio empírico con cientos de reactivos V/F. Incorpora escalas de validez paramétrica (L, F, K) para detectar simulación, defensividad o inconsistencia al azar.</li>
+                                    <li><strong>Técnicas Proyectivas (Rorschach, TAT):</strong> Operan desde la ambigüedad estructural exigiendo manuales de codificación para asegurar fiabilidad interjueces.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-1">● Integración Diagnóstica y Análisis Cualitativo (FES Zaragoza UNAM)</h4>
+                                <p>
+                                    La psicometría cuantitativa por sí sola corre el riesgo de iatrogenia cultural. La evaluación exige 4 fases: 1) Anamnesis e hipótesis, 2) Selección con validez ecológica, 3) <strong>Microexperimentos en vivo y análisis cualitativo</strong> (evaluar el tipo específico de error, perseveración vs negligencia, fatigabilidad y Zona de Desarrollo Próximo con ayudas exógenas), y 4) Informe orientado al tratamiento.
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20">
+                                <h4 class="font-bold text-rose-700 dark:text-rose-300 mb-2">● Código Ético del Psicólogo (Sociedad Mexicana de Psicología)</h4>
+                                <ul class="space-y-1.5 text-xs">
+                                    <li><strong>Competencia y Uso Restringido (Arts. 26 y 34):</strong> Aplicación restringida a titulados con cédula profesional; prohibido delegar en personal lego.</li>
+                                    <li><strong>Actualización y Contexto Cultural (Arts. 18 y 24):</strong> Obligación de usar instrumentos validados y baremados para la población mexicana, descartando test obsoletos o extranjeros que patologicen por sesgos culturales.</li>
+                                    <li><strong>Seguridad del Material Psicométrico (Art. 60):</strong> Prohibida la copia, divulgación o publicación de reactivos o algoritmos de calificación.</li>
+                                    <li><strong>Consentimiento y Confidencialidad (Arts. 118 y 124):</strong> Protección rigurosa de expedientes y devolución asertiva de resultados.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 2: FLASH CARDS Y AUDIO CARDS -->
+            <!-- ========================================================================================= -->
+            <div id="tab-psico-flashcards" class="psico-tab-panel hidden transition-all duration-500">
+                
+                <div class="text-center mb-6">
+                    <span class="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                        Multitarea 3D • 5 Conceptos Clave
+                    </span>
+                    <h3 class="text-2xl md:text-3xl font-black text-[var(--black-color)] mt-2">
+                        Tarjetas Interactivas de Psicometría
+                    </h3>
+                    <p class="text-xs md:text-sm text-[var(--color-text-inactive)] mt-1 max-w-lg mx-auto">
+                        Desliza entre las tarjetas o toca los extremos para navegar. Toca el botón "Girar" para revisar el reverso técnico.
+                    </p>
+                </div>
+
+                <!-- CONTENEDOR MULTITAREA APPLE IPHONE (STACKED CARDS) -->
+                <div class="apple-multitask-wrapper mb-8">
+                    
+                    <!-- Flecha Flotante Izquierda -->
+                    <button id="psico-stack-prev" class="apple-nav-arrow apple-nav-prev" title="Tarjeta Anterior">
+                        <span class="material-symbols-outlined text-2xl text-[var(--black-color)]">chevron_left</span>
+                    </button>
+
+                    <!-- Mazo 3D de Tarjetas Apiladas (5 Tarjetas) -->
+                    <div id="psico-multitask-deck" class="apple-multitask-deck">
+                        
+                        <!-- TARJETA 01: VALIDEZ DE CONSTRUCTO -->
+                        <div class="apple-card-container" data-card-idx="0">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-pick-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-purple-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">psychology</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Arquitectura Teórica</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]">
+                                                <span class="material-symbols-outlined text-xs">3d_rotation</span> Girar
+                                            </div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400">Tarjeta #01</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Validez de Constructo
+                                        </h3>
+                                        <p class="text-xs font-semibold text-purple-700 dark:text-purple-400 mt-1">Métricas matemáticas requeridas</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Definición:</strong> Grado en que la prueba operacionaliza el atributo psicológico teórico subyacente.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Modelos Factoriales:</strong> Reducción de dimensiones mediante AFE y AFC.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-purple-700 dark:text-purple-300">
+                                        <span>Toca para ver el reverso técnico</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Reverso Técnico</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]">
+                                                <span class="material-symbols-outlined text-xs">undo</span> Volver
+                                            </div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Evidencia Factorial y Discriminante</h4>
+                                        <div class="p-3 my-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 leading-relaxed">
+                                            <p>Se corrobora empíricamente mediante el <strong>Análisis Factorial Exploratorio (AFE)</strong> y <strong>Confirmatorio (AFC)</strong>.</p>
+                                            <p>• <strong>Validez Convergente:</strong> Alta correlación con instrumentos validados que miden el mismo constructo.</p>
+                                            <p>• <strong>Validez Discriminante:</strong> Independencia estadística y varianza única frente a variables conceptualmente ajenas.</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#01 • Unidad 3</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 02: TCT VS TRI -->
+                        <div class="apple-card-container" data-card-idx="1">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-blue-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-blue-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">functions</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Modelos Psicométricos</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Tarjeta #02</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            TCT vs. TRI
+                                        </h3>
+                                        <p class="text-xs font-semibold text-blue-700 dark:text-blue-400 mt-1">Dos paradigmas matemáticos</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>TCT:</strong> Modelo lineal sumativo clásico ($X = V + e$), fiabilidad estática.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>TRI:</strong> Modelo probabilístico logístico invariante a nivel de reactivo.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-blue-700 dark:text-blue-300">
+                                        <span>Toca para ver el reverso técnico</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-yellow-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Reverso Técnico</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Invarianza y Precisión Local</h4>
+                                        <div class="p-3 my-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 leading-relaxed">
+                                            <p>La <strong>TCT</strong> utiliza un modelo lineal dependiente de la muestra, con un índice de confiabilidad global y estático.</p>
+                                            <p>La <strong>TRI</strong> calcula la interacción entre la dificultad ($b$) y discriminación ($a$) del ítem y la habilidad latente ($\theta$) del examinado, garantizando <strong>invarianza muestral</strong> y optimizando test adaptativos.</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#02 • Unidad 2</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 03: WAIS-IV -->
+                        <div class="apple-card-container" data-card-idx="2">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-yellow-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-amber-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">cognition</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Inteligencia Clínica</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">Tarjeta #03</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Escala WAIS-IV
+                                        </h3>
+                                        <p class="text-xs font-semibold text-amber-700 dark:text-amber-400 mt-1">Medición del CIT (16 a 90 años)</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Estandarización:</strong> Adaptada en México por UNAM y Manual Moderno ajustando por Efecto Flynn.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Estructura:</strong> Sustituye el CI Verbal/Ejecución por 4 índices factoriales.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-amber-700 dark:text-amber-300">
+                                        <span>Toca para ver los 4 índices</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Reverso Técnico</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Los Cuatro Índices Factoriales</h4>
+                                        <div class="p-3 my-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1 leading-relaxed">
+                                            <p>1. <strong>ICV (Comprensión Verbal):</strong> Semejanzas, Vocabulario, Información.</p>
+                                            <p>2. <strong>IRP (Razonamiento Perceptual):</strong> Cubos, Matrices, Rompecabezas Visuales.</p>
+                                            <p>3. <strong>IMT (Memoria de Trabajo):</strong> Retención de Dígitos, Aritmética.</p>
+                                            <p>4. <strong>IVP (Velocidad de Procesamiento):</strong> Búsqueda de Símbolos, Claves.</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#03 • Unidad 5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 04: BANFE-2 -->
+                        <div class="apple-card-container" data-card-idx="3">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-green-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-emerald-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">account_tree</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Neuropsicología</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Tarjeta #04</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Batería BANFE-2
+                                        </h3>
+                                        <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-1">Lóbulos Frontales y Ejecución</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Autoría:</strong> Desarrollada en México por Flores-Lázaro, Ostrosky y Lozano.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Alcance:</strong> Evalúa 15 procesos anatómico-funcionales de la corteza prefrontal.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                                        <span>Toca para ver la topografía prefrontal</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-brown-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400">Reverso Técnico</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">Topografía Prefrontal del BANFE-2</h4>
+                                        <div class="p-3 my-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1 leading-relaxed">
+                                            <p>1. <strong>Orbitofrontal / Medial:</strong> Control inhibitorio, impulsividad y evaluación riesgo/beneficio (Laberintos, cartas Iowa Gambling).</p>
+                                            <p>2. <strong>Dorsolateral:</strong> Memoria de trabajo, flexibilidad cognitiva y planeación secuencial (Torre de Hanói, Cartas).</p>
+                                            <p>3. <strong>Prefrontal Anterior:</strong> Metacognición y abstracción superior.</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#04 • Unidad 5</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TARJETA 05: CRONBACH VS MCDONALD -->
+                        <div class="apple-card-container" data-card-idx="4">
+                            <div class="apple-card-inner">
+                                <div class="apple-card-face fisio-glass-card" style="background-color: var(--card-brown-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <div class="apple-app-badge">
+                                                <div class="apple-app-icon bg-rose-500">
+                                                    <span class="material-symbols-outlined text-lg text-white">ssid_chart</span>
+                                                </div>
+                                                <span class="text-xs font-bold text-[var(--black-color)]">Consistencia Interna</span>
+                                            </div>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">3d_rotation</span> Girar</div>
+                                        </div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400">Tarjeta #05</span>
+                                        <h3 class="text-xl md:text-2xl font-black text-[var(--black-color)] mt-1 leading-snug">
+                                            Alfa vs. Omega
+                                        </h3>
+                                        <p class="text-xs font-semibold text-rose-700 dark:text-rose-400 mt-1">Cronbach (α) vs. McDonald (ω)</p>
+
+                                        <div class="mt-5 space-y-2 text-xs text-[var(--color-text-inactive)]">
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Propósito:</strong> Ambos coeficientes cuantifican la consistencia interna de una escala.
+                                            </div>
+                                            <div class="p-2.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)]">
+                                                <strong>Debate:</strong> Tau-equivalencia rígida vs. Cargas factoriales asimétricas.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-[11px] font-bold text-rose-700 dark:text-rose-300">
+                                        <span>Toca para ver el fundamento matemático</span>
+                                        <span class="material-symbols-outlined text-sm">touch_app</span>
+                                    </div>
+                                </div>
+                                <div class="apple-card-face apple-card-back fisio-glass-card" style="background-color: var(--card-pick-color);">
+                                    <div>
+                                        <div class="apple-card-header">
+                                            <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400">Reverso Técnico</span>
+                                            <div class="apple-flip-pill text-[var(--black-color)]"><span class="material-symbols-outlined text-xs">undo</span> Volver</div>
+                                        </div>
+                                        <h4 class="font-black text-sm text-[var(--black-color)]">¿Por qué Omega es el Estándar Moderno?</h4>
+                                        <div class="p-3 my-3 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] space-y-1.5 leading-relaxed">
+                                            <p>El <strong>Alfa de Cronbach</strong> asume falsamente la <em>tau-equivalencia</em> (que todos los ítems aportan el mismo peso al constructo), subestimando la fiabilidad en variables tipo Likert.</p>
+                                            <p>El <strong>Omega de McDonald</strong> se fundamenta en las cargas factoriales asimétricas del Análisis Factorial, calculando la fiabilidad compuesta real sin exigir una igualdad artificial de pesos.</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-[10px] text-[var(--color-text-inactive)] font-bold text-right">#05 • Unidad 3</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Flecha Flotante Derecha -->
+                    <button id="psico-stack-next" class="apple-nav-arrow apple-nav-next" title="Tarjeta Siguiente">
+                        <span class="material-symbols-outlined text-2xl text-[var(--black-color)]">chevron_right</span>
+                    </button>
+
+                </div>
+
+                <!-- Barra de Navegación Dock / Contador -->
+                <div class="flex flex-col items-center justify-center gap-3 mb-10">
+                    <span id="psico-stack-counter" class="text-xs font-mono font-bold text-[var(--color-text-inactive)]">1 de 5</span>
+                    <div id="psico-stack-dock" class="apple-dock-pills-container">
+                        <!-- Píldoras inyectadas por JS -->
+                    </div>
+                </div>
+
+                <!-- AUDIO-CARD CONCEPTUAL (REPRODUCTOR DE NOTA DE VOZ RÁPIDA DE 38 SEGUNDOS) -->
+                <div class="max-w-lg mx-auto">
+                    <div id="audio-lottie-card-psico" class="relative overflow-hidden fisio-glass-card rounded-[35px] p-6 border border-[var(--border-navigation)] shadow-md bg-[var(--background-navigation)] cursor-pointer hover:scale-[1.02] transition-all">
+                        
+                        <div class="flex items-center gap-4">
+                            <!-- Animación Lottie -->
+                            <div id="lottie-sound-wave-psico" class="w-16 h-16 flex-shrink-0"></div>
+
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20">
+                                        Nota de Voz • 38 Segundos
+                                    </span>
+                                    <button id="psico-audio-speed" class="px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold bg-[var(--border-navigation)] text-[var(--black-color)] hover:bg-purple-500 hover:text-white transition-all">
+                                        1.0x
+                                    </button>
+                                </div>
+                                <h4 class="text-sm font-black text-[var(--black-color)] mt-1">
+                                    Cápsula Sonora: Orden Clínico vs. Caos
+                                </h4>
+                                <div class="flex items-center gap-3 mt-2">
+                                    <button id="psico-audio-play-btn" class="w-8 h-8 rounded-full bg-purple-600 hover:bg-purple-700 text-white flex items-center justify-center shadow-md">
+                                        <span id="psico-audio-play-icon" class="material-symbols-outlined text-lg">play_arrow</span>
+                                    </button>
+                                    
+                                    <!-- Ondas Ecualizadoras Animadas -->
+                                    <div class="psico-voice-wave flex-1">
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                        <div class="psico-wave-bar"></div>
+                                    </div>
+
+                                    <span id="psico-audio-time" class="text-[11px] font-mono font-bold text-[var(--color-text-inactive)]">
+                                        00:00 / 00:38
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Barra de progreso de lectura -->
+                        <div class="w-full bg-[var(--border-navigation)] h-1.5 rounded-full overflow-hidden mt-4">
+                            <div id="psico-audio-progress" class="h-1.5 rounded-full bg-purple-500 transition-all" style="width: 0%;"></div>
+                        </div>
+
+                        <!-- Botón y Contenedor de Transcripción del Guion Oficial -->
+                        <div class="mt-3 pt-3 border-t border-[var(--border-navigation)] flex flex-col items-center">
+                            <button id="psico-transcript-toggle" class="text-[11px] font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1 hover:underline">
+                                <span class="material-symbols-outlined text-sm">subtitles</span> Ver Transcripción del Guion
+                            </button>
+                            <div id="psico-transcript-text" class="hidden mt-3 p-3.5 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-[11px] leading-relaxed text-[var(--black-color)] text-left">
+                                <em>"Imagina enfrentarte a un paciente con pérdida de memoria o impulsividad severa. La lesión en su cerebro es estructural, pero sus procesos cognitivos son invisibles. Aquí es donde la psicometría clínica y la neurociencia cambian las reglas del juego. A través de instrumentos calibrados milimétricamente como el WAIS-IV o el NEUROPSI, logramos diseccionar funciones latentes, aislar el error estadístico con fórmulas logísticas avanzadas y medir con exactitud qué área del lóbulo frontal ha fallado. La medición psicológica no es encasillar mentes; es traducir el caos del sufrimiento humano a datos objetivos y fiables para estructurar la rehabilitación perfecta y transformar la intervención clínica."</em>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 3: CASOS CLÍNICOS (PACIENTE DE 68 AÑOS) -->
+            <!-- ========================================================================================= -->
+            <div id="tab-psico-casos" class="psico-tab-panel hidden transition-all duration-500">
+                <div class="max-w-4xl mx-auto fisio-glass-card rounded-[40px] p-6 md:p-10 relative">
+                    
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-[var(--border-navigation)]">
+                        <span class="material-symbols-outlined text-emerald-500 text-3xl">clinical_notes</span>
+                        <div>
+                            <h3 class="text-xl font-black text-[var(--black-color)]">Panel de Diagnóstico Neuropsicológico</h3>
+                            <p class="text-xs text-[var(--color-text-inactive)]">Escrutinio cognitivo geriátrico y baremación por escolaridad</p>
+                        </div>
+                    </div>
+
+                    <!-- Viñeta Clínica del Paciente -->
+                    <div class="bg-emerald-500/10 border border-emerald-500/20 p-5 rounded-3xl mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-black text-base text-emerald-800 dark:text-emerald-300">
+                                Caso Clínico: Sospecha de Demencia Incipiente en Adulto Mayor
+                            </h4>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-white">
+                                Viñeta Clínica
+                            </span>
+                        </div>
+                        <p class="text-xs md:text-sm text-[var(--black-color)] leading-relaxed font-medium">
+                            Paciente masculino de <strong>68 años</strong> acude a consulta acompañado de su hija. Reporta que en el último semestre presenta episodios de <strong>amnesia anterógrada</strong>, fallas atencionales sostenidas, desorientación ocasional en trayectos rutinarios e incapacidad para seguir el hilo conversacional. Tiene un <strong>nivel educativo nulo (no escolarizado / analfabeto)</strong> y presenta antecedentes familiares de Demencia tipo Alzheimer. No hay alteraciones motoras o del estado de alerta.
+                        </p>
+                    </div>
+
+                    <!-- Pregunta Interactiva -->
+                    <div class="mb-6">
+                        <h4 class="text-sm md:text-base font-bold text-[var(--black-color)] mb-4 leading-snug">
+                            Considerando el rigor metodológico para el tamizaje cognitivo geriátrico, la sospecha de patología neurodegenerativa y las características demográficas de escolaridad del paciente, ¿qué instrumento de evaluación psicológica es de primera línea para realizar el escrutinio clínico con mayor sensibilidad y validez predictiva?
+                        </h4>
+
+                        <!-- Contenedor de 4 Opciones Múltiples -->
+                        <div class="space-y-3">
+                            <button data-case-option="WAIS" class="psico-case-option w-full p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-left hover:scale-[1.01] transition-all flex items-center justify-between">
+                                <span class="font-bold text-xs md:text-sm text-[var(--black-color)]">A) WAIS-IV (Escala Wechsler de Inteligencia para Adultos, 4ta edición)</span>
+                                <span class="material-symbols-outlined text-sm text-[var(--color-text-inactive)]">radio_button_unchecked</span>
+                            </button>
+                            <button data-case-option="BDIII" class="psico-case-option w-full p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-left hover:scale-[1.01] transition-all flex items-center justify-between">
+                                <span class="font-bold text-xs md:text-sm text-[var(--black-color)]">B) BDI-II (Inventario de Depresión de Beck, 2da edición)</span>
+                                <span class="material-symbols-outlined text-sm text-[var(--color-text-inactive)]">radio_button_unchecked</span>
+                            </button>
+                            <button data-case-option="MMPI" class="psico-case-option w-full p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-left hover:scale-[1.01] transition-all flex items-center justify-between">
+                                <span class="font-bold text-xs md:text-sm text-[var(--black-color)]">C) MMPI-2 (Inventario Multifásico de Personalidad de Minnesota)</span>
+                                <span class="material-symbols-outlined text-sm text-[var(--color-text-inactive)]">radio_button_unchecked</span>
+                            </button>
+                            <button data-case-option="D" class="psico-case-option w-full p-4 rounded-2xl bg-[var(--background-navigation)] border border-[var(--border-navigation)] text-left hover:scale-[1.01] transition-all flex items-center justify-between">
+                                <span class="font-bold text-xs md:text-sm text-[var(--black-color)]">D) NEUROPSI: Atención y Memoria</span>
+                                <span class="material-symbols-outlined text-sm text-[var(--color-text-inactive)]">radio_button_unchecked</span>
+                            </button>
+                        </div>
+
+                        <!-- Feedback y Justificación Desplegable Dinámica -->
+                        <div id="psico-case-feedback" class="mt-6 hidden"></div>
+
+                        <!-- Botón de Reinicio de Caso -->
+                        <div class="flex justify-end pt-4 mt-6 border-t border-[var(--border-navigation)]">
+                            <button id="psico-case-reset" class="hidden px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all">
+                                Reiniciar Caso Clínico
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 4: MINI JUEGOS ("EL SEMÁFORO CLÍNICO" Y "MATCH PSICOMÉTRICO") -->
+            <!-- ========================================================================================= -->
+            <div id="tab-psico-juegos" class="psico-tab-panel hidden transition-all duration-500">
+                
+                <!-- Banner de Medallas Desbloqueables -->
+                <div class="max-w-4xl mx-auto fisio-glass-card rounded-[35px] p-5 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 border border-[var(--border-navigation)]">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-amber-500 text-3xl">military_tech</span>
+                        <div>
+                            <h4 class="font-black text-sm md:text-base text-[var(--black-color)]">Insignias Psicológicas Desbloqueables</h4>
+                            <p class="text-xs text-[var(--color-text-inactive)]">Gana cada minijuego para enviar la medalla a tu contenedor superior</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 bg-[var(--background-navigation)] px-3 py-1.5 rounded-2xl border border-[var(--border-navigation)]">
+                            <img src="medalla_semaforo_clinico.png" alt="Medalla Semáforo" class="w-8 h-8 rounded-full object-contain">
+                            <span class="text-xs font-bold text-[var(--black-color)]">El Semáforo</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-[var(--background-navigation)] px-3 py-1.5 rounded-2xl border border-[var(--border-navigation)]">
+                            <img src="medalla_match_psicometrico.png" alt="Medalla Match" class="w-8 h-8 rounded-full object-contain">
+                            <span class="text-xs font-bold text-[var(--black-color)]">Match Psicométrico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    
+                    <!-- MINIJUEGO 1: EL SEMÁFORO CLÍNICO -->
+                    <div class="fisio-glass-card rounded-[35px] p-6 border border-[var(--border-navigation)] flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-emerald-500 text-2xl">traffic</span>
+                                    <h3 class="font-black text-base text-[var(--black-color)]">El Semáforo Clínico</h3>
+                                </div>
+                                <span id="semaforo-round-counter" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                    Caso 1 de 3
+                                </span>
+                            </div>
+                            <p class="text-xs text-[var(--color-text-inactive)] mb-4">
+                                Selecciona rápidamente la mejor intervención (Luz Verde Empática/Técnica) y evita las intrusivas o invalidantes.
+                            </p>
+
+                            <!-- Semáforo Visual Vertical -->
+                            <div class="flex justify-center mb-5">
+                                <div class="bg-slate-900 p-3 rounded-3xl flex gap-3 shadow-lg border border-slate-700">
+                                    <div id="sem-light-green" class="semaforo-light w-8 h-8 rounded-full bg-emerald-950 border border-emerald-500/40 shadow-inner"></div>
+                                    <div id="sem-light-yellow" class="semaforo-light w-8 h-8 rounded-full bg-amber-950 border border-amber-500/40 shadow-inner"></div>
+                                    <div id="sem-light-red" class="semaforo-light w-8 h-8 rounded-full bg-rose-950 border border-rose-500/40 shadow-inner"></div>
+                                </div>
+                            </div>
+
+                            <!-- Viñeta / Cita del Paciente -->
+                            <div class="bg-[var(--background-navigation)] border border-[var(--border-navigation)] p-4 rounded-2xl mb-4 relative">
+                                <span class="material-symbols-outlined text-xs text-indigo-500 absolute top-2 right-3">format_quote</span>
+                                <div class="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">El Paciente Dice:</div>
+                                <p id="semaforo-patient-quote" class="text-xs md:text-sm font-semibold text-[var(--black-color)] italic leading-relaxed">
+                                    <!-- Inyectado por JS -->
+                                </p>
+                            </div>
+
+                            <!-- Opciones de Respuesta Dinámica -->
+                            <div id="semaforo-options-container" class="space-y-2 mb-4">
+                                <!-- Inyectado por JS -->
+                            </div>
+
+                            <!-- Feedback del Paso -->
+                            <div id="semaforo-step-feedback" class="hidden mb-3"></div>
+                        </div>
+
+                        <div class="pt-3 border-t border-[var(--border-navigation)] flex items-center justify-between text-xs font-bold text-[var(--color-text-inactive)]">
+                            <span>Puntuación: <span id="semaforo-score" class="font-mono text-emerald-600 dark:text-emerald-400">0 pts</span></span>
+                            <span class="text-[10px]">Toques rápidos</span>
+                        </div>
+                    </div>
+
+                    <!-- MINIJUEGO 2: MATCH PSICOMÉTRICO (30S) -->
+                    <div class="fisio-glass-card rounded-[35px] p-6 border border-[var(--border-navigation)] flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-blue-500 text-2xl">hub</span>
+                                    <h3 class="font-black text-base text-[var(--black-color)]">Match Psicométrico</h3>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-amber-500 text-sm">timer</span>
+                                    <span id="match-timer-text" class="text-xs font-mono font-black text-[var(--black-color)]">30s</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-[var(--color-text-inactive)] mb-3">
+                                Asocia rápidamente cada Constructo Clínico con su Instrumento correspondiente antes de que se agote el tiempo.
+                            </p>
+
+                            <!-- Barra Visual de Temporizador -->
+                            <div class="w-full bg-[var(--border-navigation)] h-2.5 rounded-full overflow-hidden mb-4">
+                                <div id="match-timer-bar" class="timer-progress-bar h-2.5 rounded-full bg-blue-500 transition-all" style="width: 100%;"></div>
+                            </div>
+
+                            <!-- Cuadrícula de Cartas -->
+                            <div id="match-cards-grid" class="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto p-1">
+                                <!-- Inyectado por JS -->
+                            </div>
+                        </div>
+
+                        <div class="pt-4 mt-4 border-t border-[var(--border-navigation)] flex items-center justify-between">
+                            <span class="text-xs font-bold text-[var(--color-text-inactive)]">
+                                Parejas: <span id="match-pairs-count" class="font-mono text-blue-600 dark:text-blue-400">0 / 6</span>
+                            </span>
+                            <button id="match-start-btn" class="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+                                Iniciar Reto (30s)
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- MODALES DE VICTORIA / DERROTA DE LOS MINIJUEGOS -->
+                <!-- Victoria Semáforo -->
+                <div id="semaforo-win-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-md items-center justify-center p-4">
+                    <div class="fisio-glass-card rounded-[35px] max-w-sm w-full p-6 text-center border border-emerald-500/30 feedback-fade-in bg-[var(--background-navigation)]">
+                        <img src="medalla_semaforo_clinico.png" alt="Medalla Semáforo" class="w-24 h-24 mx-auto mb-3 object-contain drop-shadow-lg">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                            ¡Reto Superado!
+                        </span>
+                        <h3 class="text-xl font-black text-[var(--black-color)] mt-2">Medalla Desbloqueada</h3>
+                        <p class="text-xs text-[var(--color-text-inactive)] mt-2 leading-relaxed">
+                            Has demostrado maestría en la toma de decisiones clínicas y empatía en entrevista. Tu medalla <strong>"El Semáforo Clínico"</strong> ha sido colocada en el contenedor del encabezado.
+                        </p>
+                        <button id="semaforo-restart-btn" class="mt-5 w-full py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-all">
+                            Continuar Aprendiendo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Victoria Match -->
+                <div id="match-win-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-md items-center justify-center p-4">
+                    <div class="fisio-glass-card rounded-[35px] max-w-sm w-full p-6 text-center border border-blue-500/30 feedback-fade-in bg-[var(--background-navigation)]">
+                        <img src="medalla_match_psicometrico.png" alt="Medalla Match" class="w-24 h-24 mx-auto mb-3 object-contain drop-shadow-lg">
+                        <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-600 dark:text-blue-400 border border-blue-500/30">
+                            ¡Velocidad Psicométrica!
+                        </span>
+                        <h3 class="text-xl font-black text-[var(--black-color)] mt-2">Medalla Desbloqueada</h3>
+                        <p class="text-xs text-[var(--color-text-inactive)] mt-2 leading-relaxed">
+                            ¡Completaste todas las parejas en tiempo récord! La insignia <strong>"Match Psicométrico"</strong> ha sido agregada a tu colección superior.
+                        </p>
+                        <button id="match-restart-win-btn" class="mt-5 w-full py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+                            Jugar Otra Vez
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Derrota Match -->
+                <div id="match-lose-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-md items-center justify-center p-4">
+                    <div class="fisio-glass-card rounded-[35px] max-w-sm w-full p-6 text-center border border-rose-500/30 feedback-fade-in bg-[var(--background-navigation)]">
+                        <span class="material-symbols-outlined text-rose-500 text-5xl mb-2">timer_off</span>
+                        <h3 class="text-xl font-black text-[var(--black-color)]">¡Tiempo Agotado!</h3>
+                        <p class="text-xs text-[var(--color-text-inactive)] mt-2 leading-relaxed">
+                            Se acabaron los 30 segundos antes de conectar todos los instrumentos. ¡Inténtalo de nuevo para ganar tu medalla!
+                        </p>
+                        <button id="match-restart-lose-btn" class="mt-5 w-full py-2.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md transition-all">
+                            Reintentar Desafío
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- Bibliografia -->
+    <div id="Biblio"></div>
+    <section class="Bibliografia py-12" data-section="bibliografia" id="Bibliografia">
+        <div class="max-w-7xl mx-auto p-4 md:p-6 transition-colors duration-500">
+            
+            <!-- Encabezado de la Sección -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-5xl font-black text-[var(--black-color)] tracking-tight mt-2">
+                    Bibliografía y Fuentes de Consulta
+                </h2>
+                <p class="text-[var(--black-color)] opacity-75 font-medium max-w-2xl mx-auto mt-3 text-sm md:text-base">
+                    Repositorio estructurado de fuentes bibliográficas, artículos indexados, baremos clínicos y manuales estandarizados que sustentan los contenidos de la plataforma.
+                </p>
+            </div>
+
+            <!-- Selector de Categorías / Disciplinas (Bento-Filter) -->
+            <div class="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-8">
+                <button data-discipline="todas" class="biblio-discipline-pill active px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-indigo-500">library_books</span>
+                    <span>Todas las Fuentes</span>
+                </button>
+                <button data-discipline="psicologia" class="biblio-discipline-pill px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-purple-500">psychology</span>
+                    <span>Psicología (62)</span>
+                </button>
+                <button data-discipline="embriologia" class="biblio-discipline-pill px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-rose-500">breastfeeding</span>
+                    <span>Embriología</span>
+                </button>
+                <button data-discipline="anatomia" class="biblio-discipline-pill px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-amber-500">hand_bones</span>
+                    <span>Anatomía</span>
+                </button>
+                <button data-discipline="histologia" class="biblio-discipline-pill px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-emerald-500">vital_signs</span>
+                    <span>Histología</span>
+                </button>
+                <button data-discipline="bioquimica" class="biblio-discipline-pill px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-cyan-500">immunology</span>
+                    <span>Bioquímica</span>
+                </button>
+                <button data-discipline="fisiologia" class="biblio-discipline-pill px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-base text-blue-500">pulmonology</span>
+                    <span>Fisiología</span>
+                </button>
+            </div>
+
+            <!-- Panel de Búsqueda y Filtros de Temas -->
+            <div class="max-w-4xl mx-auto fisio-glass-card rounded-[32px] p-5 md:p-6 mb-8 border border-[var(--border-navigation)]">
+                <div class="relative mb-3">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-text-inactive)] text-xl">
+                        search
+                    </span>
+                    <input type="text" id="biblio-search-input" placeholder="Buscar por título, autor, revista, tema o enlace..." class="biblio-search-input w-full py-3.5 pl-12 pr-4 rounded-2xl text-xs md:text-sm font-medium">
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-[var(--color-text-inactive)] uppercase tracking-wider">Temas:</span>
+                        <div id="biblio-topic-pills" class="flex flex-wrap gap-1.5">
+                            <!-- Píldoras inyectadas por JS -->
+                        </div>
+                    </div>
+                    <span id="biblio-results-counter" class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 self-end md:self-auto">
+                        62 fuentes disponibles
+                    </span>
+                </div>
+            </div>
+
+            <!-- Cuadrícula de Fuentes de Consulta -->
+            <div id="biblio-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Tarjetas inyectadas dinámicamente por script_bibliografia.js -->
+            </div>
+
+            <!-- Estado Vacío (Búsqueda sin coincidencias) -->
+            <div id="biblio-empty-state" class="hidden max-w-md mx-auto fisio-glass-card rounded-[35px] p-8 text-center border border-[var(--border-navigation)] mt-6">
+                <span class="material-symbols-outlined text-rose-500 text-5xl mb-2">manage_search</span>
+                <h4 class="text-lg font-black text-[var(--black-color)]">No se encontraron fuentes</h4>
+                <p class="text-xs text-[var(--color-text-inactive)] mt-1">
+                    Prueba con otro término de búsqueda o selecciona otra disciplina en los filtros superiores.
+                </p>
+            </div>
+
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="salud-footer">
@@ -2294,7 +3349,6 @@
             <span class="salud-made-with"><i class="ri-heart-line text-slate-500"></i> Hecho con salud, para ti</span>
         </div>
     </footer>
-
     <!-- Script Principal -->
     <script src="script.js"></script>
     <script>
@@ -2302,6 +3356,8 @@
         window.__SPA_ACTIVE__ = true;
     </script>
     <script src="script_fisiologia.js"></script>
+    <script src="script_psicologia.js"></script>
+    <script src="script_bibliografia.js"></script>
     <script src="lazy_loader.js"></script>
     <!-- Modal / Lightbox -->
     <div id="anomaly-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">

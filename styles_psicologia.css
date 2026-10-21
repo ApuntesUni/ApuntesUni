@@ -1,0 +1,194 @@
+
+.psico-tab-btn {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid transparent;
+}
+
+.psico-tab-btn.active {
+    background: var(--background-color);
+    color: var(--navigation-active);
+    box-shadow: var(--box-indicator);
+    border: var(--border-indicator);
+    font-weight: 700;
+}
+
+/* Acordeón de Apuntes */
+.psico-accordion-header {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.psico-accordion-header:hover {
+    background: rgba(147, 197, 253, 0.12);
+}
+
+.psico-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    opacity: 0;
+}
+
+.psico-accordion-item.active .psico-accordion-content {
+    max-height: 2500px;
+    opacity: 1;
+}
+
+.psico-accordion-item.active .psico-chevron {
+    transform: rotate(180deg);
+}
+
+.psico-chevron {
+    transition: transform 0.3s ease;
+}
+
+/* Tabla Comparativa TCT vs TRI */
+.table-tct-tri th, .table-tct-tri td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+body.dark-mode .table-tct-tri th, 
+body.dark-mode .table-tct-tri td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Audio Player Nota de Voz */
+.psico-voice-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 32px;
+}
+
+.psico-wave-bar {
+    width: 3px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #a855f7;
+    transition: height 0.15s ease;
+}
+
+.psico-audio-playing .psico-wave-bar {
+    animation: wavePulse 0.8s ease-in-out infinite alternate;
+}
+
+.psico-audio-playing .psico-wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.psico-audio-playing .psico-wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.psico-audio-playing .psico-wave-bar:nth-child(4) { animation-delay: 0.3s; }
+.psico-audio-playing .psico-wave-bar:nth-child(5) { animation-delay: 0.15s; }
+.psico-audio-playing .psico-wave-bar:nth-child(6) { animation-delay: 0.35s; }
+.psico-audio-playing .psico-wave-bar:nth-child(7) { animation-delay: 0.25s; }
+.psico-audio-playing .psico-wave-bar:nth-child(8) { animation-delay: 0.4s; }
+
+@keyframes wavePulse {
+    0% { height: 6px; opacity: 0.5; }
+    100% { height: 28px; opacity: 1; }
+}
+
+/* Minijuegos */
+.semaforo-light {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.semaforo-light.active-green {
+    background-color: #22c55e !important;
+    box-shadow: 0 0 25px #22c55e;
+    transform: scale(1.1);
+}
+
+.semaforo-light.active-yellow {
+    background-color: #eab308 !important;
+    box-shadow: 0 0 25px #eab308;
+    transform: scale(1.1);
+}
+
+.semaforo-light.active-red {
+    background-color: #ef4444 !important;
+    box-shadow: 0 0 25px #ef4444;
+    transform: scale(1.1);
+}
+
+/* Match Psicométrico Cards */
+.match-card {
+    perspective: 1000px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.match-card:hover {
+    transform: translateY(-2px);
+}
+
+.match-card.selected {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px #3b82f6, 0 8px 20px rgba(59, 130, 246, 0.25) !important;
+    background: rgba(59, 130, 246, 0.15) !important;
+}
+
+.match-card.matched {
+    border-color: #10b981 !important;
+    background: rgba(16, 185, 129, 0.15) !important;
+    opacity: 0.65;
+    pointer-events: none;
+    transform: scale(0.97);
+}
+
+.match-card.error-shake {
+    animation: matchShake 0.4s ease;
+    border-color: #ef4444 !important;
+}
+
+@keyframes matchShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+/* Temporizador circular / barra */
+.timer-progress-bar {
+    transition: width 1s linear, background-color 0.5s ease;
+}
+
+/* Feedback emergente */
+.feedback-fade-in {
+    animation: feedbackFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes feedbackFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Animación 3D para Flashcards */
+.apple-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.apple-card-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.apple-card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.apple-card-back {
+    transform: rotateY(180deg);
+}

@@ -2762,7 +2762,8 @@ body.dark-mode .break-glass-card {
 
 .medals-stack-container {
     position: fixed;
-    top: 90px; 
+    top: auto; 
+    bottom: 40px; 
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -2876,7 +2877,6 @@ body.dark-mode .medal-placeholder {
 
 .medal-tooltip {
     position: absolute;
-    top: 130%; 
     left: 50%;
     transform: translateX(-50%) translateY(-10px);
     background: rgba(30, 41, 59, 0.85); 
@@ -2894,6 +2894,9 @@ body.dark-mode .medal-placeholder {
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     z-index: 100;
     pointer-events: none;
+    top: auto;
+    bottom: 130%; 
+    transform: translateX(-50%) translateY(10px);
 }
 
 .medal-tooltip.show {
@@ -2905,12 +2908,13 @@ body.dark-mode .medal-placeholder {
 .medal-tooltip::after {
     content: '';
     position: absolute;
-    bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     border-width: 8px;
     border-style: solid;
-    border-color: transparent transparent rgba(30, 41, 59, 0.85) transparent;
+    bottom: auto;
+    top: 100%; 
+    border-color: rgba(30, 41, 59, 0.85) transparent transparent transparent;
 }
 
 
@@ -4032,6 +4036,40 @@ body.dark-mode .labs-badge-suffix {
         right: 20px;
         width: 70px;
         height: 70px;
+    }
+
+    /* ----------------------------------------------------------- Medallas -------------------------------------------------------------*/
+
+    .medals-stack-container {
+        position: fixed;
+        top: 20px; 
+        bottom: auto; 
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 98;
+        padding: 8px 16px;
+        transition: all 0.4s ease;
+    }
+
+    .medal-tooltip {
+        position: absolute;
+        top: 130%; 
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    .medal-tooltip.show {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .medal-tooltip::after {
+        top: auto;
+        bottom: 100%;
+        border-color: transparent transparent rgba(30, 41, 59, 0.85) transparent;
     }
 
     /* ----------------------------------------------------------- Footer (Móvil) -------------------------------------------------------*/

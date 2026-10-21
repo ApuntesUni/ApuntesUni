@@ -1,0 +1,62 @@
+/* ==========================================================================
+   ESTILOS DE LA SECCIÓN DE BIBLIOGRAFÍA Y FUENTES DE CONSULTA
+   Diseño Glassmorphism, Filtros por Disciplina, Buscador Rápido y Cards
+   ========================================================================== */
+
+.biblio-glass-card {
+    background: var(--background-navigation);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: var(--border-navigation);
+    box-shadow: var(--box-navigation);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.biblio-filter-pill {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+}
+
+.biblio-filter-pill.active {
+    background: var(--background-color);
+    color: var(--navigation-active);
+    box-shadow: var(--box-indicator);
+    border: var(--border-indicator);
+    font-weight: 700;
+}
+
+.biblio-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.biblio-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+body.dark-mode .biblio-card:hover {
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+    border-color: rgba(129, 140, 248, 0.3);
+}
+
+.biblio-search-input {
+    background: var(--background-navigation);
+    border: var(--border-navigation);
+    color: var(--black-color);
+    transition: all 0.25s ease;
+}
+
+.biblio-search-input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.biblio-search-input::placeholder {
+    color: var(--color-text-inactive);
+}

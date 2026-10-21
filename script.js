@@ -1856,7 +1856,7 @@ window.checkCompound = function() {
 
     if (isCorrect) {
         showBioMessage('¡Síntesis Exitosa!', 'success');
-        window.unlockMedal('ConstructorQuimico', 'medalla_constructor.png');
+        window.unlockMedal('ConstructorQuimico', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIKh8b0W_Rai4qNMA6nIxrrl8v6fL5TR6VAKjlfNxLmNYxnM5iBmYgVD-J9dhiAt-52rynU97nZp2QlxM3LgnNypYw3Xz17Wuedhk77rLWFUL-kchX21yvbx9UEMHQNRYN_mvdYsx4W19OOg0JdPdwzTleDLP5DB1Q-guVphLUnMmqWzgURYJL39ytIls/s1024/1792477399816.jpg');
         setTimeout(() => { currentG1Level++; loadG1Level(); }, 1000);
     } else {
         if(Object.keys(currentReaction).length === 0) showBioMessage('Agrega elementos a la zona.', 'error');
@@ -2002,7 +2002,7 @@ function endG2Game(isWin, message, type = null) {
         msg.textContent = message;
         icon.textContent = type === 'aerobic' ? "bolt" : "water_drop";
         icon.className = `material-symbols-outlined text-[80px] mb-4 ${type === 'aerobic' ? 'text-yellow-500' : 'text-blue-500'}`;
-        window.unlockMedal('RutaMetabolica', 'medalla_energia.png'); 
+        window.unlockMedal('RutaMetabolica', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHhg8t3XJsXFXhyphenhyphenZOH0Y4B-bJ1bbeOJyx9EDeb_rE2O9kftOmjTX5eaGPx2HoJRMNCo-fV6WttPUZmSLJeSwDLfW4fDuk-WS1hD2ujboyqonrbnz1rqvj-LKkCdnD2vQwrKC09IPiFCnpUK_rHI4HcOn90Ec7Om4r3WsPmzDZqrFS3AjK1Y3xXkL_ANd8/s1024/1792477488979.jpg'); 
         triggerGameEffect('win');
     } else {
         title.textContent = "Fallo Metabólico";
