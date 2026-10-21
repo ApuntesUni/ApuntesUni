@@ -519,3 +519,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+/* ---------------------------------------------------- tarjeta presentacion ------------------------------------------------ */
+
+function toggleDevCard(event) {
+    if (event) event.preventDefault();
+    
+    const overlay = document.getElementById('dev-card-overlay');
+    const card = overlay.querySelector('.dev-card');
+    
+    // Comprobar si está oculta
+    if (overlay.classList.contains('opacity-0')) {
+        // 1. Quitar el 'hidden' para que exista en el DOM
+        overlay.classList.remove('hidden');
+        
+        // 2. Un pequeño retraso para que el navegador procese el cambio y aplique la animación
+        setTimeout(() => {
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.classList.add('opacity-100');
+            
+            // Animación de escala para la tarjeta
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }, 10);
+    } else {
+        // Proceso inverso para ocultar
+        overlay.classList.remove('opacity-100');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+        
+        // Esperar a que termine la transición (300ms) para ocultarlo del DOM
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
+    }
+}
