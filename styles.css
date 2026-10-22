@@ -2917,6 +2917,77 @@ body.dark-mode .medal-placeholder {
     border-color: rgba(30, 41, 59, 0.85) transparent transparent transparent;
 }
 
+/* -------------------------------------------------------------- Burbuja Glass (Perfil Desarrollador) -------------------------------------------------------------*/
+
+.glass-bubble-wrapper {
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 30px rgba(255, 255, 255, 0.3);
+    animation: floatAndWobble 6s ease-in-out infinite alternate;
+}
+
+.glass-bubble-img {
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+    filter: contrast(1.05) saturate(1.1);
+    animation: wobbleShape 6s ease-in-out infinite alternate;
+}
+
+.glass-bubble-overlay {
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+    pointer-events: none; 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    box-shadow: 
+        inset 0 25px 25px -15px rgba(255, 255, 255, 0.9),   
+        inset 0 -20px 30px -10px rgba(0, 0, 0, 0.4),        
+        inset 10px 0 20px -5px rgba(255, 0, 255, 0.25),     
+        inset -10px 0 20px -5px rgba(0, 255, 255, 0.25),    
+        inset 0 -10px 20px -5px rgba(255, 255, 0, 0.15);    
+        
+    background: 
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.5) 0%, transparent 40%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        
+    animation: wobbleShape 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatAndWobble {
+    0% {
+        transform: translateY(0);
+        border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+    }
+    50% {
+        transform: translateY(-8px);
+        border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    }
+    100% {
+        transform: translateY(0);
+        border-radius: 50% 50% 45% 55% / 50% 50% 55% 45%;
+    }
+}
+
+@keyframes wobbleShape {
+    0% { border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; }
+    50% { border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
+    100% { border-radius: 50% 50% 45% 55% / 50% 50% 55% 45%; }
+}
+
+body.dark-mode .glass-bubble-wrapper {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .glass-bubble-overlay {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        inset 0 25px 25px -15px rgba(255, 255, 255, 0.6),   
+        inset 0 -20px 30px -10px rgba(0, 0, 0, 0.8),        
+        inset 10px 0 20px -5px rgba(255, 0, 255, 0.2),     
+        inset -10px 0 20px -5px rgba(0, 255, 255, 0.2);
+}
+
 
 
 /* -------------------------------------------------------------- Nuevo Footer -------------------------------------------------------------*/
@@ -3170,6 +3241,135 @@ body:has(.theme-salud-activa) .salud-footer__bottom {
 body:has(.theme-salud-activa) .salud-made-with i {
     color: #f43f5e !important;
     filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.6));
+}
+
+/* ---------------------------------------------------- Ventana Flotante de Video (Estilo iOS) ------------------------------------------------ */
+
+.video-mini-player {
+    transform: scale(0.35) translate(80vw, 80vh) !important;
+    border-radius: 40px !important;
+    opacity: 0.95 !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
+}
+
+.video-expanded {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    transform: scale(1) !important;
+}
+
+.video-expanded > div:last-child {
+    height: calc(100vh - 44px); /* Resta la altura de la barra iOS */
+}
+
+/* ---------------------------------------------------- Termino, condiciones y concentimiento ------------------------------------------------ */
+
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.4);
+    border-radius: 10px;
+}
+
+.terminos-mini {
+    transform: scale(0.25) translate(120vw, 120vh) !important;
+    transform-origin: bottom right;
+    border-radius: 40px !important;
+    opacity: 0.95 !important;
+    /* Permite volver a clickear la ventana para expandirla */
+    cursor: pointer; 
+}
+.terminos-mini > div:not(:first-child) {
+    /* Oculta el texto y botones al minimizar para que se vea como una app miniatura */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.terminos-expanded {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    transform: scale(1) !important;
+}
+
+/* ------------------ Estados del Card de Seguridad (Glassmorphism iOS) ------------------ */
+.seguridad-mini {
+    transform: scale(0.25) translate(120vw, 120vh) !important;
+    transform-origin: bottom right;
+    border-radius: 40px !important;
+    opacity: 0.95 !important;
+    cursor: pointer;
+}
+.seguridad-mini > div:not(:first-child),
+.seguridad-mini > div::before,
+.seguridad-mini > div::after {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.seguridad-expanded {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    transform: scale(1) !important;
+}
+
+/* Efecto focus en las casillas individuales */
+.codigo-input-char:focus {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.modal-overlay-custom {
+    background-color: var(--filtro-background-portada);
+}
+
+.modal-card-custom {
+    background: var(--background-navigation);
+    border: var(--border-navigation);
+    box-shadow: var(--box-navigation);
+    color: var(--black-color);
+}
+
+.modal-header-custom {
+    background-color: var(--therthary-color);
+    border-bottom: var(--border-navigation);
+}
+
+.modal-text-main {
+    color: var(--black-color);
+}
+
+.modal-text-muted {
+    color: var(--color-text-inactive);
+}
+
+.modal-btn-secondary {
+    background-color: var(--card-twoblue-color);
+    color: var(--black-color);
+}
+
+.modal-input-custom {
+    background-color: var(--therthary-color);
+    border: var(--border-navigation);
+    color: var(--black-color);
+}
+
+.modal-input-custom:focus {
+    border: 1px solid var(--neon-color);
+    box-shadow: 0 0 10px var(--neon-color);
+    background-color: var(--background-color);
 }
 
 /* -------------------------------------------------------------- animacion index ----------------------------------------- */

@@ -52,6 +52,12 @@
             scripts: ['script_bibliografia.js'],  // ← Se carga solo al entrar
             loaded: false,
             initializer: 'initBibliografia'
+        },
+        neural: {
+        ids: ['Neural'],
+        scripts: [], 
+        loaded: false,
+        initializer: null 
         }
     };
 
@@ -263,7 +269,8 @@
         '#Fisiologia': 'fisiologia',
         '#Fisio-sistemas': 'fisiologia',
         '#Psicologia': 'psicologia',
-        '#Bibliografia': 'bibliografia'
+        '#Bibliografia': 'bibliografia',
+        '#Neural': 'neural'
     };
 
     function interceptNavLinks() {

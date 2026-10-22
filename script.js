@@ -2525,10 +2525,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ---------------------------------------------------- Switch (Píldoras de Tema Multiplataforma) ------------------------------------------------ */
+
 function enableDarkMode() {
     document.body.classList.add('dark-mode');
     document.body.classList.remove('light-mode');
     document.body.classList.add('alt-theme');
+    
+    // Comunicación con el Iframe de Neural Expressive
+    const neuralIframe = document.querySelector('iframe[src="neural_expressive.html"]');
+    if (neuralIframe && neuralIframe.contentWindow) {
+        neuralIframe.contentWindow.postMessage({ theme: 'dark' }, '*');
+    }
+    
     updateThemeColor();
 }
 
@@ -2536,6 +2544,13 @@ function enableLightMode() {
     document.body.classList.add('light-mode');
     document.body.classList.remove('dark-mode');
     document.body.classList.remove('alt-theme');
+    
+    // Comunicación con el Iframe de Neural Expressive
+    const neuralIframe = document.querySelector('iframe[src="neural_expressive.html"]');
+    if (neuralIframe && neuralIframe.contentWindow) {
+        neuralIframe.contentWindow.postMessage({ theme: 'light' }, '*');
+    }
+    
     updateThemeColor();
 }
 
@@ -2636,4 +2651,6 @@ function updateThemeColor() {
     if (metaThemeColor && statusBarColor) {
         metaThemeColor.setAttribute('content', statusBarColor);
     }
+
+    
 }
