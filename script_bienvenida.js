@@ -628,7 +628,7 @@ window.expandirVideoFlotante = function() {
 let terminosModoObligatorio = true;
 const CODIGO_CORRECTO = "FESMDPS";
 // Reemplaza esta URL con tu enlace real de Google Forms:
-const GOOGLE_FORMS_URL = "https://docs.google.com/forms/d/e/your-form-id/viewform"; 
+const GOOGLE_FORMS_URL = "https://forms.gle/cjtHEuQvtPaoVnF28"; 
 
 document.addEventListener('DOMContentLoaded', () => {
     const terminosAceptados = localStorage.getItem('salud_activa_terminos');

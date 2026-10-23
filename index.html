@@ -331,7 +331,7 @@
                 </div>
 
                 <!-- Área de Contenido (Scrolleable) -->
-                <div class="p-6 sm:p-8 overflow-y-auto custom-scrollbar modal-text-main text-[14px] leading-relaxed space-y-8">
+                <div class="p-6 sm:p-8 overflow-y-auto custom-scrollbar text-[14px] leading-relaxed space-y-6">
                     
                     <!-- Sección 1: Términos -->
                     <section>
@@ -346,21 +346,71 @@
                         </ol>
                     </section>
 
-                    <!-- Sección 2: Consentimiento -->
                     <section>
-                        <h2 class="text-xl font-bold modal-text-main mb-4">Consentimiento Informado — Prueba Piloto</h2>
-                        <p class="mb-4 modal-text-muted">Estás a punto de participar en una evaluación piloto de Salud Activa Lab, una plataforma desarrollada para optimizar el estudio y el bienestar en la comunidad universitaria. Antes de continuar, es importante que conozcas lo siguiente:</p>
-                        <ol class="list-decimal pl-5 space-y-3 marker:font-semibold marker:text-blue-600">
-                            <li><strong>Propósito del estudio:</strong> La presente encuesta y prueba de la plataforma tienen como único fin recopilar tu opinión y retroalimentación para evaluar la utilidad de herramientas digitales en el rendimiento académico y la salud.</li>
-                            <li><strong>Confidencialidad y anonimato:</strong> Las respuestas y datos que proporciones serán completamente anónimos. Se utilizarán exclusivamente con fines académicos, estadísticos y de mejora para el desarrollo del proyecto.</li>
-                            <li><strong>Participación voluntaria:</strong> Tu participación es totalmente libre. Puedes decidir no participar o abandonar la prueba en el momento que desees sin que esto afecte de ninguna manera tu situación académica.</li>
-                            <li><strong>Aceptación:</strong> Al escanear el código QR, acceder a la plataforma y responder la encuesta, confirmas que has leído esta información y aceptas participar voluntariamente.</li>
-                        </ol>
+                        <h2 class="text-xl font-bold modal-text-main mb-4 uppercase tracking-wide">Consentimiento Informado</h2>
                         
-                        <div class="mt-8 p-4 modal-btn-secondary rounded-xl border border-blue-100/20">
-                            <p class="text-[13px]">¿Tienes dudas sobre este proyecto? Puedes contactar al desarrollador responsable:<br>
-                            <strong class="text-blue-600">Brayan Santos</strong> — <a href="mailto:brayan.santos@saludactivalab.com" class="hover:underline">brayan.santos@saludactivalab.com</a></p>
+                        <!-- Bloque de información general -->
+                        <div class="mb-6 p-4 modal-btn-secondary rounded-xl border border-blue-100/20 text-sm modal-text-muted">
+                            <strong class="modal-text-main block mb-1">Evaluación piloto de Apuntes Uni</strong>
+                            <p><strong>Responsable del proyecto:</strong> Brayan Santos</p>
+                            <p><strong>Iniciativa:</strong> Salud Activa Lab</p>
+                            <p><strong>Correo de contacto:</strong> <a href="mailto:bsantosa1700@alumno.ipn.mx" class="hover:underline text-blue-500">bsantosa1700@alumno.ipn.mx</a></p>
+                            <p><strong>Fecha de actualización:</strong> 22 de octubre de 2026</p>
                         </div>
+
+                        <!-- Lista de acuerdos -->
+                        <ol class="list-decimal pl-5 space-y-5 marker:font-semibold marker:text-blue-600">
+                            
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Invitación y propósito</strong>
+                                <p class="modal-text-muted">Se te invita a participar voluntariamente en una evaluación piloto de <strong>Apuntes Uni</strong>, una plataforma digital educativa en desarrollo que reúne recursos para estudiantes de Medicina, Nutrición y Psicología. El objetivo es conocer la experiencia de uso de la plataforma, la utilidad percibida de sus recursos y las funciones o mejoras que el alumnado considera prioritarias.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">¿En qué consiste la participación?</strong>
+                                <p class="modal-text-muted mb-2">Si decides participar, podrás responder una encuesta sobre aspectos como:</p>
+                                <ul class="list-disc pl-5 space-y-1 modal-text-muted mb-2">
+                                    <li>Facilidad de navegación y experiencia de uso.</li>
+                                    <li>Apuntes y materiales educativos.</li>
+                                    <li>Casos clínicos y recursos interactivos.</li>
+                                    <li>Flashcards, audio cards, minijuegos y atlas de anatomía.</li>
+                                    <li>Representaciones gráficas en 3D.</li>
+                                    <li>Sugerencias de contenidos y funcionalidades.</li>
+                                </ul>
+                                <p class="modal-text-muted">La participación tendrá una duración aproximada de <strong>10 minutos</strong>. No existen respuestas correctas o incorrectas; interesa conocer tu opinión personal.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Participación voluntaria</strong>
+                                <p class="modal-text-muted">Tu participación es voluntaria. Puedes rechazar la invitación, omitir las preguntas que no desees contestar cuando el formulario lo permita o abandonar la encuesta antes de enviarla. Tu decisión de participar o no participar no tendrá consecuencias en tu situación académica ni en tu relación con la UNAM o el IPN. Una vez enviada una respuesta anónima, podría no ser posible identificarla para eliminarla individualmente.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Posibles riesgos y beneficios</strong>
+                                <p class="modal-text-muted">No se prevén beneficios personales directos por participar. Tus comentarios pueden ayudar a identificar oportunidades de mejora para futuras versiones de Apuntes Uni. El principal inconveniente previsto es el tiempo necesario para responder. No se solicita información clínica para esta evaluación.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Confidencialidad y tratamiento de la información</strong>
+                                <p class="modal-text-muted">Las respuestas se utilizarán para analizar la experiencia de uso y orientar mejoras de la plataforma de forma privada y segura a través de la app Google Forms.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Carácter independiente del proyecto</strong>
+                                <p class="modal-text-muted">Apuntes Uni es un proyecto independiente desarrollado por Brayan Santos y su difusión en espacios universitarios es puramente estadístico y para mejora de la app.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Contacto</strong>
+                                <p class="modal-text-muted">Si tienes dudas sobre la evaluación o el uso de las respuestas, puedes contactar al responsable del proyecto.</p>
+                            </li>
+
+                            <li>
+                                <strong class="modal-text-main text-base block mb-1">Declaración de consentimiento</strong>
+                                <p class="modal-text-muted">He leído la información anterior, comprendo el propósito de la evaluación y sé que mi participación es voluntaria. Tuve la oportunidad de revisar las condiciones de participación y decidir libremente si deseo responder. Al aceptar, permito continuar en la evaluación piloto.</p>
+                            </li>
+
+                        </ol>
                     </section>
                 </div>
 
