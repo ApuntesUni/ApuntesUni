@@ -911,3 +911,23 @@ window.expandirTerminos = function() {
         card.classList.add('terminos-expanded');
     }
 };
+
+window.saltarEncuesta = function() {
+    const overlay = document.getElementById('seguridad-overlay');
+    const card = document.getElementById('seguridad-card');
+    
+    // Desactivamos el candado de obligatoriedad para permitir el cierre
+    overlay.dataset.obligatorio = "false";
+    
+    // Animación de cierre
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+    
+    // Ocultar del DOM tras finalizar la animación
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        card.classList.remove('seguridad-mini', 'seguridad-expanded');
+    }, 500);
+};
