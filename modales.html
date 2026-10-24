@@ -1,0 +1,608 @@
+<!-- Tarjeta Flotante del Desarrollador -->
+<div id="dev-card-overlay" class="hidden fixed inset-0 z-[10000] flex items-center justify-center bg-slate-900/40 dark:bg-slate-900/70 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+    <!-- Contenedor Principal Glassmorphism -->
+    <div class="dev-card relative w-[95%] max-w-[700px] rounded-[32px] p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.15)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-transform duration-500 scale-95 border border-white/50 dark:border-slate-700/50 overflow-hidden flex flex-col gap-5 bg-gradient-to-br from-white/85 to-blue-50/60 dark:from-slate-800/85 dark:to-slate-900/80 backdrop-blur-2xl" 
+        style="-webkit-backdrop-filter: blur(24px);">
+        
+        <!-- Botón Cerrar -->
+        <button onclick="toggleDevCard(event)" class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-white/50 hover:bg-white/80 dark:bg-slate-700/50 dark:hover:bg-slate-600 rounded-full transition-colors text-slate-500 dark:text-slate-300 z-20">
+            <i class="ri-close-line text-xl"></i>
+        </button>
+        
+        <!-- Contenido Central (AHORA CON md:items-center) -->
+        <div class="flex flex-col md:flex-row gap-6 items-center md:items-center relative z-10">
+            
+            
+            <!-- Columna Foto y Anotación -->
+            <div class="flex flex-col items-center shrink-0 z-10">
+                
+                <!-- Foto de Perfil Burbuja Glass -->
+                <div class="glass-bubble-wrapper relative w-56 h-56 md:w-52 md:h-52">
+                    <img src="desarrollador.jpeg" alt="Brayan Santos" class="glass-bubble-img absolute inset-0 w-full h-full object-cover">
+                    <!-- Capa que simula los brillos y bordes de la burbuja -->
+                    <div class="glass-bubble-overlay absolute inset-0"></div>
+                </div>
+                
+                <!-- Anotación a mano (Movida AFUERA de la burbuja de la foto) -->
+                <div class="font-['Caveat'] text-[24px] leading-snug text-pink-400 dark:text-pink-200/90 transform -rotate-3 mt-5 text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                    Grita y ponte a vivir,<br>
+                    que todo lo malo ya pasó <i class="ri-music-2-line text-pink-500 dark:text-pink-400 ml-1 font-bold text-[20px]"></i>
+                </div>
+
+            </div>
+            
+            <div class="flex-1 flex flex-col justify-center">
+                <!-- Encabezado: Logo y Frase (Márgenes reducidos) -->
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <img src="salud_activa_app.ico" alt="Logo Salud Activa" class="w-10 h-10">
+                        <div class="leading-tight">
+                            <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white">Salud Activa</h3>
+                            <span class="text-lg md:text-xl text-blue-500 font-semibold">Lab</span>
+                        </div>
+                    </div>
+                    <div class="hidden md:block border-l-2 border-slate-300 dark:border-slate-600 pl-3 text-[12px] text-slate-500 dark:text-slate-400 font-medium">
+                        Tu salud,<br>en buenas manos
+                    </div>
+                </div>
+                
+                <!-- Títulos (Márgenes compactados) -->
+                <h2 class="text-2xl md:text-[26px] font-bold text-slate-800 dark:text-white mb-0.5">Brayan SA</h2>
+                <h3 class="text-[17px] text-slate-500 dark:text-slate-300 mb-2">Desarrollador Web</h3>
+                
+                <!-- Descripción -->
+                <p class="text-slate-600 dark:text-slate-300 mb-4 text-[14px] md:text-[15px] leading-relaxed max-w-[450px]">
+                    Desarrollo y mantenimiento de la plataforma Salud Activa Lab, creando soluciones digitales para un estilo de vida más saludable.
+                </p>
+                
+                <!-- Píldoras de Tecnología -->
+                <div class="flex flex-wrap gap-2">
+                    <span class="flex items-center gap-1.5 bg-white/70 dark:bg-slate-700/60 px-3 py-1 rounded-full text-xs font-medium text-slate-700 dark:text-slate-200 shadow-sm border border-white/60 dark:border-slate-600/50">
+                        <i class="ri-code-s-slash-line text-slate-500 dark:text-slate-400"></i> HTML · CSS · JS
+                    </span>
+                    <span class="flex items-center gap-1.5 bg-white/70 dark:bg-slate-700/60 px-3 py-1 rounded-full text-xs font-medium text-slate-700 dark:text-slate-200 shadow-sm border border-white/60 dark:border-slate-600/50">
+                        <i class="ri-fire-fill text-slate-500 dark:text-slate-400"></i> Firebase
+                    </span>
+                    <span class="flex items-center gap-1.5 bg-white/70 dark:bg-slate-700/60 px-3 py-1 rounded-full text-xs font-medium text-slate-700 dark:text-slate-200 shadow-sm border border-white/60 dark:border-slate-600/50">
+                        <i class="ri-android-fill text-slate-500 dark:text-slate-400"></i> Android
+                    </span>
+                </div>
+            </div>
+
+            <!-- Panel lateral derecho (Web Development) -->
+            <div class="hidden md:flex flex-col items-center justify-center bg-white/50 dark:bg-slate-800/50 border border-white/60 dark:border-slate-700/50 rounded-[20px] p-4 shadow-sm w-24 h-32 shrink-0 self-center">
+                <i class="ri-macbook-line text-2xl text-slate-500 dark:text-slate-400 mb-1.5"></i>
+                <span class="text-[11px] text-center text-slate-500 dark:text-slate-400 font-medium leading-tight">Web<br>Dev</span>
+                <div class="w-5 h-[2px] bg-slate-300 dark:bg-slate-600 mt-2"></div>
+            </div>
+        </div>
+
+        <!-- Pie de la tarjeta -->
+        <div class="mt-0 pt-4 border-t border-slate-300/50 dark:border-slate-700/50 flex flex-col sm:flex-row justify-between items-center gap-3 text-[13px] text-slate-500 dark:text-slate-400 font-medium relative z-10">
+            <div class="flex items-center gap-2">
+                <i class="ri-mail-line text-lg"></i> brayan.santos@saludactivalab.com
+            </div>
+            <div class="tracking-[0.15em] text-[10px] opacity-80 uppercase text-center font-bold">
+                TECNOLOGÍA <span class="mx-1 font-normal opacity-50">+</span> SALUD <span class="mx-1 font-normal opacity-50">=</span> BIENESTAR
+            </div>
+        </div>
+        
+        <!-- Círculos difuminados de fondo -->
+        <div class="absolute -top-32 -left-32 w-72 h-72 bg-blue-300 dark:bg-blue-500 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[80px] opacity-40 dark:opacity-20 z-0 pointer-events-none"></div>
+        <div class="absolute -bottom-32 -right-32 w-72 h-72 bg-emerald-200 dark:bg-emerald-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[80px] opacity-40 dark:opacity-20 z-0 pointer-events-none"></div>
+    </div>
+</div>
+<!-- Reproductor de Video Flotante -->
+<div id="video-flotante-overlay" class="hidden fixed inset-0 z-[10001] flex items-center justify-center bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+    
+    <div id="video-flotante-card" class="relative w-[90%] max-w-[800px] bg-white/20 dark:bg-slate-800/60 backdrop-blur-2xl border border-white/30 dark:border-slate-700/50 rounded-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.25)] overflow-hidden transition-all duration-500 scale-95 flex flex-col">
+        
+        <div class="h-11 bg-white/40 dark:bg-slate-900/60 border-b border-white/20 flex items-center px-4 gap-2 backdrop-blur-md">
+            <button onclick="cerrarVideoFlotante()" class="w-3.5 h-3.5 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors shadow-sm" title="Cerrar"></button>
+            <button onclick="minimizarVideoFlotante()" class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors shadow-sm" title="Minimizar"></button>
+            <button onclick="expandirVideoFlotante()" class="w-3.5 h-3.5 rounded-full bg-[#27c93f] hover:bg-[#27c93f]/80 transition-colors shadow-sm" title="Expandir"></button>
+            
+            <div class="flex-1 text-center text-[13px] font-semibold text-slate-700 dark:text-slate-300 opacity-80 select-none mr-12">
+                Reproductor Multimedia
+            </div>
+        </div>
+
+        <div class="relative w-full aspect-video bg-black/80 flex items-center justify-center">
+            <video id="video-local-player" class="w-full h-full object-contain outline-none" controls>
+                <source src="promo_app.mp4" type="video/mp4">
+                Tu navegador no soporta el formato de video.
+            </video>
+        </div>
+    </div>
+</div>
+<!-- Overlay de Términos y Condiciones (Bloquea la pantalla) -->
+<div id="terminos-overlay" class="fixed inset-0 z-[20000] flex items-center justify-center modal-overlay-custom backdrop-blur-md transition-all duration-500 opacity-0 pointer-events-none">
+    
+    <!-- Tarjeta Flotante Estilo iOS -->
+    <div id="terminos-card" class="relative w-[90%] max-w-[750px] max-h-[85vh] modal-card-custom backdrop-blur-2xl rounded-[24px] overflow-hidden transition-all duration-500 scale-95 flex flex-col">
+        
+        <!-- Barra de título estilo iOS -->
+        <div class="h-12 modal-header-custom flex items-center px-4 gap-2 backdrop-blur-md shrink-0">
+            
+            <button id="btn-cerrar-terminos" onclick="cerrarTerminos()" class="w-3.5 h-3.5 rounded-full bg-gray-400/50 cursor-not-allowed shadow-inner flex items-center justify-center group transition-colors" title="Cerrar">
+                <i class="ri-close-line text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity"></i>
+            </button>
+            
+            <button onclick="minimizarTerminos()" class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors shadow-inner" title="Minimizar"></button>
+            <button onclick="expandirTerminos()" class="w-3.5 h-3.5 rounded-full bg-[#27c93f] hover:bg-[#27c93f]/80 transition-colors shadow-inner" title="Expandir"></button>
+            
+            <div class="flex-1 text-center text-[13px] font-semibold modal-text-main opacity-80 select-none mr-12">
+                Salud Activa Lab — Acuerdos
+            </div>
+        </div>
+
+        <!-- Área de Contenido (Scrolleable) -->
+        <div class="p-6 sm:p-8 overflow-y-auto custom-scrollbar text-[14px] leading-relaxed space-y-6">
+            
+            <!-- Sección 1: Términos -->
+            <section>
+                <h2 class="text-xl font-bold modal-text-main mb-4">Términos y Condiciones — Salud Activa Lab</h2>
+                <p class="mb-4 modal-text-muted">Bienvenido a Salud Activa Lab. Al utilizar nuestra plataforma, aceptas los siguientes términos de uso:</p>
+                <ol class="list-decimal pl-5 space-y-3 marker:font-semibold marker:text-blue-600">
+                    <li><strong>Propósito Educativo e Informativo:</strong> Esta plataforma y sus herramientas (modelos 3D, casos clínicos, apuntes y recursos) están diseñadas estrictamente con fines académicos, de estudio y de apoyo para estudiantes y profesionales de la salud. No sustituyen el criterio médico profesional ni constituyen una guía de diagnóstico clínico oficial.</li>
+                    <li><strong>Propiedad Intelectual:</strong> Todo el contenido, código, diseño visual (Neural Constellation) y materiales alojados en Salud Activa Lab son propiedad de su creador (Brayan Santos). Queda prohibida su reproducción con fines comerciales sin autorización previa.</li>
+                    <li><strong>Uso Responsable:</strong> Las herramientas interactivas buscan optimizar el aprendizaje. El usuario se compromete a hacer un uso ético y adecuado de la información proporcionada en la plataforma.</li>
+                    <li><strong>Privacidad y Datos:</strong> Los datos recopilados a través de encuestas o pruebas piloto académicas se utilizan de manera confidencial y exclusivamente con fines de mejora institucional y optimización del rendimiento educativo.</li>
+                    <li><strong>Limitación de Responsabilidad:</strong> Salud Activa Lab no se hace responsable por el uso indebido de los contenidos académicos o clínicos fuera de los entornos de estudio para los cuales fueron diseñados.</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold modal-text-main mb-4 uppercase tracking-wide">Consentimiento Informado</h2>
+                
+                <!-- Bloque de información general -->
+                <div class="mb-6 p-4 modal-btn-secondary rounded-xl border border-blue-100/20 text-sm modal-text-muted">
+                    <strong class="modal-text-main block mb-1">Evaluación piloto de Apuntes Uni</strong>
+                    <p><strong>Responsable del proyecto:</strong> Brayan Santos</p>
+                    <p><strong>Iniciativa:</strong> Salud Activa Lab</p>
+                    <p><strong>Correo de contacto:</strong> <a href="mailto:bsantosa1700@alumno.ipn.mx" class="hover:underline text-blue-500">bsantosa1700@alumno.ipn.mx</a></p>
+                    <p><strong>Fecha de actualización:</strong> 22 de octubre de 2026</p>
+                </div>
+
+                <!-- Lista de acuerdos -->
+                <ol class="list-decimal pl-5 space-y-5 marker:font-semibold marker:text-blue-600">
+                    
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Invitación y propósito</strong>
+                        <p class="modal-text-muted">Se te invita a participar voluntariamente en una evaluación piloto de <strong>Apuntes Uni</strong>, una plataforma digital educativa en desarrollo que reúne recursos para estudiantes de Medicina, Nutrición y Psicología. El objetivo es conocer la experiencia de uso de la plataforma, la utilidad percibida de sus recursos y las funciones o mejoras que el alumnado considera prioritarias.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">¿En qué consiste la participación?</strong>
+                        <p class="modal-text-muted mb-2">Si decides participar, podrás responder una encuesta sobre aspectos como:</p>
+                        <ul class="list-disc pl-5 space-y-1 modal-text-muted mb-2">
+                            <li>Facilidad de navegación y experiencia de uso.</li>
+                            <li>Apuntes y materiales educativos.</li>
+                            <li>Casos clínicos y recursos interactivos.</li>
+                            <li>Flashcards, audio cards, minijuegos y atlas de anatomía.</li>
+                            <li>Representaciones gráficas en 3D.</li>
+                            <li>Sugerencias de contenidos y funcionalidades.</li>
+                        </ul>
+                        <p class="modal-text-muted">La participación tendrá una duración aproximada de <strong>10 minutos</strong>. No existen respuestas correctas o incorrectas; interesa conocer tu opinión personal.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Participación voluntaria</strong>
+                        <p class="modal-text-muted">Tu participación es voluntaria. Puedes rechazar la invitación, omitir las preguntas que no desees contestar cuando el formulario lo permita o abandonar la encuesta antes de enviarla. Tu decisión de participar o no participar no tendrá consecuencias en tu situación académica ni en tu relación con la UNAM o el IPN. Una vez enviada una respuesta anónima, podría no ser posible identificarla para eliminarla individualmente.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Posibles riesgos y beneficios</strong>
+                        <p class="modal-text-muted">No se prevén beneficios personales directos por participar. Tus comentarios pueden ayudar a identificar oportunidades de mejora para futuras versiones de Apuntes Uni. El principal inconveniente previsto es el tiempo necesario para responder. No se solicita información clínica para esta evaluación.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Confidencialidad y tratamiento de la información</strong>
+                        <p class="modal-text-muted">Las respuestas se utilizarán para analizar la experiencia de uso y orientar mejoras de la plataforma de forma privada y segura a través de la app Google Forms.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Carácter independiente del proyecto</strong>
+                        <p class="modal-text-muted">Apuntes Uni es un proyecto independiente desarrollado por Brayan Santos y su difusión en espacios universitarios es puramente estadístico y para mejora de la app.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Contacto</strong>
+                        <p class="modal-text-muted">Si tienes dudas sobre la evaluación o el uso de las respuestas, puedes contactar al responsable del proyecto.</p>
+                    </li>
+
+                    <li>
+                        <strong class="modal-text-main text-base block mb-1">Declaración de consentimiento</strong>
+                        <p class="modal-text-muted">He leído la información anterior, comprendo el propósito de la evaluación y sé que mi participación es voluntaria. Tuve la oportunidad de revisar las condiciones de participación y decidir libremente si deseo responder. Al aceptar, permito continuar en la evaluación piloto.</p>
+                    </li>
+
+                </ol>
+            </section>
+        </div>
+
+        <!-- Footer con Botones de Acción -->
+        <div class="modal-header-custom p-4 flex justify-end items-center gap-3 shrink-0 backdrop-blur-md h-[72px]">
+            <div id="terminos-botones-obligatorios" class="flex gap-3">
+                <button onclick="rechazarTerminos()" class="px-5 py-2.5 rounded-xl text-sm font-medium modal-text-main hover:bg-gray-400/20 transition-colors">
+                    No acepto
+                </button>
+                <button onclick="aceptarTerminos()" class="px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition-all active:scale-95">
+                    Aceptar y continuar
+                </button>
+            </div>
+
+            <div id="terminos-texto-informativo" class="hidden text-sm flex-col sm:flex-row sm:items-center gap-3 w-full justify-between">
+                <div class="text-green-500 font-medium flex items-center gap-2">
+                    <i class="ri-check-double-line text-lg"></i> Ya has aceptado los términos y condiciones
+                </div>
+                <button onclick="abrirSeguridadDesdeTerminos()" class="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-md transition-all active:scale-95 flex items-center gap-1.5 self-end sm:self-auto">
+                    <i class="ri-survey-line"></i> Ir al Formulario
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Overlay de Código de Seguridad -->
+<div id="seguridad-overlay" class="fixed inset-0 z-[20010] flex items-center justify-center modal-overlay-custom backdrop-blur-md transition-all duration-500 opacity-0 pointer-events-none hidden">
+    
+    <!-- Tarjeta de Seguridad (Estilo iOS y Glassmorphism) -->
+    <div id="seguridad-card" class="relative w-[90%] max-w-[540px] modal-card-custom backdrop-blur-2xl rounded-[32px] overflow-hidden transition-all duration-500 scale-95 flex flex-col">
+        
+        <div class="absolute -top-12 -left-12 w-32 h-32 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/25 blur-xl pointer-events-none"></div>
+        <div class="absolute -bottom-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-tr from-pink-500/20 to-indigo-500/25 blur-2xl pointer-events-none"></div>
+
+        <!-- Barra de título estilo iOS -->
+        <div class="h-12 modal-header-custom flex items-center px-5 gap-2 backdrop-blur-md z-10 shrink-0">
+            
+            <button id="btn-cerrar-seguridad" onclick="cerrarSeguridad()" class="w-3.5 h-3.5 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors shadow-inner flex items-center justify-center group" title="Cerrar">
+                <i class="ri-close-line text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity"></i>
+            </button>
+            <button onclick="minimizarSeguridad()" class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors shadow-inner" title="Minimizar"></button>
+            <button onclick="expandirSeguridad()" class="w-3.5 h-3.5 rounded-full bg-[#27c93f] hover:bg-[#27c93f]/80 transition-colors shadow-inner" title="Expandir"></button>
+            
+            <div class="flex-1 text-center text-[12px] font-semibold modal-text-main opacity-80 tracking-wide select-none mr-12">
+                Acceso de Seguridad — Salud Activa Lab
+            </div>
+        </div>
+
+        <div class="relative p-6 sm:p-8 flex-1 flex flex-col items-center text-center z-10 overflow-y-auto custom-scrollbar">
+            
+            <!-- Encabezados e Insignias -->
+            <div class="w-full flex justify-between items-start mb-6">
+                <!-- Escudo de Seguridad -->
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400/30 via-purple-500/30 to-pink-500/30 border border-white/20 flex items-center justify-center shadow-lg shadow-purple-500/10">
+                    <i class="ri-shield-keyhole-line text-2xl text-white"></i>
+                </div>
+                <!-- Escudo UNAM (Trazo adaptativo) -->
+                <div class="w-14 h-14 opacity-80 flex items-center justify-center">
+                    <!-- Se recomienda usar un filtro CSS vía Tailwind (ej: dark:invert) si la imagen necesita cambiar -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Escudo-UNAM-escalable.svg?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=original" class="w-12 h-12 dark:invert opacity-90" alt="UNAM">
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-left w-full mb-2 tracking-tight modal-text-main">Ingresa tu código<br>de seguridad</h2>
+            <p class="text-[13px] modal-text-muted text-left w-full mb-6 leading-relaxed">
+                Por tu seguridad, por favor escribe el código que se muestra en el flyer o pidelo a tu coordinador.
+            </p>
+
+            <!-- Cajas de código individuales para FESMDPS -->
+            <div class="flex justify-between w-full gap-2 mb-6" id="codigo-inputs-container">
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all" autofocus>
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all">
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all">
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all">
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all">
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all">
+                <input type="text" maxlength="1" class="codigo-input-char modal-input-custom w-11 h-12 text-center text-xl font-bold rounded-xl transition-all outline-none uppercase select-all">
+            </div>
+
+            <!-- Botón Continuar (Glow e iridiscencia) -->
+            <button onclick="validarCodigoSeguridad()" class="w-full py-3.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white font-semibold rounded-2xl shadow-lg shadow-purple-500/25 transition-all active:scale-98 flex items-center justify-center gap-2 mb-4 group text-sm tracking-wide">
+                Continuar <i class="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <!-- Botones Secundarios: Volver y Saltar -->
+            <div class="flex flex-col sm:flex-row justify-between w-full gap-3">
+                <!-- Botón de retorno -->
+                <button id="btn-volver-seguridad" onclick="volverATerminos()" class="w-full sm:w-auto px-6 py-2 modal-btn-secondary rounded-xl transition-colors flex items-center justify-center gap-2 text-xs font-medium">
+                    <i class="ri-arrow-left-s-line"></i> Volver
+                </button>
+
+                <!-- Nuevo Botón: Saltar encuesta -->
+                <button onclick="saltarEncuesta()" class="w-full sm:w-auto px-6 py-2 rounded-xl border border-transparent hover:border-gray-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors flex items-center justify-center gap-2 text-xs font-medium">
+                    Saltar por ahora <i class="ri-skip-forward-line"></i>
+                </button>
+            </div>
+
+            <!-- Footer decorativo UNAM (image_4.png) -->
+            <div class="mt-8 pt-4 border-t border-gray-400/20 w-full flex items-center justify-between modal-text-muted text-[10px]">
+                <div class="flex items-center gap-2">
+                    <i class="ri-building-line text-base"></i>
+                    <div class="text-left font-light leading-none">
+                        <span class="font-semibold block text-[11px] modal-text-main">Estudio mercado</span> UNAM
+                    </div>
+                </div>
+                <div class="tracking-widest uppercase">
+                    CIENCIA &bull; CULTURA &bull; UNIVERSIDAD
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Overlay de Nosotros -->
+<div id="nosotros-overlay" class="fixed inset-0 z-[20020] flex items-center justify-center modal-overlay-custom backdrop-blur-md transition-all duration-500 opacity-0 pointer-events-none hidden">
+    
+    <!-- Tarjeta Flotante Estilo iOS - Adaptada al tema oscuro/vidrio de la imagen -->
+    <div id="nosotros-card" class="relative w-[95%] max-w-[1000px] max-h-[90vh] modal-card-custom backdrop-blur-3xl rounded-[32px] overflow-hidden transition-all duration-500 scale-95 flex flex-col border border-white/20 shadow-[0_0_50px_rgba(139,92,246,0.3)] bg-gradient-to-br from-[#1a1a3a]/80 via-[#2a1b4d]/80 to-[#12284c]/80 text-white">
+        
+        <!-- Brillos de fondo imitando la imagen -->
+        <div class="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-blue-500/20 blur-[80px] pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-fuchsia-500/10 blur-[100px] pointer-events-none"></div>
+        <div class="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-indigo-500/20 blur-[80px] pointer-events-none"></div>
+
+        <!-- Barra de título estilo iOS -->
+        <div class="h-12 flex items-center px-5 gap-2 backdrop-blur-md z-10 shrink-0 border-b border-white/10 bg-white/5">
+            <button onclick="cerrarNosotros()" class="w-3.5 h-3.5 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors shadow-inner flex items-center justify-center group" title="Cerrar">
+                <i class="ri-close-line text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity"></i>
+            </button>
+            <button onclick="minimizarNosotros()" class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors shadow-inner" title="Minimizar"></button>
+            <button onclick="expandirNosotros()" class="w-3.5 h-3.5 rounded-full bg-[#27c93f] hover:bg-[#27c93f]/80 transition-colors shadow-inner" title="Expandir"></button>
+            
+            <div class="flex-1 text-center text-[13px] font-semibold text-white/80 tracking-wide select-none mr-12">
+                Salud Activa Lab
+            </div>
+        </div>
+
+        <!-- Área de Contenido -->
+        <div class="p-6 md:p-10 overflow-y-auto custom-scrollbar relative z-10">
+            
+            <!-- Cabecera -->
+            <div class="mb-10 relative">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">Nuestra Historia:</h1>
+                <h2 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-cyan-300 mb-4">El origen de Salud Activa</h2>
+                <p class="text-blue-100/80 max-w-2xl text-[15px] md:text-base leading-relaxed">
+                    Salud Activa y Apuntes Uni no nacieron de una mesa de negocios, sino de la experiencia real frente a los retos del sistema de salud y la educación. Este proyecto se construyó sobre cuatro momentos clave:
+                </p>
+                
+                <!-- Anotación derecha superior -->
+                <div class="hidden lg:block absolute top-4 right-10 transform -rotate-6 font-['Caveat'] text-[22px] leading-snug text-purple-200/70">
+                    Tecnología<br>+ Salud<br>+ Educación<br>= Un mejor futuro <i class="ri-heart-line"></i>
+                </div>
+            </div>
+
+            <!-- Grid de 4 tarjetas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative mb-10">
+                <!-- Línea conectora de fondo -->
+                <div class="hidden lg:block absolute top-[90px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent z-0"></div>
+                <div class="hidden lg:block absolute top-[90px] left-[30%] right-[30%] h-[2px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent z-0 blur-[2px]"></div>
+
+                <!-- Card 1 -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[24px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2)] relative z-10 flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center font-bold shadow-[0_0_15px_rgba(168,85,247,0.6)]">1</div>
+                    <div class="h-24 flex items-center justify-center mb-4 relative">
+                        <i class="ri-macbook-line text-[60px] text-purple-300 drop-shadow-[0_0_15px_rgba(216,180,254,0.5)] group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">El choque de mundos</h3>
+                    <p class="text-[13px] text-blue-100/70 mb-4 flex-1">
+                        Mi pasión por el desarrollo de software comenzó en la vocacional. Al entrar a la carrera de Nutrición en la UNAM, noté una desconexión profunda: en plena era digital, la educación en salud seguía dependiendo de métodos rudimentarios y una fuerte resistencia a la tecnología.
+                    </p>
+                    <div class="font-['Caveat'] text-purple-300/80 text-lg transform -rotate-3 text-center leading-tight">
+                        <i class="ri-arrow-left-down-line mr-1"></i>Dos mundos,<br>una misma pasión.
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[24px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2)] relative z-10 flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center font-bold shadow-[0_0_15px_rgba(34,211,238,0.6)]">2</div>
+                    <div class="h-24 flex items-center justify-center mb-4 relative">
+                        <i class="ri-folder-zip-line text-[60px] text-cyan-300 drop-shadow-[0_0_15px_rgba(103,232,249,0.5)] group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">La realidad hospitalaria</h3>
+                    <p class="text-[13px] text-blue-100/70 mb-4 flex-1">
+                        Tras una hospitalización personal, viví de primera mano la burocracia médica, la repetición constante de datos y expedientes almacenados en obsoletas carpetas de papel. Comprendí la urgencia de modernizar el manejo de la información clínica.
+                    </p>
+                    <div class="font-['Caveat'] text-cyan-300/80 text-lg transform -rotate-3 text-center leading-tight">
+                        <i class="ri-arrow-left-down-line mr-1"></i>Menos papeleo,<br>más personas.
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[24px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2)] relative z-10 flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center font-bold shadow-[0_0_15px_rgba(244,114,182,0.6)]">3</div>
+                    <div class="h-24 flex items-center justify-center mb-4 relative">
+                        <i class="ri-brain-line text-[60px] text-pink-300 drop-shadow-[0_0_15px_rgba(249,168,212,0.5)] group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 leading-tight">Coexistir con la Inteligencia Artificial</h3>
+                    <p class="text-[13px] text-blue-100/70 mb-4 flex-1">
+                        Asistir a congresos de IA me hizo entender que la tecnología no es opcional. Así como aprendimos a convivir con la pandemia, debemos aprender a utilizar la IA de forma inteligente para optimizar procesos y liberar tiempo humano de valor.
+                    </p>
+                    <div class="font-['Caveat'] text-pink-300/80 text-lg transform rotate-2 text-center leading-tight">
+                        <i class="ri-arrow-left-up-line mr-1"></i>La IA no reemplaza,<br>potencia.
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[24px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.2)] relative z-10 flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center font-bold shadow-[0_0_15px_rgba(129,140,248,0.6)]">4</div>
+                    <div class="h-24 flex items-center justify-center mb-4 relative">
+                        <i class="ri-graduation-cap-line text-[60px] text-indigo-300 drop-shadow-[0_0_15px_rgba(165,180,252,0.5)] group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Democratizar el conocimiento</h3>
+                    <p class="text-[13px] text-blue-100/70 mb-4 flex-1">
+                        Problemas de salud me hicieron reprobar materias y enfrentar barreras institucionales cuando pedí temarios o guías, recibiendo un "pide apuntes a tus compañeros". La educación no debería ser un privilegio hermético.
+                    </p>
+                    <div class="font-['Caveat'] text-indigo-300/80 text-lg transform rotate-3 text-center leading-tight">
+                        Más acceso,<br>más oportunidades.<i class="ri-arrow-right-down-line ml-1"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Filosofía -->
+            <div class="bg-white/10 backdrop-blur-xl rounded-[24px] p-6 md:p-8 border border-white/20 flex flex-col md:flex-row items-center gap-6 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400/20 to-blue-500/20 flex items-center justify-center shrink-0 border border-white/30 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+                    <i class="ri-focus-2-line text-4xl text-cyan-300"></i>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-2">Nuestra filosofía:</h3>
+                    <p class="text-[14px] text-blue-50/90 leading-relaxed max-w-3xl">
+                        <strong class="text-white">"El software debe adaptarse</strong> a los profesionales de la salud, y no al revés. No buscamos que pierdas tiempo adaptándote a herramientas rígidas, sino crear soluciones ágiles —como el cálculo de dietas o evaluaciones psicométricas— que trabajen <strong class="text-cyan-300">para ti.</strong>
+                    </p>
+                </div>
+                <div class="font-['Caveat'] text-blue-200/80 text-2xl transform -rotate-6 md:rotate-6 text-center whitespace-nowrap pt-4 md:pt-0">
+                    Herramientas<br>que se adaptan<br>a ti <i class="ri-heart-fill text-pink-400/80 text-sm"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Overlay de Servicios / Hacia dónde vamos -->
+<div id="servicios-overlay" class="fixed inset-0 z-[20030] flex items-center justify-center modal-overlay-custom backdrop-blur-md transition-all duration-500 opacity-0 pointer-events-none hidden">
+    
+    <!-- Tarjeta Flotante Estilo iOS - Adaptada al Glassmorphism -->
+    <div id="servicios-card" class="relative w-[95%] max-w-[1100px] max-h-[90vh] modal-card-custom backdrop-blur-3xl rounded-[32px] overflow-hidden transition-all duration-500 scale-95 flex flex-col border border-white/20 shadow-[0_0_50px_rgba(56,189,248,0.2)] bg-[#0f172a]/70 text-white">
+        
+        <!-- Brillos de fondo (Orbes difuminados estilo la imagen) -->
+        <div class="absolute -top-40 -left-20 w-96 h-96 rounded-full bg-blue-500/30 blur-[100px] pointer-events-none"></div>
+        <div class="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-purple-500/20 blur-[120px] pointer-events-none"></div>
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-cyan-500/20 blur-[100px] pointer-events-none"></div>
+
+        <!-- Barra de título estilo iOS -->
+        <div class="h-12 flex items-center px-5 gap-2 backdrop-blur-md z-20 shrink-0 border-b border-white/10 bg-white/5">
+            <button onclick="cerrarServicios()" class="w-3.5 h-3.5 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors shadow-inner flex items-center justify-center group" title="Cerrar">
+                <i class="ri-close-line text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity"></i>
+            </button>
+            <button onclick="minimizarServicios()" class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] hover:bg-[#ffbd2e]/80 transition-colors shadow-inner" title="Minimizar"></button>
+            <button onclick="expandirServicios()" class="w-3.5 h-3.5 rounded-full bg-[#27c93f] hover:bg-[#27c93f]/80 transition-colors shadow-inner" title="Expandir"></button>
+            
+            <div class="flex-1 flex justify-center items-center gap-2 text-[13px] font-semibold text-white/80 tracking-wide select-none mr-12">
+                <i class="ri-leaf-fill text-cyan-400"></i> Salud Activa Lab
+            </div>
+        </div>
+
+        <!-- Área de Contenido -->
+        <div class="p-6 md:p-10 overflow-y-auto custom-scrollbar relative z-10">
+            
+            <!-- Cabecera Principal -->
+            <div class="flex flex-col md:flex-row gap-6 items-start mb-12 relative">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400/40 to-cyan-300/10 flex items-center justify-center shrink-0 border border-white/20 shadow-[0_0_20px_rgba(56,189,248,0.3)] backdrop-blur-md">
+                    <i class="ri-line-chart-line text-3xl text-cyan-100"></i>
+                </div>
+                <div class="flex-1">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-3 text-purple-100">
+                        Hacia dónde <span class="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">vamos</span>
+                    </h1>
+                    <p class="text-blue-100/80 max-w-3xl text-[15px] md:text-base leading-relaxed">
+                        Nuestro ecosistema tecnológico está diseñado para escalar. En los próximos 3 años, proyectamos digitalizar y optimizar por completo la práctica de la Nutrición; y en 5 años, integrar soluciones avanzadas para Psicología. A la par, seguiremos derribando barreras integrando nuestra tecnología en áreas clave como la gastronomía, el fitness y los recursos humanos. <strong class="text-cyan-300 font-medium">El futuro es integral.</strong>
+                    </p>
+                </div>
+                
+                <!-- Anotación derecha superior -->
+                <div class="hidden lg:block absolute top-0 right-4 transform -rotate-6 font-['Caveat'] text-[22px] leading-snug text-pink-200/80">
+                    Más tecnología<br>+ más bienestar<br>= mayor impacto <i class="ri-heart-line text-pink-400"></i>
+                </div>
+            </div>
+
+            <!-- Grid de Tarjetas Centrales -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative mb-12">
+                <!-- Línea conectora de fondo -->
+                <div class="hidden lg:block absolute top-1/4 left-[15%] right-[15%] h-[2px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent z-0"></div>
+
+                <!-- Tarjeta 1: Nutrición (3 años) -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[32px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-10 flex flex-col group">
+                    <div class="inline-block bg-gradient-to-r from-pink-400 to-purple-500 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-4 self-start shadow-[0_0_10px_rgba(236,72,153,0.5)]">
+                        3 años
+                    </div>
+                    <div class="absolute top-6 right-6 w-20 h-20 bg-purple-500/20 rounded-full blur-xl group-hover:bg-purple-500/30 transition-all"></div>
+                    <i class="ri-apple-fill text-6xl text-purple-300 absolute top-4 right-4 drop-shadow-[0_0_15px_rgba(216,180,254,0.6)] opacity-80"></i>
+                    
+                    <h3 class="font-bold text-2xl mb-2 text-white">Nutrición</h3>
+                    <p class="text-[14px] text-blue-100/70 mb-6">
+                        Digitalizar y optimizar por completo la práctica de la Nutrición.
+                    </p>
+                    <ul class="space-y-2 text-[13px] text-blue-100/80 mb-8 flex-1">
+                        <li class="flex items-center gap-2"><i class="ri-check-line text-cyan-400"></i> Planes personalizados</li>
+                        <li class="flex items-center gap-2"><i class="ri-check-line text-cyan-400"></i> Seguimiento inteligente</li>
+                        <li class="flex items-center gap-2"><i class="ri-check-line text-cyan-400"></i> Herramientas para profesionales</li>
+                    </ul>
+                    
+                    <div class="font-['Caveat'] text-pink-300/80 text-xl transform -rotate-3 text-center">
+                        Mejores hábitos,<br>mejores vidas. <i class="ri-heart-line text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Psicología (5 años) -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[32px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-10 flex flex-col group">
+                    <div class="inline-block bg-gradient-to-r from-purple-400 to-indigo-500 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-4 self-start shadow-[0_0_10px_rgba(168,85,247,0.5)]">
+                        5 años
+                    </div>
+                    <div class="absolute top-6 right-6 w-20 h-20 bg-cyan-500/20 rounded-full blur-xl group-hover:bg-cyan-500/30 transition-all"></div>
+                    <i class="ri-brain-line text-6xl text-cyan-300 absolute top-4 right-4 drop-shadow-[0_0_15px_rgba(103,232,249,0.6)] opacity-80"></i>
+                    
+                    <h3 class="font-bold text-2xl mb-2 text-white">Psicología</h3>
+                    <p class="text-[14px] text-blue-100/70 mb-6">
+                        Integrar soluciones avanzadas para Psicología.
+                    </p>
+                    <ul class="space-y-2 text-[13px] text-blue-100/80 mb-8 flex-1">
+                        <li class="flex items-center gap-2"><i class="ri-check-line text-cyan-400"></i> Evaluaciones psicométricas</li>
+                        <li class="flex items-center gap-2"><i class="ri-check-line text-cyan-400"></i> Recursos terapéuticos digitales</li>
+                        <li class="flex items-center gap-2"><i class="ri-check-line text-cyan-400"></i> Seguimiento de progreso</li>
+                    </ul>
+                    
+                    <div class="font-['Caveat'] text-cyan-300/80 text-xl transform rotate-2 text-center">
+                        La salud mental<br>también importa. <i class="ri-sparkling-line text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3: Más allá de la salud -->
+                <div class="bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl rounded-[32px] p-6 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-10 flex flex-col">
+                    <i class="ri-rocket-2-line text-4xl text-pink-300 absolute top-4 right-4 drop-shadow-[0_0_15px_rgba(244,114,182,0.6)] opacity-60 transform rotate-45"></i>
+                    
+                    <h3 class="font-bold text-xl mb-2 text-white mt-2">Más allá de la salud</h3>
+                    <p class="text-[13px] text-blue-100/70 mb-6">
+                        Seguiremos derribando barreras integrando nuestra tecnología en áreas clave como:
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-6 flex-1">
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 hover:bg-white/10 transition-colors">
+                            <i class="ri-restaurant-2-line text-2xl text-pink-300"></i>
+                            <span class="text-[11px] font-medium">Gastronomía</span>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 hover:bg-white/10 transition-colors">
+                            <i class="ri-walk-line text-2xl text-cyan-300"></i>
+                            <span class="text-[11px] font-medium">Fitness</span>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 hover:bg-white/10 transition-colors col-span-2">
+                            <i class="ri-team-line text-2xl text-purple-300"></i>
+                            <span class="text-[11px] font-medium">Recursos Humanos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="font-['Caveat'] text-purple-200/80 text-xl transform -rotate-6 text-right mt-auto">
+                        Un solo ecosistema,<br>múltiples posibilidades. <i class="ri-heart-line text-sm"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Footer -->
+            <div class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-xl rounded-[24px] p-6 border border-white/20 flex flex-col md:flex-row items-center gap-6 shadow-[0_8px_32px_rgba(0,0,0,0.2)] relative overflow-hidden">
+                <!-- Resplandor interior -->
+                <div class="absolute left-0 top-0 w-32 h-full bg-white/5 skew-x-12 pointer-events-none"></div>
+                
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-300 to-indigo-500 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(165,180,252,0.5)]">
+                    <i class="ri-star-s-fill text-3xl text-white"></i>
+                </div>
+                <div class="flex-1 text-center md:text-left z-10">
+                    <h3 class="text-2xl font-bold mb-1 text-white">El futuro es <span class="text-cyan-300">integral.</span></h3>
+                    <p class="text-[14px] text-blue-100/80 leading-relaxed max-w-2xl">
+                        Más que una plataforma, queremos ser un aliado en cada etapa de la vida, con soluciones que conecten la salud, el bienestar y el conocimiento.
+                    </p>
+                </div>
+                <div class="font-['Caveat'] text-purple-200/90 text-2xl transform rotate-3 text-center whitespace-nowrap z-10 mt-4 md:mt-0">
+                    Personas + Tecnología<br>= Bienestar real <i class="ri-heart-fill text-pink-400/80 text-sm"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

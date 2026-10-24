@@ -931,3 +931,131 @@ window.saltarEncuesta = function() {
         card.classList.remove('seguridad-mini', 'seguridad-expanded');
     }, 500);
 };
+
+/* ---------------------------------------------------- Lógica de Tarjeta de Nosotros ------------------------------------------------ */
+
+window.abrirNosotros = function(event) {
+    if (event) event.preventDefault();
+    const overlay = document.getElementById('nosotros-overlay');
+    const card = document.getElementById('nosotros-card');
+
+    overlay.classList.remove('hidden');
+    
+    setTimeout(() => {
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+    }, 10);
+};
+
+window.cerrarNosotros = function() {
+    const overlay = document.getElementById('nosotros-overlay');
+    const card = document.getElementById('nosotros-card');
+    
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+    
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        card.classList.remove('nosotros-mini', 'nosotros-expanded');
+    }, 500);
+};
+
+window.minimizarNosotros = function() {
+    const card = document.getElementById('nosotros-card');
+    
+    if (card.classList.contains('nosotros-mini')) {
+        card.classList.remove('nosotros-mini');
+    } else {
+        card.classList.remove('nosotros-expanded');
+        card.classList.add('nosotros-mini');
+        
+        card.onclick = function(e) {
+            if(card.classList.contains('nosotros-mini')) {
+                minimizarNosotros();
+                card.onclick = null; 
+            }
+        };
+    }
+};
+
+window.expandirNosotros = function() {
+    const card = document.getElementById('nosotros-card');
+    
+    if (card.classList.contains('nosotros-mini')) minimizarNosotros(); 
+    
+    if (card.classList.contains('nosotros-expanded')) {
+        card.classList.remove('nosotros-expanded');
+    } else {
+        card.classList.add('nosotros-expanded');
+    }
+};
+
+/* ---------------------------------------------------- Lógica de Tarjeta de Servicios ------------------------------------------------ */
+
+window.abrirServicios = function(event) {
+    if (event) event.preventDefault();
+    const overlay = document.getElementById('servicios-overlay');
+    const card = document.getElementById('servicios-card');
+    
+    overlay.classList.remove('hidden');
+    
+    setTimeout(() => {
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100');
+        
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+    }, 10);
+};
+
+window.cerrarServicios = function() {
+    const overlay = document.getElementById('servicios-overlay');
+    const card = document.getElementById('servicios-card');
+    
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+    
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+    
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        card.classList.remove('servicios-mini', 'servicios-expanded');
+    }, 500);
+};
+
+window.minimizarServicios = function() {
+    const card = document.getElementById('servicios-card');
+    
+    if (card.classList.contains('servicios-mini')) {
+        card.classList.remove('servicios-mini');
+    } else {
+        card.classList.remove('servicios-expanded');
+        card.classList.add('servicios-mini');
+        
+        card.onclick = function(e) {
+            if(card.classList.contains('servicios-mini')) {
+                minimizarServicios();
+                card.onclick = null; 
+            }
+        };
+    }
+};
+
+window.expandirServicios = function() {
+    const card = document.getElementById('servicios-card');
+    
+    if (card.classList.contains('servicios-mini')) minimizarServicios(); 
+    
+    if (card.classList.contains('servicios-expanded')) {
+        card.classList.remove('servicios-expanded');
+    } else {
+        card.classList.add('servicios-expanded');
+    }
+};

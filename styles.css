@@ -3372,6 +3372,54 @@ body:has(.theme-salud-activa) .salud-made-with i {
     background-color: var(--background-color);
 }
 
+/* ---------------------------------------------------- Tarjeta NOSOTROS ------------------------------------------------ */
+.nosotros-mini {
+    transform: scale(0.25) translate(120vw, 120vh) !important;
+    transform-origin: bottom right;
+    border-radius: 40px !important;
+    opacity: 0.95 !important;
+    cursor: pointer; 
+}
+
+.nosotros-mini > div:not(:first-child) {
+    /* Oculta los textos e iconos al minimizar */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nosotros-expanded {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    transform: scale(1) !important;
+}
+
+/* ---------------------------------------------------- Tarjeta SERVICIOS ------------------------------------------------ */
+.servicios-mini {
+    transform: scale(0.25) translate(120vw, 120vh) !important;
+    transform-origin: bottom right;
+    border-radius: 40px !important;
+    opacity: 0.95 !important;
+    cursor: pointer; 
+}
+
+.servicios-mini > div:not(:first-child) {
+    /* Oculta el contenido, deja solo la barra estilo iOS */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.servicios-expanded {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    transform: scale(1) !important;
+}
+
 /* -------------------------------------------------------------- animacion index ----------------------------------------- */
 .labs-badge {
     position: fixed;
