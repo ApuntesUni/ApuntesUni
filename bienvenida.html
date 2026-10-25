@@ -22,6 +22,14 @@
 </head>
 <body class="min-h-screen font-sans p-4 md:p-8 bg-fixed bg-no-repeat transition-colors duration-500">
     <div id="lottie-bg-container"></div>
+    <!-- Botón Flotante Vitrina de Medallas -->
+    <button onclick="if(window.abrirMedallas) window.abrirMedallas()" 
+            class="fixed top-24 right-4 md:top-6 md:right-6 z-[120] w-12 md:w-14 h-12 md:h-14 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg border border-amber-400/50 flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
+            title="Vitrina de Medallas">
+        <span class="material-symbols-outlined text-amber-500 text-[28px] md:text-[34px]">military_tech</span>
+        <!-- El badge numérico se actualizará automáticamente con script_2.js -->
+        <span id="medals-unlocked-badge" class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[10px] font-bold text-white shadow-sm" style="display: none;">0</span>
+    </button>
     <!-- Menú -->
     <header class="header-menu" id="header-menu">
         <nav class="nav container">

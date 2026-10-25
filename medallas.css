@@ -1,0 +1,66 @@
+/* medallas.css */
+#medallas-modal-overlay {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Fondo dinámico del modal para simular el espacio/gradiente */
+.cosmic-bg {
+    background: linear-gradient(135deg, rgba(241, 245, 249, 0.85) 0%, rgba(226, 232, 240, 0.75) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+    html.dark .cosmic-bg {
+        background: linear-gradient(135deg, rgba(23, 27, 49, 0.85) 0%, rgba(15, 18, 35, 0.9) 100%);
+    }
+}
+
+/* Premium Glassmorphism Cards (Exacto a la imagen) */
+.premium-glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 10px 40px -10px rgba(31, 38, 135, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    html.dark .premium-glass-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.25); /* Borde superior más brillante */
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+}
+
+.premium-glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px -10px rgba(31, 38, 135, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+    html.dark .premium-glass-card:hover {
+        box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+}
+
+/* Imagen de la medalla con brillo */
+.medal-img-glow {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+}
+
+/* Scrollbar sutil */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar { width: 8px; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.4);
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

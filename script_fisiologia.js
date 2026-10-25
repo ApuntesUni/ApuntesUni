@@ -509,6 +509,11 @@
 
         // 1.6 Bucle Principal de Animación
         function animateCardiac(timestamp) {
+
+            if (window.__cardiacRenderer && window.__cardiacRenderer.isPaused) {
+                animFrameId = requestAnimationFrame(animateCardiac);
+                return;
+            }
             animFrameId = requestAnimationFrame(animateCardiac);
 
             if (!cycleState.lastTimestamp) cycleState.lastTimestamp = timestamp;
@@ -766,7 +771,9 @@
 
         // Render inicial del potencial de acción
         renderActionPotentialGraph('sa');
+        window.__cardiacRenderer = { isPaused: false, lastTimestamp: 0, renderer, scene, camera };
     }
+    
 
     // --------------------------------------------------------------------------
     // 2. NAVEGADOR DE LA NEFRONA Y REGULACIÓN HEMODINÁMICA (SRAA / ENaC)
@@ -780,11 +787,11 @@
 
         // Estado Hemodinámico Interactivo
         const hemoState = {
-            pam: 95,          // Presión Arterial Media (mmHg)
-            maculaNaCl: 50,   // % de carga salina en Mácula Densa
+            pam: 95,
+            maculaNaCl: 50,
             reninActive: false,
-            aldosteroneLevel: 50, // 0 a 100%
-            enacPreservation: 50  // % de canales ENaC activos
+            aldosteroneLevel: 50,
+            enacPreservation: 50
         };
 
         if (typeof THREE !== 'undefined') {
@@ -817,17 +824,15 @@
 
             nephronGroup = new THREE.Group();
 
-            // Materiales de los segmentos tubulares
             const glomMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.2, metalness: 0.2 });
             const bowmanMat = new THREE.MeshStandardMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.45, roughness: 0.1 });
             const pctMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.4 });
             const loopThinMat = new THREE.MeshStandardMaterial({ color: 0x60a5fa, roughness: 0.3 });
-            const loopThickMat = new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.3 });
             const maculaMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x059669, emissiveIntensity: 0.8 });
             const dctMat = new THREE.MeshStandardMaterial({ color: 0x8b5cf6, roughness: 0.4 });
             const ccdMat = new THREE.MeshStandardMaterial({ color: 0xec4899, roughness: 0.4 });
 
-            // 1. Corpúsculo Renal (Cápsula de Bowman + Ovillo Glomerular)
+            // 1. Corpúsculo Renal
             const bowmanGeom = new THREE.SphereGeometry(0.9, 24, 24);
             const bowmanMesh = new THREE.Mesh(bowmanGeom, bowmanMat);
             bowmanMesh.position.set(-2.8, 2.5, 0);
@@ -838,7 +843,6 @@
             glomerulusMesh.position.copy(bowmanMesh.position);
             nephronGroup.add(glomerulusMesh);
 
-            // Arteriola aferente y eferente
             const artGeom = new THREE.CylinderGeometry(0.12, 0.12, 1.2, 12);
             const afferent = new THREE.Mesh(artGeom, glomMat);
             afferent.position.set(-2.4, 3.4, 0.2);
@@ -850,7 +854,7 @@
             efferent.rotation.z = 0.4;
             nephronGroup.add(efferent);
 
-            // 2. Túbulo Contorneado Proximal (TCP - Serpentina dorada)
+            // 2. Túbulo Contorneado Proximal
             const pctCurve = new THREE.CatmullRomCurve3([
                 new THREE.Vector3(-2.8, 1.6, 0),
                 new THREE.Vector3(-2.2, 1.2, 0.5),
@@ -862,27 +866,27 @@
             pctMesh = new THREE.Mesh(pctGeom, pctMat);
             nephronGroup.add(pctMesh);
 
-            // 3. Asa de Henle (U profunda: descendente delgada + ascendente gruesa TAL)
+            // 3. Asa de Henle
             const loopCurve = new THREE.CatmullRomCurve3([
                 new THREE.Vector3(-1.2, 0.2, 0),
                 new THREE.Vector3(-1.1, -1.8, 0.2),
-                new THREE.Vector3(-1.0, -3.4, 0), // Horquilla medular profunda
+                new THREE.Vector3(-1.0, -3.4, 0),
                 new THREE.Vector3(-0.6, -3.5, 0),
                 new THREE.Vector3(-0.4, -1.8, -0.2),
                 new THREE.Vector3(-0.3, 0.5, 0),
-                new THREE.Vector3(-1.5, 2.8, 0.3) // Retorna hasta la mácula densa junto a arteriolas
+                new THREE.Vector3(-1.5, 2.8, 0.3)
             ]);
             const loopGeom = new THREE.TubeGeometry(loopCurve, 48, 0.18, 16, false);
             loopMesh = new THREE.Mesh(loopGeom, loopThinMat);
             nephronGroup.add(loopMesh);
 
-            // 4. Mácula Densa (Entre las arteriolas yuxtaglomerulares)
+            // 4. Mácula Densa
             const maculaGeom = new THREE.SphereGeometry(0.3, 16, 16);
             maculaMesh = new THREE.Mesh(maculaGeom, maculaMat);
             maculaMesh.position.set(-2.0, 3.1, 0.1);
             nephronGroup.add(maculaMesh);
 
-            // 5. Túbulo Contorneado Distal (TCD) y Colector (CCD)
+            // 5. TCD y Colector
             const dctCurve = new THREE.CatmullRomCurve3([
                 new THREE.Vector3(-1.5, 2.8, 0.3),
                 new THREE.Vector3(-0.5, 2.4, 0.5),
@@ -893,7 +897,6 @@
             dctMesh = new THREE.Mesh(dctGeom, dctMat);
             nephronGroup.add(dctMesh);
 
-            // Conducto Colector Cortical/Medular
             const ccdCurve = new THREE.CatmullRomCurve3([
                 new THREE.Vector3(1.4, 3.2, -0.2),
                 new THREE.Vector3(1.4, 0, -0.2),
@@ -906,9 +909,11 @@
             nephronGroup.position.set(0.6, 0.2, 0);
             scene.add(nephronGroup);
 
-            // Bucle de renderizado de la Nefrona
+            // ✅ Bucle de renderizado DEFINIDO AQUÍ (no antes)
             function animateNephron() {
                 requestAnimationFrame(animateNephron);
+                // ✅ Pausa cuando el SPA oculta la sección
+                if (window.__nephronRenderer && window.__nephronRenderer.isPaused) return;
                 if (controls) controls.update();
                 if (nephronGroup) nephronGroup.rotation.y += 0.002;
                 if (renderer && scene && camera) renderer.render(scene, camera);
@@ -924,9 +929,12 @@
                 renderer.setSize(w, h);
             };
             window.addEventListener('resize', window.onResizeNephron3D);
+
+            // ✅ Exponer renderer DENTRO del bloque THREE
+            window.__nephronRenderer = { isPaused: false, renderer, scene, camera };
         }
 
-        // 2.2 Botones de Vistas Anatómicas de la Nefrona
+        // 2.2 Botones de Vistas Anatómicas
         window.focusNephronSegment = function (segment) {
             if (!camera || !controls) return;
             if (segment === 'all') {
@@ -947,29 +955,22 @@
             }
         };
 
-        // 2.3 Simulación Dinámica del Eje SRAA y Canales ENaC
+        // 2.3 Simulación SRAA (sin cambios)
         function updateSRAASimulation() {
             const pamVal = hemoState.pam;
             const naclVal = hemoState.maculaNaCl;
-
-            // La Renina se activa fuertemente cuando la PAM < 85 mmHg o el NaCl en mácula es bajo (<40%)
             const reninTrigger = (pamVal < 85) || (naclVal < 40);
             hemoState.reninActive = reninTrigger;
 
-            // Nivel de Aldosterona inducida
-            let aldoLevel = 20; // basal
+            let aldoLevel = 20;
             if (reninTrigger) {
                 aldoLevel = Math.min(100, Math.round(20 + (85 - Math.min(85, pamVal)) * 1.8 + (50 - Math.min(50, naclVal)) * 0.8));
             } else if (pamVal > 120) {
-                aldoLevel = 10; // supresión por hipervolemia / ANP
+                aldoLevel = 10;
             }
             hemoState.aldosteroneLevel = aldoLevel;
-
-            // Preservación de Canales ENaC por acción de SGK1
-            // A mayor aldosterona -> mayor transcripción de SGK1 -> inhibe Nedd4-2 -> preserva canales ENaC apicales
             hemoState.enacPreservation = Math.round(30 + (aldoLevel * 0.65));
 
-            // Actualizar interfaz UI
             const pamDisplay = document.getElementById('val-pam');
             const naclDisplay = document.getElementById('val-nacl');
             const aldoDisplay = document.getElementById('val-aldo');
@@ -982,37 +983,29 @@
             if (aldoDisplay) aldoDisplay.textContent = `${aldoLevel}%`;
             if (enacDisplay) enacDisplay.textContent = `${hemoState.enacPreservation}%`;
 
-            // Tasa de reabsorción de Na+ y excreción de K+
             const naRate = (25 + (hemoState.enacPreservation * 0.75)).toFixed(1);
             const kRate = (10 + (hemoState.enacPreservation * 0.45)).toFixed(1);
             if (naReabsDisplay) naReabsDisplay.textContent = `${naRate} mmol/min`;
             if (kExcrDisplay) kExcrDisplay.textContent = `${kRate} mmol/min`;
 
-            // Actualizar píldoras de la cascada SRAA
-            const sraaRenin = document.getElementById('sraa-renin');
-            const sraaAng1 = document.getElementById('sraa-ang1');
-            const sraaAng2 = document.getElementById('sraa-ang2');
-            const sraaAldo = document.getElementById('sraa-aldo');
-            const sraaEnac = document.getElementById('sraa-enac');
-
-            const sraaElements = [sraaRenin, sraaAng1, sraaAng2, sraaAldo, sraaEnac];
+            const sraaElements = [
+                document.getElementById('sraa-renin'),
+                document.getElementById('sraa-ang1'),
+                document.getElementById('sraa-ang2'),
+                document.getElementById('sraa-aldo'),
+                document.getElementById('sraa-enac')
+            ];
             if (reninTrigger) {
                 sraaElements.forEach((el, index) => {
-                    if (el) {
-                        setTimeout(() => el.classList.add('sraa-active'), index * 150);
-                    }
+                    if (el) setTimeout(() => el.classList.add('sraa-active'), index * 150);
                 });
             } else {
-                sraaElements.forEach(el => {
-                    if (el) el.classList.remove('sraa-active');
-                });
+                sraaElements.forEach(el => { if (el) el.classList.remove('sraa-active'); });
             }
 
-            // Actualizar micro-diagrama de canales ENaC apicales
             renderENaCCellDiagram();
         }
 
-        // Renderizado SVG/Canvas de la célula principal y canales ENaC
         function renderENaCCellDiagram() {
             const container = document.getElementById('enac-cell-graphic-container');
             if (!container) return;
@@ -1037,13 +1030,9 @@
                             SGK1: ${hemoState.aldosteroneLevel > 40 ? 'Activo (Inhibe Nedd4-2)' : 'Basal'}
                         </div>
                     </div>
-                    
-                    <!-- Membrana Apical (Luminal) -->
                     <div class="mb-2 p-2 rounded-xl bg-blue-500/10 border-b-2 border-blue-400 text-center">
                         <span class="text-[11px] font-bold text-blue-700 dark:text-blue-300">LUMEN TUBULAR (Orina) - Potencial Transepitelial Negativo</span>
                     </div>
-
-                    <!-- Canales Apicales ENaC y ROMK -->
                     <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 my-3">
                         ${enacPills}
                         <div class="flex flex-col items-center justify-center p-2 rounded-xl bg-purple-400/20 border border-purple-500 shadow-sm">
@@ -1052,8 +1041,6 @@
                             <span class="text-[9px] font-bold text-purple-600 dark:text-purple-400">K⁺ ⬆ Excr</span>
                         </div>
                     </div>
-
-                    <!-- Citoplasma y Efecto Bioquímico -->
                     <div class="text-[11px] text-slate-700 dark:text-slate-300 bg-white/50 dark:bg-slate-900/40 p-2.5 rounded-xl border border-white/30">
                         <strong>Mecanismo Molecular:</strong> La Aldosterona se une a los receptores citosólicos MR estimulando la transcripción de <strong>SGK1</strong>. Esta quinasa fosforila a la ubiquitina-ligasa Nedd4-2, impidiendo la endocitosis y degradación lisosómica de los canales <strong>ENaC</strong>, preservando su densidad apical y maximizando la reabsorción de sodio.
                     </div>
@@ -1061,7 +1048,6 @@
             `;
         }
 
-        // Sliders Listeners
         const sliderPam = document.getElementById('slider-pam');
         const sliderNacl = document.getElementById('slider-nacl');
 
@@ -1071,7 +1057,6 @@
                 updateSRAASimulation();
             });
         }
-
         if (sliderNacl) {
             sliderNacl.addEventListener('input', (e) => {
                 hemoState.maculaNaCl = parseInt(e.target.value) || 50;
@@ -1081,6 +1066,7 @@
 
         updateSRAASimulation();
     }
+    
 
     // --------------------------------------------------------------------------
     // 3. MINI-JUEGO 1: LABORATORIO DE DIGESTIÓN (DRAG & DROP)
@@ -1266,6 +1252,9 @@
                         // Fin de la misión
                         currentStepIndex = 0;
                         currentMissionIndex = (currentMissionIndex + 1) % missions.length;
+                        if (typeof window.unlockMedal === 'function') {
+                            window.unlockMedal('NutriasPeresosas', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwf7IWbACLQ1_EdLcduTZzw_B4PPwea2COxmXqgC0OLjg_QG2Mv8UcrMddMXZHysGumb7WKRcncTT9WYCIqoPWIW_Qr7hQ-Bcc637W-5Vpva9GlS9GNcFMrhs0-to7dsB2tRYMVsftKTa9r97GzGP92tI3LCCnIGfvH4rqRSGXekflF9aSQZkX4G6eyaQ/s2048/1792862845901.png');
+                        }
                         alert('¡Misión Completada con Éxito! Has dominado la biofísica enzimática del borde en cepillo.');
                     }
                     loadMission();
@@ -1407,6 +1396,9 @@
 
             if (ph >= 7.35 && ph <= 7.45) {
                 scFeedbackEl.className = 'mt-4 p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500 text-emerald-800 dark:text-emerald-300 font-bold text-sm';
+                if (typeof window.unlockMedal === 'function') {
+                    window.unlockMedal('MedicoCansado', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHOIvSDSDx7TvFvhNcJzNPqey2gN9PLh78IsMoKN_CsVjGk5Ji959TTJegxoyO6fj0LVWPpOPbHNSjZcRPGRfuoqHk0qVv620TgC3_jHJ5VmtbVCJl7o7DN8Ut9X8PCrm4TuXWwZ9eJYxYinKpZMXXQsz0aleWuLpsATMyixLl_aYXB95IiqAbDB0g8QU/s2048/1792862748112.png');
+                }
                 scFeedbackEl.innerHTML = `¡Compensación Exitosa! pH alcanzado: ${ph.toFixed(2)}.<br><span class="font-normal mt-1 block">${sc.explanation}</span>`;
             } else {
                 scFeedbackEl.className = 'mt-4 p-4 rounded-2xl bg-amber-500/20 border border-amber-500 text-amber-800 dark:text-amber-300 font-bold text-sm';
@@ -1920,14 +1912,24 @@
     // --------------------------------------------------------------------------
     // INICIALIZACIÓN GLOBAL CUANDO EL DOM ESTÉ LISTO
     // --------------------------------------------------------------------------
-    document.addEventListener('DOMContentLoaded', () => {
-        initFisioTabs();
-        initCardiacSimulator();
-        initNephronNavigator();
-        initDigestionGame();
-        initAcidBaseGame();
-        initFlashcardsAndAudio();
-        initClinicalCases();
-    });
+
+    window.__manualInitFisio = function () {
+        const safeRun = (name, fn) => {
+            try {
+                fn();
+                console.log(`[Fisio] ✅ ${name} inicializado`);
+            } catch (err) {
+                console.error(`[Fisio] ❌ Error en ${name}:`, err);
+            }
+        };
+
+        safeRun('initFisioTabs', initFisioTabs);
+        safeRun('initCardiacSimulator', initCardiacSimulator);
+        safeRun('initNephronNavigator', initNephronNavigator);
+        safeRun('initDigestionGame', initDigestionGame);
+        safeRun('initAcidBaseGame', initAcidBaseGame);
+        safeRun('initFlashcardsAndAudio', initFlashcardsAndAudio);
+        safeRun('initClinicalCases', initClinicalCases);
+    };
 
 })();

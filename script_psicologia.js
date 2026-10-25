@@ -751,7 +751,7 @@
         function handleSemaforoWin() {
             // Desbloquear Medalla oficial en el contenedor del header
             if (typeof window.unlockMedal === 'function') {
-                window.unlockMedal('SemaforoClinico', 'medalla_semaforo_clinico.png');
+                window.unlockMedal('SinPapeles', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQ5ZNlqDhV_emF_nTiHMnUM1R7D6qjroGZ_PMhdnyjNLVMwOfv9XW4RadX6ztSLDLKKCeMqwnNRYrTArod7WhRDqZ9Ifpl3vCVg-K_TR7QtUU2rqzfa6LBunY-Ydsp5cfnpe9uCg_jrcgFEHMj__NcXqHjW2XmVlRqB7QHx0jRED_lYQwIQWLf5NaxvLo/s1024/1792864030819.png');
             }
             if (typeof window.triggerGameEffect === 'function') {
                 window.triggerGameEffect('win');
@@ -987,7 +987,7 @@
         function handleMatchWin() {
             // Desbloquear Medalla oficial en el contenedor del header
             if (typeof window.unlockMedal === 'function') {
-                window.unlockMedal('MatchPsicometrico', 'medalla_match_psicometrico.png');
+                window.unlockMedal('FacPsico', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjjTw_nxVZWO1spwxDTefPZSJGFQrkgdFfBPP0407MYKYpy9XchT52XpI_FcCgoBQIpcWuS_MpILyjEdj1MuMmPLWjHaxApk_kSgrf8HNYwBsHeDFZ3ZzkUif9NXkBZnMuuTEzNKhkDSjPnHCazPZwrAGh3P5I0SBfn3_Xla9Rbbx7NM6Bf1Uel6FKJzA/s2048/1792862620266.png');
             }
             if (typeof window.triggerGameEffect === 'function') {
                 window.triggerGameEffect('win');
