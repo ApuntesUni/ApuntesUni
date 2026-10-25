@@ -1856,7 +1856,7 @@ window.checkCompound = function() {
 
     if (isCorrect) {
         showBioMessage('¡Síntesis Exitosa!', 'success');
-        window.unlockMedal('ConstructorQuimico', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIKh8b0W_Rai4qNMA6nIxrrl8v6fL5TR6VAKjlfNxLmNYxnM5iBmYgVD-J9dhiAt-52rynU97nZp2QlxM3LgnNypYw3Xz17Wuedhk77rLWFUL-kchX21yvbx9UEMHQNRYN_mvdYsx4W19OOg0JdPdwzTleDLP5DB1Q-guVphLUnMmqWzgURYJL39ytIls/s1024/1792477399816.jpg');
+        window.unlockMedal('ConstructorQuimico', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinhyphenhyphenF0EfFZAI1p_vgd23Qc5PhVoAQkiWCASH2X0I-Qek1LG3HsIzSIHQplkjl7QkVz-0mBnHr4k2yJVaSIRu5ilMpcLiWsxsFWNblnrGaEY7Y7eVbFjf0wLGDByqvzVg_SWJM73zOFQovibBBUTdcM9rhhSYevwst6HW_YDEQHDCWPaJqnHB3lCjI7CNA/s1024/1792863935006.png');
         setTimeout(() => { currentG1Level++; loadG1Level(); }, 1000);
     } else {
         if(Object.keys(currentReaction).length === 0) showBioMessage('Agrega elementos a la zona.', 'error');
@@ -2002,7 +2002,7 @@ function endG2Game(isWin, message, type = null) {
         msg.textContent = message;
         icon.textContent = type === 'aerobic' ? "bolt" : "water_drop";
         icon.className = `material-symbols-outlined text-[80px] mb-4 ${type === 'aerobic' ? 'text-yellow-500' : 'text-blue-500'}`;
-        window.unlockMedal('RutaMetabolica', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHhg8t3XJsXFXhyphenhyphenZOH0Y4B-bJ1bbeOJyx9EDeb_rE2O9kftOmjTX5eaGPx2HoJRMNCo-fV6WttPUZmSLJeSwDLfW4fDuk-WS1hD2ujboyqonrbnz1rqvj-LKkCdnD2vQwrKC09IPiFCnpUK_rHI4HcOn90Ec7Om4r3WsPmzDZqrFS3AjK1Y3xXkL_ANd8/s1024/1792477488979.jpg'); 
+        window.unlockMedal('Fotosintesis', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXIFJFr5WlrjeTL5Bt9mXCrpB9UzNIxfx1uJD5avAbcrDS3o5aXceUSLl6T8YgqQ_t49abPvLWu9hoUJokJB1IgSxwjc5RALqcowlZd_h2valo7GfK_25wVw1cam9KxbynUJNhhXhmwEX9dsJPlduWl7VkGT1e6vnwi1m5Ff_gFziOVFCJG3t6HksYpe0/s1024/1792863957365.png');
         triggerGameEffect('win');
     } else {
         title.textContent = "Fallo Metabólico";
@@ -2055,6 +2055,7 @@ function loadG3Case() {
     if (currentG3CaseIndex >= g3Cases.length) {
         document.getElementById('g3-end-modal').classList.remove('hidden');
         document.getElementById('g3-end-modal').classList.add('flex');
+        window.unlockMedal('ViruelaMetabolica', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCS_OUqyIqlNft9mRdV2gYqNMpwqXfGTHLdgc9lC8PUMMDThYWYkfBeW65ZFApOLxDKvvtq5CL8iQDqGgDXp9WwtuhMFOo_tTDuJtE_csBNZX1u3WDvgULxX0M1HgPy7gUQecK6nUnmvltjJytOEPNPrx4D_DNXbDuznwErzM5ICfHzig2ODRHnn97KFI/s1024/1792864004048.png');
         triggerGameEffect('win');
         return;
     }
@@ -2096,6 +2097,7 @@ function checkDiagnosisG3(option, btn) {
         btn.classList.add('bg-green-100', 'border-green-400', 'text-green-800');
         feedbackDiv.className = 'mt-6 p-4 rounded-2xl font-bold text-center bg-green-100 text-green-800 border border-green-400 shadow-sm';
         feedbackDiv.innerHTML = `¡Diagnóstico Correcto!<br><span class="font-medium text-sm block mt-2 opacity-80">${g3Cases[currentG3CaseIndex].explanation}</span>`;
+        window.unlockMedal('Viruela', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCS_OUqyIqlNft9mRdV2gYqNMpwqXfGTHLdgc9lC8PUMMDThYWYkfBeW65ZFApOLxDKvvtq5CL8iQDqGgDXp9WwtuhMFOo_tTDuJtE_csBNZX1u3WDvgULxX0M1HgPy7gUQecK6nUnmvltjJytOEPNPrx4D_DNXbDuznwErzM5ICfHzig2ODRHnn97KFI/s1024/1792864004048.png');
         document.getElementById('g3-next-btn').classList.remove('hidden');
     } else {
         btn.classList.add('bg-red-100', 'border-red-400', 'text-red-800');
@@ -2141,6 +2143,7 @@ function loadG4Pathway() {
         document.getElementById('g4-end-modal').classList.add('flex');
         document.getElementById('g4-end-msg').textContent = "¡Dominaste las rutas metabólicas!";
         document.getElementById('g4-next-btn-modal').classList.add('hidden');
+        window.unlockMedal('MapaMetabolico', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiy1uT5Jb6Ix4Ht0DfIT_Ek22XqSJwX-2_017SoPjGD69C86toXuI5GW2rcWO5mYnpnxoqoLIQoZkgAIIWUje80DduAERJ7SxHCknuC-JnOhi0A36kjJrjH5zBDjfuT8jS-Fk9i1v4LkOsICZoCe5EH7Nv-lzdEwGvHEEDwnD1FKZzkOTCcWKxLVy-_OQs/s1024/1792863980280.png');
         triggerGameEffect('win');
         return;
     }
@@ -2248,6 +2251,9 @@ window.startGame5 = function() {
             const mins = Math.floor(g5TimeElapsed / 60).toString().padStart(2, '0');
             const secs = (g5TimeElapsed % 60).toString().padStart(2, '0');
             document.getElementById('g5-timer').textContent = `Tiempo: ${mins}:${secs}`;
+            if (g5TimeElapsed >= 25) {
+                window.unlockMedal('InternoSobreviviendo', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaJ1GshPZQ9tEXMPkkEppktCvDpas3_DvEvv9mw3ewUP7tneW8ZocY_iA9j5N7CcdUT3rPFlwUJQf5cYokxvMr71rs3lF9KDDCNYC5d7O3PEMCMO8pcIsd-mfDOVUW77SyKM1ugXouTaRW6J6t6gp74AiszAXU-RqODhzrunSsM9UgTQrB-d6laEJm4AU/s2048/1792862797985.png');
+            }
         }
     }, 1000);
 
@@ -2471,56 +2477,425 @@ function initMedalTutorial() {
     }
 }
 
+
+
+/* =========================================================================================
+   SISTEMA DE MEDALLAS E INSIGNIAS (APUNTES UNI & SALUD ACTIVA)
+   Carga desde URLs remotas de Blogger para máxima optimización y ahorro de espacio
+========================================================================================== */
+
 const MEDALS_STORAGE_KEY = 'saludActiva_unlockedMedals';
 
-// Función para guardar y desbloquear medallas
-window.unlockMedal = function(medalId, imagePath) {
-    let unlockedMedals = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
-    
-    // Verifica si la medalla ya fue obtenida
-    const alreadyUnlocked = unlockedMedals.find(m => m.id === medalId);
-    
-    if (!alreadyUnlocked) {
-        unlockedMedals.push({ id: medalId, image: imagePath });
-        localStorage.setItem(MEDALS_STORAGE_KEY, JSON.stringify(unlockedMedals));
-        
-        renderMedals(); // Actualizar la interfaz
-        
-        // Efecto opcional de victoria global si existe
-        if (typeof window.triggerGameEffect === 'function') {
-            window.triggerGameEffect('win');
-        }
+// Catálogo maestro de medallas de retos
+window.MEDALS_CATALOG = {
+    ConstructorQuimico: {
+        id: 'ConstructorQuimico',
+        name: 'Constructor Químico',
+        subject: 'Bioquímica',
+        gameTitle: 'Constructor de Compuestos',
+        desc: 'Sintetiza compuestos orgánicos clave como Agua o Dióxido de Carbono con la proporción estequiométrica exacta.',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinhyphenhyphenF0EfFZAI1p_vgd23Qc5PhVoAQkiWCASH2X0I-Qek1LG3HsIzSIHQplkjl7QkVz-0mBnHr4k2yJVaSIRu5ilMpcLiWsxsFWNblnrGaEY7Y7eVbFjf0wLGDByqvzVg_SWJM73zOFQovibBBUTdcM9rhhSYevwst6HW_YDEQHDCWPaJqnHB3lCjI7CNA/s1024/1792863935006.png',
+        route: 'bioquimica'
+    },
+    Fotosintesis: {
+        id: 'Fotosintesis',
+        name: 'Fotosíntesis & Bioenergética',
+        subject: 'Bioquímica',
+        gameTitle: 'El Camino de la Energía',
+        desc: 'Completa la ruta de glucólisis, oxidación del piruvato y ciclo de respiración celular para maximizar el ATP.',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXIFJFr5WlrjeTL5Bt9mXCrpB9UzNIxfx1uJD5avAbcrDS3o5aXceUSLl6T8YgqQ_t49abPvLWu9hoUJokJB1IgSxwjc5RALqcowlZd_h2valo7GfK_25wVw1cam9KxbynUJNhhXhmwEX9dsJPlduWl7VkGT1e6vnwi1m5Ff_gFziOVFCJG3t6HksYpe0/s1024/1792863957365.png',
+        route: 'bioquimica'
+    },
+    ViruelaMetabolica: {
+        id: 'ViruelaMetabolica',
+        name: 'Detective Metabólico',
+        subject: 'Bioquímica',
+        gameTitle: 'Detective Clínico',
+        desc: 'Identifica y diagnostica patologías metabólicas (Diabetes Mellitus, PKU) a partir de signos clínicos y gasometría.',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCS_OUqyIqlNft9mRdV2gYqNMpwqXfGTHLdgc9lC8PUMMDThYWYkfBeW65ZFApOLxDKvvtq5CL8iQDqGgDXp9WwtuhMFOo_tTDuJtE_csBNZX1u3WDvgULxX0M1HgPy7gUQecK6nUnmvltjJytOEPNPrx4D_DNXbDuznwErzM5ICfHzig2ODRHnn97KFI/s1024/1792864004048.png',
+        route: 'bioquimica'
+    },
+    MapaMetabolico: {
+        id: 'MapaMetabolico',
+        name: 'Mapa Metabólico',
+        subject: 'Bioquímica',
+        gameTitle: 'Conecta la Ruta',
+        desc: 'Ordena cronológicamente la secuencia enzimática preparatoria de la glucólisis (Glucosa a Fructosa-1,6-biP).',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiy1uT5Jb6Ix4Ht0DfIT_Ek22XqSJwX-2_017SoPjGD69C86toXuI5GW2rcWO5mYnpnxoqoLIQoZkgAIIWUje80DduAERJ7SxHCknuC-JnOhi0A36kjJrjH5zBDjfuT8jS-Fk9i1v4LkOsICZoCe5EH7Nv-lzdEwGvHEEDwnD1FKZzkOTCcWKxLVy-_OQs/s1024/1792863980280.png',
+        route: 'bioquimica'
+    },
+    InternoSobreviviendo: {
+        id: 'InternoSobreviviendo',
+        name: 'Interno Sobreviviendo',
+        subject: 'Bioquímica',
+        gameTitle: 'Simulador de Homeostasis',
+        desc: 'Mantén estabilizada la glucosa, pH y oxigenación administrando insulina, glucagón o bicarbonato.',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhaJ1GshPZQ9tEXMPkkEppktCvDpas3_DvEvv9mw3ewUP7tneW8ZocY_iA9j5N7CcdUT3rPFlwUJQf5cYokxvMr71rs3lF9KDDCNYC5d7O3PEMCMO8pcIsd-mfDOVUW77SyKM1ugXouTaRW6J6t6gp74AiszAXU-RqODhzrunSsM9UgTQrB-d6laEJm4AU/s2048/1792862797985.png',
+        route: 'bioquimica'
+    },
+    NutriasPeresosas: {
+        id: 'NutriasPeresosas',
+        name: 'Nutrias Perezosas',
+        subject: 'Fisiología',
+        gameTitle: 'Laboratorio de Digestión',
+        desc: 'Activa la cascada con enterocinasa del ribete en cepillo y absorbe oligopéptidos por el transportador PepT1.',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwf7IWbACLQ1_EdLcduTZzw_B4PPwea2COxmXqgC0OLjg_QG2Mv8UcrMddMXZHysGumb7WKRcncTT9WYCIqoPWIW_Qr7hQ-Bcc637W-5Vpva9GlS9GNcFMrhs0-to7dsB2tRYMVsftKTa9r97GzGP92tI3LCCnIGfvH4rqRSGXekflF9aSQZkX4G6eyaQ/s2048/1792862845901.png',
+        route: 'fisiologia'
+    },
+    MedicoCansado: {
+        id: 'MedicoCansado',
+        name: 'Médico Cansado',
+        subject: 'Fisiología',
+        gameTitle: 'Balanza Ácido-Base',
+        desc: 'Compensa disturbios de acidosis o alcalosis mediante ajuste pulmonar y renal (Henderson-Hasselbalch).',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHOIvSDSDx7TvFvhNcJzNPqey2gN9PLh78IsMoKN_CsVjGk5Ji959TTJegxoyO6fj0LVWPpOPbHNSjZcRPGRfuoqHk0qVv620TgC3_jHJ5VmtbVCJl7o7DN8Ut9X8PCrm4TuXWwZ9eJYxYinKpZMXXQsz0aleWuLpsATMyixLl_aYXB95IiqAbDB0g8QU/s2048/1792862748112.png',
+        route: 'fisiologia'
+    },
+    SinPapeles: {
+        id: 'SinPapeles',
+        name: 'Sin Papeles',
+        subject: 'Psicología',
+        gameTitle: 'El Semáforo Clínico',
+        desc: 'Resuelve las viñetas clínicas de intervención en crisis seleccionando opciones empáticas técnicas (Luz Verde).',
+        image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQ5ZNlqDhV_emF_nTiHMnUM1R7D6qjroGZ_PMhdnyjNLVMwOfv9XW4RadX6ztSLDLKKCeMqwnNRYrTArod7WhRDqZ9Ifpl3vCVg-K_TR7QtUU2rqzfa6LBunY-Ydsp5cfnpe9uCg_jrcgFEHMj__NcXqHjW2XmVlRqB7QHx0jRED_lYQwIQWLf5NaxvLo/s1024/1792864030819.png',
+        route: 'psicologia'
     }
 };
 
-// Función para mostrar las medallas en la UI
+// Migración y saneamiento
+function getCleanUnlockedMedals() {
+    let unlocked = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
+    let changed = false;
+    const migrationMap = {
+        'RutaMetabolica': 'Fotosintesis',
+        'SemaforoClinico': 'SinPapeles',
+        'MatchPsicometrico': 'SinPapeles'
+    };
+    const seen = new Set();
+    const clean = [];
+
+    unlocked.forEach(m => {
+        let currentId = migrationMap[m.id] || m.id;
+        if (window.MEDALS_CATALOG && window.MEDALS_CATALOG[currentId]) {
+            const correctUrl = window.MEDALS_CATALOG[currentId].image;
+            if (!seen.has(currentId)) {
+                seen.add(currentId);
+                clean.push({
+                    id: currentId,
+                    image: correctUrl,
+                    unlockedAt: m.unlockedAt || new Date().toISOString()
+                });
+                if (m.image !== correctUrl || m.id !== currentId) changed = true;
+            } else {
+                changed = true;
+            }
+        }
+    });
+
+    if (changed) {
+        localStorage.setItem(MEDALS_STORAGE_KEY, JSON.stringify(clean));
+    }
+    return clean;
+}
+
+// Desbloquear Medallas
+window.unlockMedal = function (medalId, imagePath) {
+    let unlockedMedals = getCleanUnlockedMedals();
+    const finalUrl = imagePath || (window.MEDALS_CATALOG[medalId] ? window.MEDALS_CATALOG[medalId].image : '');
+    const alreadyUnlocked = unlockedMedals.find(m => m.id === medalId);
+    
+    if (!alreadyUnlocked && finalUrl) {
+        unlockedMedals.push({
+            id: medalId,
+            image: finalUrl,
+            unlockedAt: new Date().toISOString()
+        });
+        localStorage.setItem(MEDALS_STORAGE_KEY, JSON.stringify(unlockedMedals));
+        
+        renderMedals();
+        if (typeof window.actualizarVitrinaMedallas === 'function') window.actualizarVitrinaMedallas();
+        mostrarToastMedalla(medalId);
+        
+        if (typeof window.triggerGameEffect === 'function') window.triggerGameEffect('win');
+    }
+};
+
+// Toast Notificación
+function mostrarToastMedalla(medalId) {
+    const medalData = window.MEDALS_CATALOG[medalId];
+    if (!medalData) return;
+    
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-20 right-6 z-[130] p-4 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-amber-400/50 shadow-2xl flex items-center gap-3.5 transform translate-y-4 opacity-0 transition-all duration-400 pointer-events-none';
+    toast.innerHTML = `
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 p-1 flex items-center justify-center border border-amber-400/40 flex-shrink-0">
+            <img src="${medalData.image}" alt="${medalData.name}" class="w-full h-full object-contain filter drop-shadow">
+        </div>
+        <div>
+            <div class="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400 tracking-wider">¡Nueva Medalla Desbloqueada!</div>
+            <div class="text-sm font-bold text-slate-900 dark:text-white leading-tight">${medalData.name}</div>
+            <div class="text-[11px] text-slate-500 font-medium">${medalData.subject} • ${medalData.gameTitle}</div>
+        </div>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => toast.classList.remove('translate-y-4', 'opacity-0'), 50);
+    setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 400);
+    }, 4500);
+}
+
+// Renderizado visual en UI Inferior y Badges
 function renderMedals() {
     const container = document.getElementById('medals-container');
+    const unlockedMedals = getCleanUnlockedMedals();
+    
+    const headerBadges = document.querySelectorAll('.medals-counter-indicator, #medals-unlocked-badge');
+    headerBadges.forEach(b => {
+        b.textContent = unlockedMedals.length;
+        b.style.display = unlockedMedals.length > 0 ? 'inline-flex' : 'none';
+    });
+
     if (!container) return;
     
-    const unlockedMedals = JSON.parse(localStorage.getItem(MEDALS_STORAGE_KEY)) || [];
-    container.innerHTML = ''; 
+    container.innerHTML = '';
+    container.style.cursor = 'pointer';
+    container.title = 'Toca para abrir la Vitrina de Medallas';
+    container.onclick = () => { if (typeof window.abrirMedallas === 'function') window.abrirMedallas(); };
     
     unlockedMedals.forEach((medal, index) => {
         const medalDiv = document.createElement('div');
         medalDiv.className = 'medal-item';
-        medalDiv.style.zIndex = index + 1; // Mantiene el orden de apilamiento correcto
-        medalDiv.title = `Medalla desbloqueada: ${medal.id}`;
+        medalDiv.style.zIndex = index + 1;
+        const catalogItem = window.MEDALS_CATALOG[medal.id];
+        const titleName = catalogItem ? catalogItem.name : medal.id;
+        medalDiv.title = `Medalla desbloqueada: ${titleName} (Toca para ver vitrina)`;
         
         const img = document.createElement('img');
         img.src = medal.image;
         img.className = 'medal-image';
-        img.alt = medal.id;
+        img.alt = titleName;
         
         medalDiv.appendChild(img);
         container.appendChild(medalDiv);
     });
 }
 
+// ============================================================================
+// CONTROLES DE LA VENTANA MAC OS (ABRIR, CERRAR, MINIMIZAR, EXPANDIR)
+// ============================================================================
+let isExpanded = false;
+let isMinimized = false;
+
+window.abrirMedallas = async function() {
+    let overlay = document.getElementById('medallas-modal-overlay');
+    
+    if (!overlay) {
+        try {
+            const resp = await fetch('medallas.html');
+            if (!resp.ok) throw new Error('Error al cargar medallas.html');
+            const html = await resp.text();
+            document.body.insertAdjacentHTML('beforeend', html);
+            overlay = document.getElementById('medallas-modal-overlay');
+        } catch (err) {
+            console.error('Error cargando la sección medallas.html:', err);
+            return;
+        }
+    }
+    
+    window.actualizarVitrinaMedallas();
+    
+    overlay.classList.remove('opacity-0', 'pointer-events-none');
+    overlay.classList.add('opacity-100');
+    
+    const card = document.getElementById('medallas-card');
+    if (card) {
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+    }
+};
+
+window.cerrarMedallas = function() {
+    const overlay = document.getElementById('medallas-modal-overlay');
+    const card = document.getElementById('medallas-card');
+    if (!overlay) return;
+    
+    if (card) {
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+    }
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0', 'pointer-events-none');
+};
+
+window.expandirMedallas = function() {
+    const card = document.getElementById('medallas-card');
+    const icon = document.getElementById('expand-icon');
+    const overlay = document.getElementById('medallas-modal-overlay');
+    
+    if (isMinimized) window.minimizarMedallas();
+
+    if (!isExpanded) {
+        card.classList.remove('max-w-[1100px]', 'h-[85vh]', 'rounded-[32px]');
+        card.classList.add('w-full', 'h-full', 'rounded-none');
+        overlay.classList.remove('p-2', 'sm:p-6');
+        icon.innerText = 'close_fullscreen';
+        isExpanded = true;
+    } else {
+        card.classList.remove('w-full', 'h-full', 'rounded-none');
+        card.classList.add('max-w-[1100px]', 'h-[85vh]', 'rounded-[32px]');
+        overlay.classList.add('p-2', 'sm:p-6');
+        icon.innerText = 'open_in_full';
+        isExpanded = false;
+    }
+};
+
+window.minimizarMedallas = function() {
+    const card = document.getElementById('medallas-card');
+    const body = document.getElementById('medallas-body');
+    
+    if (!isMinimized) {
+        body.style.display = 'none';
+        card.style.height = 'auto';
+        card.classList.remove('h-[85vh]');
+        if (isExpanded) window.expandirMedallas();
+        isMinimized = true;
+    } else {
+        body.style.display = 'flex';
+        card.classList.add('h-[85vh]');
+        isMinimized = false;
+    }
+};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const overlay = document.getElementById('medallas-modal-overlay');
+        if (overlay && !overlay.classList.contains('opacity-0')) window.cerrarMedallas();
+    }
+});
+
+// ============================================================================
+// ACTUALIZACIÓN DE INTERFAZ (DISEÑO GLASSMORPHISM PREMIUM)
+// ============================================================================
+window.actualizarVitrinaMedallas = function() {
+    const grid = document.getElementById('grid-medallas-retos');
+    const pill = document.getElementById('medals-counter-pill');
+    if (!grid) return;
+    
+    const unlocked = getCleanUnlockedMedals();
+    const unlockedMap = {};
+    unlocked.forEach(m => { unlockedMap[m.id] = m; });
+    
+    if (pill) {
+        pill.textContent = `${unlocked.length} / 8 Obtenidas`;
+    }
+    
+    grid.innerHTML = '';
+    
+    const allMedals = Object.values(window.MEDALS_CATALOG);
+    
+    allMedals.forEach(medal => {
+        const isUnlocked = !!unlockedMap[medal.id];
+        const card = document.createElement('div');
+        
+        // El HTML aquí ha sido adaptado al diseño de cristal (VisionOS)
+        if (isUnlocked) {
+            card.innerHTML = `
+                <div class="premium-glass-card relative p-5 rounded-[28px] flex flex-col justify-between group h-full">
+                    <!-- Icono Check Verde -->
+                    <div class="absolute top-4 right-4 w-7 h-7 rounded-full bg-emerald-400 dark:bg-emerald-500 shadow-[0_0_10px_rgba(52,211,153,0.5)] flex items-center justify-center text-white z-10 border border-white/40">
+                        <span class="material-symbols-outlined text-sm font-bold">check</span>
+                    </div>
+                    
+                    <!-- Imagen de la Medalla -->
+                    <div class="relative w-full h-36 flex items-center justify-center mb-4 mt-2">
+                        <img src="${medal.image}" alt="${medal.name}" class="h-full object-contain medal-img-glow drop-shadow-xl" />
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 backdrop-blur-sm border border-emerald-200 dark:border-emerald-500/30">Desbloqueada</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 backdrop-blur-sm border border-indigo-200 dark:border-indigo-500/30">${medal.subject}</span>
+                    </div>
+
+                    <!-- Textos -->
+                    <div class="flex-grow">
+                        <h4 class="text-lg font-bold text-slate-800 dark:text-white leading-tight mb-2">${medal.name}</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 mb-5">${medal.desc}</p>
+                    </div>
+
+                    <!-- Botón Practicar -->
+                    <button onclick="cerrarMedallas(); if(window.SPA) window.SPA.navigateTo('${medal.route}');" class="mt-auto w-full py-2.5 rounded-2xl bg-white/40 dark:bg-white/10 hover:bg-white/60 dark:hover:bg-white/20 text-slate-800 dark:text-white text-sm font-bold border border-white/50 dark:border-white/10 transition-all flex items-center justify-center gap-1 backdrop-blur-md">
+                        Practicar Reto <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+            `;
+        } else {
+            card.innerHTML = `
+                <div class="premium-glass-card relative p-5 rounded-[28px] flex flex-col justify-between group h-full">
+                    <!-- Imagen Bloqueada -->
+                    <div class="relative w-full h-36 flex items-center justify-center mb-4 mt-2">
+                        <img src="${medal.image}" alt="${medal.name}" class="h-full object-contain filter grayscale opacity-40 transition-all duration-300 group-hover:opacity-60" />
+                        <!-- Candado -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-slate-900/60 dark:bg-black/60 backdrop-blur-md text-white flex items-center justify-center shadow-xl border border-white/20">
+                                <span class="material-symbols-outlined text-xl">lock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-200 text-slate-600 dark:bg-white/10 dark:text-slate-300 backdrop-blur-sm border border-slate-300 dark:border-white/10">Bloqueada</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300 backdrop-blur-sm border border-indigo-200 dark:border-indigo-500/30">${medal.subject}</span>
+                    </div>
+
+                    <!-- Textos -->
+                    <div class="flex-grow">
+                        <h4 class="text-lg font-bold text-slate-800 dark:text-white leading-tight mb-2">${medal.name}</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 mb-5">${medal.desc}</p>
+                    </div>
+
+                    <!-- Botón Desbloquear -->
+                    <button onclick="cerrarMedallas(); if(window.SPA) window.SPA.navigateTo('${medal.route}');" class="mt-auto w-full py-2.5 rounded-2xl bg-blue-500/90 hover:bg-blue-500 text-white text-sm font-bold shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-1 border border-blue-400/50">
+                        Ir a Desbloquear <span class="material-symbols-outlined text-sm">play_arrow</span>
+                    </button>
+                </div>
+            `;
+        }
+        
+        grid.appendChild(card.firstElementChild);
+    });
+};
+
+// Filtro actualizado con clases premium de Tailwind
+window.filtrarMedallasCategoria = function(categoria, btn) {
+    const tabs = document.querySelectorAll('.medal-tab-btn');
+    tabs.forEach(t => {
+        t.className = 'medal-tab-btn px-5 py-2 rounded-full text-sm font-bold bg-transparent text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/5 flex items-center gap-2 transition-all';
+    });
+    if (btn) {
+        btn.className = 'medal-tab-btn active px-5 py-2 rounded-full text-sm font-bold bg-white dark:bg-white/10 text-indigo-600 dark:text-white shadow-sm flex items-center gap-2 transition-all';
+    }
+    
+    const secRetos = document.getElementById('seccion-cat-retos');
+    const secLegendarias = document.getElementById('seccion-cat-legendarias');
+    const secColab = document.getElementById('seccion-cat-colaborativas');
+    const secEnlaces = document.getElementById('seccion-cat-enlaces');
+    
+    if (!secRetos || !secColab || !secEnlaces || !secLegendarias) return;
+
+    secRetos.style.display = (categoria === 'todas' || categoria === 'retos') ? 'block' : 'none';
+    secLegendarias.style.display = (categoria === 'todas' || categoria === 'legendarias') ? 'block' : 'none';
+    secColab.style.display = (categoria === 'todas' || categoria === 'colaborativas') ? 'block' : 'none';
+    secEnlaces.style.display = (categoria === 'todas' || categoria === 'enlaces') ? 'block' : 'none';
+};
+
 // Cargar medallas al inicio
 document.addEventListener('DOMContentLoaded', () => {
     renderMedals(); 
-    initMedalTutorial(); 
+    if (typeof initMedalTutorial === 'function') initMedalTutorial(); 
 });
 
 
