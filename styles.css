@@ -2616,6 +2616,150 @@ body.dark-mode.body-lose-effect {
     }
 }
 
+/* --- Técnica 1: TCC Diafragmática (12s: 4s Inhala [33.3%], 2s Mantén [16.7%], 6s Exhala [50%]) --- */
+@keyframes navBreathingGradientTCC {
+    0% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    33.33% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+}
+@keyframes navScaleBreatheDesktopTCC {
+    0% { transform: translateX(-50%) scale(1); }
+    33.33%, 50% { transform: translateX(-50%) scale(1.08); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+@keyframes navScaleBreatheMobileTCC {
+    0% { transform: scale(1); }
+    33.33%, 50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* --- Técnica 2: TEPT Respiración Cuadrada (16s: 4s Inhala, 4s Mantén, 4s Exhala, 4s Mantén vacío) --- */
+@keyframes navBreathingGradientTEPT {
+    0% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    25% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    75% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+}
+@keyframes navScaleBreatheDesktopTEPT {
+    0% { transform: translateX(-50%) scale(1); }
+    25%, 50% { transform: translateX(-50%) scale(1.08); }
+    75%, 100% { transform: translateX(-50%) scale(1); }
+}
+@keyframes navScaleBreatheMobileTEPT {
+    0% { transform: scale(1); }
+    25%, 50% { transform: scale(1.05); }
+    75%, 100% { transform: scale(1); }
+}
+
+/* --- Técnica 3: TDC 4-7-8 (19s: 4s Inhala [21%], 7s Mantén [37%], 8s Exhala [42%]) --- */
+@keyframes navBreathingGradientTDC {
+    0% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    21.05% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    57.89% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+    100% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+}
+@keyframes navScaleBreatheDesktopTDC {
+    0% { transform: translateX(-50%) scale(1); }
+    21.05%, 57.89% { transform: translateX(-50%) scale(1.08); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+@keyframes navScaleBreatheMobileTDC {
+    0% { transform: scale(1); }
+    21.05%, 57.89% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* --- Técnica 4: Biofeedback / Coherencia VFC (10s: 5s Inhala, 5s Exhala - 6 rpm) --- */
+@keyframes navBreathingGradientBiofeedback {
+    0%, 100% {
+        background-position: 0% 50%;
+        filter: blur(8px);
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    50% {
+        background-position: 100% 50%;
+        filter: blur(16px);
+        transform: scale(1.06);
+        opacity: 1;
+    }
+}
+@keyframes navScaleBreatheDesktopBiofeedback {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.08); }
+}
+@keyframes navScaleBreatheMobileBiofeedback {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
 .header-menu::before {
     content: '';
     position: absolute;
@@ -2646,6 +2790,67 @@ body.dark-mode.body-lose-effect {
 
 .breathing-active-desktop {
     animation: navScaleBreatheDesktop 8s ease-in-out infinite !important;
+}
+
+/* Técnicas de respiración específicas en Desktop */
+.header-menu.breathing-active-desktop.technique-tcc::before {
+    animation: navBreathingGradientTCC 12s ease-in-out infinite !important;
+}
+.header-menu.breathing-active-desktop.technique-tcc {
+    animation: navScaleBreatheDesktopTCC 12s ease-in-out infinite !important;
+}
+
+.header-menu.breathing-active-desktop.technique-tept::before {
+    animation: navBreathingGradientTEPT 16s ease-in-out infinite !important;
+}
+.header-menu.breathing-active-desktop.technique-tept {
+    animation: navScaleBreatheDesktopTEPT 16s ease-in-out infinite !important;
+}
+
+.header-menu.breathing-active-desktop.technique-tdc::before {
+    animation: navBreathingGradientTDC 19s ease-in-out infinite !important;
+}
+.header-menu.breathing-active-desktop.technique-tdc {
+    animation: navScaleBreatheDesktopTDC 19s ease-in-out infinite !important;
+}
+
+.header-menu.breathing-active-desktop.technique-biofeedback::before {
+    animation: navBreathingGradientBiofeedback 10s ease-in-out infinite !important;
+}
+.header-menu.breathing-active-desktop.technique-biofeedback {
+    animation: navScaleBreatheDesktopBiofeedback 10s ease-in-out infinite !important;
+}
+
+/* ---------------------------------------------------- Modal Selector de Break ------------------------------------------------ */
+.break-tab-active {
+    background: #ffffff !important;
+    color: #7c3aed !important;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.16) !important;
+}
+body.dark-mode .break-tab-active {
+    background: #1e293b !important;
+    color: #c084fc !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+}
+
+.custom-pill.active-pill {
+    border-color: #8b5cf6 !important;
+    background: rgba(139, 92, 246, 0.18) !important;
+    color: #7c3aed !important;
+}
+body.dark-mode .custom-pill.active-pill {
+    background: rgba(139, 92, 246, 0.3) !important;
+    color: #c084fc !important;
+}
+
+.tech-dur-pill.active-tech-pill {
+    border-color: #8b5cf6 !important;
+    background: rgba(139, 92, 246, 0.2) !important;
+    color: #7c3aed !important;
+}
+body.dark-mode .tech-dur-pill.active-tech-pill {
+    background: rgba(139, 92, 246, 0.35) !important;
+    color: #c084fc !important;
 }
 
 /* ---------------------------------------------------------- Blur break ------------------------------------------------------------*/
@@ -3827,7 +4032,9 @@ body.dark-mode .labs-badge-suffix {
     .header-menu::before,
     .nav__menu::before,
     .header-menu.breathing-active-desktop::before,
-    .header-menu.breathing-active-mobile .nav__menu::before {
+    .header-menu.breathing-active-mobile .nav__menu::before,
+    .breathing-active-desktop,
+    .header-menu.breathing-active-mobile .nav__menu {
         animation: none !important;
         transition: opacity 0.3s ease !important;
     }
@@ -4238,6 +4445,38 @@ body.dark-mode .labs-badge-suffix {
     .header-menu.breathing-active-mobile .nav__menu::before {
         opacity: 1;
         animation: navBreathingGradient 8s ease-in-out infinite;
+    }
+    .header-menu.breathing-active-mobile .nav__menu {
+        animation: navScaleBreatheMobile 8s ease-in-out infinite !important;
+    }
+
+    /* Técnicas de respiración específicas en Mobile */
+    .header-menu.breathing-active-mobile.technique-tcc .nav__menu::before {
+        animation: navBreathingGradientTCC 12s ease-in-out infinite !important;
+    }
+    .header-menu.breathing-active-mobile.technique-tcc .nav__menu {
+        animation: navScaleBreatheMobileTCC 12s ease-in-out infinite !important;
+    }
+
+    .header-menu.breathing-active-mobile.technique-tept .nav__menu::before {
+        animation: navBreathingGradientTEPT 16s ease-in-out infinite !important;
+    }
+    .header-menu.breathing-active-mobile.technique-tept .nav__menu {
+        animation: navScaleBreatheMobileTEPT 16s ease-in-out infinite !important;
+    }
+
+    .header-menu.breathing-active-mobile.technique-tdc .nav__menu::before {
+        animation: navBreathingGradientTDC 19s ease-in-out infinite !important;
+    }
+    .header-menu.breathing-active-mobile.technique-tdc .nav__menu {
+        animation: navScaleBreatheMobileTDC 19s ease-in-out infinite !important;
+    }
+
+    .header-menu.breathing-active-mobile.technique-biofeedback .nav__menu::before {
+        animation: navBreathingGradientBiofeedback 10s ease-in-out infinite !important;
+    }
+    .header-menu.breathing-active-mobile.technique-biofeedback .nav__menu {
+        animation: navScaleBreatheMobileBiofeedback 10s ease-in-out infinite !important;
     }
 
     .nav__menu::before {

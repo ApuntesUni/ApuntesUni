@@ -103,9 +103,36 @@
                     </div>
 
                     <!-- Contenedor del Break de Relajación (Oculto por defecto) -->
-                    <div id="breathing-display" class="hidden flex-col items-center justify-center w-full h-full text-[var(--black-color)]">
-                        <span id="breathing-text" class="text-xl md:text-2xl font-bold transition-opacity duration-500">Inhala</span>
-                        <span id="breathing-timer" class="font-mono text-sm md:text-base font-black opacity-70 mt-1">05:00</span>
+                    <div id="breathing-display" class="hidden items-center justify-between w-full h-full text-[var(--black-color)] px-2 md:px-5">
+                        <!-- Indicador Izquierdo: Técnica activa -->
+                        <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
+                            <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-sm md:text-base animate-pulse">spa</span>
+                            </span>
+                            <div class="flex flex-col text-left leading-tight hidden xs:flex sm:flex">
+                                <span id="breathing-technique-title" class="text-[11px] md:text-xs font-black truncate max-w-[110px] md:max-w-[180px]">Break 5 min</span>
+                                <span id="breathing-cycle-info" class="text-[9px] md:text-[10px] text-slate-500 dark:text-slate-400 font-medium">Ciclo 8s</span>
+                            </div>
+                        </div>
+
+                        <!-- Centro: Animación dinámica de instrucción y fase -->
+                        <div class="flex flex-col items-center justify-center flex-1 px-1 md:px-3 text-center overflow-hidden">
+                            <div class="flex items-center gap-1.5 md:gap-2">
+                                <span id="breathing-text" class="text-sm md:text-lg font-black tracking-wide text-slate-800 dark:text-white transition-opacity duration-300">Inhala</span>
+                                <span id="breathing-phase-timer" class="text-[10px] md:text-xs font-mono font-black bg-blue-500/20 text-blue-600 dark:text-blue-300 dark:bg-blue-400/20 px-2 py-0.5 rounded-full min-w-[28px] text-center">4s</span>
+                            </div>
+                            <span id="breathing-instruction" class="text-[9px] md:text-xs text-slate-600 dark:text-slate-300 font-medium truncate max-w-[180px] sm:max-w-[320px] md:max-w-[420px] transition-opacity duration-300">
+                                Infla suavemente el abdomen
+                            </span>
+                        </div>
+
+                        <!-- Indicador Derecho: Tiempo restante total y botón de cancelar/finalizar -->
+                        <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
+                            <span id="breathing-timer" class="font-mono text-xs md:text-sm font-black opacity-85 bg-slate-200/60 dark:bg-slate-700/60 px-2 md:px-2.5 py-1 rounded-full text-slate-800 dark:text-slate-100">05:00</span>
+                            <button id="btn-stop-break" type="button" class="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center bg-red-500/15 hover:bg-red-500/30 text-red-600 dark:text-red-400 border border-red-500/30 transition-all active:scale-95 shadow-sm" title="Finalizar descanso">
+                                <i class="ri-close-line text-sm md:text-base font-bold"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="mini-player-nav" id="mini-player-nav" style="display: none;">
@@ -3463,15 +3490,6 @@
         <button class="desktop-theme-fab" id="desktop-break-btn" title="Break de Relajación">
             <span class="material-symbols-outlined text-[24px] text-[var(--text-glasseffect)] transition-colors duration-300">self_improvement</span>
         </button>
-    </div>
-    <!-- Overlay de blur esmerilado -->
-    <div id="break-blur-overlay" class="break-blur-overlay flex items-center justify-center" aria-hidden="true">
-        
-        <div id="tu-contador-existente" class="..."></div>
-
-        <div id="dynamic-break-card" class="break-glass-card opacity-0 transform scale-95 transition-all duration-700 ease-out flex-col md:flex-row">
-            <!-- El contenido rotativo se inyectará vía JavaScript -->
-        </div>
     </div>
     
 </body>

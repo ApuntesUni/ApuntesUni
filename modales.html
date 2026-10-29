@@ -606,3 +606,309 @@
         </div>
     </div>
 </div>
+<!-- Overlay de blur esmerilado -->
+<div id="break-blur-overlay" class="break-blur-overlay flex items-center justify-center" aria-hidden="true">
+    
+    <div id="tu-contador-existente" class="..."></div>
+
+    <div id="dynamic-break-card" class="break-glass-card opacity-0 transform scale-95 transition-all duration-700 ease-out flex-col md:flex-row">
+        <!-- El contenido rotativo se inyectará vía JavaScript -->
+    </div>
+</div>
+<!-- Overlay de break -->
+<div id="modal-break-selector" class="fixed inset-0 z-[10005] flex items-center justify-center bg-[var(--rgba-navigation)] backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none hidden" aria-hidden="true">
+        
+    <!-- CARD PRINCIPAL: Efecto Cristal Esmerilado (Glassmorphism) sin bordes -->
+    <div id="break-modal-card" class="relative w-[94%] max-w-[760px] max-h-[90vh] bg-[var(--background-color)]/85 backdrop-blur-2xl rounded-[30px] overflow-hidden transition-all duration-300 scale-95 flex flex-col shadow-[0_8px_32px_0_rgba(0,0,0,0.15)]">
+        
+        <!-- Barra Superior / Header -->
+        <div class="px-5 py-4 flex items-center justify-between bg-[var(--background-navigation)]/60 backdrop-blur-md shrink-0">
+            <div class="flex items-center gap-3">
+                <span class="w-10 h-10 rounded-2xl bg-[var(--gradiant-ai)] flex items-center justify-center text-[var(--icon-ai)] shadow-sm shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">self_improvement</span>
+                </span>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="text-base md:text-lg font-black text-[var(--black-color)] leading-tight">Modo Break & Respiración</h3>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--gradiant-ai-pink)] text-[var(--text-ai)] shadow-sm">Salud Activa</span>
+                    </div>
+                    <p class="text-[11px] md:text-xs text-[var(--color-text-inactive)] mt-0.5">Elige tu descanso o practica una técnica clínica de respiración</p>
+                </div>
+            </div>
+
+            <button id="btn-close-break-modal" type="button" class="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--color-sub-bg)]/80 hover:bg-[var(--color-sub-bg-dos)] text-[var(--black-color)] transition-all active:scale-95 shadow-sm" title="Cerrar ventana">
+                <i class="ri-close-line text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Navegación por Pestañas (Tabs) -->
+        <div class="px-4 md:px-6 pt-3 pb-2 bg-[var(--background-navigation)]/40 backdrop-blur-sm shrink-0">
+            <div class="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-[var(--color-sub-bg)]/60 text-xs font-bold shadow-inner">
+                <button type="button" class="break-tab-btn flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl transition-all break-tab-active text-[var(--black-color)] bg-[var(--card-dialog)] shadow-sm" data-tab="tab-5min">
+                    <span class="material-symbols-outlined text-base">timer</span>
+                    <span class="truncate">5 Minutos</span>
+                </button>
+                <button type="button" class="break-tab-btn flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl transition-all text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:bg-[var(--card-dialog)]/50" data-tab="tab-custom">
+                    <span class="material-symbols-outlined text-base">tune</span>
+                    <span class="truncate">Personalizado</span>
+                </button>
+                <button type="button" class="break-tab-btn flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl transition-all text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:bg-[var(--card-dialog)]/50" data-tab="tab-techniques">
+                    <span class="material-symbols-outlined text-base">psychology</span>
+                    <span class="truncate">Técnicas Clínicas</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Cuerpo Scrolleable del Modal -->
+        <div class="p-4 md:p-6 overflow-y-auto custom-scrollbar space-y-4 text-[var(--black-color)] text-sm">
+            
+            <!-- TAB 1: 5 Minutos (Descanso Clásico) -->
+            <div id="tab-5min" class="break-tab-content space-y-4">
+                <div class="relative overflow-hidden rounded-[24px] p-5 md:p-6 bg-[var(--card-dialog)]/70 backdrop-blur-md shadow-[var(--box-indicator)] flex flex-col md:flex-row items-center gap-5">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-[var(--gradiant-ai)] flex items-center justify-center text-[var(--icon-ai)] shadow-sm shrink-0">
+                        <span class="material-symbols-outlined text-4xl">coffee</span>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[var(--color-sub-bg)]/80 text-[var(--black-color)] shadow-sm mb-2">
+                            <span class="material-symbols-outlined text-xs text-[var(--icon-ai)]">auto_awesome</span> Pausa Estándar Pomodoro
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-black text-[var(--black-color)] leading-snug">
+                            Descanso de 5 Minutos
+                        </h4>
+                        <p class="text-xs md:text-sm text-[var(--color-text-inactive)] mt-1 leading-relaxed">
+                            Pausa equilibrada para descansar la vista, desconectar y respirar con fluidez (4s Inhala / 4s Exhala). Incluye tarjetas rotativas de hidratación, música, snacks saludables y estiramientos musculares.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)]/60 backdrop-blur-sm text-center shadow-[var(--box-indicator)] transition-transform hover:-translate-y-0.5">
+                        <span class="material-symbols-outlined text-[var(--icon-ai)] text-xl mb-1">timer</span>
+                        <div class="text-xs font-bold text-[var(--black-color)]">5:00 Minutos</div>
+                        <div class="text-[10px] text-[var(--color-text-inactive)]">Duración predefinida</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)]/60 backdrop-blur-sm text-center shadow-[var(--box-indicator)] transition-transform hover:-translate-y-0.5">
+                        <span class="material-symbols-outlined text-[var(--icon-ai)] text-xl mb-1">air</span>
+                        <div class="text-xs font-bold text-[var(--black-color)]">Ritmo 4s / 4s</div>
+                        <div class="text-[10px] text-[var(--color-text-inactive)]">Respiración suave</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-[var(--background-navigation)]/60 backdrop-blur-sm text-center shadow-[var(--box-indicator)] transition-transform hover:-translate-y-0.5">
+                        <span class="material-symbols-outlined text-[var(--icon-ai)] text-xl mb-1">style</span>
+                        <div class="text-xs font-bold text-[var(--black-color)]">Tips dinámicos</div>
+                        <div class="text-[10px] text-[var(--color-text-inactive)]">Recomendaciones activas</div>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="button" id="btn-start-5min" class="w-full py-3.5 px-6 rounded-2xl text-sm font-black text-[var(--navigation-text)] bg-[var(--color-main-btn)] hover:bg-[var(--color-nav-bg)] hover:text-[var(--black-color)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">play_arrow</span>
+                        Iniciar Descanso de 5 Minutos
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB 2: Personalizado -->
+            <div id="tab-custom" class="break-tab-content hidden space-y-4">
+                <div class="p-5 rounded-[24px] bg-[var(--card-dialog)]/70 backdrop-blur-md shadow-[var(--box-indicator)]">
+                    <h4 class="text-lg md:text-xl font-black text-[var(--black-color)] leading-tight">
+                        Descanso Personalizado
+                    </h4>
+                    <p class="text-xs md:text-sm text-[var(--color-text-inactive)] mt-1">
+                        Escoge la cantidad de minutos que deseas mantenerte en modo break adaptado a tu ritmo de estudio.
+                    </p>
+                </div>
+
+                <!-- Píldoras rápidas -->
+                <div>
+                    <label class="block text-xs font-bold text-[var(--black-color)] mb-2">Selección rápida de tiempo:</label>
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="custom-quick-pills">
+                        <button type="button" data-mins="1" class="custom-pill py-2 px-3 rounded-xl text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:shadow-md transition-all">1 min</button>
+                        <button type="button" data-mins="2" class="custom-pill py-2 px-3 rounded-xl text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:shadow-md transition-all">2 min</button>
+                        <button type="button" data-mins="3" class="custom-pill py-2 px-3 rounded-xl text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:shadow-md transition-all">3 min</button>
+                        <button type="button" data-mins="5" class="custom-pill py-2 px-3 rounded-xl text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:shadow-md transition-all">5 min</button>
+                        <button type="button" data-mins="10" class="custom-pill py-2 px-3 rounded-xl text-xs font-bold bg-[var(--gradiant-ai)] shadow-md text-[var(--black-color)] transition-all active-pill">10 min</button>
+                        <button type="button" data-mins="15" class="custom-pill py-2 px-3 rounded-xl text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] hover:shadow-md transition-all">15 min</button>
+                    </div>
+                </div>
+
+                <!-- Ajuste Fino / Stepper -->
+                <div class="p-4 rounded-2xl bg-[var(--background-navigation)]/60 backdrop-blur-md shadow-[var(--box-indicator)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-[var(--black-color)] block">Tiempo personalizado manual:</span>
+                        <span class="text-[11px] text-[var(--color-text-inactive)]">Rango permitido entre 1 y 60 minutos</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button type="button" id="btn-dec-custom-min" class="w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--color-sub-bg)]/80 hover:bg-[var(--color-sub-bg-dos)] transition-all text-[var(--black-color)] font-bold text-lg active:scale-95 shadow-sm">
+                            <i class="ri-subtract-line"></i>
+                        </button>
+                        <div class="flex items-baseline gap-1 min-w-[70px] justify-center">
+                            <span id="custom-minutes-display" class="text-2xl font-black text-[var(--icon-ai)] drop-shadow-sm">10</span>
+                            <span class="text-xs font-bold text-[var(--color-text-inactive)]">min</span>
+                        </div>
+                        <button type="button" id="btn-inc-custom-min" class="w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--color-sub-bg)]/80 hover:bg-[var(--color-sub-bg-dos)] transition-all text-[var(--black-color)] font-bold text-lg active:scale-95 shadow-sm">
+                            <i class="ri-add-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="button" id="btn-start-custom" class="w-full py-3.5 px-6 rounded-2xl text-sm font-black text-[var(--navigation-text)] bg-[var(--color-main-btn)] hover:bg-[var(--color-nav-bg)] hover:text-[var(--black-color)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">play_arrow</span>
+                        <span id="btn-start-custom-label">Iniciar Descanso de 10 Minutos</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB 3: Técnicas de Respiración Terapéuticas -->
+            <div id="tab-techniques" class="break-tab-content hidden space-y-4">
+                
+                <!-- Selector de duración de la sesión terapéutica -->
+                <div class="p-3.5 rounded-2xl bg-[var(--gradiant-ai)]/90 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[var(--icon-ai)] text-xl drop-shadow-sm">acute</span>
+                        <span class="text-xs font-bold text-[var(--black-color)]">Duración de la sesión de respiración:</span>
+                    </div>
+                    <div class="flex items-center gap-1.5" id="tech-duration-pills">
+                        <button type="button" data-tech-mins="2" class="tech-dur-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] transition-all">2 min</button>
+                        <button type="button" data-tech-mins="3" class="tech-dur-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] transition-all">3 min</button>
+                        <button type="button" data-tech-mins="5" class="tech-dur-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-[var(--background-color)]/90 shadow-md text-[var(--black-color)] transition-all active-tech-pill">5 min</button>
+                        <button type="button" data-tech-mins="10" class="tech-dur-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-[var(--background-navigation)]/60 shadow-sm text-[var(--color-text-inactive)] hover:text-[var(--black-color)] transition-all">10 min</button>
+                    </div>
+                </div>
+
+                <!-- Las 4 Técnicas Clínicas -->
+                <div class="space-y-3.5">
+                    
+                    <!-- 1. TCC -->
+                    <div class="rounded-2xl p-4 md:p-5 bg-[var(--background-navigation)]/60 backdrop-blur-sm hover:shadow-lg transition-all shadow-[var(--box-indicator)] flex flex-col gap-3 group">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-xl bg-[var(--gradiant-ai)] text-[var(--icon-ai)] shadow-sm flex items-center justify-center font-black text-xs shrink-0 group-hover:scale-110 transition-transform">
+                                    TCC
+                                </span>
+                                <div>
+                                    <h5 class="text-sm md:text-base font-black text-[var(--black-color)] leading-tight">
+                                        Respiración Diafragmática (Abdominal)
+                                    </h5>
+                                    <span class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase tracking-wider">
+                                        Terapia Cognitivo-Conductual
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[var(--color-sub-bg)]/80 text-[var(--black-color)] shadow-inner w-fit">
+                                Inhala 4s · Pausa 2s · Exhala 6s
+                            </span>
+                        </div>
+
+                        <p class="text-xs leading-relaxed text-[var(--color-text-inactive)] bg-[var(--color-sub-bg-dos)]/50 p-3 rounded-xl">
+                            La respiración diafragmática es el estándar clínico para tratar el trastorno de pánico y la ansiedad generalizada. Se prescribe como un "interruptor" físico para romper el ciclo de hiperventilación y taquicardia.
+                        </p>
+
+                        <button type="button" class="btn-start-technique self-end w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--navigation-text)] bg-[var(--color-main-btn)] hover:bg-[var(--color-nav-bg)] hover:text-[var(--black-color)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] transition-all active:scale-95 flex items-center justify-center gap-2" data-tech="tcc">
+                            <span class="material-symbols-outlined text-sm">play_arrow</span>
+                            Practicar TCC Diafragmática
+                        </button>
+                    </div>
+
+                    <!-- 2. TEPT -->
+                    <div class="rounded-2xl p-4 md:p-5 bg-[var(--background-navigation)]/60 backdrop-blur-sm hover:shadow-lg transition-all shadow-[var(--box-indicator)] flex flex-col gap-3 group">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-xl bg-[var(--gradiant-ai-green)] text-[var(--indicator-color)] shadow-sm flex items-center justify-center font-black text-xs shrink-0 group-hover:scale-110 transition-transform">
+                                    TEPT
+                                </span>
+                                <div>
+                                    <h5 class="text-sm md:text-base font-black text-[var(--black-color)] leading-tight">
+                                        Respiración Cuadrada (4x4 Box Grounding)
+                                    </h5>
+                                    <span class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase tracking-wider">
+                                        Tratamiento de Trauma y Terapias Somáticas
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[var(--color-sub-bg)]/80 text-[var(--black-color)] shadow-inner w-fit">
+                                Inhala 4s · Mantén 4s · Exhala 4s · Vacío 4s
+                            </span>
+                        </div>
+
+                        <p class="text-xs leading-relaxed text-[var(--color-text-inactive)] bg-[var(--color-sub-bg-dos)]/50 p-3 rounded-xl">
+                            La respiración cuadrada (4x4) se utiliza como técnica de anclaje (grounding). Ayuda a reconectar con el cuerpo en el presente y a recuperar el control de la corteza prefrontal en estados de desrealización.
+                        </p>
+
+                        <button type="button" class="btn-start-technique self-end w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--navigation-text)] bg-[var(--color-main-btn)] hover:bg-[var(--color-nav-bg)] hover:text-[var(--black-color)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] transition-all active:scale-95 flex items-center justify-center gap-2" data-tech="tept">
+                            <span class="material-symbols-outlined text-sm">play_arrow</span>
+                            Practicar Cuadrada 4x4
+                        </button>
+                    </div>
+
+                    <!-- 3. TDC -->
+                    <div class="rounded-2xl p-4 md:p-5 bg-[var(--background-navigation)]/60 backdrop-blur-sm hover:shadow-lg transition-all shadow-[var(--box-indicator)] flex flex-col gap-3 group">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-xl bg-[var(--gradiant-ai-pink)] text-[var(--text-ai)] shadow-sm flex items-center justify-center font-black text-xs shrink-0 group-hover:scale-110 transition-transform">
+                                    TDC
+                                </span>
+                                <div>
+                                    <h5 class="text-sm md:text-base font-black text-[var(--black-color)] leading-tight">
+                                        Técnica 4-7-8 (Tolerancia al Malestar)
+                                    </h5>
+                                    <span class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase tracking-wider">
+                                        TDC y Terapias Basadas en Mindfulness
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[var(--color-sub-bg)]/80 text-[var(--black-color)] shadow-inner w-fit">
+                                Inhala 4s · Mantén 7s · Exhala 8s
+                            </span>
+                        </div>
+
+                        <p class="text-xs leading-relaxed text-[var(--color-text-inactive)] bg-[var(--color-sub-bg-dos)]/50 p-3 rounded-xl">
+                            Su objetivo es dar al paciente una herramienta física para soportar crisis emocionales agudas sin recurrir a conductas impulsivas o autodestructivas, reduciendo de inmediato la excitación nerviosa.
+                        </p>
+
+                        <button type="button" class="btn-start-technique self-end w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--navigation-text)] bg-[var(--color-main-btn)] hover:bg-[var(--color-nav-bg)] hover:text-[var(--black-color)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] transition-all active:scale-95 flex items-center justify-center gap-2" data-tech="tdc">
+                            <span class="material-symbols-outlined text-sm">play_arrow</span>
+                            Practicar Técnica 4-7-8
+                        </button>
+                    </div>
+
+                    <!-- 4. Biofeedback -->
+                    <div class="rounded-2xl p-4 md:p-5 bg-[var(--background-navigation)]/60 backdrop-blur-sm hover:shadow-lg transition-all shadow-[var(--box-indicator)] flex flex-col gap-3 group">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-xl bg-[var(--gradiant-red)] text-[var(--line-neon-perfil-explocion)] shadow-sm flex items-center justify-center font-black text-xs shrink-0 group-hover:scale-110 transition-transform">
+                                    VFC
+                                </span>
+                                <div>
+                                    <h5 class="text-sm md:text-base font-black text-[var(--black-color)] leading-tight">
+                                        Biofeedback y Coherencia Cardíaca
+                                    </h5>
+                                    <span class="text-[10px] text-[var(--color-text-inactive)] font-bold uppercase tracking-wider">
+                                        Biorretroalimentación y Resonancia
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[var(--color-sub-bg)]/80 text-[var(--black-color)] shadow-inner w-fit">
+                                Inhala 5s · Exhala 5s · Ritmo 6 rpm
+                            </span>
+                        </div>
+
+                        <p class="text-xs leading-relaxed text-[var(--color-text-inactive)] bg-[var(--color-sub-bg-dos)]/50 p-3 rounded-xl">
+                            Esta técnica sincroniza la respiración a 6 respiraciones por minuto (rpm) para maximizar la variabilidad de la frecuencia cardíaca (VFC), creando un estado de máxima eficiencia fisiológica y calma mental.
+                        </p>
+
+                        <button type="button" class="btn-start-technique self-end w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--navigation-text)] bg-[var(--color-main-btn)] hover:bg-[var(--color-nav-bg)] hover:text-[var(--black-color)] shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] transition-all active:scale-95 flex items-center justify-center gap-2" data-tech="biofeedback">
+                            <span class="material-symbols-outlined text-sm">play_arrow</span>
+                            Practicar Biofeedback VFC
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
