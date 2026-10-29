@@ -614,6 +614,23 @@
     <div id="dynamic-break-card" class="break-glass-card opacity-0 transform scale-95 transition-all duration-700 ease-out flex-col md:flex-row">
         <!-- El contenido rotativo se inyectará vía JavaScript -->
     </div>
+
+    <!-- NUEVA INTERFAZ PARA TÉCNICAS CLÍNICAS -->
+    <div id="clinical-breathing-ui" class="hidden flex-col items-center justify-center text-center z-50 transition-opacity duration-300 w-full h-full relative">
+        
+        <div class="md:absolute md:left-[15%] md:top-1/2 md:-translate-y-1/2 mb-8 md:mb-0 transition-opacity duration-300" id="avatar-container">
+            <img id="clinical-avatar" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYaInD8vLXO8wyw8gznMvjXF5O-xWKc4f0I6i4NjHnRqPQHbwi6DcUmEt47bYJ1VcCRqcMbjAc3P2-CmB3NKWFzb-ibq9qD4HRq7cLemuGybs5IgDQo_1k7p6iKpCukj9QkfYV2b-yzMNc2mOENDNuVTsAAe07-vp1bBVGkrDH3QIUEPHPyqDCbiYFmZE/s2048/1793310874497.png" alt="Avatar de respiración" class="w-40 h-40 md:w-64 md:h-64 object-contain drop-shadow-2xl animate-float">
+        </div>
+
+        <h2 id="clinical-phase-text" class="text-6xl md:text-8xl font-black text-transparent bg-clip-text mb-4 drop-shadow-lg transition-opacity duration-300 bg-gradient-to-r">Mantén</h2>
+        <p id="clinical-instruction-text" class="text-xl md:text-3xl text-[var(--black-color)] font-medium max-w-2xl px-4 transition-colors duration-300">Mantén el aire con calma y presencia plena</p>
+        
+        <div class="mt-10 md:mt-16 flex items-center justify-center w-36 h-36 md:w-44 md:h-44 organic-bubble-timer transition-opacity duration-300" id="bubble-timer-container">
+            <span id="clinical-timer-text" class="text-5xl md:text-6xl font-black text-slate-800 dark:text-white transition-colors duration-300">2s</span>
+        </div>
+
+    </div>
+
 </div>
 <!-- Overlay de break -->
 <div id="modal-break-selector" class="fixed inset-0 z-[10005] flex items-center justify-center bg-[var(--rgba-navigation)] backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none hidden" aria-hidden="true">

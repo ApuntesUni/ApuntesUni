@@ -672,6 +672,17 @@ function iniciarBreak(tipo, opciones = {}) {
     const breathingCycle = document.getElementById('breathing-cycle-info');
     const blurOverlay = document.getElementById('break-blur-overlay');
 
+    // Referencias a los contenedores que vamos a alternar
+    const medalsContainer = document.getElementById('medals-container');
+    const breathingCenterInfo = document.getElementById('breathing-center-info'); 
+    const dynamicBreakCard = document.getElementById('dynamic-break-card');
+    const clinicalBreathingUi = document.getElementById('clinical-breathing-ui');
+    const clinicalPhaseText = document.getElementById('clinical-phase-text');
+    const clinicalInstructionText = document.getElementById('clinical-instruction-text');
+    const clinicalTimerText = document.getElementById('clinical-timer-text');
+
+    const isClinical = (tipo === 'tecnica');
+
     // Configurar técnica y duración
     if (tipo === 'estandar_5min') {
         currentActiveTechnique = clinicalBreathingTechniques['estandar_5min'];
@@ -690,8 +701,9 @@ function iniciarBreak(tipo, opciones = {}) {
     }
 
     breakActive = true;
+    detenerTarjetasDinamicas(); // Siempre detenemos posibles tarjetas previas
 
-    // Actualizar menú y barra de respiración
+    // Actualizar menú y barra superior
     if (mainNavList) mainNavList.style.display = 'none';
     if (mainFabToggle) mainFabToggle.style.display = 'none';
     if (breathingDisplay) {
@@ -699,7 +711,7 @@ function iniciarBreak(tipo, opciones = {}) {
         breathingDisplay.classList.add('flex');
     }
 
-    // Configurar clases dinámicas para gradiente y escala adaptados a la técnica
+    // Configurar clases dinámicas para la barra del menú
     if (headerMenu) {
         headerMenu.classList.remove(
             'breathing-active-desktop',
@@ -719,37 +731,63 @@ function iniciarBreak(tipo, opciones = {}) {
         }
     }
 
-    // Activar overlay desenfocado
+    // Título y ciclo en la barra
+    if (breathingTitle) breathingTitle.textContent = currentActiveTechnique.title;
+    if (breathingCycle) breathingCycle.textContent = currentActiveTechnique.cycleInfo;
+
+    // Activar overlay
     if (blurOverlay) {
         blurOverlay.classList.add('is-active');
         blurOverlay.setAttribute('aria-hidden', 'false');
     }
 
-    // Título y ciclo en la barra
-    if (breathingTitle) breathingTitle.textContent = currentActiveTechnique.title;
-    if (breathingCycle) breathingCycle.textContent = currentActiveTechnique.cycleInfo;
+    // LÓGICA CONDICIONAL DE VISIBILIDAD
+    if (isClinical) {
+        if (medalsContainer) medalsContainer.style.display = 'none';
+        if (breathingCenterInfo) breathingCenterInfo.style.display = 'none';
+        if (dynamicBreakCard) dynamicBreakCard.style.display = 'none';
+        if (clinicalBreathingUi) {
+            clinicalBreathingUi.classList.remove('hidden');
+            clinicalBreathingUi.classList.add('flex');
+            
+            // Aplicar colores correctos al texto principal según la técnica
+            if (clinicalPhaseText) {
+                clinicalPhaseText.className = 'text-6xl md:text-8xl font-black text-transparent bg-clip-text mb-4 drop-shadow-lg transition-opacity duration-300 bg-gradient-to-r';
+                if (currentActiveTechnique.id === 'tcc') clinicalPhaseText.classList.add('from-blue-500', 'to-indigo-500');
+                else if (currentActiveTechnique.id === 'tept') clinicalPhaseText.classList.add('from-emerald-500', 'to-teal-500');
+                else if (currentActiveTechnique.id === 'tdc') clinicalPhaseText.classList.add('from-purple-500', 'to-pink-500');
+                else if (currentActiveTechnique.id === 'biofeedback') clinicalPhaseText.classList.add('from-pink-500', 'to-rose-500');
+                else clinicalPhaseText.classList.add('from-blue-500', 'to-indigo-500'); // Fallback
+            }
+        }
+    } else {
+        if (medalsContainer) medalsContainer.style.display = ''; 
+        if (breathingCenterInfo) breathingCenterInfo.style.display = 'flex';
+        if (dynamicBreakCard) dynamicBreakCard.style.display = ''; 
+        if (clinicalBreathingUi) {
+            clinicalBreathingUi.classList.add('hidden');
+            clinicalBreathingUi.classList.remove('flex');
+        }
+        // Las tarjetas dinámicas rotativas solo se inicializan en los breaks estándar/personalizados
+        iniciarTarjetasDinamicas(currentActiveTechnique);
+    }
 
-    // Iniciar tarjetas rotativas (con la técnica activa al inicio)
-    iniciarTarjetasDinamicas(currentActiveTechnique);
-
-    // Inicializar fases de respiración
+    // Inicializar primera fase
     currentPhaseIndex = 0;
     const initialPhase = currentActiveTechnique.phases[0];
     phaseSecondsLeft = initialPhase.duration;
     aplicarFaseUI(initialPhase, phaseSecondsLeft);
     actualizarTimerText();
 
-    // Intervalo de cuenta regresiva total del descanso
+    // Cuenta regresiva principal
     clearInterval(breakTimerInterval);
     breakTimerInterval = setInterval(() => {
         breakTimeLeft--;
         actualizarTimerText();
-        if (breakTimeLeft <= 0) {
-            detenerBreak();
-        }
+        if (breakTimeLeft <= 0) detenerBreak();
     }, 1000);
 
-    // Intervalo de las fases dinámicas de respiración (Inhala, Mantén, Exhala, etc.)
+    // Fases de respiración (Inhala, Mantén, Exhala)
     clearInterval(breakPhaseInterval);
     breakPhaseInterval = setInterval(() => {
         phaseSecondsLeft--;
@@ -759,25 +797,58 @@ function iniciarBreak(tipo, opciones = {}) {
             const nextPhase = currentActiveTechnique.phases[currentPhaseIndex];
             phaseSecondsLeft = nextPhase.duration;
 
+            // Transición suave
             if (breathingText) breathingText.style.opacity = 0;
             if (breathingInstruction) breathingInstruction.style.opacity = 0;
+            const avatarContainer = document.getElementById('avatar-container');
+            if (isClinical) {
+                if (clinicalPhaseText) clinicalPhaseText.style.opacity = 0;
+                if (clinicalInstructionText) clinicalInstructionText.style.opacity = 0;
+                if (avatarContainer) avatarContainer.style.opacity = 0;
+            }
 
             setTimeout(() => {
                 aplicarFaseUI(nextPhase, phaseSecondsLeft);
                 if (breathingText) breathingText.style.opacity = 1;
                 if (breathingInstruction) breathingInstruction.style.opacity = 1;
+                if (isClinical) {
+                    if (clinicalPhaseText) clinicalPhaseText.style.opacity = 1;
+                    if (clinicalInstructionText) clinicalInstructionText.style.opacity = 1;
+                    if (avatarContainer) avatarContainer.style.opacity = 1;
+                }
             }, 250);
         } else {
             const phaseTimerElem = document.getElementById('breathing-phase-timer');
             if (phaseTimerElem) phaseTimerElem.textContent = `${phaseSecondsLeft}s`;
+            if (isClinical && clinicalTimerText) clinicalTimerText.textContent = `${phaseSecondsLeft}s`;
         }
     }, 1000);
 
+    
     function aplicarFaseUI(phase, secs) {
         if (breathingText) breathingText.textContent = phase.name;
         if (breathingInstruction) breathingInstruction.textContent = phase.instruction;
         const phaseTimerElem = document.getElementById('breathing-phase-timer');
         if (phaseTimerElem) phaseTimerElem.textContent = `${secs}s`;
+
+        if (isClinical) {
+            if (clinicalPhaseText) clinicalPhaseText.textContent = phase.name;
+            if (clinicalInstructionText) clinicalInstructionText.textContent = phase.instruction;
+            if (clinicalTimerText) clinicalTimerText.textContent = `${secs}s`;
+
+            const avatarImg = document.getElementById('clinical-avatar');
+            if (avatarImg) {
+                const phaseNameNormalized = phase.name.toLowerCase();
+                
+                if (phaseNameNormalized.includes('inhala')) {
+                    avatarImg.src = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYaInD8vLXO8wyw8gznMvjXF5O-xWKc4f0I6i4NjHnRqPQHbwi6DcUmEt47bYJ1VcCRqcMbjAc3P2-CmB3NKWFzb-ibq9qD4HRq7cLemuGybs5IgDQo_1k7p6iKpCukj9QkfYV2b-yzMNc2mOENDNuVTsAAe07-vp1bBVGkrDH3QIUEPHPyqDCbiYFmZE/s2048/1793310874497.png'; 
+                } else if (phaseNameNormalized.includes('mantén') || phaseNameNormalized.includes('manten') || phaseNameNormalized.includes('retiene')) {
+                    avatarImg.src = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyI7aZzMnDIZkM3UM4LBKpmBIOx1HxI3x7iFyASHKKHxtVO36lapfuUROQNU6KfwMoVOtMI_n1vcFYkI9XOXj9l29RW7Zojot6TrddwI9alGd8mWe18szRNacDSZxU8tzp07OzMkhK8gxv3Arooc1khrWNbIY0L7tvYEA7zYmGdeKqVkeZ06jG-Ab7XWk/s2048/1793310912263.png';
+                } else if (phaseNameNormalized.includes('exhala')) {
+                    avatarImg.src = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjw8MxOrq8H2LvB7hMd-EbgP4UwR3oppN1uivCC5-CgJdWImVjr1ah5QMw1R8fAdsLdxRZy-XpPSCfjweOaBk874LFCNPEPz91iG0tt5u9igYUQPqOZpeMGQNT5bYFbElpLqIpStHO2A-Yfbh91ln__N5bOgoRxlImQ4t6aBrkG_kdlCnkY6Slh6tZDazs/s2048/1793310897349.png';
+                }
+            }
+        }
     }
 
     function actualizarTimerText() {
@@ -801,6 +872,11 @@ function detenerBreak() {
     const mainFabToggle = document.getElementById('mainFabToggle');
     const breathingDisplay = document.getElementById('breathing-display');
     const blurOverlay = document.getElementById('break-blur-overlay');
+    
+    const medalsContainer = document.getElementById('medals-container');
+    const breathingCenterInfo = document.getElementById('breathing-center-info');
+    const dynamicBreakCard = document.getElementById('dynamic-break-card');
+    const clinicalBreathingUi = document.getElementById('clinical-breathing-ui');
 
     if (headerMenu) {
         headerMenu.classList.remove(
@@ -825,6 +901,15 @@ function detenerBreak() {
     if (blurOverlay) {
         blurOverlay.classList.remove('is-active');
         blurOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // Restaurar siempre la vista estándar para que no se quede oculta para el futuro
+    if (medalsContainer) medalsContainer.style.display = '';
+    if (breathingCenterInfo) breathingCenterInfo.style.display = 'flex';
+    if (dynamicBreakCard) dynamicBreakCard.style.display = '';
+    if (clinicalBreathingUi) {
+        clinicalBreathingUi.classList.add('hidden');
+        clinicalBreathingUi.classList.remove('flex');
     }
 }
 

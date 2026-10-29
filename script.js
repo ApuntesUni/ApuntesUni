@@ -138,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
 /* ---------------------------------------------------- Tarjetas Apiladas Dinámicas (Embriología) ------------------------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
     const deck = document.getElementById('embrio-multitask-deck');

@@ -103,7 +103,8 @@
                     </div>
 
                     <!-- Contenedor del Break de Relajación (Oculto por defecto) -->
-                    <div id="breathing-display" class="hidden items-center justify-between w-full h-full text-[var(--black-color)] px-2 md:px-5">
+                    <div id="breathing-display" class="hidden items-center justify-between w-full h-full text-[var(--black-color)] px-2 md:px-5 md:relative">
+                        
                         <!-- Indicador Izquierdo: Técnica activa -->
                         <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
                             <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
@@ -116,7 +117,7 @@
                         </div>
 
                         <!-- Centro: Animación dinámica de instrucción y fase -->
-                        <div class="flex flex-col items-center justify-center flex-1 px-1 md:px-3 text-center overflow-hidden">
+                        <div id="breathing-center-info" class="flex flex-col items-center justify-center flex-1 px-1 md:px-3 text-center overflow-hidden">
                             <div class="flex items-center gap-1.5 md:gap-2">
                                 <span id="breathing-text" class="text-sm md:text-lg font-black tracking-wide text-slate-800 dark:text-white transition-opacity duration-300">Inhala</span>
                                 <span id="breathing-phase-timer" class="text-[10px] md:text-xs font-mono font-black bg-blue-500/20 text-blue-600 dark:text-blue-300 dark:bg-blue-400/20 px-2 py-0.5 rounded-full min-w-[28px] text-center">4s</span>
@@ -126,13 +127,20 @@
                             </span>
                         </div>
 
-                        <!-- Indicador Derecho: Tiempo restante total y botón de cancelar/finalizar -->
+                        <!-- Indicador Derecho: Tiempo restante total (SIN EL BOTÓN) -->
                         <div class="flex items-center gap-1.5 md:gap-2 shrink-0">
                             <span id="breathing-timer" class="font-mono text-xs md:text-sm font-black opacity-85 bg-slate-200/60 dark:bg-slate-700/60 px-2 md:px-2.5 py-1 rounded-full text-slate-800 dark:text-slate-100">05:00</span>
-                            <button id="btn-stop-break" type="button" class="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center bg-red-500/15 hover:bg-red-500/30 text-red-600 dark:text-red-400 border border-red-500/30 transition-all active:scale-95 shadow-sm" title="Finalizar descanso">
-                                <i class="ri-close-line text-sm md:text-base font-bold"></i>
-                            </button>
                         </div>
+
+                        <!-- Botón de cerrar -->
+                        <div class="md:absolute md:-right-24 md:top-1/2 md:-translate-y-1/2 z-50 rounded-full p-[2px] bg-gradient-to-br from-red-400 to-rose-600 dark:from-red-500 dark:to-red-900 shadow-[0_0_15px_rgba(239,68,68,0.25)] shrink-0 transition-transform active:scale-95">
+    
+                            <button id="btn-stop-break" type="button" class="w-8 h-8 md:w-11 md:h-11 rounded-full flex items-center justify-center bg-white/40 dark:bg-slate-900/40 backdrop-blur-md text-red-600 dark:text-red-400 hover:bg-white/60 dark:hover:bg-slate-900/60 transition-colors" title="Finalizar descanso">
+                                <i class="ri-close-line text-base md:text-xl font-bold"></i>
+                            </button>
+                            
+                        </div>
+                        
                     </div>
 
                     <div class="mini-player-nav" id="mini-player-nav" style="display: none;">
