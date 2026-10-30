@@ -4022,7 +4022,38 @@ body.dark-mode .labs-badge-suffix {
 }
 
 
+/* ----------------------------------------------------------------- Animación para la burbuja asimétrica ----------------------------------------------------------------- */
+@keyframes organicBubble {
+    0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
 
+.organic-bubble-timer {
+    animation: organicBubble 8s ease-in-out infinite;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); 
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 
+                inset 0 0 12px rgba(255, 255, 255, 0.6);
+                
+    transition: background 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
+}
+
+.dark .organic-bubble-timer {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 
+                inset 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+#clinical-instruction-text {
+    color: var(--black-color);
+}
 
 
 
