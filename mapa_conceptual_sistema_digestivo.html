@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Digestivo y Absorción - Mapa Conceptual | Apuntes Uni</title>
+    <link rel="icon" href="logotipo.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Karla:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_fisiologia.css">
+    <style>
+        body {
+            font-family: 'Karla', 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: var(--bg-gradient-animated);
+            color: var(--text-main-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .glass-panel {
+            background: rgba(30, 41, 59, 0.65);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .mind-node {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .mind-node:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(234, 88, 12, 0.25), 0 10px 10px -5px rgba(234, 88, 12, 0.15);
+            z-index: 20;
+        }
+
+        body.dark-mode .mind-node:hover {
+            box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.3), 0 10px 10px -5px rgba(249, 115, 22, 0.2);
+        }
+
+        @keyframes gentle-pulse-orange {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(234, 88, 12, 0.35); }
+            50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(234, 88, 12, 0.65); }
+        }
+        .center-node-anim {
+            animation: gentle-pulse-orange 4s infinite ease-in-out;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .center-node-anim:hover {
+            animation-play-state: paused;
+            transform: scale(1.08);
+        }
+
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative selection:bg-orange-500/30">
+
+    <!-- Header area -->
+    <header class="w-full glass-panel border-b border-slate-200 dark:border-slate-800 py-5 relative z-20 sticky top-0 transition-colors duration-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+            <a href="bienvenida.html#Fisiologia" class="inline-flex items-center gap-2 text-xs md:text-sm font-bold text-orange-600 dark:text-orange-400 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                <span>Volver a Fisiología</span>
+            </a>
+
+            <div class="text-center flex-grow mx-2">
+                <h1 class="text-xl md:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-600 to-rose-700 dark:from-amber-400 dark:via-orange-300 dark:to-rose-400 tracking-tight">
+                    Fisiología del Sistema Digestivo
+                </h1>
+                <p class="text-[var(--black-color)] text-xs md:text-sm font-medium mt-0.5">Basado en Guyton y Hall • Haz clic en los nodos para explorar</p>
+            </div>
+
+            <!-- Botón Modo Claro / Oscuro -->
+            <button id="theme-toggle-btn" class="p-2 rounded-full glass-panel hover:scale-110 text-slate-700 dark:text-slate-200 transition-all shadow-sm" title="Cambiar tema">
+                <span class="material-symbols-outlined text-xl" id="theme-toggle-icon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Mind Map Container -->
+    <main id="map-container" class="relative flex-grow w-full flex flex-col items-center py-12 px-4 sm:px-8 overflow-hidden z-10">
+        
+        <!-- Canvas for drawing connecting lines -->
+        <canvas id="map-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+        <!-- Layout Grid -->
+        <div class="relative z-10 w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-3 gap-y-12 gap-x-8 items-center justify-items-center">
+            
+            <!-- LEFT COLUMN (2 Nodes) -->
+            <div class="flex flex-col gap-10 w-full max-w-md lg:ml-auto">
+                <!-- Node 1 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-l-4 border-amber-500 relative" onclick="openModal('modal-digestivo-1')">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-amber-500/10 dark:bg-amber-900/50 p-3 rounded-xl text-amber-600 dark:text-amber-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">neurology</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)]">1. Sistema Nervioso Entérico</h3>
+                            <p class="text-xs md:text-sm text-[var(--black-color)] mt-1">Auerbach, Meissner y tono vagal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-l-4 border-orange-500 relative" onclick="openModal('modal-digestivo-2')">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-orange-500/10 dark:bg-orange-900/50 p-3 rounded-xl text-orange-600 dark:text-orange-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">waves</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)]">2. Motilidad y Propulsión</h3>
+                            <p class="text-xs md:text-sm text-[var(--black-color)] mt-1">Células de Cajal, peristalsis y CMM.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN (Central Node) -->
+            <div class="flex items-center justify-center lg:py-0 py-6 lg:order-none order-first w-full z-20">
+                <div id="center-node" class="center-node-anim relative bg-gradient-to-br from-amber-500 via-orange-600 to-rose-700 text-white rounded-full shadow-2xl p-8 sm:p-10 w-64 h-64 sm:w-72 sm:h-72 flex flex-col items-center justify-center border-4 border-white/20 dark:border-slate-900 ring-4 ring-orange-500/40" onclick="openModal('modal-digestivo-center')">
+                    <div class="bg-white/20 p-3.5 rounded-full mb-2 backdrop-blur-md">
+                        <span class="material-symbols-outlined text-5xl sm:text-6xl text-orange-50">gastroenterology</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-black text-center leading-tight drop-shadow-md">Fisiología del<br/>Sistema Digestivo</h2>
+                    <span class="text-[11px] font-semibold text-orange-100/90 mt-1 tracking-wider uppercase">Guyton & Hall</span>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN (3 Nodes) -->
+            <div class="flex flex-col gap-8 w-full max-w-md lg:mr-auto">
+                <!-- Node 3 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-r-4 border-red-500 relative lg:text-right" onclick="openModal('modal-digestivo-3')">
+                    <div class="flex items-center lg:flex-row-reverse space-x-4 lg:space-x-reverse">
+                        <div class="bg-red-500/10 dark:bg-red-900/50 p-3 rounded-xl text-red-600 dark:text-red-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">soup_kitchen</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)]">3. Secreciones Gástricas</h3>
+                            <p class="text-xs md:text-sm text-[var(--black-color)] mt-1">HCl, pepsina, gastrina y barrera.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 4 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-r-4 border-rose-500 relative lg:text-right" onclick="openModal('modal-digestivo-4')">
+                    <div class="flex items-center lg:flex-row-reverse space-x-4 lg:space-x-reverse">
+                        <div class="bg-rose-500/10 dark:bg-rose-900/50 p-3 rounded-xl text-rose-600 dark:text-rose-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">medication</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)]">4. Eje Hormonal GI</h3>
+                            <p class="text-xs md:text-sm text-[var(--black-color)] mt-1">Secretina, CCK, GIP y micelas biliares.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 5 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-r-4 border-amber-600 relative lg:text-right" onclick="openModal('modal-digestivo-5')">
+                    <div class="flex items-center lg:flex-row-reverse space-x-4 lg:space-x-reverse">
+                        <div class="bg-amber-600/10 dark:bg-amber-900/50 p-3 rounded-xl text-amber-700 dark:text-amber-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">grain</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-[var(--black-color)]">5. Absorción Terminal</h3>
+                            <p class="text-xs md:text-sm text-[var(--black-color)] mt-1">Ribete en cepillo, SGLT-1 y quilomicrones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modals Section -->
+    <div id="modals-container">
+        <!-- Overlay -->
+        <div id="modal-backdrop" class="modal-overlay fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40" onclick="closeAllModals()"></div>
+
+        <!-- Modal Center -->
+        <div id="modal-digestivo-center" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-orange-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-orange-500/20 p-3 rounded-2xl text-orange-600 dark:text-orange-400">
+                        <span class="material-symbols-outlined text-4xl">gastroenterology</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider">Nodo Central</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Fisiología del Sistema Digestivo</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p class="text-base sm:text-lg">El aparato gastrointestinal (GI) cumple el objetivo fisiológico primordial de aportar de forma constante <strong>agua, electrólitos, vitaminas y sustratos energéticos</strong> al entorno interno celular. Coordina una formidable maquinaria exocrina que derrama más de <strong>7 litros de fluidos digestivos al día</strong>.</p>
+                    <ul class="space-y-3 mt-3">
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-orange-500 text-lg mt-0.5 shrink-0">check_circle</span>
+                            <span><strong>Cuatro Procesos Clave:</strong> 1) Propulsión y mezcla motora, 2) Secreciones enzimáticas especializadas de glándulas y anexos (estómago, páncreas, hígado), 3) Digestión polimérica a monómeros absorbibles, y 4) Absorción neta en la circulación esplácnica y linfática.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-orange-500 text-lg mt-0.5 shrink-0">check_circle</span>
+                            <span><strong>Autonomía y Neuroendocrinología:</strong> Posee su propio sistema nervioso (SNE o "segundo cerebro"), modulado por el sistema nervioso autónomo y un complejo mosaico de péptidos enteroendocrinos.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 1: SNE -->
+        <div id="modal-digestivo-1" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-amber-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-amber-500/20 p-3 rounded-2xl text-amber-600 dark:text-amber-400">
+                        <span class="material-symbols-outlined text-4xl">neurology</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-[var(--black-color)] uppercase tracking-wider">Módulo 1</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[var(--black-color)]">Sistema Nervioso Entérico (SNE)</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[var(--black-color)] text-sm sm:text-base leading-relaxed">
+                    <p>El tubo digestivo contiene alrededor de <strong>100 millones de neuronas</strong> intrínsecas (un número comparable al de toda la médula espinal), organizadas en dos plexos intramurales autónomos:</p>
+                    <ul class="space-y-3">
+                        <li class="p-3.5 rounded-xl bg-amber-500/5 dark:bg-slate-900/40 border border-amber-500/20">
+                            <strong class="text-amber-600 dark:text-amber-400 block mb-1">Plexo Mientérico (de Auerbach):</strong>
+                            Ubicado entre las capas musculares circular y longitudinal a lo largo de todo el tubo digestivo. Rige principalmente la <strong>motilidad global</strong>: aumenta el tono muscular sostenido, la intensidad y frecuencia de las contracciones peristálticas y coordina la relajación de esfínteres (esfínter esofágico inferior, píloro, válvula ileocecal).
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-amber-500/5 dark:bg-slate-900/40 border border-amber-500/20">
+                            <strong class="text-amber-600 dark:text-amber-400 block mb-1">Plexo Submucoso (de Meissner):</strong>
+                            Situado en la submucosa. Integra información de mecanorreceptores y quimiorreceptores epiteliales para regular microscópicamente la <strong>secreción de glándulas locales</strong>, el flujo sanguíneo submucoso y la contracción fraccionada de los pliegues mucosos.
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-amber-500/5 dark:bg-slate-900/40 border border-amber-500/20">
+                            <strong class="text-amber-600 dark:text-amber-400 block mb-1">Inervación Extrínseca:</strong>
+                            El <em>parasimpático</em> (nervio vago y nervios pélvicos sacros, vía acetilcolina) excita potentemente la motilidad y secreción digestiva. El <em>simpático</em> (noradrenalina) ejerce un bloqueo inhibitorio generalizado y precipita vasoconstricción esplácnica en situaciones de estrés.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: Motilidad -->
+        <div id="modal-digestivo-2" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-orange-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-orange-500/20 p-3 rounded-2xl text-orange-600 dark:text-orange-400">
+                        <span class="material-symbols-outlined text-4xl">waves</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-[var(--black-color)] uppercase tracking-wider">Módulo 2</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[var(--black-color)]">Motilidad y Coordinación Propulsiva</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[var(--black-color)] text-sm sm:text-base leading-relaxed">
+                    <p>El músculo liso gastrointestinal actúa biológicamente como un <strong>sincitio eléctrico</strong> mediante uniones en hendidura (gap junctions) que transmiten los potenciales de acción con mínima resistencia:</p>
+                    <ul class="space-y-3">
+                        <li><strong>Células de Cajal y Ondas Lentas:</strong> Células marcapasos reticulares que originan fluctuaciones del potencial de membrana de reposo (3 ondas/min en estómago, 12 en duodeno). No provocan contracción por sí solas.</li>
+                        <li><strong>Potenciales en Espiga:</strong> Cuando un estímulo (distensión mecánica o acetilcolina vagal) despolariza la membrana por encima de <strong>-40 mV</strong>, detonan potenciales en espiga mediante apertura de canales dependientes de voltaje de \(Ca^{2+}-Na^+\), desencadenando la contracción muscular vigorosa.</li>
+                        <li><strong>Peristaltismo y Ley del Intestino:</strong> Un estímulo químico o físico desencadena la contracción de un anillo muscular por detrás del bolo y la <em>relajación receptiva distal</em> por delante, propulsando el quimo hacia el ano.</li>
+                        <li><strong>Complejo Motor Migratorio (CMM):</strong> Durante periodos de ayuno interdigestivo prolongado, la hormona <strong>motilina</strong> desencadena ondas contráctiles rítmicas cada 90 minutos para limpiar detritos alimentarios no procesados y bacterias hacia el colon.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 3: Secreción Gástrica -->
+        <div id="modal-digestivo-3" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-red-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-red-500/20 p-3 rounded-2xl text-red-600 dark:text-red-400">
+                        <span class="material-symbols-outlined text-4xl">soup_kitchen</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-[var(--black-color)] uppercase tracking-wider">Módulo 3</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[var(--black-color)]">Secreción Gástrica y Mucosa</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[var(--black-color)] text-sm sm:text-base leading-relaxed">
+                    <p>Las glándulas oxínticas del cuerpo y fondo gástrico proveen un microambiente cáustico hiperácido con funciones bactericidas y digestivas:</p>
+                    <ul class="space-y-3">
+                        <li class="p-3.5 rounded-xl bg-red-500/5 dark:bg-slate-900/40 border border-red-500/20">
+                            <strong class="text-red-600 dark:text-red-400 block mb-1">Células Parietales (Oxínticas):</strong>
+                            Secretan ácido clorhídrico (HCl) a concentraciones de 155 mEq/L (reduciendo el pH luminal a &lt; 2.0) mediante la bomba apical \(H^+/K^+\)-ATPasa. Secretan también el <strong>factor intrínseco</strong>, glicoproteína imprescindible para la absorción ileal de vitamina B₁₂.
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-red-500/5 dark:bg-slate-900/40 border border-red-500/20">
+                            <strong class="text-red-600 dark:text-red-400 block mb-1">Células Principales y Pepsina:</strong>
+                            Secretan pepsinógenos inactivos. En presencia del pH ácido gástrico, sufren una escisión proteolítica autocatalítica para convertirse en <strong>pepsina activa</strong>, una endopeptidasa capaz de digerir el colágeno cárnico.
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-red-500/5 dark:bg-slate-900/40 border border-red-500/20">
+                            <strong class="text-red-600 dark:text-red-400 block mb-1">Barrera Mucosa Gástrica:</strong>
+                            Formada por moco viscoso rico en mucina y bicarbonato (\(HCO_3^-\)) producido por las células mucosas del cuello. Su integridad depende de prostaglandinas endógenas; el bloqueo por AINEs o infección por <em>Helicobacter pylori</em> desmantela esta barrera, originando úlceras pépticas.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 4: Eje Hormonal GI -->
+        <div id="modal-digestivo-4" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-rose-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-rose-500/20 p-3 rounded-2xl text-rose-600 dark:text-rose-400">
+                        <span class="material-symbols-outlined text-4xl">medication</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-[var(--black-color)] uppercase tracking-wider">Módulo 4</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[var(--black-color)]">Eje Hormonal GI y Secreciones Anexas</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[var(--black-color)] text-sm sm:text-base leading-relaxed">
+                    <p>La llegada del quimo ácido al duodeno desencadena una sinfonía endocrina que orquesta las secreciones del páncreas y la vía biliar:</p>
+                    <ul class="space-y-2.5">
+                        <li><strong>Gastrina (Células G antrales):</strong> Disparada por oligopéptidos y distensión; estimula secreción masiva de HCl por células parietales y promueve el crecimiento mucoso.</li>
+                        <li><strong>Secretina (Células S duodenales):</strong> Estimulada por quimo ácido (pH &lt; 4.5); frena el vaciado gástrico e incita a los conductos pancreáticos y biliares a expulsar abundantes volúmenes de <strong>agua y bicarbonato</strong> para neutralizar el ácido duodenal.</li>
+                        <li><strong>Colecistocinina / CCK (Células I):</strong> Disparada por ácidos grasos y aminoácidos. Provoca enérgica contracción de la vesícula biliar para verter bilis y estimula la secreción de <strong>enzimas pancreáticas acinares</strong> (lipasa, amilasa, tripsinógeno).</li>
+                        <li><strong>GIP (Células K duodeno-yeyunales):</strong> Estimulado por glúcidos y lípidos; actúa como potente incretina estimulando la liberación anticipada de insulina en el páncreas antes de que suba la glucemia.</li>
+                        <li><strong>Bilis y Micelas:</strong> Las sales biliares emulsionan los triglicéridos alimentarios en micelas hidrofílicas microscópicas. Sin ellas, hasta el 50% de las grasas se perderían en heces (esteatorrea).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 5: Absorción Terminal -->
+        <div id="modal-digestivo-5" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-amber-600/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-amber-600/20 p-3 rounded-2xl text-amber-700 dark:text-amber-400">
+                        <span class="material-symbols-outlined text-4xl">grain</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-[var(--black-color)] uppercase tracking-wider">Módulo 5</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[var(--black-color)]">Fisiología Absortiva Terminal Intestinal</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-[var(--black-color)] text-sm sm:text-base leading-relaxed">
+                    <p>Los pliegues de Kerckring, vellosidades y microvellosidades del borde en cepillo multiplican el área absortiva intestinal hasta alcanzar casi <strong>250 m²</strong> (equivalente a una cancha de tenis):</p>
+                    <ul class="space-y-3">
+                        <li><strong>Monosacáridos (SGLT-1 y GLUT-2):</strong> En el ribete en cepillo, disacaridasas (maltasa, sacarasa, lactasa) hidrolizan azúcares. La glucosa y galactosa ingresan al enterocito por transporte activo secundario acoplado a Na⁺ (SGLT-1), impulsado por la \(Na^+/K^+\)-ATPasa basolateral, y salen a los capilares portales por GLUT-2.</li>
+                        <li><strong>Proteínas y Péptidos:</strong> Cotransportadores dependientes de \(Na^+\) y \(H^+\) (PEPT-1) absorben dipéptidos y tripéptidos; peptidasas citosólicas completan el fraccionamiento a aminoácidos libres hacia la vena porta.</li>
+                        <li><strong>Lípidos y Formación de Quilomicrones:</strong>
+                            <div class="p-3 rounded-xl bg-amber-500/5 dark:bg-slate-900/40 border border-amber-500/20 text-xs sm:text-sm mt-1 text-slate-700 dark:text-slate-300">
+                                Ácidos grasos libres y monoglicéridos difunden pasivamente al interior del enterocito. En el retículo endoplásmico liso se resintetizan nuevos triglicéridos, que se ensamblan con colesterol y apoproteína B formando <strong>Quilomicrones</strong>. Éstos se secretan por exocitosis hacia los <strong>vasos quilíferos linfáticos</strong> de la vellosidad, viajando por el conducto torácico hasta la vena subclavia, evitando sobrecargar tóxicamente al hígado en primera instancia.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Handling -->
+    <script>
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-toggle-icon');
+
+        function applyTheme(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                if (themeIcon) themeIcon.textContent = 'light_mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                if (themeIcon) themeIcon.textContent = 'dark_mode';
+            }
+            if (window.drawConnections) window.drawConnections();
+        }
+
+        const savedTheme = localStorage.getItem('isDarkMode');
+        if (savedTheme !== null) {
+            applyTheme(savedTheme === 'true');
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(prefersDark);
+        }
+
+        themeBtn.addEventListener('click', () => {
+            const isCurrentlyDark = document.body.classList.contains('dark-mode');
+            const newDark = !isCurrentlyDark;
+            localStorage.setItem('isDarkMode', newDark);
+            applyTheme(newDark);
+        });
+
+        function openModal(id) {
+            document.getElementById('modal-backdrop').classList.add('active');
+            const targetModal = document.getElementById(id);
+            if (targetModal) targetModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllModals() {
+            const activeModals = document.querySelectorAll('.modal-overlay.active');
+            activeModals.forEach(el => el.classList.remove('active'));
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllModals();
+        });
+
+        function drawConnections() {
+            const canvas = document.getElementById('map-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const container = document.getElementById('map-container');
+            if (!container) return;
+            
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = container.offsetWidth * dpr;
+            canvas.height = container.offsetHeight * dpr;
+            ctx.scale(dpr, dpr);
+            
+            canvas.style.width = `${container.offsetWidth}px`;
+            canvas.style.height = `${container.offsetHeight}px`;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const isDark = document.body.classList.contains('dark-mode');
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = isDark ? 'rgba(251, 146, 60, 0.45)' : 'rgba(234, 88, 12, 0.55)';
+
+            const centerNode = document.getElementById('center-node');
+            const childNodes = document.querySelectorAll('.child-node');
+            if (!centerNode || childNodes.length === 0) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            const centerRect = centerNode.getBoundingClientRect();
+            
+            const startX = (centerRect.left - containerRect.left) + (centerRect.width / 2);
+            const startY = (centerRect.top - containerRect.top) + (centerRect.height / 2);
+
+            const isMobile = window.innerWidth < 1024;
+
+            childNodes.forEach((node) => {
+                const rect = node.getBoundingClientRect();
+                let endX, endY, cp1X, cp1Y, cp2X, cp2Y;
+
+                if (!isMobile) {
+                    const isLeftColumn = rect.left < centerRect.left;
+                    endX = isLeftColumn 
+                        ? (rect.right - containerRect.left) 
+                        : (rect.left - containerRect.left);
+                    
+                    endY = (rect.top - containerRect.top) + (rect.height / 2);
+
+                    cp1X = startX + (endX - startX) / 2;
+                    cp1Y = startY;
+                    cp2X = startX + (endX - startX) / 2;
+                    cp2Y = endY;
+                } else {
+                    endX = (rect.left - containerRect.left) + (rect.width / 2);
+                    const isAbove = rect.top < centerRect.top;
+                    
+                    endY = isAbove 
+                        ? (rect.bottom - containerRect.top) 
+                        : (rect.top - containerRect.top);
+
+                    cp1X = startX;
+                    cp1Y = startY + (endY - startY) / 2;
+                    cp2X = endX;
+                    cp2Y = startY + (endY - startY) / 2;
+                }
+                
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+                ctx.stroke();
+            });
+        }
+
+        window.addEventListener('load', () => setTimeout(drawConnections, 100));
+        window.addEventListener('resize', () => requestAnimationFrame(drawConnections));
+        
+        const mindNodes = document.querySelectorAll('.mind-node, .center-node-anim');
+        mindNodes.forEach(node => {
+            const handleHoverAnimation = () => {
+                const animateInterval = setInterval(drawConnections, 16);
+                setTimeout(() => clearInterval(animateInterval), 350);
+            };
+            node.addEventListener('mouseenter', handleHoverAnimation);
+            node.addEventListener('mouseleave', handleHoverAnimation);
+        });
+        
+        setInterval(drawConnections, 60);
+    </script>
+</body>
+</html>

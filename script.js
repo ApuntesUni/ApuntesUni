@@ -2604,6 +2604,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof initMedalTutorial === 'function') initMedalTutorial(); 
 });
 
+/* ---------------------------------------------------- Mapas conceptuales ------------------------------------------------ */
+
+async function cargarMapa(rutaArchivo) {
+    const contenedor = document.getElementById('vista-mapa-container');
+    contenedor.innerHTML = '<p class="text-center text-[var(--color-text-inactive)]">Cargando mapa...</p>'; // Indicador de carga
+
+    try {
+        
+        const respuesta = await fetch(rutaArchivo);
+        if (!respuesta.ok) throw new Error('Error al cargar el mapa');
+        
+        const htmlTexto = await respuesta.text();
+        
+        
+        contenedor.innerHTML = htmlTexto;
+
+        
+        const scripts = contenedor.querySelectorAll('script');
+        scripts.forEach(scriptAntiguo => {
+            const scriptNuevo = document.createElement('script');
+            
+            Array.from(scriptAntiguo.attributes).forEach(attr => scriptNuevo.setAttribute(attr.name, attr.value));
+            
+            scriptNuevo.appendChild(document.createTextNode(scriptAntiguo.innerHTML));
+            
+            scriptAntiguo.parentNode.replaceChild(scriptNuevo, scriptAntiguo);
+        });
+
+    } catch (error) {
+        console.error('Hubo un problema:', error);
+        contenedor.innerHTML = '<p class="text-red-500 text-center">Error al cargar el contenido.</p>';
+    }
+}
 
 /* ---------------------------------------------------- Switch (Píldoras de Tema Multiplataforma) ------------------------------------------------ */
 

@@ -988,6 +988,10 @@
                     <span class="material-symbols-outlined text-lg text-blue-500">clinical_notes</span>
                     <span>Casos Clínicos</span>
                 </button>
+                <button data-fisio-tab="tab-mapas" class="fisio-tab-btn px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-[var(--border-navigation)] shadow-sm hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined text-lg text-teal-500">account_tree</span>
+                    <span>Mapas Conceptuales</span>
+                </button>
             </div>
 
             <!-- ========================================================================================= -->
@@ -2285,6 +2289,60 @@
                         </button>
                     </div>
 
+                </div>
+
+            </div>
+
+            <!-- ========================================================================================= -->
+            <!-- PESTAÑA 6: MAPAS CONCEPTUALES INTERACTIVOS (URINARIO, RESPIRATORIO, RENAL, DIGESTIVO)     -->
+            <!-- ========================================================================================= -->
+            <div id="tab-mapas" class="fisio-tab-panel hidden transition-all duration-500">
+                
+                <!-- Encabezado de Bento Card -->
+                <div class="fisio-map-glass rounded-[32px] p-6 mb-8 text-center relative overflow-hidden">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 text-xs font-bold uppercase tracking-wider mb-2">
+                        <span class="material-symbols-outlined text-sm">hub</span>
+                        Mapas Conceptuales Interactivos • Guyton & Hall
+                    </div>
+                    <h3 class="text-2xl md:text-4xl font-black text-[var(--black-color)] tracking-tight">
+                        Fisiología Integrada de Órganos y Sistemas
+                    </h3>
+                    <p class="text-xs md:text-sm text-[var(--color-text-inactive)] max-w-3xl mx-auto mt-2 font-medium leading-relaxed">
+                        Explora las interconexiones hemodinámicas, mecánicas y endocrinas. Haz clic en el nodo central o en cualquiera de los módulos para abrir el desglose fisiológico avanzado.
+                    </p>
+
+                    <!-- Sub-Pills Selector para los 4 Sistemas -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6">
+                        <button onclick="cargarMapa('mapa_conceptual_sistema_urinario.html')" data-fisio-submap="urinario" class="fisio-submap-pill active px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-teal-500/40 shadow-sm hover:scale-105 transition-all">
+                            <span class="material-symbols-outlined text-base text-teal-500">water_drop</span>
+                            <span>Sistema Urinario</span>
+                        </button>
+                        <button onclick="cargarMapa('mapa_conceptual_sistema_respiratorio.html')" data-fisio-submap="respiratorio" class="fisio-submap-pill px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-sky-500/30 shadow-sm hover:scale-105 transition-all">
+                            <span class="material-symbols-outlined text-base text-sky-500">pulmonology</span>
+                            <span>Sistema Respiratorio</span>
+                        </button>
+                        <button onclick="cargarMapa('mapa_conceptual_sistema_renal.html')" data-fisio-submap="renal" class="fisio-submap-pill px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-emerald-500/30 shadow-sm hover:scale-105 transition-all">
+                            <span class="material-symbols-outlined text-base text-emerald-500">biotech</span>
+                            <span>Sistema Renal</span>
+                        </button>
+                        <button onclick="cargarMapa('mapa_conceptual_sistema_digestivo.html')" data-fisio-submap="digestivo" class="fisio-submap-pill px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 bg-[var(--background-navigation)] text-[var(--black-color)] border border-orange-500/30 shadow-sm hover:scale-105 transition-all">
+                            <span class="material-symbols-outlined text-base text-orange-500">gastroenterology</span>
+                            <span>Sistema Digestivo</span>
+                        </button>
+                    </div>
+
+                    <!-- Enlace para Pantalla Completa -->
+                    <div class="mt-4 flex justify-center">
+                        <a id="fisio-fullview-link" href="mapa_conceptual_sistema_urinario.html" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 hover:underline">
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            <span>Abrir mapa activo en ventana completa</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Este es el espacio reservado para mostrar el mapa -->
+                <div id="vista-mapa-container" class="w-full my-8">
+                    <!-- El HTML del mapa se inyectará aquí -->
                 </div>
 
             </div>

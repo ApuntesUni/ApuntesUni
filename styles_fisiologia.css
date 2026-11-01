@@ -704,3 +704,156 @@ body.dark-mode .diag-option-btn.opt-wrong {
         min-height: 480px;
     }
 }
+
+/* ==========================================================================
+   ESTILOS MAPAS CONCEPTUALES FISIOLOGÍA (Guyton & Hall)
+   Sistemas: Urinario, Respiratorio, Renal y Digestivo
+   ========================================================================== */
+
+.fisio-map-glass {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark-mode .fisio-map-glass {
+    background: rgba(30, 41, 59, 0.65);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.fisio-mind-node {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.fisio-mind-node:hover {
+    transform: translateY(-5px) scale(1.03);
+    z-index: 20;
+}
+
+/* Hover glow por sistema */
+.fisio-mind-node.glow-teal:hover {
+    box-shadow: 0 20px 25px -5px rgba(13, 148, 136, 0.25), 0 10px 10px -5px rgba(13, 148, 136, 0.15);
+}
+body.dark-mode .fisio-mind-node.glow-teal:hover {
+    box-shadow: 0 20px 25px -5px rgba(20, 184, 166, 0.3), 0 10px 10px -5px rgba(20, 184, 166, 0.2);
+}
+
+.fisio-mind-node.glow-sky:hover {
+    box-shadow: 0 20px 25px -5px rgba(2, 132, 199, 0.25), 0 10px 10px -5px rgba(2, 132, 199, 0.15);
+}
+body.dark-mode .fisio-mind-node.glow-sky:hover {
+    box-shadow: 0 20px 25px -5px rgba(56, 189, 248, 0.3), 0 10px 10px -5px rgba(56, 189, 248, 0.2);
+}
+
+.fisio-mind-node.glow-emerald:hover {
+    box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.25), 0 10px 10px -5px rgba(16, 185, 129, 0.15);
+}
+body.dark-mode .fisio-mind-node.glow-emerald:hover {
+    box-shadow: 0 20px 25px -5px rgba(52, 211, 153, 0.3), 0 10px 10px -5px rgba(52, 211, 153, 0.2);
+}
+
+.fisio-mind-node.glow-orange:hover {
+    box-shadow: 0 20px 25px -5px rgba(234, 88, 12, 0.25), 0 10px 10px -5px rgba(234, 88, 12, 0.15);
+}
+body.dark-mode .fisio-mind-node.glow-orange:hover {
+    box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.3), 0 10px 10px -5px rgba(249, 115, 22, 0.2);
+}
+
+/* Pulsos de Nodos Centrales */
+@keyframes fisio-pulse-teal {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(20, 184, 166, 0.35); }
+    50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(20, 184, 166, 0.65); }
+}
+.fisio-center-node-anim-teal {
+    animation: fisio-pulse-teal 4s infinite ease-in-out;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.fisio-center-node-anim-teal:hover {
+    animation-play-state: paused;
+    transform: scale(1.08);
+}
+
+@keyframes fisio-pulse-sky {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(14, 165, 233, 0.35); }
+    50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(14, 165, 233, 0.65); }
+}
+.fisio-center-node-anim-sky {
+    animation: fisio-pulse-sky 4s infinite ease-in-out;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.fisio-center-node-anim-sky:hover {
+    animation-play-state: paused;
+    transform: scale(1.08);
+}
+
+@keyframes fisio-pulse-emerald {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(16, 185, 129, 0.35); }
+    50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(16, 185, 129, 0.65); }
+}
+.fisio-center-node-anim-emerald {
+    animation: fisio-pulse-emerald 4s infinite ease-in-out;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.fisio-center-node-anim-emerald:hover {
+    animation-play-state: paused;
+    transform: scale(1.08);
+}
+
+@keyframes fisio-pulse-orange {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(234, 88, 12, 0.35); }
+    50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(234, 88, 12, 0.65); }
+}
+.fisio-center-node-anim-orange {
+    animation: fisio-pulse-orange 4s infinite ease-in-out;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.fisio-center-node-anim-orange:hover {
+    animation-play-state: paused;
+    transform: scale(1.08);
+}
+
+/* Modales para los Mapas Conceptuales */
+.fisio-modal-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.fisio-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+.fisio-modal-content {
+    transform: scale(0.95) translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+.fisio-modal-overlay.active .fisio-modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Sub-Pills para Selector de Mapa */
+.fisio-submap-pill {
+    transition: all 0.25s ease;
+}
+.fisio-submap-pill.active {
+    background: var(--background-color);
+    color: var(--black-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+    border-color: currentColor;
+    font-weight: 800;
+}
+body.dark-mode .fisio-submap-pill.active {
+    background: rgba(30, 41, 59, 0.9);
+    color: #f8fafc;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}

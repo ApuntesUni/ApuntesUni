@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Respiratorio - Mapa Conceptual | Apuntes Uni</title>
+    <link rel="icon" href="logotipo.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Karla:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_fisiologia.css">
+    <style>
+        body {
+            font-family: 'Karla', 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: var(--bg-gradient-animated);
+            color: var(--text-main-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .glass-panel {
+            background: rgba(30, 41, 59, 0.65);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .mind-node {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .mind-node:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(2, 132, 199, 0.25), 0 10px 10px -5px rgba(2, 132, 199, 0.15);
+            z-index: 20;
+        }
+
+        body.dark-mode .mind-node:hover {
+            box-shadow: 0 20px 25px -5px rgba(56, 189, 248, 0.3), 0 10px 10px -5px rgba(56, 189, 248, 0.2);
+        }
+
+        @keyframes gentle-pulse-sky {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(14, 165, 233, 0.35); }
+            50% { transform: scale(1.05); box-shadow: 0 0 45px rgba(14, 165, 233, 0.65); }
+        }
+        .center-node-anim {
+            animation: gentle-pulse-sky 4s infinite ease-in-out;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .center-node-anim:hover {
+            animation-play-state: paused;
+            transform: scale(1.08);
+        }
+
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative selection:bg-sky-500/30">
+
+    <!-- Header area -->
+    <header class="w-full glass-panel border-b border-slate-200 dark:border-slate-800 py-5 relative z-20 sticky top-0 transition-colors duration-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+            <a href="bienvenida.html#Fisiologia" class="inline-flex items-center gap-2 text-xs md:text-sm font-bold text-sky-600 dark:text-sky-400 hover:opacity-80 transition-opacity">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                <span>Volver a Fisiología</span>
+            </a>
+
+            <div class="text-center flex-grow mx-2">
+                <h1 class="text-xl md:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 via-cyan-600 to-indigo-600 dark:from-sky-400 dark:via-cyan-300 dark:to-indigo-400 tracking-tight">
+                    Fisiología del Sistema Respiratorio
+                </h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm font-medium mt-0.5">Basado en Guyton y Hall • Haz clic en los nodos para explorar</p>
+            </div>
+
+            <!-- Botón Modo Claro / Oscuro -->
+            <button id="theme-toggle-btn" class="p-2 rounded-full glass-panel hover:scale-110 text-slate-700 dark:text-slate-200 transition-all shadow-sm" title="Cambiar tema">
+                <span class="material-symbols-outlined text-xl" id="theme-toggle-icon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Mind Map Container -->
+    <main id="map-container" class="relative flex-grow w-full flex flex-col items-center py-12 px-4 sm:px-8 overflow-hidden z-10">
+        
+        <!-- Canvas for drawing connecting lines -->
+        <canvas id="map-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+        <!-- Layout Grid -->
+        <div class="relative z-10 w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-3 gap-y-12 gap-x-8 items-center justify-items-center">
+            
+            <!-- LEFT COLUMN (2 Nodes) -->
+            <div class="flex flex-col gap-10 w-full max-w-md lg:ml-auto">
+                <!-- Node 1 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-l-4 border-sky-500 relative" onclick="openModal('modal-respiratorio-1')">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-sky-500/10 dark:bg-sky-900/50 p-3 rounded-xl text-sky-600 dark:text-sky-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">air</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100">1. Mecánica Ventilatoria</h3>
+                            <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">Presiones, surfactante y volúmenes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 2 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-l-4 border-cyan-500 relative" onclick="openModal('modal-respiratorio-2')">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-cyan-500/10 dark:bg-cyan-900/50 p-3 rounded-xl text-cyan-600 dark:text-cyan-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">blood_pressure</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100">2. Circulación Pulmonar</h3>
+                            <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">Baja presión, Zonas West y vaso-hipoxia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN (Central Node) -->
+            <div class="flex items-center justify-center lg:py-0 py-6 lg:order-none order-first w-full z-20">
+                <div id="center-node" class="center-node-anim relative bg-gradient-to-br from-sky-500 via-cyan-600 to-indigo-700 text-white rounded-full shadow-2xl p-8 sm:p-10 w-64 h-64 sm:w-72 sm:h-72 flex flex-col items-center justify-center border-4 border-white/20 dark:border-slate-900 ring-4 ring-sky-500/40" onclick="openModal('modal-respiratorio-center')">
+                    <div class="bg-white/20 p-3.5 rounded-full mb-2 backdrop-blur-md">
+                        <span class="material-symbols-outlined text-5xl sm:text-6xl text-sky-50">pulmonology</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-black text-center leading-tight drop-shadow-md">Fisiología del<br/>Sistema Respiratorio</h2>
+                    <span class="text-[11px] font-semibold text-sky-100/90 mt-1 tracking-wider uppercase">Guyton & Hall</span>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN (3 Nodes) -->
+            <div class="flex flex-col gap-8 w-full max-w-md lg:mr-auto">
+                <!-- Node 3 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-r-4 border-blue-500 relative lg:text-right" onclick="openModal('modal-respiratorio-3')">
+                    <div class="flex items-center lg:flex-row-reverse space-x-4 lg:space-x-reverse">
+                        <div class="bg-blue-500/10 dark:bg-blue-900/50 p-3 rounded-xl text-blue-600 dark:text-blue-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">swap_horiz</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100">3. Intercambio Gaseoso</h3>
+                            <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">Membrana, Ley de Henry y cociente V/Q.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 4 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-r-4 border-indigo-500 relative lg:text-right" onclick="openModal('modal-respiratorio-4')">
+                    <div class="flex items-center lg:flex-row-reverse space-x-4 lg:space-x-reverse">
+                        <div class="bg-indigo-500/10 dark:bg-indigo-900/50 p-3 rounded-xl text-indigo-600 dark:text-indigo-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">device_thermostat</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100">4. Transporte O₂ y CO₂</h3>
+                            <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">Efecto Bohr, Haldane y bicarbonato.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 5 -->
+                <div class="child-node mind-node glass-panel rounded-2xl p-6 w-full shadow-lg border-r-4 border-violet-500 relative lg:text-right" onclick="openModal('modal-respiratorio-5')">
+                    <div class="flex items-center lg:flex-row-reverse space-x-4 lg:space-x-reverse">
+                        <div class="bg-violet-500/10 dark:bg-violet-900/50 p-3 rounded-xl text-violet-600 dark:text-violet-400 shrink-0">
+                            <span class="material-symbols-outlined text-3xl">psychology_alt</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100">5. Control Respiratorio</h3>
+                            <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">Centros bulbares y quimiorreceptores.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modals Section -->
+    <div id="modals-container">
+        <!-- Overlay -->
+        <div id="modal-backdrop" class="modal-overlay fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40" onclick="closeAllModals()"></div>
+
+        <!-- Modal Center -->
+        <div id="modal-respiratorio-center" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-sky-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-sky-500/20 p-3 rounded-2xl text-sky-600 dark:text-sky-400">
+                        <span class="material-symbols-outlined text-4xl">pulmonology</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Nodo Central</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Fisiología del Sistema Respiratorio</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p class="text-base sm:text-lg">La oxigenación celular y el mantenimiento dinámico del pH sistémico dependen de forma ineludible del aparato respiratorio. No solo aporta oxígeno molecular y depura dióxido de carbono metabólico, sino que actúa como la <strong>segunda línea de defensa ácido-base</strong> de rápida acción (3 a 12 minutos).</p>
+                    <ul class="space-y-3 mt-3">
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-sky-500 text-lg mt-0.5 shrink-0">check_circle</span>
+                            <span><strong>Cuatro Componentes Mayores:</strong> 1) Ventilación pulmonar (flujo de aire alvéolo-atmósfera), 2) Difusión de O₂ y CO₂ a través de la membrana alvéolo-capilar, 3) Transporte de gases en sangre y fluidos, y 4) Regulación neuronal de la ventilación.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-sky-500 text-lg mt-0.5 shrink-0">check_circle</span>
+                            <span><strong>Acondicionamiento del Aire Inspirado:</strong> Las vías de conducción calientan el aire a 37°C y lo saturan totalmente con vapor de agua (presión constante de 47 mmHg), diluyendo las presiones parciales de gases secos.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 1: Mecánica -->
+        <div id="modal-respiratorio-1" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-sky-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-sky-500/20 p-3 rounded-2xl text-sky-600 dark:text-sky-400">
+                        <span class="material-symbols-outlined text-4xl">air</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Módulo 1</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Mecánica de la Ventilación Pulmonar</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p>La ventilación pulmonar consiste en el intercambio bidireccional de aire entre la atmósfera y los alvéolos, gobernado por gradientes de presión generados por la musculatura torácica y el diafragma.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-3">
+                        <div class="p-3 rounded-xl bg-sky-500/5 dark:bg-slate-900/40 border border-sky-500/20 text-xs sm:text-sm">
+                            <strong class="text-sky-600 dark:text-sky-400 block mb-1">Presión Pleural:</strong>
+                            Pasa de -5 cm H₂O al inicio de la inspiración a -7.5 cm H₂O al final de la misma, creando un vacío intratorácico expansor.
+                        </div>
+                        <div class="p-3 rounded-xl bg-sky-500/5 dark:bg-slate-900/40 border border-sky-500/20 text-xs sm:text-sm">
+                            <strong class="text-sky-600 dark:text-sky-400 block mb-1">Presión Alveolar:</strong>
+                            Cae a -1 cm H₂O en la inspiración (ingreso de ~500 ml) y sube a +1 cm H₂O durante la espiración pasiva por retroceso elástico.
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3">
+                        <li><strong>Surfactante Pulmonar y Ley de Laplace:</strong> Secretado por <em>neumocitos tipo II</em> (dipalmitoilfosfatidilcolina, apoproteínas y Ca²⁺). Reduce drásticamente la tensión superficial del agua alveolar, impidiendo la atelectasia (colapso) en alvéolos pequeños según \(P = \frac{2T}{r}\).</li>
+                        <li><strong>Espacio Muerto y Ventilación Alveolar:</strong> Las vías de conducción ocupan ~150 ml (espacio muerto anatómico) donde no ocurre hematosis. La tasa de ventilación alveolar real se calcula: 
+                            <div class="font-mono text-center my-2 p-2 rounded-lg bg-sky-500/10 dark:bg-slate-900/50 text-sky-800 dark:text-sky-200">
+                                Ventilación Alveolar = (VC - 150 ml) × Frecuencia Respiratoria
+                            </div>
+                        </li>
+                        <li><strong>Volúmenes y Capacidades:</strong> Volumen Corriente (VC = 500 ml), VRI (3.000 ml), VRE (1.100 ml), Volumen Residual (VR = 1.200 ml). Capacidad Vital (CV = 4.600 ml) y Capacidad Pulmonar Total (CPT = 5.800 ml).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: Circulación -->
+        <div id="modal-respiratorio-2" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-cyan-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-cyan-500/20 p-3 rounded-2xl text-cyan-600 dark:text-cyan-400">
+                        <span class="material-symbols-outlined text-4xl">blood_pressure</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Módulo 2</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Circulación Pulmonar y Hemodinámica</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p>A diferencia de la circulación sistémica, la pulmonar es un circuito de <strong>alto flujo, baja resistencia y baja presión</strong>, diseñado para facilitar la difusión de gases sin inundar los alvéolos.</p>
+                    <ul class="space-y-3">
+                        <li class="p-3.5 rounded-xl bg-cyan-500/5 dark:bg-slate-900/40 border border-cyan-500/20">
+                            <strong class="text-cyan-600 dark:text-cyan-400 block mb-1">Presiones y Prevención del Edema:</strong>
+                            La presión en la arteria pulmonar es de 25/8 mmHg (media de 15 mmHg), y la capilar pulmonar es de solo 7 mmHg. Como la presión coloidosmótica del plasma es de 28 mmHg, las fuerzas de Starling favorecen la reabsorción, manteniendo el espacio alveolar seco.
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-cyan-500/5 dark:bg-slate-900/40 border border-cyan-500/20">
+                            <strong class="text-cyan-600 dark:text-cyan-400 block mb-1">Zonas de West (Gradiente Gravitacional):</strong>
+                            En bipedestación:
+                            <ul class="list-disc pl-5 mt-1 text-xs sm:text-sm space-y-0.5 text-slate-600 dark:text-slate-400">
+                                <li><strong>Zona 1:</strong> Ausente normalmente (presión alveolar > presión arterial).</li>
+                                <li><strong>Zona 2 (Vértices):</strong> Flujo sanguíneo intermitente (solo durante la sístole).</li>
+                                <li><strong>Zona 3 (Bases):</strong> Flujo continuo debido a mayor presión hidrostática capilar.</li>
+                            </ul>
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-cyan-500/5 dark:bg-slate-900/40 border border-cyan-500/20">
+                            <strong class="text-cyan-600 dark:text-cyan-400 block mb-1">Vasoconstricción Hipóxica:</strong>
+                            Mecanismo exclusivo de la vasculatura pulmonar: si la PO₂ alveolar cae en una región, los vasos locales se constriñen para desviar el flujo hacia alvéolos bien oxigenados.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 3: Intercambio Gaseoso -->
+        <div id="modal-respiratorio-3" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-blue-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-blue-500/20 p-3 rounded-2xl text-blue-600 dark:text-blue-400">
+                        <span class="material-symbols-outlined text-4xl">swap_horiz</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Módulo 3</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Intercambio Gaseoso y Difusión (V/Q)</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p>El intercambio de gases entre los alvéolos y la sangre capilar ocurre por <strong>difusión pasiva simple</strong> a favor de gradientes de presión parcial a través de la membrana alvéolo-capilar.</p>
+                    <ul class="space-y-3">
+                        <li><strong>Estructura de la Membrana Respiratoria:</strong> Grosor microscópico de apenas 0.6 µm y una superficie monumental de 70 m². Comprende capa de surfactante, epitelio alveolar, membrana basal, intersticio y endotelio capilar.</li>
+                        <li><strong>Ley de Henry y Solubilidad de Gases:</strong> El CO₂ es <strong>20 veces más soluble</strong> que el O₂. Por eso, requiere únicamente un gradiente de 5 mmHg (45 a 40 mmHg) para difundir con igual o mayor eficacia que el O₂, el cual requiere un gradiente de 64 mmHg (104 a 40 mmHg).</li>
+                        <li><strong>Factor de Seguridad del Tiempo de Tránsito:</strong> La sangre completa su oxigenación en el primer tercio del capilar pulmonar (~0.25 s de un tiempo de tránsito total de 0.75 s), lo que garantiza saturación arterial óptima incluso durante el ejercicio extenuante.</li>
+                        <li><strong>Cociente Ventilación/Perfusión (\(V_A/Q\)):</strong>
+                            <ul class="list-disc pl-5 mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                <li>\(V_A/Q\) bajo: Ventilación deficiente respecto al flujo (efecto cortocircuito o shunt fisiológico), provocando hipoxemia.</li>
+                                <li>\(V_A/Q\) alto: Perfusión deficiente respecto a la ventilación (espacio muerto fisiológico), generando trabajo ventilatorio desperdiciado.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 4: Transporte -->
+        <div id="modal-respiratorio-4" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-indigo-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-indigo-500/20 p-3 rounded-2xl text-indigo-600 dark:text-indigo-400">
+                        <span class="material-symbols-outlined text-4xl">device_thermostat</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Módulo 4</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Transporte Sanguíneo de O₂ y CO₂</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p>La sangre entrega O₂ metabólico y extrae CO₂ tóxico mediante vehículos moleculares de altísima precisión química.</p>
+                    <ul class="space-y-3">
+                        <li class="p-3.5 rounded-xl bg-indigo-500/5 dark:bg-slate-900/40 border border-indigo-500/20">
+                            <strong class="text-indigo-600 dark:text-indigo-400 block mb-1">Curva de Disociación de Oxihemoglobina:</strong>
+                            Forma sigmoidea. En pulmón (PO₂ 95-104 mmHg), la saturación es de 97%. En tejidos periféricos (PO₂ 40 mmHg), cae a 75%, liberando ~5 ml de O₂ por cada 100 ml de sangre. Actúa como tampón tisular de oxígeno.
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-indigo-500/5 dark:bg-slate-900/40 border border-indigo-500/20">
+                            <strong class="text-indigo-600 dark:text-indigo-400 block mb-1">Efecto Bohr:</strong>
+                            El aumento de \(PCO_2\), la elevación de protones (↓pH), el calor o el aumento de 2,3-DPG desplazan la curva a la derecha, facilitando la entrega inmediata de oxígeno en tejidos metabólicamente activos.
+                        </li>
+                        <li class="p-3.5 rounded-xl bg-indigo-500/5 dark:bg-slate-900/40 border border-indigo-500/20">
+                            <strong class="text-indigo-600 dark:text-indigo-400 block mb-1">Tres Vías de Transporte de CO₂:</strong>
+                            1) 7% disuelto en plasma, 2) 23% combinado como carbaminohemoglobina, y 3) <strong>70% como ion bicarbonato (\(HCO_3^-\))</strong> gracias a la <em>anhidrasa carbónica</em> eritrocitaria. El protón es retenido por desoxihemoglobina (Efecto Haldane) y el \(HCO_3^-\) sale al plasma mediante desplazamiento de cloruros.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 5: Control Respiratorio -->
+        <div id="modal-respiratorio-5" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+            <div class="modal-content glass-panel pointer-events-auto max-w-2xl w-full rounded-3xl p-6 sm:p-8 border border-violet-500/30 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                <button onclick="closeAllModals()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-slate-200/50 dark:bg-slate-800/50 rounded-full p-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="bg-violet-500/20 p-3 rounded-2xl text-violet-600 dark:text-violet-400">
+                        <span class="material-symbols-outlined text-4xl">psychology_alt</span>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">Módulo 5</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Control del Centro Respiratorio</h2>
+                    </div>
+                </div>
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <p>El ritmo ventilatorio está gobernado por una red neuronal distribuida entre el bulbo raquídeo y la protuberancia:</p>
+                    <ul class="space-y-3">
+                        <li><strong>Grupo Respiratorio Dorsal (GRD):</strong> Genera la ritmicidad inspiratoria básica emitiendo señales nerviosas en rampa hacia el diafragma.</li>
+                        <li><strong>Centro Neumotáxico:</strong> Ubicado en la protuberancia dorsal superior; apaga la rampa inspiratoria para limitar el llenado pulmonar e incrementar la frecuencia.</li>
+                        <li><strong>Grupo Respiratorio Ventral (GRV):</strong> Silente en reposo; se activa durante el esfuerzo ventilatorio para proporcionar impulsos espiratorios potentes (músculos abdominales e intercostales internos).</li>
+                        <li><strong>Reflejo de Hering-Breuer:</strong> Receptores de estiramiento bronquial inhiben la rampa inspiratoria cuando el volumen corriente excede los límites de seguridad.</li>
+                        <li><strong>Quimiorreceptores Centrales vs. Periféricos:</strong>
+                            <ul class="list-disc pl-5 mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                <li><strong>Centrales (Bulbo ventral):</strong> Sensibles a iones H⁺ del líquido cefalorraquídeo procedentes del CO₂ difusible. Dictan la respuesta hipercápnica aguda.</li>
+                                <li><strong>Periféricos (Cuerpos Carotídeos y Aórticos):</strong> Detectan hipoxemia severa (PO₂ arterial &lt; 60-70 mmHg), convirtiéndose en el motor ventilatorio crucial en pacientes con EPOC avanzada o a gran altitud.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Handling -->
+    <script>
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-toggle-icon');
+
+        function applyTheme(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                if (themeIcon) themeIcon.textContent = 'light_mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                if (themeIcon) themeIcon.textContent = 'dark_mode';
+            }
+            if (window.drawConnections) window.drawConnections();
+        }
+
+        const savedTheme = localStorage.getItem('isDarkMode');
+        if (savedTheme !== null) {
+            applyTheme(savedTheme === 'true');
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(prefersDark);
+        }
+
+        themeBtn.addEventListener('click', () => {
+            const isCurrentlyDark = document.body.classList.contains('dark-mode');
+            const newDark = !isCurrentlyDark;
+            localStorage.setItem('isDarkMode', newDark);
+            applyTheme(newDark);
+        });
+
+        function openModal(id) {
+            document.getElementById('modal-backdrop').classList.add('active');
+            const targetModal = document.getElementById(id);
+            if (targetModal) targetModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllModals() {
+            const activeModals = document.querySelectorAll('.modal-overlay.active');
+            activeModals.forEach(el => el.classList.remove('active'));
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllModals();
+        });
+
+        function drawConnections() {
+            const canvas = document.getElementById('map-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const container = document.getElementById('map-container');
+            if (!container) return;
+            
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = container.offsetWidth * dpr;
+            canvas.height = container.offsetHeight * dpr;
+            ctx.scale(dpr, dpr);
+            
+            canvas.style.width = `${container.offsetWidth}px`;
+            canvas.style.height = `${container.offsetHeight}px`;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const isDark = document.body.classList.contains('dark-mode');
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(2, 132, 199, 0.55)';
+
+            const centerNode = document.getElementById('center-node');
+            const childNodes = document.querySelectorAll('.child-node');
+            if (!centerNode || childNodes.length === 0) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            const centerRect = centerNode.getBoundingClientRect();
+            
+            const startX = (centerRect.left - containerRect.left) + (centerRect.width / 2);
+            const startY = (centerRect.top - containerRect.top) + (centerRect.height / 2);
+
+            const isMobile = window.innerWidth < 1024;
+
+            childNodes.forEach((node) => {
+                const rect = node.getBoundingClientRect();
+                let endX, endY, cp1X, cp1Y, cp2X, cp2Y;
+
+                if (!isMobile) {
+                    const isLeftColumn = rect.left < centerRect.left;
+                    endX = isLeftColumn 
+                        ? (rect.right - containerRect.left) 
+                        : (rect.left - containerRect.left);
+                    
+                    endY = (rect.top - containerRect.top) + (rect.height / 2);
+
+                    cp1X = startX + (endX - startX) / 2;
+                    cp1Y = startY;
+                    cp2X = startX + (endX - startX) / 2;
+                    cp2Y = endY;
+                } else {
+                    endX = (rect.left - containerRect.left) + (rect.width / 2);
+                    const isAbove = rect.top < centerRect.top;
+                    
+                    endY = isAbove 
+                        ? (rect.bottom - containerRect.top) 
+                        : (rect.top - containerRect.top);
+
+                    cp1X = startX;
+                    cp1Y = startY + (endY - startY) / 2;
+                    cp2X = endX;
+                    cp2Y = startY + (endY - startY) / 2;
+                }
+                
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+                ctx.stroke();
+            });
+        }
+
+        window.addEventListener('load', () => setTimeout(drawConnections, 100));
+        window.addEventListener('resize', () => requestAnimationFrame(drawConnections));
+        
+        const mindNodes = document.querySelectorAll('.mind-node, .center-node-anim');
+        mindNodes.forEach(node => {
+            const handleHoverAnimation = () => {
+                const animateInterval = setInterval(drawConnections, 16);
+                setTimeout(() => clearInterval(animateInterval), 350);
+            };
+            node.addEventListener('mouseenter', handleHoverAnimation);
+            node.addEventListener('mouseleave', handleHoverAnimation);
+        });
+        
+        setInterval(drawConnections, 60);
+    </script>
+</body>
+</html>

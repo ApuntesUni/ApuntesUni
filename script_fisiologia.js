@@ -40,6 +40,9 @@
                 if (targetId === 'tab-nefrona' && window.onResizeNephron3D) {
                     setTimeout(window.onResizeNephron3D, 50);
                 }
+                if (targetId === 'tab-mapas' && window.drawActiveFisioMapConnections) {
+                    setTimeout(window.drawActiveFisioMapConnections, 60);
+                }
             });
         });
     }
@@ -1910,6 +1913,165 @@
     }
 
     // --------------------------------------------------------------------------
+    // 7. MAPAS CONCEPTUALES INTERACTIVOS (Guyton & Hall)
+    // Sistemas: Urinario, Respiratorio, Renal y Digestivo
+    // --------------------------------------------------------------------------
+    function initFisiologiaMindMaps() {
+        const submapPills = document.querySelectorAll('.fisio-submap-pill');
+        const submapContainers = document.querySelectorAll('.fisio-submap-content');
+        let currentSubmap = 'urinario';
+
+        window.drawActiveFisioMapConnections = function () {
+            const container = document.getElementById('map-container-fisio-' + currentSubmap);
+            const canvas = document.getElementById('map-canvas-fisio-' + currentSubmap);
+            if (!container || !canvas || container.classList.contains('hidden')) return;
+
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = container.offsetWidth * dpr;
+            canvas.height = container.offsetHeight * dpr;
+            ctx.scale(dpr, dpr);
+
+            canvas.style.width = `${container.offsetWidth}px`;
+            canvas.style.height = `${container.offsetHeight}px`;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const isDark = document.body.classList.contains('dark-mode');
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+
+            // Paleta de trazo adaptada a modo claro y oscuro
+            const strokePalettes = {
+                urinario: isDark ? 'rgba(45, 212, 191, 0.45)' : 'rgba(13, 148, 136, 0.55)',
+                respiratorio: isDark ? 'rgba(56, 189, 248, 0.45)' : 'rgba(2, 132, 199, 0.55)',
+                renal: isDark ? 'rgba(52, 211, 153, 0.45)' : 'rgba(5, 150, 105, 0.55)',
+                digestivo: isDark ? 'rgba(251, 146, 60, 0.45)' : 'rgba(234, 88, 12, 0.55)'
+            };
+            ctx.strokeStyle = strokePalettes[currentSubmap] || (isDark ? 'rgba(45, 212, 191, 0.45)' : 'rgba(13, 148, 136, 0.55)');
+
+            const centerNode = container.querySelector('.center-mind-node');
+            const childNodes = container.querySelectorAll('.child-mind-node');
+            if (!centerNode || childNodes.length === 0) return;
+
+            const containerRect = container.getBoundingClientRect();
+            const centerRect = centerNode.getBoundingClientRect();
+
+            const startX = (centerRect.left - containerRect.left) + (centerRect.width / 2);
+            const startY = (centerRect.top - containerRect.top) + (centerRect.height / 2);
+
+            const isMobile = window.innerWidth < 1024;
+
+            childNodes.forEach((node) => {
+                const rect = node.getBoundingClientRect();
+                let endX, endY, cp1X, cp1Y, cp2X, cp2Y;
+
+                if (!isMobile) {
+                    const isLeftColumn = rect.left < centerRect.left;
+                    endX = isLeftColumn 
+                        ? (rect.right - containerRect.left) 
+                        : (rect.left - containerRect.left);
+
+                    endY = (rect.top - containerRect.top) + (rect.height / 2);
+
+                    cp1X = startX + (endX - startX) / 2;
+                    cp1Y = startY;
+                    cp2X = startX + (endX - startX) / 2;
+                    cp2Y = endY;
+                } else {
+                    endX = (rect.left - containerRect.left) + (rect.width / 2);
+                    const isAbove = rect.top < centerRect.top;
+
+                    endY = isAbove 
+                        ? (rect.bottom - containerRect.top) 
+                        : (rect.top - containerRect.top);
+
+                    cp1X = startX;
+                    cp1Y = startY + (endY - startY) / 2;
+                    cp2X = endX;
+                    cp2Y = startY + (endY - startY) / 2;
+                }
+
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
+                ctx.stroke();
+            });
+        };
+
+        // Cambio de pestañas de mapas
+        submapPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const targetSubmap = pill.getAttribute('data-fisio-submap');
+                if (!targetSubmap) return;
+                currentSubmap = targetSubmap;
+
+                submapPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+
+                submapContainers.forEach(c => {
+                    if (c.id === 'map-container-fisio-' + targetSubmap) {
+                        c.classList.remove('hidden');
+                        c.classList.add('block');
+                    } else {
+                        c.classList.add('hidden');
+                        c.classList.remove('block');
+                    }
+                });
+
+                // Actualizar enlace de descarga / vista completa
+                const fullViewLink = document.getElementById('fisio-fullview-link');
+                if (fullViewLink) {
+                    fullViewLink.href = 'mapa_conceptual_sistema_' + targetSubmap + '.html';
+                }
+
+                setTimeout(window.drawActiveFisioMapConnections, 60);
+            });
+        });
+
+        // Hover animations en nodos para redibujado dinámico suave
+        document.querySelectorAll('.fisio-mind-node, .center-mind-node').forEach(node => {
+            const handleHoverAnimation = () => {
+                const animateInterval = setInterval(window.drawActiveFisioMapConnections, 16);
+                setTimeout(() => clearInterval(animateInterval), 350);
+            };
+            node.addEventListener('mouseenter', handleHoverAnimation);
+            node.addEventListener('mouseleave', handleHoverAnimation);
+        });
+
+        // Eventos de ventana
+        window.addEventListener('resize', () => requestAnimationFrame(window.drawActiveFisioMapConnections));
+
+        // Modales
+        window.openFisioMindMapModal = function (modalId) {
+            const backdrop = document.getElementById('fisio-mindmap-modal-backdrop');
+            const targetModal = document.getElementById(modalId);
+            if (backdrop) backdrop.classList.add('active');
+            if (targetModal) targetModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeFisioMindMapModals = function () {
+            const backdrop = document.getElementById('fisio-mindmap-modal-backdrop');
+            if (backdrop) backdrop.classList.remove('active');
+            document.querySelectorAll('.fisio-modal-overlay.active').forEach(el => el.classList.remove('active'));
+            document.body.style.overflow = '';
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') window.closeFisioMindMapModals();
+        });
+
+        // Animación suave de respiración redibujando periódicamente
+        setInterval(() => {
+            const mapasTab = document.getElementById('tab-mapas');
+            if (mapasTab && !mapasTab.classList.contains('hidden')) {
+                window.drawActiveFisioMapConnections();
+            }
+        }, 80);
+    }
+
+    // --------------------------------------------------------------------------
     // INICIALIZACIÓN GLOBAL CUANDO EL DOM ESTÉ LISTO
     // --------------------------------------------------------------------------
 
@@ -1930,6 +2092,7 @@
         safeRun('initAcidBaseGame', initAcidBaseGame);
         safeRun('initFlashcardsAndAudio', initFlashcardsAndAudio);
         safeRun('initClinicalCases', initClinicalCases);
+        safeRun('initFisiologiaMindMaps', initFisiologiaMindMaps);
     };
 
 })();
