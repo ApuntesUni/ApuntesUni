@@ -58,6 +58,12 @@
         scripts: [], 
         loaded: false,
         initializer: null 
+        },
+        bienestar: {
+            ids: ['Bienestar'],
+            scripts: ['script_bienestar.js'],
+            loaded: false,
+            initializer: 'initBienestar'
         }
     };
 
@@ -110,6 +116,10 @@
         // Cancela locución de notas de voz si está activa
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
+        }
+        // Pausa temporizador de Jacobson si está activo
+        if (typeof window.__pauseJacobson === 'function') {
+            window.__pauseJacobson();
         }
     }
 
@@ -188,6 +198,15 @@
             if (typeof window.__manualInitBibliografia === 'function') {
                 window.__manualInitBibliografia();
             }
+        },
+        bienestar: () => {
+            if (window.__bienestarInit) return;
+            window.__bienestarInit = true;
+            if (typeof window.initBienestar === 'function') {
+                window.initBienestar();
+            } else if (typeof window.__manualInitBienestar === 'function') {
+                window.__manualInitBienestar();
+            }
         }
     };
 
@@ -217,6 +236,30 @@
 
         try {
             const cfg = SECTIONS[sectionKey];
+
+            // Cargar contenido HTML de bienestar bajo demanda si aún no está en el DOM
+            if (sectionKey === 'bienestar') {
+                const bienestarEl = document.getElementById('Bienestar');
+                if (bienestarEl && !bienestarEl.dataset.contentLoaded) {
+                    try {
+                        const response = await fetch('bienestar.html');
+                        if (response.ok) {
+                            const html = await response.text();
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const root = doc.querySelector('#bienestar-root') || doc.body;
+                            bienestarEl.innerHTML = root.outerHTML || root.innerHTML;
+                            bienestarEl.dataset.contentLoaded = 'true';
+                        } else {
+                            throw new Error('HTTP ' + response.status);
+                        }
+                    } catch (err) {
+                        console.warn('[SPA] Fetch bienestar.html falló (posible file://), usando fallback:', err);
+                        bienestarEl.innerHTML = `<iframe id="bienestar-frame" src="bienestar.html" class="w-full min-h-screen border-none" style="width:100%; min-height:100vh; border:none;" title="Bienestar y Salud Emocional"></iframe>`;
+                        bienestarEl.dataset.contentLoaded = 'true';
+                    }
+                }
+            }
 
             // 4) Cargar scripts bajo demanda
             if (cfg.scripts.length) {
@@ -269,6 +312,7 @@
         '#Fisiologia': 'fisiologia',
         '#Fisio-sistemas': 'fisiologia',
         '#Psicologia': 'psicologia',
+        '#Bienestar': 'bienestar',
         '#Bibliografia': 'bibliografia',
         '#Neural': 'neural'
     };

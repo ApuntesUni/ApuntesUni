@@ -1,0 +1,465 @@
+/* ============================================================
+   ESTILOS PARA EL MÓDULO DE BIENESTAR & REGULACIÓN EMOCIONAL
+   Salud Activa Lab - Apuntes Uni
+   ============================================================ */
+
+/* Variables y colores de Bienestar */
+:root {
+    --bienestar-primary: #10b981;
+    --bienestar-primary-glow: rgba(16, 185, 129, 0.35);
+    --bienestar-secondary: #6366f1;
+    --bienestar-secondary-glow: rgba(99, 102, 241, 0.35);
+    --bienestar-accent: #a855f7;
+    --bienestar-accent-glow: rgba(168, 85, 247, 0.35);
+    --bienestar-warm: #f59e0b;
+    --bienestar-glass-bg: rgba(255, 255, 255, 0.72);
+    --bienestar-glass-border: rgba(255, 255, 255, 0.55);
+    --bienestar-glass-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.08);
+    --bienestar-text-main: #1e293b;
+    --bienestar-text-muted: #64748b;
+}
+
+body.dark-mode {
+    --bienestar-glass-bg: rgba(15, 23, 42, 0.75);
+    --bienestar-glass-border: rgba(255, 255, 255, 0.12);
+    --bienestar-glass-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45);
+    --bienestar-text-main: #f8fafc;
+    --bienestar-text-muted: #94a3b8;
+}
+
+/* Tarjetas Glassmorphism de Bienestar */
+.bienestar-card {
+    background: var(--bienestar-glass-bg);
+    border: 1px solid var(--bienestar-glass-border);
+    box-shadow: var(--bienestar-glass-shadow);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 28px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bienestar-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.12);
+}
+
+body.dark-mode .bienestar-card:hover {
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* Sub-pestañas / Bento tabs */
+.bienestar-tab-btn {
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.bienestar-tab-btn.active {
+    background: var(--bienestar-primary);
+    color: #ffffff !important;
+    box-shadow: 0 4px 16px var(--bienestar-primary-glow);
+    font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   1. ANCLAJE SENSORIAL (TÉCNICA 5-4-3-2-1)
+   ------------------------------------------------------------ */
+
+/* Modal a pantalla completa */
+#grounding-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    background: rgba(10, 15, 29, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+#grounding-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Círculo de progreso sensorial SVG */
+.grounding-progress-ring {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.grounding-ring-circle {
+    transition: stroke-dashoffset 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Partícula visual al tocar la pantalla */
+.grounding-ripple {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0.2);
+    pointer-events: none;
+    z-index: 100000;
+    animation: rippleExpand 0.75s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes rippleExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0.95;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(4.5);
+        opacity: 0;
+    }
+}
+
+/* Halo respiratorio de fondo */
+.grounding-breath-halo {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.35;
+    pointer-events: none;
+    animation: pulseGroundingHalo 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGroundingHalo {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.25;
+    }
+    100% {
+        transform: scale(1.25);
+        opacity: 0.5;
+    }
+}
+
+/* Botón flotante SOS de aterrizaje */
+.btn-sos-floating {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    animation: sosPulse 2.5s infinite;
+}
+
+@keyframes sosPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.6);
+    }
+}
+
+/* ------------------------------------------------------------
+   2. REESTRUCTURACIÓN COGNITIVA Y DISTANCIAMIENTO (LA BÓVEDA)
+   ------------------------------------------------------------ */
+
+/* Caja fuerte visual */
+.vault-box {
+    position: relative;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+    border: 2px solid rgba(148, 163, 184, 0.3);
+    border-radius: 36px;
+    box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.vault-dial {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #334155 0%, #1e293b 80%, #0f172a 100%);
+    border: 3px solid #64748b;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vault-dial.unlocked {
+    border-color: #10b981;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+    transform: rotate(180deg);
+}
+
+/* Animación de encogimiento y absorción del pensamiento hacia la bóveda */
+@keyframes vaultAbsorb {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        filter: blur(0);
+    }
+    50% {
+        transform: scale(0.4) translateY(40px) rotate(8deg);
+        opacity: 0.7;
+        filter: blur(2px);
+    }
+    100% {
+        transform: scale(0.05) translateY(120px) rotate(25deg);
+        opacity: 0;
+        filter: blur(8px);
+    }
+}
+
+.anim-vault-absorb {
+    animation: vaultAbsorb 0.85s cubic-bezier(0.45, 0, 0.15, 1) forwards !important;
+    pointer-events: none;
+}
+
+/* Pensamiento sellado (difuminado fuera de la hora de preocupación) */
+.thought-locked-blur {
+    filter: blur(9px);
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+/* ------------------------------------------------------------
+   3. ACTIVACIÓN CONDUCTUAL (SLIDER & MICRO-GRÁFICOS)
+   ------------------------------------------------------------ */
+
+/* Slider personalizado con degradado dinámico */
+.energy-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    border-radius: 9999px;
+    background: linear-gradient(to right, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+    outline: none;
+    transition: opacity 0.2s;
+}
+
+.energy-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    border: 3px solid #6366f1;
+    transition: transform 0.15s ease;
+}
+
+.energy-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.energy-slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    border: 3px solid #6366f1;
+}
+
+/* Micro-gráfico SVG de elevación de ánimo */
+.micro-chart-line {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawChartLine 1s ease-out forwards;
+}
+
+@keyframes drawChartLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.micro-chart-point {
+    animation: pointPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes pointPop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ------------------------------------------------------------
+   5. REDES DE APOYO (CONEXIÓN RÁPIDA)
+   ------------------------------------------------------------ */
+
+.support-pill-btn {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.support-pill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.support-msg-pill {
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.support-msg-pill.selected {
+    background: #6366f1 !important;
+    color: #ffffff !important;
+    border-color: #6366f1 !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+/* Tarjeta de contacto "Ancla" */
+.anchor-contact-card {
+    background: var(--bienestar-glass-bg);
+    border: 1px solid var(--bienestar-glass-border);
+    border-radius: 24px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.anchor-contact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
+}
+
+/* Estilo para los botones de WhatsApp y mailto */
+.btn-whatsapp-action {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp-action:hover {
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+    transform: scale(1.03);
+}
+
+.btn-call-action {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-call-action:hover {
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
+    transform: scale(1.03);
+}
+
+/* ------------------------------------------------------------
+   4. RELAJACIÓN MUSCULAR PROGRESIVA (JACOBSON)
+   ------------------------------------------------------------ */
+
+/* Partes corporales del mapa anatómico SVG */
+.jacobson-body-part {
+    fill: rgba(148, 163, 184, 0.28);
+    stroke: rgba(148, 163, 184, 0.55);
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: fill 0.6s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.6s ease, filter 0.6s ease, transform 0.4s ease;
+    transform-origin: center;
+}
+
+body.dark-mode .jacobson-body-part {
+    fill: rgba(148, 163, 184, 0.16);
+    stroke: rgba(148, 163, 184, 0.32);
+}
+
+.jacobson-body-part:hover {
+    fill: rgba(6, 182, 212, 0.42);
+    stroke: #06b6d4;
+    filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.5));
+}
+
+/* Estado Tensión (Cálido / Naranja Alerta 5s) */
+.jacobson-body-part.tension {
+    fill: #f97316 !important;
+    stroke: #ea580c !important;
+    stroke-width: 2.5;
+    filter: url(#glow-tension) drop-shadow(0 0 16px rgba(249, 115, 22, 0.85)) !important;
+    animation: muscleTensionPulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes muscleTensionPulse {
+    0% {
+        filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.6));
+        opacity: 0.85;
+    }
+    100% {
+        filter: drop-shadow(0 0 24px rgba(239, 68, 68, 0.95));
+        opacity: 1;
+    }
+}
+
+/* Estado Relajación (Frío / Esmeralda / Cian 30s) */
+.jacobson-body-part.relaxation {
+    fill: #10b981 !important;
+    stroke: #059669 !important;
+    stroke-width: 2.5;
+    filter: url(#glow-relaxation) drop-shadow(0 0 18px rgba(16, 185, 129, 0.85)) !important;
+    animation: muscleRelaxationWave 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes muscleRelaxationWave {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
+        opacity: 0.8;
+    }
+    100% {
+        filter: drop-shadow(0 0 26px rgba(6, 182, 212, 0.9));
+        opacity: 1;
+    }
+}
+
+/* Estado Completado */
+.jacobson-body-part.completed {
+    fill: rgba(16, 185, 129, 0.28) !important;
+    stroke: rgba(16, 185, 129, 0.6) !important;
+}
+
+/* Botones de ritmo */
+.jacobson-mode-btn {
+    transition: all 0.25s ease;
+}
+
+.jacobson-mode-btn.active {
+    background: #06b6d4 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35);
+}
+
+/* Barra de sincronización somática superior */
+.jacobson-sync-bar {
+    border-radius: 20px;
+    background: var(--bienestar-glass-bg);
+    border: 1px solid var(--bienestar-glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Botones de pasos en la secuencia */
+.jacobson-step-pill {
+    transition: all 0.25s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.jacobson-step-pill.active {
+    border-color: #06b6d4 !important;
+    transform: scale(1.05);
+}
+
+.jacobson-step-pill.completed {
+    background: rgba(16, 185, 129, 0.25) !important;
+    border-color: rgba(16, 185, 129, 0.5) !important;
+    color: #10b981 !important;
+}
+

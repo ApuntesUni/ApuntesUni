@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienestar & Regulación Emocional | Salud Activa Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;700;800&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <!-- Estilos de Bienestar -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles_bienestar.css">
+</head>
+<body class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-500">
+
+    <!-- CONTENEDOR PRINCIPAL RAÍZ (Inyectado en bienvenida.html por lazy_loader.js) -->
+    <div id="bienestar-root" class="w-full max-w-7xl mx-auto p-4 md:p-6 space-y-10 transition-colors duration-500">
+        
+        <!-- ========================================================================= -->
+        <!-- ENCABEZADO / HERO BANNER DE BIENESTAR -->
+        <!-- ========================================================================= -->
+        <div class="bienestar-card p-6 md:p-10 relative overflow-hidden">
+            <!-- Destellos de ambientación neón sutil -->
+            <div class="absolute -top-16 -left-16 w-56 h-56 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left space-y-3 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold tracking-wide">
+                        <span class="material-symbols-outlined text-sm">spa</span>
+                        MÓDULO CLÍNICO DE AUTOCUIDADO
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-black tracking-tight text-[var(--black-color)] leading-tight">
+                        Bienestar & <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-500">Salud Emocional</span>
+                    </h1>
+                    <p class="text-sm md:text-base text-[var(--black-color)] font-medium">
+                        Herramientas de regulación del sistema nervioso autónomo, distanciamiento cognitivo y activación conductual basadas en evidencia de terapia cognitivo-conductual (TCC).
+                    </p>
+                    <div class="flex items-center justify-center md:justify-start gap-4 pt-1 text-xs text-[var(--black-color)]">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Almacenamiento local seguro</span>
+                        <span class="flex items-center gap-1"><i class="ri-refresh-line"></i> Renovación y orden diario</span>
+                    </div>
+                </div>
+
+                <!-- Botón SOS Destacado: Aterrizaje Sensorial 5-4-3-2-1 -->
+                <div class="flex flex-col items-center gap-2 shrink-0">
+                    <button id="btn-open-grounding-hero" class="btn-sos-floating group relative px-6 py-4 rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-black text-base shadow-xl flex items-center gap-3 transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+                        <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl animate-pulse">anchor</span>
+                        </div>
+                        <div class="text-left leading-tight">
+                            <span class="text-xs uppercase tracking-wider text-emerald-100 font-bold block">Crisis o Ansiedad</span>
+                            <span class="text-lg font-black">Aterrizar 5-4-3-2-1</span>
+                        </div>
+                    </button>
+                    <span class="text-[11px] text-[var(--text-glasseffect)]">Técnica de anclaje sensorial inmediato</span>
+                </div>
+            </div>
+
+            <!-- Navegación Bento / Píldoras de las funciones -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-8 pt-6 border-t border-slate-200/50 dark:border-slate-700/50">
+                <a href="#seccion-anclaje" class="bienestar-card p-3 md:p-4 text-center hover:border-emerald-500/50 transition-colors flex flex-col items-center gap-1.5 group">
+                    <span class="w-9 h-9 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-xl">self_improvement</span>
+                    </span>
+                    <span class="text-xs md:text-sm font-bold text-[var(--text-glasseffect)]">1. Anclaje 5-4-3-2-1</span>
+                    <span class="text-[10px] text-[var(--text-glasseffect)] hidden sm:block">Regulación sensorial</span>
+                </a>
+
+                <a href="#seccion-boveda" class="bienestar-card p-3 md:p-4 text-center hover:border-indigo-500/50 transition-colors flex flex-col items-center gap-1.5 group">
+                    <span class="w-9 h-9 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-xl">lock_clock</span>
+                    </span>
+                    <span class="text-xs md:text-sm font-bold text-[var(--text-glasseffect)]">2. La Bóveda</span>
+                    <span class="text-[10px] text-[var(--text-glasseffect)] hidden sm:block">Hora de preocupación</span>
+                </a>
+
+                <a href="#seccion-activacion" class="bienestar-card p-3 md:p-4 text-center hover:border-amber-500/50 transition-colors flex flex-col items-center gap-1.5 group">
+                    <span class="w-9 h-9 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-xl">trending_up</span>
+                    </span>
+                    <span class="text-xs md:text-sm font-bold text-[var(--text-glasseffect)]">3. Activación</span>
+                    <span class="text-[10px] text-[var(--text-glasseffect)] hidden sm:block">Slider & micro-gráfico</span>
+                </a>
+
+                <a href="#seccion-jacobson" class="bienestar-card p-3 md:p-4 text-center hover:border-cyan-500/50 transition-colors flex flex-col items-center gap-1.5 group">
+                    <span class="w-9 h-9 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-xl">accessibility_new</span>
+                    </span>
+                    <span class="text-xs md:text-sm font-bold text-[var(--text-glasseffect)]">4. Jacobson</span>
+                    <span class="text-[10px] text-[var(--text-glasseffect)] hidden sm:block">Mapa corporal 5s/30s</span>
+                </a>
+
+                <a href="#seccion-redes" class="bienestar-card p-3 md:p-4 text-center hover:border-purple-500/50 transition-colors flex flex-col items-center gap-1.5 group col-span-2 sm:col-span-1">
+                    <span class="w-9 h-9 rounded-2xl bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-xl">favorite</span>
+                    </span>
+                    <span class="text-xs md:text-sm font-bold text-[var(--text-glasseffect)]">5. Redes de Apoyo</span>
+                    <span class="text-[10px] text-[var(--text-glasseffect)] hidden sm:block">Anclas & WhatsApp</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- FUNCIÓN 1: ANCLAJE SENSORIAL (TÉCNICA 5-4-3-2-1) -->
+        <!-- ========================================================================= -->
+        <section id="seccion-anclaje" class="scroll-mt-24 space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black">
+                        1
+                    </span>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-[var(--black-color)]">Anclaje Sensorial (Técnica 5-4-3-2-1)</h2>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">Reconecta con el presente a través de los receptores somáticos y reduce la sobreestimulación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta explicativa con botón de disparo -->
+            <div class="bienestar-card p-6 md:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+                <div class="space-y-4 max-w-xl">
+                    <div class="grid grid-cols-5 gap-2 text-center text-xs font-semibold">
+                        <div class="p-2.5 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
+                            <span class="material-symbols-outlined text-xl block mb-1">visibility</span>
+                            <span class="font-bold">5</span> Cosas que veas
+                        </div>
+                        <div class="p-2.5 rounded-2xl bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300">
+                            <span class="material-symbols-outlined text-xl block mb-1">touch_app</span>
+                            <span class="font-bold">4</span> Que sientas
+                        </div>
+                        <div class="p-2.5 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300">
+                            <span class="material-symbols-outlined text-xl block mb-1">hearing</span>
+                            <span class="font-bold">3</span> Que escuches
+                        </div>
+                        <div class="p-2.5 rounded-2xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300">
+                            <span class="material-symbols-outlined text-xl block mb-1">air</span>
+                            <span class="font-bold">2</span> Que huelas
+                        </div>
+                        <div class="p-2.5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                            <span class="material-symbols-outlined text-xl block mb-1">restaurant</span>
+                            <span class="font-bold">1</span> Que saborees
+                        </div>
+                    </div>
+                    <p class="text-xs text-[var(--text-glasseffect)] leading-relaxed">
+                        Al activar esta técnica, la pantalla se desenfoca y muestra <strong>un paso a la vez</strong> con estímulos táctiles interactivos. Cada toque a la pantalla confirma un estímulo percibido, llenando el anillo de calma y reduciendo la actividad de la amígdala.
+                    </p>
+                </div>
+
+                <div class="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3">
+                    <button id="btn-start-grounding-modal" class="w-full sm:w-auto px-8 py-4 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-lg flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+                        <span class="material-symbols-outlined text-2xl">play_arrow</span>
+                        <span>Iniciar Ejercicio a Pantalla Completa</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- FUNCIÓN 2: REESTRUCTURACIÓN COGNITIVA Y DISTANCIAMIENTO (LA BÓVEDA) -->
+        <!-- ========================================================================= -->
+        <section id="seccion-boveda" class="scroll-mt-24 space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black">
+                        2
+                    </span>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-[var(--text-glasseffect)]">Reestructuración Cognitiva y Distanciamiento</h2>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">La "Bóveda de Preocupaciones" programada: guarda pensamientos intrusivos y atiéndelos solo en tu hora asignada.</p>
+                    </div>
+                </div>
+                
+                <!-- Botón configuración de hora de preocupación -->
+                <button id="btn-open-vault-config" class="px-3.5 py-1.5 rounded-full bg-slate-200/70 dark:bg-slate-700/70 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors" title="Configurar hora de preocupación">
+                    <span class="material-symbols-outlined text-base">schedule</span>
+                    <span>Hora: <b id="vault-time-display-btn">19:00 - 19:30</b></span>
+                </button>
+            </div>
+
+            <!-- Bento Grid de la Bóveda -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Columna Izquierda: Formulario de depósito de pensamientos (Siempre accesible) -->
+                <div class="lg:col-span-6 benessere-form-card bienestar-card p-6 md:p-8 flex flex-col justify-between relative overflow-hidden" id="card-thought-form">
+                    
+                    <div class="space-y-4 relative z-10">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-base">edit_note</span>
+                                Buzón de descarga mental
+                            </span>
+                            <span class="text-[11px] text-slate-400 dark:text-slate-500 font-mono" id="today-date-badge">Hoy</span>
+                        </div>
+
+                        <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white">
+                            ¿Qué pensamiento intrusivo o preocupación tienes ahora?
+                        </h3>
+                        <p class="text-xs text-[var(--text-glasseffect)]">
+                            Escríbelo tal cual viene. Al presionar "Guardar en la Bóveda", se comprimirá y quedará sellado. No lo rumiarás hasta la hora asignada.
+                        </p>
+
+                        <!-- Área de texto del pensamiento -->
+                        <div class="relative">
+                            <textarea id="vault-input-text" rows="3" placeholder="Ej: Me angustia que no me alcance el tiempo para la entrega de mañana y siento que saldrá mal..." class="w-full p-4 rounded-2xl bg-white/50 dark:bg-slate-800/50 border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-[var(--text-glasseffect)] placeholder-slate-400 transition-all"></textarea>
+                        </div>
+
+                        <!-- Selector de etiqueta emocional -->
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Tipo:</span>
+                            <button type="button" class="vault-tag-pill active px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500 text-white" data-tag="Catastrofismo">Catastrofismo</button>
+                            <button type="button" class="vault-tag-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-tag="Autoexigencia">Autoexigencia</button>
+                            <button type="button" class="vault-tag-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-tag="Incertidumbre">Incertidumbre</button>
+                            <button type="button" class="vault-tag-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-tag="Social">Social</button>
+                        </div>
+                    </div>
+
+                    <!-- Botón de absorción / Guardar en Bóveda -->
+                    <div class="pt-6 relative z-10">
+                        <button id="btn-save-thought" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] active:scale-95 cursor-pointer">
+                            <span class="material-symbols-outlined text-xl">lock</span>
+                            <span>Guardar en la Bóveda (Sellado Seguro)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: La Bóveda Visual y Estado de Bloqueo -->
+                <div class="lg:col-span-6 vault-box p-6 md:p-8 flex flex-col justify-between text-white" id="vault-visual-container">
+                    
+                    <!-- Cabecera de estado de la Bóveda -->
+                    <div class="flex items-center justify-between border-b border-slate-700/60 pb-4">
+                        <div class="flex items-center gap-2.5">
+                            <span id="vault-status-indicator-dot" class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></span>
+                            <span id="vault-status-text" class="text-xs font-black uppercase tracking-wider text-rose-400">Bóveda Sellada</span>
+                        </div>
+
+                        <!-- Botón modo prueba (para evaluar apertura inmediata) -->
+                        <button id="btn-toggle-test-unlock" class="text-[11px] px-3 py-1 rounded-full bg-slate-800 border border-slate-600 hover:bg-slate-700 text-slate-300 flex items-center gap-1 transition-colors" title="Simular apertura inmediata">
+                            <span class="material-symbols-outlined text-sm">science</span>
+                            <span>Simular hora activa</span>
+                        </button>
+                    </div>
+
+                    <!-- Centro visual: Dial y Candado de la Caja Fuerte -->
+                    <div class="my-6 flex flex-col items-center justify-center text-center space-y-3">
+                        <div id="vault-dial-element" class="vault-dial">
+                            <span id="vault-lock-icon" class="material-symbols-outlined text-4xl text-slate-300">lock</span>
+                        </div>
+
+                        <div class="space-y-1">
+                            <div class="text-2xl font-black tracking-tight" id="vault-thoughts-count-text">0 Pensamientos Sellados</div>
+                            <p class="text-xs text-slate-400 max-w-sm" id="vault-status-subtext">
+                                Desbloqueo programado: <strong>19:00 a 19:30</strong>. Fuera de ese rango, tu mente tiene permiso de descansar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Lista de pensamientos guardados (oculta con blur si está sellada, visible si está desbloqueada) -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                            <span>Registro del día (<span id="vault-current-date-text"></span>)</span>
+                            <button id="btn-clear-today-vault" class="text-[11px] text-slate-500 hover:text-rose-400 transition-colors">Limpiar día</button>
+                        </div>
+
+                        <div id="vault-thoughts-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- FUNCIÓN 3: ACTIVACIÓN CONDUCTUAL (SLIDER & MICRO-GRÁFICO) -->
+        <!-- ========================================================================= -->
+        <section id="seccion-activacion" class="scroll-mt-24 space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-black">
+                        3
+                    </span>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-[var(--text-glasseffect)]">Activación Conductual</h2>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400">La acción precede a la motivación: evalúa tu energía antes y después para validar el impacto positivo en tu ánimo.</p>
+                    </div>
+                </div>
+
+                <button id="btn-add-custom-task" class="px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+                    <span class="material-symbols-outlined text-base">add_circle</span>
+                    <span>Nueva Tarea</span>
+                </button>
+            </div>
+
+            <!-- Resumen de impacto de la jornada -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bienestar-card p-5 flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl">task_alt</span>
+                    </span>
+                    <div>
+                        <span class="text-xs text-[var(--text-glasseffect)] font-bold uppercase">Tareas de Autocuidado</span>
+                        <div class="text-2xl font-black text-[var(--text-glasseffect)] id="stat-tasks-completed">0 / 0</div>
+                    </div>
+                </div>
+
+                <div class="bienestar-card p-5 flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl">bolt</span>
+                    </span>
+                    <div>
+                        <span class="text-xs text-[var(--text-glasseffect)] font-bold uppercase">Elevación Media de Ánimo</span>
+                        <div class="text-2xl font-black text-[var(--text-glasseffect)] id="stat-energy-gain">+0 pts</div>
+                    </div>
+                </div>
+
+                <div class="bienestar-card p-5 flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl">insights</span>
+                    </span>
+                    <div>
+                        <span class="text-xs text-[var(--text-glasseffect)] font-bold uppercase">Principio TCC</span>
+                        <div class="text-xs font-semibold text-[var(--text-glasseffect)]">"Hacerlo aun sin ganas eleva la dopamina"</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Tareas de Autocuidado y Validación -->
+            <div id="behavioral-tasks-container" class="space-y-4">
+                <!-- Inyectado por JS -->
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- FUNCIÓN 4: RELAJACIÓN MUSCULAR PROGRESIVA (JACOBSON) -->
+        <!-- ========================================================================= -->
+        <section id="seccion-jacobson" class="scroll-mt-24 space-y-4">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-black">
+                        4
+                    </span>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-[var(--black-color)]">Relajación Muscular Progresiva (Jacobson)</h2>
+                        <p class="text-xs md:text-sm text-[var(--text-glasseffect)]">Mapa corporal interactivo: tensa 5s en alerta cálida y suelta 30s en calma fría para inducir relajación somática profunda.</p>
+                    </div>
+                </div>
+
+                <!-- Selector de modo (Clínico vs Demo rápido) -->
+                <div class="flex items-center gap-2 self-start sm:self-auto">
+                    <span class="text-xs font-semibold text-[var(--text-glasseffect)] hidden sm:inline">Ritmo:</span>
+                    <button id="jacobson-mode-standard" class="jacobson-mode-btn active px-3 py-1.5 rounded-full text-xs font-bold bg-cyan-500 text-white shadow-sm transition-all" title="Estándar Clínico: 5s Tensión / 30s Relajación">
+                        Clínico (5s / 30s)
+                    </button>
+                    <button id="jacobson-mode-fast" class="jacobson-mode-btn px-3 py-1.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 transition-all" title="Demostración Rápida: 4s Tensión / 8s Relajación">
+                        Demo (4s / 8s)
+                    </button>
+                    <button id="jacobson-sound-toggle" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors" title="Activar/Desactivar sonido guía">
+                        <span class="material-symbols-outlined text-base" id="jacobson-sound-icon">volume_up</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bento Container Principal -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- Columna Izquierda: Mapa Corporal Interactivo 2D SVG -->
+                <div class="lg:col-span-5 bienestar-card p-6 flex flex-col items-center justify-between relative overflow-hidden">
+                    <div class="w-full flex items-center justify-between pb-3 border-b border-slate-200/50 dark:border-slate-700/50">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-cyan-500 text-lg">accessibility</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[var(--black-color)]">Mapa Somático</span>
+                        </div>
+                        <span class="text-[11px] text-slate-400 font-medium">Toca una zona para activarla</span>
+                    </div>
+
+                    <!-- Contenedor del SVG -->
+                    <div class="relative w-full max-w-[270px] py-4 flex items-center justify-center">
+                        <!-- Destello reactivo de fondo -->
+                        <div id="jacobson-body-glow" class="absolute w-48 h-48 rounded-full blur-3xl opacity-25 transition-all duration-700 pointer-events-none bg-cyan-400"></div>
+
+                        <!-- SVG del Cuerpo Humano con 8 Grupos Musculares -->
+                        <svg id="jacobson-body-svg" viewBox="0 0 300 580" class="w-full h-auto max-h-[460px] drop-shadow-md select-none">
+                            <defs>
+                                <filter id="glow-tension" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#f97316" flood-opacity="0.85"/>
+                                </filter>
+                                <filter id="glow-relaxation" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#10b981" flood-opacity="0.85"/>
+                                </filter>
+                            </defs>
+
+                            <!-- Silueta general de soporte suave -->
+                            <g class="jacobson-body-silhouette opacity-10 dark:opacity-20 pointer-events-none text-slate-400 dark:text-slate-500">
+                                <path d="M150 12 C130 12 118 28 118 46 C118 64 130 78 142 84 L132 94 L102 106 C94 110 88 120 86 130 L70 250 L62 300 C60 312 68 320 78 316 L88 280 L96 230 L102 260 L110 390 L110 490 L95 558 C93 564 100 568 106 568 L142 568 L144 390 L156 390 L158 568 L194 568 C200 568 207 564 205 558 L190 490 L190 390 L198 260 L204 230 L212 280 L222 316 C232 320 240 312 238 300 L230 250 L214 130 C212 120 206 110 198 106 L168 94 L158 84 C170 78 182 64 182 46 C182 28 170 12 150 12 Z" fill="currentColor"/>
+                            </g>
+
+                            <!-- GRUPOS MUSCULARES CLÍNICOS CLICKABLES -->
+                            <!-- 8. Rostro y Mandíbula -->
+                            <path id="part-face" data-zone-id="face" class="jacobson-body-part" d="M150 16 C134 16 122 30 122 47 C122 62 131 74 142 79 L143 86 L157 86 L158 79 C169 74 178 62 178 47 C178 30 166 16 150 16 Z">
+                                <title>Zona 8: Rostro, Ojos y Mandíbula</title>
+                            </path>
+
+                            <!-- 7. Hombros y Cuello -->
+                            <path id="part-shoulders" data-zone-id="shoulders" class="jacobson-body-part" d="M141 87 L133 97 L105 107 C98 110 94 116 93 124 L92 133 L114 126 L134 112 L143 112 L143 97 L157 97 L157 112 L166 112 L186 126 L208 133 L207 124 C206 116 202 110 195 107 L167 97 L159 87 Z">
+                                <title>Zona 7: Hombros, Trapecios y Cuello</title>
+                            </path>
+
+                            <!-- 5. Pecho y Espalda Alta -->
+                            <g id="part-chest" data-zone-id="chest" class="jacobson-body-part">
+                                <title>Zona 5: Pecho, Pectorales y Espalda Alta</title>
+                                <path d="M114 127 L93 136 L99 181 C100 188 107 192 115 192 L145 192 L145 129 L134 119 Z" />
+                                <path d="M186 127 L207 136 L201 181 C200 188 193 192 185 192 L155 192 L155 129 L166 119 Z" />
+                            </g>
+
+                            <!-- 6. Manos, Brazos y Puños -->
+                            <g id="part-arms" data-zone-id="arms" class="jacobson-body-part">
+                                <title>Zona 6: Brazos, Bíceps, Antebrazos y Manos</title>
+                                <path d="M91 137 C86 148 82 168 81 188 C80 208 78 233 73 258 L68 283 C66 291 63 299 63 307 C63 315 69 320 77 318 C83 316 87 310 89 302 L93 268 C98 243 100 218 100 195 L94 150 Z" />
+                                <path d="M209 137 C214 148 218 168 219 188 C220 208 222 233 227 258 L232 283 C234 291 237 299 237 307 C237 315 231 320 223 318 C217 316 213 310 211 302 L207 268 C202 243 200 218 200 195 L206 150 Z" />
+                            </g>
+
+                            <!-- 4. Abdomen y Core -->
+                            <path id="part-abdomen" data-zone-id="abdomen" class="jacobson-body-part" d="M115 195 L101 199 L105 251 C107 259 115 265 124 266 L176 266 C185 265 193 259 195 251 L199 199 L185 195 Z">
+                                <title>Zona 4: Abdomen, Core y Zona Lumbar</title>
+                            </path>
+
+                            <!-- 3. Muslos y Glúteos -->
+                            <g id="part-thighs" data-zone-id="thighs" class="jacobson-body-part">
+                                <title>Zona 3: Muslos, Cuádriceps y Glúteos</title>
+                                <path d="M109 269 C109 281 111 316 113 346 C114 366 115 386 115 396 L143 396 C145 381 147 356 147 331 C147 306 144 286 141 273 Z" />
+                                <path d="M191 269 C191 281 189 316 187 346 C186 366 185 386 185 396 L157 396 C155 381 153 356 153 331 C153 306 156 286 159 273 Z" />
+                            </g>
+
+                            <!-- 2. Pantorrillas y Gemelos -->
+                            <g id="part-calves" data-zone-id="calves" class="jacobson-body-part">
+                                <title>Zona 2: Pantorrillas, Rodillas y Gemelos</title>
+                                <path d="M115 401 L112 431 C109 451 111 476 117 496 L137 496 C142 476 144 451 142 431 L142 401 Z" />
+                                <path d="M185 401 L188 431 C191 451 189 476 183 496 L163 496 C158 476 156 451 158 431 L158 401 Z" />
+                            </g>
+
+                            <!-- 1. Pies y Dedos -->
+                            <g id="part-feet" data-zone-id="feet" class="jacobson-body-part">
+                                <title>Zona 1: Pies, Dedos y Plantas</title>
+                                <path d="M117 499 L113 526 C111 541 105 551 95 559 C93 561 95 565 99 565 L137 565 C140 565 141 561 140 557 L137 526 L137 499 Z" />
+                                <path d="M183 499 L187 526 C189 541 195 551 205 559 C207 561 205 565 201 565 L163 565 C160 565 159 561 160 557 L163 526 L163 499 Z" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Leyenda interactiva inferior -->
+                    <div class="w-full flex items-center justify-around pt-3 border-t border-slate-200/50 dark:border-slate-700/50 text-[11px] font-bold">
+                        <div class="flex items-center gap-1.5 text-orange-500">
+                            <span class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse"></span>
+                            <span>Tensión (Cálido · 5s)</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-emerald-500">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                            <span>Relajación (Frío · 30s)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Barra de Sincronización, Temporizador Circular y Guía -->
+                <div class="lg:col-span-7 bienestar-card p-6 md:p-8 flex flex-col justify-between space-y-6">
+
+                    <!-- Barra superior de Técnica (Estilo display clínico) -->
+                    <div class="jacobson-sync-bar p-3 md:p-4 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span id="jacobson-phase-badge-icon" class="w-8 h-8 rounded-full bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-base animate-pulse">fitness_center</span>
+                            </span>
+                            <div>
+                                <span id="jacobson-zone-badge" class="text-xs font-black text-[var(--black-color)] block">Zona 1/8: Pies y Dedos</span>
+                                <span id="jacobson-phase-indicator-text" class="text-[10px] text-orange-600 dark:text-orange-400 font-bold uppercase tracking-wider">Fase de Tensión</span>
+                            </div>
+                        </div>
+
+                        <!-- Tiempo total de la sesión -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] text-slate-400 font-mono hidden sm:inline">Sesión:</span>
+                            <span id="jacobson-total-session-time" class="font-mono text-xs font-black px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-700/70 text-[var(--black-color)]">04:40</span>
+                        </div>
+                    </div>
+
+                    <!-- Centro: Temporizador Circular y Acción Principal -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8 my-2">
+                        <!-- Círculo de temporizador SVG -->
+                        <div class="relative w-36 h-36 shrink-0 flex items-center justify-center">
+                            <svg class="w-36 h-36 transform -rotate-90" viewBox="0 0 120 120">
+                                <circle class="text-slate-200 dark:text-slate-700/50" stroke-width="8" stroke="currentColor" fill="transparent" r="50" cx="60" cy="60"/>
+                                <circle id="jacobson-timer-ring" class="transition-all duration-300 text-orange-500" stroke-width="8" stroke-dasharray="314.159" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="50" cx="60" cy="60"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                <span id="jacobson-seconds-text" class="text-4xl font-black font-mono text-[var(--black-color)] leading-none">5</span>
+                                <span class="text-[10px] font-bold text-[var(--text-glasseffect)] uppercase mt-0.5">segundos</span>
+                            </div>
+                        </div>
+
+                        <!-- Texto y llamado a la acción -->
+                        <div class="text-center sm:text-left space-y-2 max-w-sm">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider transition-colors duration-500 bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30" id="jacobson-action-pill">
+                                <span class="w-2 h-2 rounded-full bg-orange-500 animate-ping" id="jacobson-action-dot"></span>
+                                <span id="jacobson-action-title">Tensa con fuerza</span>
+                            </div>
+                            <h3 id="jacobson-zone-title" class="text-xl md:text-2xl font-black text-[var(--black-color)]">Pies y Dedos de los Pies</h3>
+                            <p id="jacobson-instruction-text" class="text-xs md:text-sm text-[var(--text-glasseffect)] font-medium leading-relaxed transition-opacity duration-300">
+                                Curva los dedos de los pies hacia abajo con fuerza y tensa las plantas como si agarraras el suelo. Mantén la tensión firme.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Barra de progreso de las 8 zonas (Stepper horizontal) -->
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs text-[var(--text-glasseffect)] font-semibold">
+                            <span>Secuencia Cefalocaudal / Muscular</span>
+                            <span id="jacobson-step-counter">Zona 1 de 8</span>
+                        </div>
+                        <div class="grid grid-cols-8 gap-1.5" id="jacobson-zones-stepper">
+                            <!-- Se generan los 8 botones/indicadores de zona -->
+                        </div>
+                    </div>
+
+                    <!-- Controles Principales (Iniciar, Pausar, Anterior, Siguiente) -->
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-200/50 dark:border-slate-700/50">
+                        <div class="flex items-center gap-2">
+                            <button id="btn-jacobson-prev" class="w-10 h-10 rounded-full bg-slate-200/70 dark:bg-slate-700/70 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center transition-colors" title="Zona anterior">
+                                <span class="material-symbols-outlined text-xl">skip_previous</span>
+                            </button>
+                            <button id="btn-jacobson-reset" class="w-10 h-10 rounded-full bg-slate-200/70 dark:bg-slate-700/70 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center transition-colors" title="Reiniciar sesión">
+                                <span class="material-symbols-outlined text-xl">restart_alt</span>
+                            </button>
+                        </div>
+
+                        <!-- Botón Central Play / Pause -->
+                        <button id="btn-jacobson-play" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-black text-sm shadow-lg flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+                            <span class="material-symbols-outlined text-2xl" id="jacobson-play-icon">play_arrow</span>
+                            <span id="jacobson-play-text">Iniciar Jacobson</span>
+                        </button>
+
+                        <button id="btn-jacobson-next" class="w-10 h-10 rounded-full bg-slate-200/70 dark:bg-slate-700/70 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center transition-colors" title="Siguiente zona">
+                            <span class="material-symbols-outlined text-xl">skip_next</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- FUNCIÓN 5: CONSOLIDACIÓN DE REDES DE APOYO (CONEXIÓN RÁPIDA) -->
+        <!-- ========================================================================= -->
+        <section id="seccion-redes" class="scroll-mt-24 space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-2xl bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center font-black">
+                        5
+                    </span>
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-[var(--black-color)]">Consolidación de Redes de Apoyo</h2>
+                        <p class="text-xs md:text-sm text-[var(--text-glasseffect)]">Registra tus "Anclas" (amigos, familiares o terapeuta) y conéctate con un solo clic con mensajes prediseñados.</p>
+                    </div>
+                </div>
+
+                <button id="btn-add-anchor-modal" class="px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+                    <span class="material-symbols-outlined text-base">person_add</span>
+                    <span>Registrar Ancla</span>
+                </button>
+            </div>
+
+            <!-- Selector de Mensajes Predeterminados para el envío rápido -->
+            <div class="bienestar-card p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-base">chat</span>
+                        Mensaje predeterminado a enviar
+                    </h3>
+                    <span class="text-xs text-slate-400">Selecciona o edita para WhatsApp / Correo</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="support-presets-list">
+                    <div class="support-msg-pill selected p-3.5 rounded-2xl bg-white/70 dark:bg-slate-800/70 text-xs font-medium text-slate-700 dark:text-slate-200" data-msg="No me siento muy bien, ¿tienes 5 minutos para hablar de cualquier otra cosa?">
+                        "No me siento muy bien, ¿tienes 5 minutos para hablar de cualquier otra cosa?"
+                    </div>
+                    <div class="support-msg-pill p-3.5 rounded-2xl bg-white/70 dark:bg-slate-800/70 text-xs font-medium text-slate-700 dark:text-slate-200" data-msg="Hola, necesito un recordatorio de que todo está bien y un momento de compañía.">
+                        "Hola, necesito un recordatorio de que todo está bien y un momento de compañía."
+                    </div>
+                    <div class="support-msg-pill p-3.5 rounded-2xl bg-white/70 dark:bg-slate-800/70 text-xs font-medium text-slate-700 dark:text-slate-200" data-msg="Hola, estoy sintiendo mucha sobrecarga en este momento. Si tienes un tiempecito, me encantaría saludarte.">
+                        "Hola, estoy sintiendo mucha sobrecarga en este momento. Si tienes un tiempecito, me encantaría saludarte."
+                    </div>
+                </div>
+
+                <!-- Input editable del mensaje activo -->
+                <div class="pt-2">
+                    <input type="text" id="active-support-message-input" value="No me siento muy bien, ¿tienes 5 minutos para hablar de cualquier otra cosa?" class="w-full p-3.5 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 text-xs md:text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+            </div>
+
+            <!-- Grid de Contactos Anclas Pre-registradas -->
+            <div id="anchors-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Se inyecta dinámicamente con JavaScript -->
+            </div>
+
+            <!-- Directorio de Emergencia 24/7 Oficial -->
+            <div class="bienestar-card p-4 md:p-6 bg-gradient-to-r from-rose-500/10 via-amber-500/10 to-indigo-500/10 border-rose-300/40 dark:border-rose-800/40 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5 text-center md:text-left">
+                    <span class="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                        <span class="material-symbols-outlined text-2xl">emergency</span>
+                    </span>
+                    <div>
+                        <h4 class="text-sm font-bold text-[var(--text-glasseffect)]">Líneas de Asistencia Psicológica 24/7 (Gratis y Confidencial)</h4>
+                        <p class="text-xs text-[var(--text-glasseffect)]">Si tú o alguien que conoces necesita contención profesional inmediata, llama sin costo.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <a href="tel:8009112000" class="px-4 py-2 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-transform hover:scale-105">
+                        <span class="material-symbols-outlined text-base">call</span>
+                        Línea de la Vida (800 911 2000)
+                    </a>
+                    <a href="tel:911" class="px-4 py-2 rounded-full bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 text-white text-xs font-bold flex items-center gap-1.5 transition-transform hover:scale-105">
+                        <span class="material-symbols-outlined text-base">local_police</span>
+                        Emergencias 911
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL 1: OVERLAY DE ANCLAJE SENSORIAL 5-4-3-2-1 A PANTALLA COMPLETA -->
+    <!-- ========================================================================= -->
+    <div id="grounding-modal" role="dialog" aria-modal="true" class="p-4 md:p-8">
+        
+        <!-- Botón Cerrar en esquina superior -->
+        <button id="btn-close-grounding" class="fixed top-6 right-6 z-[100002] w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur-md border border-white/30 transition-transform hover:scale-110 active:scale-95 cursor-pointer" title="Finalizar ejercicio">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+
+        <!-- Halo pulsante de fondo -->
+        <div class="grounding-breath-halo bg-emerald-500" id="grounding-halo"></div>
+
+        <!-- Tarjeta Central Inmersiva (Solo un paso a la vez) -->
+        <div class="relative z-[100001] w-full max-w-lg mx-auto text-center space-y-6 text-white p-6 md:p-10 rounded-[36px] bg-slate-900/60 backdrop-blur-2xl border border-white/20 shadow-2xl">
+            
+            <!-- Barra de pasos 5-4-3-2-1 -->
+            <div class="flex items-center justify-center gap-2" id="grounding-stepper-dots">
+                <span class="step-dot px-3 py-1 rounded-full text-xs font-black bg-emerald-500 text-white shadow-md">5</span>
+                <span class="step-dot px-3 py-1 rounded-full text-xs font-black bg-white/20 text-white/70">4</span>
+                <span class="step-dot px-3 py-1 rounded-full text-xs font-black bg-white/20 text-white/70">3</span>
+                <span class="step-dot px-3 py-1 rounded-full text-xs font-black bg-white/20 text-white/70">2</span>
+                <span class="step-dot px-3 py-1 rounded-full text-xs font-black bg-white/20 text-white/70">1</span>
+            </div>
+
+            <!-- Círculo de progreso interactivo -->
+            <div class="relative w-44 h-44 mx-auto flex items-center justify-center">
+                <svg class="grounding-progress-ring w-44 h-44" viewBox="0 0 120 120">
+                    <circle class="text-white/10" stroke-width="8" stroke="currentColor" fill="transparent" r="50" cx="60" cy="60"/>
+                    <circle id="grounding-progress-circle" class="grounding-ring-circle text-emerald-400" stroke-width="8" stroke-dasharray="314.159" stroke-dashoffset="314.159" stroke-linecap="round" stroke="currentColor" fill="transparent" r="50" cx="60" cy="60"/>
+                </svg>
+
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span id="grounding-step-icon" class="material-symbols-outlined text-5xl text-emerald-400 transition-all duration-300">visibility</span>
+                    <span id="grounding-touches-count" class="text-2xl font-black mt-1 font-mono">0 / 5</span>
+                </div>
+            </div>
+
+            <!-- Instrucción del paso -->
+            <div class="space-y-2">
+                <h3 id="grounding-step-title" class="text-2xl md:text-3xl font-black text-white">5 Cosas que veas</h3>
+                <p id="grounding-step-instruction" class="text-sm md:text-base text-emerald-100 font-medium leading-relaxed">
+                    Mira a tu alrededor. Toca la pantalla 5 veces conforme vayas identificando 5 objetos en tu entorno.
+                </p>
+            </div>
+
+            <!-- Feedback de acción -->
+            <div class="p-3 rounded-2xl bg-white/10 backdrop-blur-md text-xs text-white/80 border border-white/10">
+                <span class="material-symbols-outlined text-sm inline mr-1">touch_app</span>
+                Toca en cualquier parte de la pantalla para registrar cada objeto
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL 2: CONFIGURACIÓN DE HORA DE LA BÓVEDA -->
+    <!-- ========================================================================= -->
+    <div id="modal-vault-config" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bienestar-card w-full max-w-md p-6 md:p-8 space-y-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xl rounded-3xl transform scale-95 transition-transform">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold">
+                        <span class="material-symbols-outlined text-lg">schedule</span>
+                    </span>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Hora de Preocupación</h3>
+                </div>
+                <button id="btn-close-vault-config" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-300 transition-colors">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+                La TCC sugiere destinar de 15 a 30 minutos al día (preferentemente por la tarde) para revisar tus pensamientos con objetividad.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Hora Inicio</label>
+                    <input type="time" id="vault-time-start" value="19:00" class="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm font-mono font-bold text-slate-800 dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Hora Fin</label>
+                    <input type="time" id="vault-time-end" value="19:30" class="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm font-mono font-bold text-slate-800 dark:text-white">
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2">
+                <button id="btn-save-vault-time" class="w-full py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition-colors">
+                    Guardar Horario
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL 3: EVALUACIÓN DE ENERGÍA Y ÁNIMO (SLIDER TCC) -->
+    <!-- ========================================================================= -->
+    <div id="modal-energy-slider" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bienestar-card w-full max-w-md p-6 md:p-8 space-y-6 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xl rounded-3xl transform scale-95 transition-transform text-center">
+            
+            <div class="w-14 h-14 mx-auto rounded-3xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl" id="slider-modal-icon">mood</span>
+            </div>
+
+            <div class="space-y-1">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white" id="slider-modal-title">¿Cómo está tu energía/ánimo ahora?</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400" id="slider-modal-task-name">Tarea: Caminata 15 min</p>
+            </div>
+
+            <!-- Emojis y Valor del Slider -->
+            <div class="py-4 space-y-3">
+                <div class="flex items-center justify-center gap-3">
+                    <span class="text-4xl" id="slider-emoji-preview">😐</span>
+                    <span class="text-3xl font-black font-mono text-slate-900 dark:text-white" id="slider-value-display">5 / 10</span>
+                </div>
+                <div class="text-xs font-semibold text-amber-600 dark:text-amber-400" id="slider-feeling-label">
+                    Energía moderada / neutra
+                </div>
+
+                <!-- Slider interactivo -->
+                <input type="range" id="energy-range-input" min="1" max="10" value="5" class="energy-slider mt-4">
+                
+                <div class="flex justify-between text-[10px] text-slate-400 font-bold px-1">
+                    <span>1 (Agotado/a)</span>
+                    <span>5 (Neutro)</span>
+                    <span>10 (Pleno/a)</span>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button id="btn-cancel-energy-slider" class="flex-1 py-3 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-300 transition-colors">
+                    Cancelar
+                </button>
+                <button id="btn-confirm-energy-slider" class="flex-[2] py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-md transition-colors">
+                    Continuar y Registrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MODAL 4: REGISTRAR NUEVA ANCLA DE APOYO -->
+    <!-- ========================================================================= -->
+    <div id="modal-add-anchor" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bienestar-card w-full max-w-md p-6 md:p-8 space-y-5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xl rounded-3xl transform scale-95 transition-transform">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+                        <span class="material-symbols-outlined text-lg">person_add</span>
+                    </span>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Nueva Ancla de Apoyo</h3>
+                </div>
+                <button id="btn-close-anchor-modal" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-300 transition-colors">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+            </div>
+
+            <form id="form-new-anchor" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nombre Completo</label>
+                    <input type="text" id="anchor-name-input" required placeholder="Ej: Andrea Gómez" class="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Vínculo / Relación</label>
+                    <select id="anchor-relationship-select" class="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="Amigo/a de confianza">Amigo/a de confianza</option>
+                        <option value="Familiar / Pareja">Familiar / Pareja</option>
+                        <option value="Terapeuta / Psicólogo/a">Terapeuta / Psicólogo/a</option>
+                        <option value="Mentor / Compañero">Mentor / Compañero</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Teléfono (con código de país ej: 521234567890)</label>
+                    <input type="tel" id="anchor-phone-input" required placeholder="Ej: 5215512345678" class="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm font-mono text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Correo Electrónico (Opcional)</label>
+                    <input type="email" id="anchor-email-input" placeholder="ejemplo@correo.com" class="w-full p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm shadow-md transition-colors">
+                        Guardar Ancla en Mi Red
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div><!-- /#bienestar-root -->
+
+    <!-- Script de Bienestar -->
+    <script src="script_bienestar.js"></script>
+</body>
+</html>

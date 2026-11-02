@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles_fisiologia.css">
     <link rel="stylesheet" href="styles_psicologia.css">
+    <link rel="stylesheet" href="styles_bienestar.css">
     <link rel="stylesheet" href="styles_bibliografia.css">
 </head>
 <body class="min-h-screen font-sans p-4 md:p-8 bg-fixed bg-no-repeat transition-colors duration-500">
@@ -87,6 +88,10 @@
                                 <a href="#Psicologia" class="capsule-item">
                                     <i class="material-symbols-outlined">psychology</i>
                                     <span>Psicologia</span>
+                                </a>
+                                <a href="#Bienestar" class="capsule-item">
+                                    <i class="material-symbols-outlined">spa</i>
+                                    <span>Bienestar</span>
                                 </a>
                                 <a href="#Bibliografia" class="capsule-item">
                                     <i class="material-symbols-outlined">auto_stories</i>
@@ -170,6 +175,9 @@
                             </a>
                             <a href="#Psicologia" class="fab-pill-option nav-fab-link">
                                 <i class="material-symbols-outlined">psychology</i><span>Psicologia</span>
+                            </a>
+                            <a href="#Bienestar" class="fab-pill-option nav-fab-link">
+                                <i class="material-symbols-outlined">spa</i><span>Bienestar</span>
                             </a>
                             <a href="#Bibliografia" class="fab-pill-option nav-fab-link">
                                 <i class="material-symbols-outlined">auto_stories</i><span>Bibliografía</span>
@@ -3306,6 +3314,17 @@
 
         </div>
     </section>
+    <!-- Bienestar -->
+    <div id="Bien"></div>
+    <section class="Bienestar py-12 spa-section" data-section="bienestar" id="Bienestar" style="display: none;">
+        <div id="bienestar-mount">
+            <!-- Cargado de forma optimizada (lazy loading) desde bienestar.html -->
+            <div class="max-w-md mx-auto p-8 text-center text-slate-500 font-medium">
+                <div class="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+                Cargando Módulo de Bienestar...
+            </div>
+        </div>
+    </section>
     <!-- Bibliografia -->
     <div id="Biblio"></div>
     <section class="Bibliografia py-12" data-section="bibliografia" id="Bibliografia">
@@ -3431,6 +3450,7 @@
                 <h3 class="salud-footer__heading"><span class="salud-dot" style="background: #a855f7;"></span> Navegación</h3>
                 <ul>
                     <li><a href="#Inicio">Inicio</a></li>
+                    <li><a href="#Bienestar" onclick="if(window.SPA) { SPA.navigateTo('bienestar'); return false; }">Bienestar</a></li>
                     <li><a href="#" onclick="abrirNosotros(event)">Nosotros</a></li>
                     <li><a href="#" onclick="abrirServicios(event)">Servicios</a></li>
                     <li><a href="#">Blog</a></li>
