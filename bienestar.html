@@ -24,6 +24,7 @@
         <!-- ========================================================================= -->
         <div class="venus-window-container flex flex-col md:flex-row w-full overflow-hidden relative shadow-2xl" id="venus-chatbot-card">
             
+            <div id="venus-sidebar-overlay" class="venus-sidebar-overlay md:hidden"></div>
             <!-- SIDEBAR IZQUIERDA -->
             <aside class="venus-sidebar w-full md:w-64 p-5 md:p-6 flex flex-col justify-between shrink-0 relative z-20">
                 <div>
@@ -86,6 +87,9 @@
                 <!-- Barra superior de estado / Perfil -->
                 <header class="w-full flex items-center justify-between p-4 md:px-8 relative z-20">
                     <div class="flex items-center gap-2">
+                        <button id="btn-venus-menu-toggle" class="md:hidden w-10 h-10 rounded-full bg-white/70 dark:bg-slate-800/70 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-center text-slate-700 dark:text-slate-200 transition-colors shrink-0">
+                            <span class="material-symbols-outlined text-xl">menu</span>
+                        </button>
                         <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
                         <span class="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-wide uppercase">Asistente Inteligente de Salud</span>
                     </div>

@@ -1866,6 +1866,32 @@
     window.toggleVenusFullscreen = toggleVenusFullscreen;
 
     function setupVenusChat() {
+        const btnToggleMenu = document.getElementById('btn-venus-menu-toggle');
+        const btnCloseMenu = document.getElementById('btn-venus-menu-close');
+        const sidebar = document.querySelector('.venus-sidebar');
+        const overlay = document.getElementById('venus-sidebar-overlay');
+
+        function toggleMobileSidebar() {
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('sidebar-open');
+                overlay.classList.toggle('active');
+            }
+        }
+
+        if (btnToggleMenu) btnToggleMenu.addEventListener('click', toggleMobileSidebar);
+        if (btnCloseMenu) btnCloseMenu.addEventListener('click', toggleMobileSidebar);
+        if (overlay) overlay.addEventListener('click', toggleMobileSidebar);
+
+        // Ocultar el menú automáticamente al hacer clic en una opción (solo en móvil)
+        const navItemsList = document.querySelectorAll('.venus-nav-item');
+        navItemsList.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 768 && sidebar.classList.contains('sidebar-open')) {
+                    toggleMobileSidebar();
+                }
+            });
+        });
+
         // 1. Chips de preguntas predeterminadas
         const chips = document.querySelectorAll('.venus-prompt-chip');
         chips.forEach(chip => {

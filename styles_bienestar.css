@@ -480,8 +480,12 @@ body.dark-mode .jacobson-body-part {
     border-radius: 36px;
     box-shadow: 0 25px 65px -15px rgba(59, 130, 246, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    min-height: 720px;
+    -webkit-backdrop-filter: blur(28px); 
+    height: 100dvh; 
+    max-height: 100dvh;
+    min-height: 100dvh; 
+    display: flex;
+    flex-direction: column; 
 }
 
 body.dark-mode .venus-window-container {
@@ -825,8 +829,60 @@ body.dark-mode .venus-typing-dot {
 
 /* Sidebar en pantalla completa */
 .venus-sidebar {
-    height: 100%;
-    overflow-y: auto;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    height: 100% !important;
+    width: 85% !important;
+    max-width: 320px;
+    z-index: 100 !important;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(255, 255, 255, 0.9) !important; /* Fondo sólido móvil */
+    backdrop-filter: blur(24px);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .venus-sidebar {
+    background: rgba(15, 23, 42, 0.95) !important;
+}
+
+.venus-sidebar.sidebar-open {
+    transform: translateX(0);
+}
+
+.venus-sidebar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 90;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.venus-sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+    .venus-sidebar {
+        position: relative !important;
+        transform: translateX(0) !important;
+        width: 16rem !important; /* Ancho original md:w-64 */
+        height: 100% !important;
+        z-index: 20 !important;
+        background: rgba(255, 255, 255, 0.42) !important;
+        box-shadow: none;
+    }
+    body.dark-mode .venus-sidebar {
+        background: rgba(15, 23, 42, 0.55) !important;
+    }
+    .venus-sidebar-overlay {
+        display: none !important;
+    }
 }
 
 /* Área principal del chat en pantalla completa */
@@ -987,6 +1043,13 @@ body.dark-mode .venus-module-quick-pill:hover {
     background: #2563eb;
     color: #ffffff;
     border-color: #2563eb;
+}
+
+@media (min-width: 768px) {
+    .venus-window-container {
+        flex-direction: row; 
+        min-height: 720px;
+    }
 }
 
 
