@@ -231,6 +231,21 @@
             el.style.display = 'none';
         });
 
+        // Gestión de pantalla completa para Bienestar: ocultar banner 'Apuntes Uni', medallas y menú
+        const heroBanner = document.getElementById('Inicio') || document.querySelector('.hero-banner');
+        const medalsContainer = document.getElementById('medals-container');
+        const headerMenu = document.getElementById('header-menu');
+
+        if (sectionKey === 'bienestar') {
+            if (heroBanner) heroBanner.style.setProperty('display', 'none', 'important');
+            if (medalsContainer) medalsContainer.style.setProperty('display', 'none', 'important');
+            if (headerMenu) headerMenu.style.setProperty('display', 'none', 'important');
+        } else {
+            if (heroBanner && sectionKey === 'embriologia') heroBanner.style.display = '';
+            if (medalsContainer) medalsContainer.style.display = '';
+            if (headerMenu) headerMenu.style.display = '';
+        }
+
         // 3) Dar tiempo a la animación de carga (mínimo perceptible)
         const minDelay = new Promise(r => setTimeout(r, 450));
 

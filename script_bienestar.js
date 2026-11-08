@@ -1516,9 +1516,461 @@
     }
 
     // ============================================================
+    // 0. INTERFAZ Y CHATBOT ASISTENTE VENUS
+    // ============================================================
+    let venusToastTimeout = null;
+
+    function showVenusToast(message) {
+        const toast = document.getElementById('venus-free-chat-toast');
+        const toastText = document.getElementById('venus-toast-text');
+        if (!toast) return;
+
+        if (toastText && message) {
+            toastText.textContent = message;
+        }
+
+        if (venusToastTimeout) {
+            clearTimeout(venusToastTimeout);
+        }
+
+        toast.classList.remove('hidden');
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%, 10px)';
+        toast.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+
+        requestAnimationFrame(() => {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, 0)';
+        });
+
+        venusToastTimeout = setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translate(-50%, 10px)';
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 300);
+        }, 3500);
+    }
+
+    function scrollVenusChatToBottom() {
+        const scrollArea = document.getElementById('venus-chat-scroll-area');
+        if (scrollArea) {
+            scrollArea.scrollTo({
+                top: scrollArea.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    function addVenusUserMessage(text) {
+        const container = document.getElementById('venus-messages-container');
+        if (!container) return;
+
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'flex justify-end venus-message-enter';
+        msgDiv.innerHTML = `
+            <div class="venus-msg-bubble-user max-w-[85%] md:max-w-[70%] p-3.5 md:p-4 px-5 text-xs md:text-sm font-medium shadow-md leading-relaxed">
+                ${escapeHtml(text)}
+            </div>
+        `;
+        container.appendChild(msgDiv);
+        scrollVenusChatToBottom();
+    }
+
+    function showVenusTypingIndicator() {
+        const container = document.getElementById('venus-messages-container');
+        if (!container) return;
+
+        const typingDiv = document.createElement('div');
+        typingDiv.id = 'venus-typing-indicator-row';
+        typingDiv.className = 'flex items-start gap-3 venus-message-enter';
+        typingDiv.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-500 flex items-center justify-center shrink-0 mt-1 shadow-sm overflow-hidden">
+                <img src="venus_robot.png" alt="Venus" class="w-6 h-6 object-contain">
+            </div>
+            <div class="venus-msg-bubble-bot p-2 px-4 shadow-md">
+                <div class="venus-typing-indicator">
+                    <span class="venus-typing-dot"></span>
+                    <span class="venus-typing-dot"></span>
+                    <span class="venus-typing-dot"></span>
+                </div>
+            </div>
+        `;
+        container.appendChild(typingDiv);
+        scrollVenusChatToBottom();
+    }
+
+    function removeVenusTypingIndicator() {
+        const indicator = document.getElementById('venus-typing-indicator-row');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+
+    function addVenusBotMessage(htmlContent) {
+        const container = document.getElementById('venus-messages-container');
+        if (!container) return;
+
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'flex items-start gap-3 venus-message-enter';
+        msgDiv.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-500 flex items-center justify-center shrink-0 mt-1 shadow-sm overflow-hidden">
+                <img src="venus_robot.png" alt="Venus" class="w-6 h-6 object-contain">
+            </div>
+            <div class="venus-msg-bubble-bot max-w-[90%] md:max-w-[80%] p-4 md:p-5 text-xs md:text-sm text-slate-800 dark:text-slate-100 shadow-md space-y-3">
+                ${htmlContent}
+            </div>
+        `;
+        container.appendChild(msgDiv);
+        scrollVenusChatToBottom();
+    }
+
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function handleVenusPromptClick(promptId, promptText) {
+        const welcomeView = document.getElementById('venus-welcome-view');
+        const threadView = document.getElementById('venus-thread-view');
+
+        if (welcomeView) welcomeView.classList.add('hidden');
+        if (threadView) threadView.classList.remove('hidden');
+
+        // Mostrar mensaje del usuario
+        addVenusUserMessage(promptText);
+
+        // Mostrar indicador de typing
+        showVenusTypingIndicator();
+
+        setTimeout(() => {
+            removeVenusTypingIndicator();
+
+            if (promptId === 'estres_ansiedad') {
+                // Desplegar la respuesta dentro del chat con los módulos integrados
+                const botHtml = `
+                    <p class="font-bold text-[var(--black-color)] text-sm md:text-base">
+                        Entiendo perfectamente cómo te sientes. 💙
+                    </p>
+                    <p class="text-xs md:text-sm text-[var(--black-color)] leading-relaxed">
+                        El estrés y la sobreestimulación son respuestas neurofisiológicas comunes. He desplegado para ti <strong>5 módulos clínicos interactivos directamente dentro de este chat</strong> para acompañarte y regularte somática y cognitivamente:
+                    </p>
+
+                    <!-- Píldoras interactivas de selección rápida dentro del chat -->
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <button type="button" onclick="window.filterVenusModules('all')" class="venus-module-quick-pill active" data-mod="all">
+                            ✨ Ver todos
+                        </button>
+                        <button type="button" onclick="window.filterVenusModules('seccion-anclaje')" class="venus-module-quick-pill" data-mod="seccion-anclaje">
+                            👁️ 1. Anclaje 5-4-3-2-1
+                        </button>
+                        <button type="button" onclick="window.filterVenusModules('seccion-boveda')" class="venus-module-quick-pill" data-mod="seccion-boveda">
+                            🔐 2. La Bóveda
+                        </button>
+                        <button type="button" onclick="window.filterVenusModules('seccion-activacion')" class="venus-module-quick-pill" data-mod="seccion-activacion">
+                            ⚡ 3. Activación
+                        </button>
+                        <button type="button" onclick="window.filterVenusModules('seccion-jacobson')" class="venus-module-quick-pill" data-mod="seccion-jacobson">
+                            🧘 4. Jacobson
+                        </button>
+                        <button type="button" onclick="window.filterVenusModules('seccion-redes')" class="venus-module-quick-pill" data-mod="seccion-redes">
+                            👥 5. Redes de Apoyo
+                        </button>
+                    </div>
+
+                    <div class="pt-2 flex items-center gap-2">
+                        <button type="button" onclick="window.returnToVenusHome()" class="px-3.5 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-700/80 hover:bg-slate-300 dark:hover:bg-slate-600 text-[var(--black-color)] font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer">
+                            <span class="material-symbols-outlined text-sm">arrow_back</span>
+                            <span>Menú de opciones</span>
+                        </button>
+                    </div>
+                `;
+                addVenusBotMessage(botHtml);
+
+                // Hacer visible la suite de módulos dentro del chat
+                const suite = document.getElementById('venus-modules-suite');
+                if (suite) {
+                    suite.classList.remove('hidden');
+                    window.filterVenusModules('all');
+                }
+            } else {
+                // Funciones aún sin función / en desarrollo
+                const botHtml = `
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2 text-amber-500 font-bold">
+                            <span class="material-symbols-outlined text-lg">construction</span>
+                            <span>Función en preparación clínica</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Aún estamos trabajando en este módulo para ofrecerte herramientas y recomendaciones validadas por profesionales de la salud. Estará disponible muy pronto en <strong>Salud Activa Lab</strong>. 💙
+                        </p>
+                        <div class="pt-1">
+                            <button type="button" onclick="window.returnToVenusHome()" class="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs inline-flex items-center gap-1.5 shadow-sm transition-all hover:scale-105 cursor-pointer">
+                                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                                <span>Elegir otra opción</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                addVenusBotMessage(botHtml);
+            }
+        }, 400);
+    }
+
+    // Funciones globales para navegación y filtrado dentro del chat
+    window.filterVenusModules = function(targetId) {
+        const suite = document.getElementById('venus-modules-suite');
+        if (suite) suite.classList.remove('hidden');
+
+        // Actualizar tabs superiores
+        const tabs = document.querySelectorAll('#venus-modules-tab-bar .venus-module-tab');
+        tabs.forEach(tab => {
+            if (tab.getAttribute('data-target') === targetId) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
+
+        // Actualizar píldoras rápidas
+        const quickPills = document.querySelectorAll('.venus-module-quick-pill');
+        quickPills.forEach(pill => {
+            if (pill.getAttribute('data-mod') === targetId) {
+                pill.classList.add('active');
+            } else {
+                pill.classList.remove('active');
+            }
+        });
+
+        const sections = [
+            'seccion-anclaje',
+            'seccion-boveda',
+            'seccion-activacion',
+            'seccion-jacobson',
+            'seccion-redes'
+        ];
+
+        if (targetId === 'all') {
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('hidden');
+            });
+            setTimeout(() => {
+                if (suite) {
+                    suite.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 50);
+        } else {
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (id === targetId) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                }
+            });
+            setTimeout(() => {
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 50);
+        }
+    };
+
+    window.venusJumpToModule = function(moduleId, openModal) {
+        window.filterVenusModules(moduleId);
+        if (openModal && moduleId === 'seccion-anclaje') {
+            setTimeout(() => {
+                openGroundingModal();
+            }, 300);
+        }
+    };
+
+    window.venusShowAllModules = function() {
+        window.filterVenusModules('all');
+    };
+
+    window.returnToVenusHome = function() {
+        const welcomeView = document.getElementById('venus-welcome-view');
+        const threadView = document.getElementById('venus-thread-view');
+        const container = document.getElementById('venus-messages-container');
+        const suite = document.getElementById('venus-modules-suite');
+
+        if (container) container.innerHTML = '';
+        if (threadView) threadView.classList.add('hidden');
+        if (welcomeView) welcomeView.classList.remove('hidden');
+        if (suite) suite.classList.add('hidden');
+
+        // Restaurar estado activo en sidebar
+        const navInicio = document.getElementById('venus-nav-inicio');
+        const navItems = document.querySelectorAll('.venus-nav-item');
+        navItems.forEach(item => item.classList.remove('active'));
+        if (navInicio) navInicio.classList.add('active');
+
+        // Scroll suave al inicio del área de chat
+        const scrollArea = document.getElementById('venus-chat-scroll-area');
+        if (scrollArea) {
+            scrollArea.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    // Funciones de Traffic Lights de macOS
+    function exitVenusChat() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch(() => {});
+        }
+        const heroBanner = document.getElementById('Inicio') || document.querySelector('.hero-banner');
+        const medals = document.getElementById('medals-container');
+        const headerMenu = document.getElementById('header-menu');
+        if (heroBanner) heroBanner.style.display = '';
+        if (medals) medals.style.display = '';
+        if (headerMenu) headerMenu.style.display = '';
+
+        if (window.SPA && typeof window.SPA.navigateTo === 'function') {
+            window.SPA.navigateTo('embriologia');
+        } else {
+            window.returnToVenusHome();
+        }
+    }
+    window.exitVenusChat = exitVenusChat;
+
+    function minimizeVenusChat() {
+        window.returnToVenusHome();
+        showVenusToast('Chat minimizado al menú de inicio de Venus.');
+    }
+    window.minimizeVenusChat = minimizeVenusChat;
+
+    function toggleVenusFullscreen() {
+        if (!document.fullscreenElement) {
+            const root = document.getElementById('bienestar-root') || document.documentElement;
+            if (root.requestFullscreen) {
+                root.requestFullscreen().catch(() => {});
+            } else if (root.webkitRequestFullscreen) {
+                root.webkitRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+    }
+    window.toggleVenusFullscreen = toggleVenusFullscreen;
+
+    function setupVenusChat() {
+        // 1. Chips de preguntas predeterminadas
+        const chips = document.querySelectorAll('.venus-prompt-chip');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const promptId = chip.getAttribute('data-prompt-id');
+                const promptText = chip.getAttribute('data-prompt-text') || chip.textContent.trim();
+                handleVenusPromptClick(promptId, promptText);
+            });
+        });
+
+        // 2. Chat libre bloqueado (Formulario e Input)
+        const form = document.getElementById('venus-chat-form');
+        const input = document.getElementById('venus-text-input');
+        const btnAttach = document.getElementById('btn-venus-attach');
+
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                showVenusToast('Aún estamos trabajando en ello. Por favor selecciona una de las opciones sugeridas.');
+                if (input) {
+                    input.classList.add('ring-2', 'ring-amber-400');
+                    setTimeout(() => input.classList.remove('ring-2', 'ring-amber-400'), 1500);
+                    input.value = '';
+                }
+            });
+        }
+
+        if (btnAttach) {
+            btnAttach.addEventListener('click', () => {
+                showVenusToast('Aún estamos trabajando en ello.');
+            });
+        }
+
+        // 3. Botones de Traffic Lights de macOS
+        const trafficClose = document.getElementById('venus-traffic-close');
+        const trafficMin = document.getElementById('venus-traffic-minimize');
+        const trafficMax = document.getElementById('venus-traffic-maximize');
+        const fullscreenIcon = document.getElementById('venus-fullscreen-icon');
+
+        if (trafficClose) trafficClose.addEventListener('click', exitVenusChat);
+        if (trafficMin) trafficMin.addEventListener('click', minimizeVenusChat);
+        if (trafficMax) trafficMax.addEventListener('click', toggleVenusFullscreen);
+
+        document.addEventListener('fullscreenchange', () => {
+            if (fullscreenIcon) {
+                if (document.fullscreenElement) {
+                    fullscreenIcon.className = 'ri-fullscreen-exit-line traffic-icon';
+                    if (trafficMax) trafficMax.title = 'Salir de Pantalla Completa';
+                } else {
+                    fullscreenIcon.className = 'ri-fullscreen-line traffic-icon';
+                    if (trafficMax) trafficMax.title = 'Pantalla Completa';
+                }
+            }
+        });
+
+        // 4. Botones del Sidebar
+        const navInicio = document.getElementById('venus-nav-inicio');
+        const navHistorial = document.getElementById('venus-nav-historial');
+        const navBienestar = document.getElementById('venus-nav-bienestar');
+        const navConfig = document.getElementById('venus-nav-config');
+
+        if (navInicio) {
+            navInicio.addEventListener('click', () => {
+                window.returnToVenusHome();
+            });
+        }
+
+        if (navBienestar) {
+            navBienestar.addEventListener('click', () => {
+                const navItems = document.querySelectorAll('.venus-nav-item');
+                navItems.forEach(item => item.classList.remove('active'));
+                navBienestar.classList.add('active');
+                handleVenusPromptClick('estres_ansiedad', 'Necesito ayuda con mi estrés y ansiedad');
+            });
+        }
+
+        if (navHistorial) {
+            navHistorial.addEventListener('click', () => {
+                showVenusToast('El historial de conversaciones estará disponible próximamente.');
+            });
+        }
+
+        if (navConfig) {
+            navConfig.addEventListener('click', () => {
+                showVenusToast('Las opciones de configuración estarán disponibles próximamente.');
+            });
+        }
+    }
+
+    // ============================================================
     // BOOTSTRAP DE BIENESTAR
     // ============================================================
+    let isBienestarInitialized = false;
     function initBienestar() {
+        // Enforce pantalla completa ocultando banner 'Apuntes Uni', medallas y menú de bienvenida
+        const heroBanner = document.getElementById('Inicio') || document.querySelector('.hero-banner');
+        const medals = document.getElementById('medals-container');
+        const headerMenu = document.getElementById('header-menu');
+        if (heroBanner) heroBanner.style.setProperty('display', 'none', 'important');
+        if (medals) medals.style.setProperty('display', 'none', 'important');
+        if (headerMenu) headerMenu.style.setProperty('display', 'none', 'important');
+
+        if (isBienestarInitialized) return;
+        isBienestarInitialized = true;
+        setupVenusChat();
         checkDailyRenewal();
         setupEventListeners();
         updateVaultStatusUI();
